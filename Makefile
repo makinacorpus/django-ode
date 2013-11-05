@@ -25,10 +25,13 @@ develop: dev_requirements
 	$(PYTHON) setup.py develop
 	$(PYTHON) manage.py syncdb --noinput
 
-test:
+$(FLAKE8): virtualenv
+	$(PIP) install flake8
+
+test: develop flake8
 	$(PYTHON) manage.py test frontend
 
-coverage: dev_requirements
+coverage: develop
 	$(COVERAGE) run --branch --source=. manage.py test frontend
 	$(COVERAGE) report -m
 
@@ -37,3 +40,6 @@ start: $(PROC) .env
 
 backup:
 	#TODO
+
+flake8: $(FLAKE8)
+	flake8 .

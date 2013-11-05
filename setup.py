@@ -9,8 +9,8 @@ with open(os.path.join(here, 'CHANGES.rst')) as f:
     CHANGES = f.read()
 
 requires = [
-    'django=1.5.5',
-    'requests=2.0.1',
+    'django==1.5.5',
+    'requests==2.0.1',
 ]
 
 setup(
