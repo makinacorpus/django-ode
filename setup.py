@@ -11,6 +11,7 @@ with open(os.path.join(here, 'CHANGES.rst')) as f:
 requires = [
     'django==1.5.5',
     'requests==2.0.1',
+    'django-allauth==0.14.1',
 ]
 
 setup(
