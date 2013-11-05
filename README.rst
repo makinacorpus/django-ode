@@ -18,6 +18,25 @@ AUTHORS
 .. _makinacom:  http://www.makina-corpus.com
 
 
+===========
+DEVELOPMENT
+===========
+
+[LESS](http://lesscss.org) and [yuglify](https://github.com/yui/yuglify) are
+required for CSS preprocessing.
+
+We provide a ``Makefile`` with a few useful targets for development.
+
+To install the app in development mode (you should probably do this in a [virtual environment](http://www.virtualenv.org))::
+
+    $ make develop
+
+To run the test suite::
+
+    $ make test
+    $ make coverage
+
+
 =======
 LICENSE
 =======

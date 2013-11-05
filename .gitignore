@@ -40,3 +40,6 @@ nosetests.xml
 
 # Ctags
 tags
+
+# Generated CSS
+static/css/style.css

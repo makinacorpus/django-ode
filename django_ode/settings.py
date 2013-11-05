@@ -37,11 +37,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django_nose',
     'frontend',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'pipeline',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,8 +86,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+PIPELINE_CSS = {
+    'style': {
+        'source_filenames': (
+            'css/*.less',
+        ),
+        'output_filename': 'css/style.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        },
+    },
+}
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -103,3 +119,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 SITE_ID = 1
+
+ALLOWED_HOSTS = ['*']  # FIXME
