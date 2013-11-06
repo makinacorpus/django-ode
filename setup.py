@@ -9,7 +9,7 @@ with open(os.path.join(here, 'CHANGES.rst')) as f:
     CHANGES = f.read()
 
 requires = [
-    'django==1.5.5',
+    'django==1.6',
     'requests==2.0.1',
     'django-allauth==0.14.1',
     'django-pipeline==1.3.15',
