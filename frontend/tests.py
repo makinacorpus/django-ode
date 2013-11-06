@@ -14,3 +14,10 @@ class SimpleTest(TestCase):
         response = self.client.get('/')
         self.assertContains(response, '<!doctype html>')
         self.assertContains(response, 'homepage')
+
+
+class TestSources(TestCase):
+
+    def test_source_form(self):
+        response = self.client.get('/sources/new')
+        self.assertContains(response, '<form action="/sources/new"')
