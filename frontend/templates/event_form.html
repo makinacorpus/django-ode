@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block body %}
+<form action="{% url 'create_source' %}" method="POST">
+  {% csrf_token %}
+  <legend>{% trans 'Create a new event source' %}</legend>
+  <p>
+    <label for="title">{% trans 'Title' %}</label>
+    <input id="title" name="title">
+  </p>
+  <p>
+    <label for="start_time">{% trans 'Start' %}</label>
+    <input id="start_time" name="start_time">
+  </p>
+  <p>
+    <label for="end_time">{% trans 'End' %}</label>
+    <input id="end_time" name="end_time">
+  </p>
+  <p>
+    <label for="url">{% trans 'URL' %}</label>
+    <input id="url" name="url">
+  </p>
+  <p>
+    <label for="description">{% trans 'Description' %}</label>
+    <textarea id="description" name="description"></textarea>
+  </p>
+  <p>
+    <label for="location_name">{% trans 'Location' %}</label>
+    <input id="location_name" name="location_name">
+  </p>
+  <input type="submit">
+</form>
+{% endblock %}
