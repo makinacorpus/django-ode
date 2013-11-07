@@ -11,7 +11,7 @@
   </div>
 {% endif %}
 
-<form action="{% url 'create_source' %}" method="POST">
+<form action="{% url 'sources:create' %}" method="POST">
   {% csrf_token %}
   <legend>{% trans 'Create a new event source' %}</legend>
   <p>
