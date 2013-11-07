@@ -1,5 +1,7 @@
 from mock import patch
 
+from django.contrib.auth.models import User
+
 
 class PatchMixin(object):
     """
@@ -21,3 +23,9 @@ class PatchMixin(object):
         patcher = patch.dict(*args, **kwargs)
         self.addCleanup(patcher.stop)
         return patcher.start()
+
+    def login(self):
+        username, password = 'bob', 'foobar'
+        self.user = User.objects.create_user(username, password=password)
+        login_result = self.client.login(username=username, password=password)
+        self.assertTrue(login_result)
