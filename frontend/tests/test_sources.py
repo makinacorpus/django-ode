@@ -8,9 +8,18 @@ from .support import PatchMixin
 
 
 class TestSources(PatchMixin, TestCase):
-    sample_data = {
-        'url': 'http://example.com/foo',
-    }
+
+    def setUp(self):
+        self.login()
+        self.requests_mock = self.patch('frontend.views.sources.requests')
+
+    def assert_called_api_with(self, data):
+        self.requests_mock.post.assert_called_with(
+            settings.SOURCES_ENDPOINT,
+            data=json.dumps({'sources': [data]}),
+            headers={'X-ODE-Producer-Id': self.user.pk,
+                     'Content-Type': 'application/json'},
+        )
 
     def login(self):
         username, password = 'bob', 'foobar'
@@ -19,19 +28,37 @@ class TestSources(PatchMixin, TestCase):
         self.assertTrue(login_result)
 
     def test_source_form(self):
-        self.login()
         response = self.client.get('/sources/create')
         self.assertContains(response, '<form action="/sources/create"')
+        self.assertNotContains(response, 'error')
 
-    def test_create_source(self):
-        self.login()
-        requests_mock = self.patch('frontend.views.sources.requests')
+    def test_create_valid_source(self):
+        sample_data = {
+            'url': 'http://example.com/foo',
+        }
 
-        self.client.post('/sources/create', self.sample_data)
+        response = self.client.post('/sources/create', sample_data,
+                                    follow=True)
 
-        requests_mock.post.assert_called_with(
-            settings.SOURCES_ENDPOINT,
-            data=json.dumps({'sources': [self.sample_data]}),
-            headers={'X-ODE-Producer-Id': self.user.pk,
-                     'Content-Type': 'application/json'},
-        )
+        self.assert_called_api_with(sample_data)
+        self.assertContains(response, 'success')
+
+    def test_create_invalid_source(self):
+        sample_data = {
+            'url': '*** invalid url ***',
+        }
+        response_mock = self.requests_mock.post.return_value
+        response_mock.json.return_value = {
+            "status": "error",
+            "errors": [{
+                "location": "body",
+                "name": "sources.0.url",
+                "description": "Required"
+            }]
+        }
+
+        response = self.client.post('/sources/create', sample_data,
+                                    follow=True)
+
+        self.assert_called_api_with(sample_data)
+        self.assertContains(response, 'class="errors"')

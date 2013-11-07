@@ -7,4 +7,3 @@ class SimpleTest(TestCase):
         response = self.client.get('/')
         self.assertContains(response, '<!doctype html>')
         self.assertContains(response, 'homepage')
-

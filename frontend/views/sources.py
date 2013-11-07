@@ -14,11 +14,16 @@ def create(request):
         post_data = {
             'sources': [source_data]
         }
-        requests.post(
+        response = requests.post(
             settings.SOURCES_ENDPOINT,
             data=json.dumps(post_data),
             headers={
                 'X-ODE-Producer-Id': request.user.id,
                 'Content-Type': 'application/json',
             })
+        response_data = response.json()
+        if response_data.get('status') == 'error':
+            return render(request, 'source_form.html', response_data)
+        else:
+            return render(request, 'source_list.html')
     return render(request, 'source_form.html')
