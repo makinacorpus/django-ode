@@ -41,7 +41,7 @@ class TestSources(PatchMixin, TestCase):
                                     follow=True)
 
         self.assert_post_to_api(sample_data)
-        self.assertContains(response, 'success')
+        self.assertContains(response, 'alert-success')
 
     def test_create_invalid_source(self):
         sample_data = {
@@ -53,7 +53,7 @@ class TestSources(PatchMixin, TestCase):
             "errors": [{
                 "location": "body",
                 "name": "sources.0.url",
-                "description": "The error message"
+                "description": "field error message"
             }]
         }
 
@@ -61,21 +61,20 @@ class TestSources(PatchMixin, TestCase):
                                     follow=True)
 
         self.assert_post_to_api(sample_data)
-        self.assertContains(response, 'class="errors"')
-        self.assertContains(response, u'The error message')
+        self.assertContains(response, 'alert-error')
+        self.assertContains(response, u'field error message')
+        self.assertContains(
+            response, u'value="*** invalid url ***"',
+            msg_prefix="input should be pre-filled with previous input")
 
     def test_source_list(self):
         response_mock = self.requests_mock.get.return_value
         response_mock.json.return_value = {
             "sources": [
-                {
-                    "id": 1,
-                    "url": "http://example.com/source1",
-                },
-                {
-                    "id": 2,
-                    "url": "http://example.com/source2",
-                },
+                {"id": 1,
+                 "url": "http://example.com/source1", },
+                {"id": 2,
+                 "url": "http://example.com/source2", },
             ]
         }
 

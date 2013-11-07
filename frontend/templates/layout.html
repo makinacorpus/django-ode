@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 {% load compressed %}
 <html>
   <head>
@@ -6,11 +6,11 @@
     <title>ODE</title>
   </head>
   {% if messages %}
-  <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+      {{ message }}
+    </div>
     {% endfor %}
-  </ul>
   {% endif %}
   {% block body %}
   {% endblock %}

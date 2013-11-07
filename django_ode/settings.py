@@ -95,6 +95,7 @@ PIPELINE_COMPILERS = (
 PIPELINE_CSS = {
     'style': {
         'source_filenames': (
+            'css/bootstrap.css',
             'css/*.less',
         ),
         'output_filename': 'css/style.css',

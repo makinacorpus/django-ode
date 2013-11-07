@@ -24,7 +24,10 @@ def create(request):
             })
         response_data = response.json()
         if response_data.get('status') == 'error':
-            return render(request, 'source_form.html', response_data)
+            context = dict(response_data)
+            context['input'] = source_data
+            messages.error(request, "Error saving your data")
+            return render(request, 'source_form.html', context)
         else:
             messages.success(request, "Event source has been saved")
             return render(request, 'source_list.html')

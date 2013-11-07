@@ -3,27 +3,21 @@
 
 {% block body %}
 
-{% if errors %}
-  <div class="errors">
-  {% blocktrans %}
-  This event source is invalid.
-  {% endblocktrans %}
-  </div>
-{% endif %}
-
-<form action="{% url 'sources:create' %}" method="POST">
+<form action="{% url 'sources:create' %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
   <legend>{% trans 'Create a new event source' %}</legend>
-  <p>
-    <label for="url">{% trans 'URL' %}</label>
-    <input id="url" name="url">
-    {% if errors.0.description %}
-    <div class="field-error">
-      {{ errors.0.description }}
+  <fieldset>
+    <div class="control-group {% if errors %}error{% endif %}">
+      <label  class="control-label" for="url">{% trans 'URL' %}</label>
+      <div class="controls">
+        <input id="url" name="url"{% if input %} value="{{ input.url }}"{% endif %}>
+        {% if errors.0.description %}
+        <span class="help-inline">{{ errors.0.description }}</span>
+        {% endif %}
+      </div>
     </div>
-    {% endif %}
-  </p>
-  <input type="submit">
+    <input type="submit" class="btn">
+  </fieldset>
 </form>
 
 {% endblock %}
