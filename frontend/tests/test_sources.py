@@ -13,7 +13,7 @@ class TestSources(PatchMixin, TestCase):
         self.login()
         self.requests_mock = self.patch('frontend.views.sources.requests')
 
-    def assert_called_api_with(self, data):
+    def assert_post_to_api(self, data):
         self.requests_mock.post.assert_called_with(
             settings.SOURCES_ENDPOINT,
             data=json.dumps({'sources': [data]}),
@@ -40,7 +40,7 @@ class TestSources(PatchMixin, TestCase):
         response = self.client.post('/sources/create', sample_data,
                                     follow=True)
 
-        self.assert_called_api_with(sample_data)
+        self.assert_post_to_api(sample_data)
         self.assertContains(response, 'success')
 
     def test_create_invalid_source(self):
@@ -53,12 +53,40 @@ class TestSources(PatchMixin, TestCase):
             "errors": [{
                 "location": "body",
                 "name": "sources.0.url",
-                "description": "Required"
+                "description": "The error message"
             }]
         }
 
         response = self.client.post('/sources/create', sample_data,
                                     follow=True)
 
-        self.assert_called_api_with(sample_data)
+        self.assert_post_to_api(sample_data)
         self.assertContains(response, 'class="errors"')
+        self.assertContains(response, u'The error message')
+
+    def test_source_list(self):
+        response_mock = self.requests_mock.get.return_value
+        response_mock.json.return_value = {
+            "sources": [
+                {
+                    "id": 1,
+                    "url": "http://example.com/source1",
+                },
+                {
+                    "id": 2,
+                    "url": "http://example.com/source2",
+                },
+            ]
+        }
+
+        response = self.client.get('/sources')
+
+        self.requests_mock.get.assert_called_with(
+            settings.SOURCES_ENDPOINT,
+            headers={'X-ODE-Producer-Id': self.user.pk,
+                     'Accept': 'application/json'})
+        self.assertContains(response, "http://example.com/source1")
+        self.assertContains(response, "http://example.com/source2")
+        self.assertNotContains(
+            response, "success",
+            msg_prefix="not a redirect from an edition form")

@@ -6,7 +6,7 @@
 {% if errors %}
   <div class="errors">
   {% blocktrans %}
-  This event source is invalid. Please enter a valid URL.
+  This event source is invalid.
   {% endblocktrans %}
   </div>
 {% endif %}
@@ -17,6 +17,11 @@
   <p>
     <label for="url">{% trans 'URL' %}</label>
     <input id="url" name="url">
+    {% if errors.0.description %}
+    <div class="field-error">
+      {{ errors.0.description }}
+    </div>
+    {% endif %}
   </p>
   <input type="submit">
 </form>

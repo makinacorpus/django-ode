@@ -4,6 +4,7 @@ import json
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 @login_required
@@ -25,5 +26,18 @@ def create(request):
         if response_data.get('status') == 'error':
             return render(request, 'source_form.html', response_data)
         else:
+            messages.success(request, "Event source has been saved")
             return render(request, 'source_list.html')
     return render(request, 'source_form.html')
+
+
+@login_required
+def list(request):
+    response = requests.get(
+        settings.SOURCES_ENDPOINT,
+        headers={
+            'X-ODE-Producer-Id': request.user.id,
+            'Accept': 'application/json',
+        })
+    response_data = response.json()
+    return render(request, 'source_list.html', response_data)

@@ -2,5 +2,9 @@
 {% load i18n %}
 
 {% block body %}
-success
+<ul>
+  {% for source in sources %}
+  <li>{{ source.url }}</li>
+  {% endfor %}
+</ul>
 {% endblock %}
