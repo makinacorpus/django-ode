@@ -1,7 +1,4 @@
-import json
-
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.test import TestCase
 
 from .support import PatchMixin
@@ -9,23 +6,12 @@ from .support import PatchMixin
 
 class TestSources(PatchMixin, TestCase):
 
+    resource_name_plural = 'sources'
+    end_point = settings.SOURCES_ENDPOINT
+
     def setUp(self):
         self.login()
         self.requests_mock = self.patch('frontend.views.sources.requests')
-
-    def assert_post_to_api(self, data):
-        self.requests_mock.post.assert_called_with(
-            settings.SOURCES_ENDPOINT,
-            data=json.dumps({'sources': [data]}),
-            headers={'X-ODE-Producer-Id': self.user.pk,
-                     'Content-Type': 'application/json'},
-        )
-
-    def login(self):
-        username, password = 'bob', 'foobar'
-        self.user = User.objects.create_user(username, password=password)
-        login_result = self.client.login(username=username, password=password)
-        self.assertTrue(login_result)
 
     def test_source_form(self):
         response = self.client.get('/sources/create')

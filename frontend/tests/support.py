@@ -1,3 +1,4 @@
+import json
 from mock import patch
 
 from django.contrib.auth.models import User
@@ -29,3 +30,12 @@ class PatchMixin(object):
         self.user = User.objects.create_user(username, password=password)
         login_result = self.client.login(username=username, password=password)
         self.assertTrue(login_result)
+
+    def assert_post_to_api(self, data):
+        args, kwargs = self.requests_mock.post.call_args
+        self.assertEqual(args[0], self.end_point)
+        self.assertEqual(json.loads(kwargs['data']),
+                         {self.resource_name_plural: [data]})
+        self.assertEqual(kwargs['headers'],
+                         {'X-ODE-Producer-Id': self.user.pk,
+                          'Content-Type': 'application/json'})
