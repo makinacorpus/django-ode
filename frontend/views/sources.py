@@ -26,10 +26,15 @@ def create(request):
         if response_data.get('status') == 'error':
             context = dict(response_data)
             context['input'] = source_data
-            messages.error(request, "Error saving your data")
+            messages.error(
+                request,
+                u"Cette source de données n'a pas pu être enregistrée")
             return render(request, 'source_form.html', context)
         else:
-            messages.success(request, "Event source has been saved")
+            messages.success(
+                request,
+                u"Cette nouvelle source de données a "
+                + u"été enregistrée avec succès")
             return render(request, 'source_list.html')
     return render(request, 'source_form.html')
 

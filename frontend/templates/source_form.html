@@ -1,14 +1,13 @@
 {% extends 'layout.html' %}
-{% load i18n %}
 
 {% block body %}
 
 <form action="{% url 'sources:create' %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
-  <legend>{% trans 'Create a new event source' %}</legend>
+  <legend>Ajouter une nouvelle source d'événements</legend>
   <fieldset>
     <div class="control-group {% if errors %}error{% endif %}">
-      <label  class="control-label" for="url">{% trans 'URL' %}</label>
+      <label  class="control-label" for="url">URL</label>
       <div class="controls">
         <input id="url" name="url"{% if input %} value="{{ input.url }}"{% endif %}>
         {% if errors.0.description %}
@@ -16,7 +15,7 @@
         {% endif %}
       </div>
     </div>
-    <input type="submit" class="btn">
+    <button type="submit" class="btn">Enregistrer</button>
   </fieldset>
 </form>
 
