@@ -15,21 +15,21 @@
         {% endif %}
       </div>
     </div>
-    <div class="control-group {% if errors.start_date %}error{% endif %}">
-      <label  class="control-label" for="start_date">Date de début</label>
+    <div class="control-group {% if errors.start_time %}error{% endif %}">
+      <label  class="control-label" for="start_time">Début</label>
       <div class="controls">
-        <input id="start_date" name="start_date"{% if input %} value="{{ input.start_date }}"{% endif %}>
-        {% if errors.start_date %}
-        <span class="help-inline">{{ errors.start_date }}</span>
+        <input id="start_time" name="start_time"{% if input %} value="{{ input.start_time }}"{% endif %}>
+        {% if errors.start_time %}
+        <span class="help-inline">{{ errors.start_time }}</span>
         {% endif %}
       </div>
     </div>
-    <div class="control-group {% if errors.end_date %}error{% endif %}">
-      <label  class="control-label" for="end_date">Date de début</label>
+    <div class="control-group {% if errors.end_time %}error{% endif %}">
+      <label  class="control-label" for="end_time">Fin</label>
       <div class="controls">
-        <input id="end_date" name="end_date"{% if input %} value="{{ input.end_date }}"{% endif %}>
-        {% if errors.end_date %}
-        <span class="help-inline">{{ errors.end_date }}</span>
+        <input id="end_time" name="end_time"{% if input %} value="{{ input.end_time }}"{% endif %}>
+        {% if errors.end_time %}
+        <span class="help-inline">{{ errors.end_time }}</span>
         {% endif %}
       </div>
     </div>
