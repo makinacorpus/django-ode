@@ -122,6 +122,12 @@ SITE_ID = 1
 
 ALLOWED_HOSTS = ['*']  # FIXME
 
+AUTH_USER_MODEL = 'frontend.User'
+
+# Third-party apps settings
+ACCOUNT_SIGNUP_FORM_CLASS = 'frontend.forms.SignupForm'
+
+# Project-specific settings
 EVENT_API_BASE_URL = 'http://localhost:6543'
 SOURCES_ENDPOINT = EVENT_API_BASE_URL + '/v1/sources'
 EVENTS_ENDPOINT = EVENT_API_BASE_URL + '/v1/events'

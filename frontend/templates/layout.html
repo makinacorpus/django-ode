@@ -5,6 +5,18 @@
     {% compressed_css 'style' %}
     <title>ODE</title>
   </head>
+  <body>
+    <div id="account-links">
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{% url 'account_login' %}">Sign In</a></li>
+        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
   {% if messages %}
     {% for message in messages %}
     <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
@@ -12,6 +24,7 @@
     </div>
     {% endfor %}
   {% endif %}
-  {% block body %}
+  {% block content %}
   {% endblock %}
+  </body>
 </html>

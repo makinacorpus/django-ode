@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block body %}
+{% block content %}
 
 <form action="{% url 'sources_create' %}" method="POST"  class="form-horizontal">
   {% csrf_token %}

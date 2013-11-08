@@ -1,7 +1,7 @@
 import json
 from mock import patch
 
-from django.contrib.auth.models import User
+from frontend.models import User
 
 
 class PatchMixin(object):
