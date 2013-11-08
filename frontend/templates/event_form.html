@@ -3,15 +3,33 @@
 {% block body %}
 <h1>Création d'un événement</h1>
 
-<form action="{% url 'sources:create' %}" method="POST"  class="form-horizontal">
+<form action="{% url 'events_create' %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
   <fieldset>
-    <div class="control-group {% if errors %}error{% endif %}">
+    <div class="control-group {% if errors.title %}error{% endif %}">
       <label  class="control-label" for="title">Titre</label>
       <div class="controls">
         <input id="title" name="title"{% if input %} value="{{ input.title }}"{% endif %}>
-        {% if errors.0.description %}
-        <span class="help-inline">{{ errors.0.description }}</span>
+        {% if errors.title %}
+        <span class="help-inline">{{ errors.title }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="control-group {% if errors.start_date %}error{% endif %}">
+      <label  class="control-label" for="start_date">Date de début</label>
+      <div class="controls">
+        <input id="start_date" name="start_date"{% if input %} value="{{ input.start_date }}"{% endif %}>
+        {% if errors.start_date %}
+        <span class="help-inline">{{ errors.start_date }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="control-group {% if errors.end_date %}error{% endif %}">
+      <label  class="control-label" for="end_date">Date de début</label>
+      <div class="controls">
+        <input id="end_date" name="end_date"{% if input %} value="{{ input.end_date }}"{% endif %}>
+        {% if errors.end_date %}
+        <span class="help-inline">{{ errors.end_date }}</span>
         {% endif %}
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<form action="{% url 'sources:create' %}" method="POST"  class="form-horizontal">
+<form action="{% url 'sources_create' %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
   <legend>Ajouter une nouvelle source d'événements</legend>
   <fieldset>
@@ -10,8 +10,8 @@
       <label  class="control-label" for="url">URL</label>
       <div class="controls">
         <input id="url" name="url"{% if input %} value="{{ input.url }}"{% endif %}>
-        {% if errors.0.description %}
-        <span class="help-inline">{{ errors.0.description }}</span>
+        {% if errors.url %}
+        <span class="help-inline">{{ errors.url }}</span>
         {% endif %}
       </div>
     </div>

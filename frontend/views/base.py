@@ -7,6 +7,21 @@ from django.shortcuts import render
 from frontend.api_client import APIClient
 
 
+def error_list_to_dict(api_errors):
+    """
+    Convert error list returned by the API into a dictionary of error messages
+    indexed by field names.
+    """
+    result = {}
+    for error in api_errors:
+        name = error['name']
+        # Error names returned by the API look like
+        # <resource_name>.<error_index>.<field_name>
+        field_name = name.split('.')[2]
+        result[field_name] = error['description']
+    return result
+
+
 class APIForm(View):
 
     def __init__(self, *args, **kwargs):
@@ -32,6 +47,7 @@ class APIForm(View):
         if response_data.get('status') == 'error':
             context = dict(response_data)
             context['input'] = user_input
+            context['errors'] = error_list_to_dict(response_data['errors'])
             messages.error(request, self.error_message)
             return render(request, self.template_name, context)
         else:
