@@ -9,6 +9,7 @@ from frontend.api_client import APIClient
 
 class Form(APIForm):
     template_name = 'source_form.html'
+    list_template_name = 'source_list.html'
     endpoint = settings.SOURCES_ENDPOINT
     resource_name_plural = 'sources'
     success_message = (u"Cette nouvelle source de données a été "

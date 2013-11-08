@@ -8,4 +8,5 @@ urlpatterns = patterns(
     url(r'^sources/create', sources.Form.as_view(), name='sources_create'),
     url(r'^sources', 'sources.list', name='sources_list'),
     url(r'^events/create', events.Form.as_view(), name='events_create'),
+    url(r'^events', 'events.list', name='events_list'),
 )

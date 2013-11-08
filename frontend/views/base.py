@@ -2,7 +2,7 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from frontend.api_client import APIClient
 
@@ -52,7 +52,7 @@ class APIForm(View):
             return render(request, self.template_name, context)
         else:
             messages.success(request, self.success_message)
-            return render(request, 'source_list.html')
+            return redirect(self.resource_name_plural + '_list')
 
     def get(self, request):
         return render(self.request, self.template_name)

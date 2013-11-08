@@ -39,7 +39,6 @@ class TestEvents(PatchMixin, TestCase):
 
         api_data = dict(user_data)
         merge_datetime(api_data)
-
         self.assert_post_to_api(api_data)
         self.assertContains(response, 'alert-success')
 
@@ -79,3 +78,38 @@ class TestEvents(PatchMixin, TestCase):
         self.assertContains(
             response, u'value="*** invalid date ***"',
             msg_prefix="input should be pre-filled with previous input")
+
+    def test_event_list(self):
+        self.login()
+        response_mock = self.requests_mock.get.return_value
+        response_mock.json.return_value = {
+            "events": [
+                {
+                    "id": 1,
+                    "title": u"Un événement",
+                    "start_time": "2013-02-02T09:00",
+                    "end_time": "2013-02-04T19:00",
+                },
+                {
+                    "id": 2,
+                    "title": u"イベント",
+                    "start_time": "2013-01-02T09:00",
+                    "end_time": "2013-01-04T19:00",
+                },
+            ]
+        }
+
+        response = self.client.get('/events')
+
+        self.assertEqual(response.status_code, 200)
+        self.requests_mock.get.assert_called_with(
+            settings.EVENTS_ENDPOINT,
+            headers={'X-ODE-Producer-Id': self.user.pk,
+                     'Accept': 'application/json'})
+        self.assertContains(response, u"Un événement")
+        self.assertContains(response, u"イベント")
+        self.assertContains(response, u"2013-02-02T09:00")
+        self.assertContains(response, u"2013-01-04T19:00")
+        self.assertNotContains(
+            response, "success",
+            msg_prefix="not a redirect from an edition form")

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block body %}
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr><th>ID</th><th>Auteur</th><th>Titre</th><th>Début</th><th>Fin</th></tr>
+  </thead>
+  {% for event in events %}
+  <tr>
+    <td>{{ event.id }}</td>
+    <td>{{ user.username }}</td>
+    <td>{{ event.title }}</td>
+    <td>{{ event.start_time }}</td>
+    <td>{{ event.end_time }}</td>
+  </tr>
+  {% endfor %}
+  <tfoot>
+    <tr><th>ID</th><th>Auteur</th><th>Titre</th><th>Début</th><th>Fin</th></tr>
+  </tfoot>
+</table>
+{% endblock %}
