@@ -23,7 +23,7 @@ class TestEvents(PatchMixin, TestCase):
         self.assertContains(response, 'name="title"')
 
     def test_create_valid_event(self):
-        self.requests_mock = self.patch('frontend.views.base.requests')
+        self.requests_mock = self.patch('frontend.api_client.requests')
         self.login()
         user_data = {
             'title': u'Un événement',

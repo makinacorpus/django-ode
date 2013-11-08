@@ -11,7 +11,7 @@ class TestSources(PatchMixin, TestCase):
 
     def setUp(self):
         self.login()
-        self.requests_mock = self.patch('frontend.views.base.requests')
+        self.requests_mock = self.patch('frontend.api_client.requests')
 
     def test_source_form(self):
         response = self.client.get('/sources/create')
@@ -54,7 +54,6 @@ class TestSources(PatchMixin, TestCase):
             msg_prefix="input should be pre-filled with previous input")
 
     def test_source_list(self):
-        self.requests_mock = self.patch('frontend.views.sources.requests')
         response_mock = self.requests_mock.get.return_value
         response_mock.json.return_value = {
             "sources": [

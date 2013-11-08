@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
-import requests
-
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+
 from frontend.views.base import APIForm
+from frontend.api_client import APIClient
 
 
 class Form(APIForm):
@@ -18,11 +18,6 @@ class Form(APIForm):
 
 @login_required
 def list(request):
-    response = requests.get(
-        settings.SOURCES_ENDPOINT,
-        headers={
-            'X-ODE-Producer-Id': request.user.id,
-            'Accept': 'application/json',
-        })
-    response_data = response.json()
+    api = APIClient(settings.SOURCES_ENDPOINT)
+    response_data = api.get(request.user.id)
     return render(request, 'source_list.html', response_data)

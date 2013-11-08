@@ -1,14 +1,17 @@
-import requests
-import json
-
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render
 
+from frontend.api_client import APIClient
+
 
 class APIForm(View):
+
+    def __init__(self, *args, **kwargs):
+        super(APIForm, self).__init__(*args, **kwargs)
+        self.api = APIClient(self.endpoint)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -16,16 +19,6 @@ class APIForm(View):
 
     def prepare_api_input(self, data):
         pass
-
-    def post_to_api(self, data):
-        response = requests.post(
-            self.endpoint,
-            data=json.dumps(data),
-            headers={
-                'X-ODE-Producer-Id': self.request.user.id,
-                'Content-Type': 'application/json',
-            })
-        return response.json()
 
     def post(self, request):
         user_input = request.POST.dict()
@@ -35,7 +28,7 @@ class APIForm(View):
         post_data = {
             self.resource_name_plural: [api_input]
         }
-        response_data = self.post_to_api(post_data)
+        response_data = self.api.post(post_data, self.request.user.id)
         if response_data.get('status') == 'error':
             context = dict(response_data)
             context['input'] = user_input
