@@ -1,11 +1,7 @@
 # -*- encoding: utf-8 -*-
-import json
-import requests
-
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from django.contrib import messages
+
+from frontend.views.base import APIForm
 
 
 def merge_datetime(data):
@@ -16,22 +12,12 @@ def merge_datetime(data):
         del data[date_key]
 
 
-@login_required
-def create(request):
-    if request.method == 'POST':
-        input_data = request.POST.dict()
-        input_data.pop('csrfmiddlewaretoken', None)
-        merge_datetime(input_data)
-        post_data = {
-            'events': [input_data]
-        }
-        requests.post(
-            settings.EVENTS_ENDPOINT,
-            data=json.dumps(post_data),
-            headers={
-                'X-ODE-Producer-Id': request.user.id,
-                'Content-Type': 'application/json',
-            })
-        messages.success(request,
-                         u"L'événement a été enregistré avec succès")
-    return render(request, 'event_form.html')
+class Form(APIForm):
+
+    template_name = 'event_form.html'
+    endpoint = settings.EVENTS_ENDPOINT
+    success_message = u"L'événement a été enregistré avec succès"
+    resource_name_plural = 'events'
+
+    def prepare_api_input(self, data):
+        merge_datetime(data)

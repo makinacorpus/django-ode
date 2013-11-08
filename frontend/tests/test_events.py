@@ -11,9 +11,6 @@ class TestEvents(PatchMixin, TestCase):
     resource_name_plural = 'events'
     end_point = settings.EVENTS_ENDPOINT
 
-    def setUp(self):
-        self.requests_mock = self.patch('frontend.views.events.requests')
-
     def test_anonymous_cannot_access_creation_form(self):
         response = self.client.get('/events/create')
         self.assertEqual(response.status_code, 302)
@@ -26,6 +23,7 @@ class TestEvents(PatchMixin, TestCase):
         self.assertContains(response, 'name="title"')
 
     def test_create_valid_event(self):
+        self.requests_mock = self.patch('frontend.views.base.requests')
         self.login()
         user_data = {
             'title': u'Un événement',

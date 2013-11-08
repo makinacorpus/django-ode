@@ -1,17 +1,14 @@
 # -*- encoding: utf-8 -*-
 import requests
-import json
 
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.views.generic import View
-from django.utils.decorators import method_decorator
 from frontend.views.base import APIForm
 
 
 class Form(APIForm):
+    template_name = 'source_form.html'
     endpoint = settings.SOURCES_ENDPOINT
     resource_name_plural = 'sources'
     success_message = (u"Cette nouvelle source de données a été "
