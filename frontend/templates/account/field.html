@@ -1,0 +1,9 @@
+<div class="fieldWrapper control-group {% if field.errors %}error{% endif %}">
+  {% if field.errors %}
+  <span class="help-inline">{{ field.errors }}</span>
+  {% endif %}
+  {% if label %}
+  <label for="{{ field.id_for_label }}">{{ label }}</label>
+  {% endif %}
+  {{ field }}
+</div>

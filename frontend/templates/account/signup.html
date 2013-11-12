@@ -6,104 +6,43 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+<h1>Formulaire d'inscription</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+<form class="signup form-horizontal" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
 
   {{ form.non_field_errors }}
+
   <fieldset>
     <legend>Statut</legend>
-    <div class="fieldWrapper">
-      {{ form.is_provider.errors }}
-      <label for="id_is_provider">Fournisseur de données</label>
-      {{ form.is_provider }}
-    </div>
-    <div class="fieldWrapper">
-      {{ form.is_consumer.errors }}
-      <label for="id_is_consumer">Fournisseur de données</label>
-      {{ form.is_consumer }}
-    </div>
+    {% include 'account/field.html' with field=form.is_provider label="Fournisseur de données" %}
+    {% include 'account/field.html' with field=form.is_consumer label="Réutilisateur de données" %}
   </fieldset>
+
   <fieldset>
     <legend>Structure</legend>
-    <div class="fieldWrapper">
-        {{ form.organization_type.errors }}
-        {{ form.organization_type }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.organization_activity_field.errors }}
-        <label for="id_organization_activity_field">Domaine d'activité</label>
-        {{ form.organization_activity_field }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.organization_name.errors }}
-        <label for="id_organization_name">Nom structure</label>
-        {{ form.organization_name }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.organization_address.errors }}
-        <label for="id_organization_address">Adresse</label>
-        {{ form.organization_address }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.organization_post_code.errors }}
-        <label for="id_organization_post_code">Code Postal</label>
-        {{ form.organization_post_code }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.organization_town.errors }}
-        <label for="id_organization_town">Ville</label>
-        {{ form.organization_town }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.organization_url.errors }}
-        <label for="id_organization_url">Site Internet</label>
-        {{ form.organization_url }}
-    </div>
+    {% include 'account/field.html' with field=form.organization_type %}
+    {% include 'account/field.html' with field=form.organization_activity_field label="Domaine d'activité" %}
+    {% include 'account/field.html' with field=form.organization_name label="Nom structure" %}
+    {% include 'account/field.html' with field=form.organization_address label="Adresse" %}
+    {% include 'account/field.html' with field=form.organization_post_code label="Code Postal" %}
+    {% include 'account/field.html' with field=form.organization_town label="Ville" %}
+    {% include 'account/field.html' with field=form.organization_url label="Site Internet" %}
   </fieldset>
+
   <fieldset>
     <legend>Contact</legend>
-    <div class="fieldWrapper">
-        {{ form.last_name.errors }}
-        <label for="id_last_name">Nom</label>
-        {{ form.last_name }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.first_name.errors }}
-        <label for="id_first_name">Prénom</label>
-        {{ form.first_name }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.email.errors }}
-        <label for="id_email">Email</label>
-        {{ form.email }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.phone_number.errors }}
-        <label for="id_phone_number">Téléphone</label>
-        {{ form.phone_number }}
-    </div>
+    {% include 'account/field.html' with field=form.last_name label="Nom" %}
+    {% include 'account/field.html' with field=form.first_name label="Prénom" %}
+    {% include 'account/field.html' with field=form.email label="Email" %}
+    {% include 'account/field.html' with field=form.phone_number label="Téléphone" %}
   </fieldset>
+
   <fieldset>
     <legend>Connexion</legend>
-    <div class="fieldWrapper">
-        {{ form.username.errors }}
-        <label for="id_username">Identifiant</label>
-        {{ form.username }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.password1.errors }}
-        <label for="id_password1">Mot de passe</label>
-        {{ form.password1 }}
-    </div>
-    <div class="fieldWrapper">
-        {{ form.password2.errors }}
-        <label for="id_password2">Confirmation du mot de passe</label>
-        {{ form.password2 }}
-    </div>
+    {% include 'account/field.html' with field=form.username label="Identifiant" %}
+    {% include 'account/field.html' with field=form.password1 label="Mot de passe" %}
+    {% include 'account/field.html' with field=form.password2 label="Confirmation du mot de passe" %}
   </fieldset>
 
   {% if redirect_field_value %}
