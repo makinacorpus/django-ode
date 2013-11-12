@@ -20,4 +20,5 @@ class SignupForm(forms.ModelForm):
             'first_name',
             'email',
             'phone_number',
+            'password',
         ]
