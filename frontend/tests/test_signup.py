@@ -5,7 +5,6 @@ from django.test import TestCase
 class TestSignup(TestCase):
 
     def test_profile_fields(self):
-        self.skipTest('not implemented')
         response = self.client.get('/accounts/signup/')
         self.assertContains(response, 'is_provider')
         self.assertContains(response, 'is_consumer')
