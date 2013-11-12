@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 from django.test import TestCase
 
+from accounts.models import User
+
 
 class TestSignup(TestCase):
 
@@ -31,3 +33,16 @@ class TestSignup(TestCase):
     def test_bootstrap_form_control_class(self):
         response = self.client.get('/accounts/signup/')
         self.assertContains(response, 'form-control')
+
+    def test_signup_creates_user(self):
+        self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'foobar',
+            'organization_url': 'http://example.com/foo/bar',
+            'organization_town': u"Paris",
+        })
+        user = User.objects.filter(username='bob').get()
+        self.assertEqual(user.organization_town, 'Paris')
+        self.assertEqual(user.organization_url, 'http://example.com/foo/bar')

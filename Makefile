@@ -5,7 +5,7 @@ VIRTUAL_ENV?=venv
 PYTHON=$(VIRTUAL_ENV)/bin/python
 PIP=$(VIRTUAL_ENV)/bin/pip
 COVERAGE=$(VIRTUAL_ENV)/bin/coverage
-TEST_COMMAND=manage.py test frontend
+TEST_COMMAND=manage.py test frontend accounts
 COLLECT_STATIC=python manage.py collectstatic --noinput
 
 $(PYTHON):

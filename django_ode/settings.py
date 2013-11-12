@@ -38,11 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'frontend',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'pipeline',
     'django_extensions',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,18 +113,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
-    "allauth.account.context_processors.account",
-    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 SITE_ID = 1
 
 ALLOWED_HOSTS = ['*']  # FIXME
 
-AUTH_USER_MODEL = 'frontend.User'
-
-# Third-party apps settings
-ACCOUNT_SIGNUP_FORM_CLASS = 'frontend.forms.SignupForm'
+AUTH_USER_MODEL = 'accounts.User'
 
 # Project-specific settings
 EVENT_API_BASE_URL = 'http://localhost:6543'

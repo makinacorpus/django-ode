@@ -1,7 +1,7 @@
 import json
 from mock import patch
 
-from frontend.models import User
+from accounts.models import User
 
 
 class PatchMixin(object):
