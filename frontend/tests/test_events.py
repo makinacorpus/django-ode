@@ -61,7 +61,7 @@ class TestEvents(PatchMixin, TestCase):
         self.assertEqual(response.status_code, 200)
 
         self.assert_post_to_api(invalid_data)
-        self.assertContains(response, 'alert-error')
+        self.assertContains(response, 'alert-danger')
         self.assertContains(response, u'datetime is invalid', count=1)
         self.assertContains(
             response, u'value="Événement"',

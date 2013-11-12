@@ -27,3 +27,7 @@ class TestSignup(TestCase):
 
         self.assertContains(response, 'username')
         self.assertContains(response, 'password')
+
+    def test_bootstrap_form_control_class(self):
+        response = self.client.get('/accounts/signup/')
+        self.assertContains(response, 'form-control')

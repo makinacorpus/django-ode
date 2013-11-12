@@ -6,16 +6,16 @@
   {% csrf_token %}
   <legend>Ajouter une nouvelle source d'événements</legend>
   <fieldset>
-    <div class="control-group {% if errors %}error{% endif %}">
+    <div class="control-group {% if errors %}has-error{% endif %}">
       <label  class="control-label" for="url">URL</label>
       <div class="controls">
-        <input id="url" name="url"{% if input %} value="{{ input.url }}"{% endif %}>
+        <input class="form-control" id="url" name="url"{% if input %} value="{{ input.url }}"{% endif %}>
         {% if errors.url %}
-        <span class="help-inline">{{ errors.url }}</span>
+        <span class="help-block">{{ errors.url }}</span>
         {% endif %}
       </div>
     </div>
-    <button type="submit" class="btn">Enregistrer</button>
+    <button type="submit" class="btn btn-default">Enregistrer</button>
   </fieldset>
 </form>
 

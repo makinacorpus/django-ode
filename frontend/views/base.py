@@ -48,7 +48,7 @@ class APIForm(View):
             context = dict(response_data)
             context['input'] = user_input
             context['errors'] = error_list_to_dict(response_data['errors'])
-            messages.error(request, self.error_message)
+            messages.error(request, self.error_message, extra_tags='danger')
             return render(request, self.template_name, context)
         else:
             messages.success(request, self.success_message)

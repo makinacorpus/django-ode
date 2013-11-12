@@ -6,25 +6,27 @@
     <title>ODE</title>
   </head>
   <body>
-    <div id="account-links">
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
+    <div class="container">
+      <div id="account-links">
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+          <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+          {% else %}
+          <li><a href="{% url 'account_login' %}">Sign In</a></li>
+          <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      {% if messages %}
+      {% for message in messages %}
+      <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% block content %}
+      {% endblock %}
     </div>
-  {% if messages %}
-    {% for message in messages %}
-    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-      {{ message }}
-    </div>
-    {% endfor %}
-  {% endif %}
-  {% block content %}
-  {% endblock %}
   </body>
 </html>

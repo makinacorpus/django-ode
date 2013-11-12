@@ -1,6 +1,7 @@
 from django import forms
 
 from frontend.models import User
+from frontend.widgets import CheckboxInput, TextInput, Select
 
 
 class SignupForm(forms.ModelForm):
@@ -25,3 +26,10 @@ class SignupForm(forms.ModelForm):
             'phone_number',
             'password',
         ]
+        widgets = {}
+        for field in fields:
+            if field.startswith('is_'):
+                widgets[field] = CheckboxInput
+            else:
+                widgets[field] = TextInput
+        widgets['organization_type'] = Select

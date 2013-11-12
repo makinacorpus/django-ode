@@ -47,7 +47,7 @@ class TestSources(PatchMixin, TestCase):
                                     follow=True)
 
         self.assert_post_to_api(sample_data)
-        self.assertContains(response, 'alert-error')
+        self.assertContains(response, 'alert-danger')
         self.assertContains(response, u'field error message')
         self.assertContains(
             response, u'value="*** invalid url ***"',
