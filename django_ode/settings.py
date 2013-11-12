@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'pipeline',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (
