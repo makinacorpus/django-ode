@@ -1,11 +1,29 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 
 from accounts.models import User
-from accounts.widgets import CheckboxInput, TextInput, Select
+from accounts.widgets import CheckboxInput, TextInput, Select, PasswordInput
 
 
 class SignupForm(UserCreationForm):
+
+    username = forms.RegexField(
+        max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text=_("Required. 30 characters or fewer. Letters, digits and "
+                    "@/./+/-/_ only."),
+        error_messages={
+            'invalid': _("This value may contain only letters, numbers and "
+                         "@/./+/-/_ characters.")},
+        widget=TextInput)
+
+    password1 = forms.CharField(label=_("Password"),
+                                widget=PasswordInput)
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=PasswordInput,
+        help_text=_("Enter the same password as above, for verification."))
 
     class Meta:
         model = User

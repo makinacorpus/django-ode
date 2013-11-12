@@ -15,6 +15,13 @@ class TextInput(forms.TextInput):
         self.attrs = {'class': 'form-control'}
 
 
+class PasswordInput(forms.PasswordInput):
+
+    def __init__(self, *args, **kwargs):
+        super(PasswordInput, self).__init__(*args, **kwargs)
+        self.attrs = {'class': 'form-control'}
+
+
 class CheckboxInput(forms.CheckboxInput):
 
     def __init__(self, *args, **kwargs):
