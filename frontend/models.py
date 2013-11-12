@@ -12,6 +12,9 @@ class User(AbstractUser):
 
     is_provider = models.BooleanField(default=False)
     is_consumer = models.BooleanField(default=False)
+    is_host = models.BooleanField(default=False)
+    is_creator = models.BooleanField(default=False)
+    is_performer = models.BooleanField(default=False)
     organization_type = models.CharField(choices=ORGANIZATION_TYPES,
                                          max_length=32,)
     organization_activity_field = models.CharField(max_length=50)

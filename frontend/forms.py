@@ -9,6 +9,9 @@ class SignupForm(forms.ModelForm):
         fields = [
             'is_provider',
             'is_consumer',
+            'is_host',
+            'is_creator',
+            'is_performer',
             'organization_type',
             'organization_activity_field',
             'organization_name',

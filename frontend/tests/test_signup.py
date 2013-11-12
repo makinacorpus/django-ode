@@ -8,6 +8,9 @@ class TestSignup(TestCase):
         response = self.client.get('/accounts/signup/')
         self.assertContains(response, 'is_provider')
         self.assertContains(response, 'is_consumer')
+        self.assertContains(response, 'is_host')
+        self.assertContains(response, 'is_creator')
+        self.assertContains(response, 'is_performer')
 
         self.assertContains(response, 'organization_type')
         self.assertContains(response, 'organization_activity_field')

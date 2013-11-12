@@ -16,6 +16,12 @@
   <fieldset>
     <legend>Statut</legend>
     {% include 'account/field.html' with field=form.is_provider label="Fournisseur de données" %}
+    <div class="subchoices">
+      {% include 'account/field.html' with field=form.is_host label="Lieu d'accueil d'événement" %}
+      {% include 'account/field.html' with field=form.is_creator label="Créateur d'événement" %}
+      {% include 'account/field.html' with field=form.is_performer label="Intervenants/artistes" %}
+    </div>
+
     {% include 'account/field.html' with field=form.is_consumer label="Réutilisateur de données" %}
   </fieldset>
 
