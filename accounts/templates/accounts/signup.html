@@ -11,8 +11,9 @@
 <form id="signup-form" class="signup form-horizontal" id="signup_form" method="post"
       action="{% url 'accounts:signup' %}">
   {% csrf_token %}
-  {% if form.non_field_errors %}
+  {% if form.errors %}
   <div class="alert alert-danger">
+    Le formulaire est imcomplet. Veuillez corriger les champs indiqués ci-dessous.
     {{ form.non_field_errors }}
   </div>
   {% endif %}
