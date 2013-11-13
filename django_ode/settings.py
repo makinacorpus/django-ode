@@ -107,6 +107,8 @@ ALLOWED_HOSTS = ['*']  # FIXME
 AUTH_USER_MODEL = 'accounts.User'
 DEFAULT_FROM_EMAIL = 'ode@example.com'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # Third-party apps settings
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
@@ -139,3 +141,4 @@ PIPELINE_JS = {
 EVENT_API_BASE_URL = 'http://localhost:6543'
 SOURCES_ENDPOINT = EVENT_API_BASE_URL + '/v1/sources'
 EVENTS_ENDPOINT = EVENT_API_BASE_URL + '/v1/events'
+ACCOUNTS_MODERATOR_EMAILS = ['moderator@example.com']

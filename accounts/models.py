@@ -50,14 +50,14 @@ class User(AbstractUser):
             random.randint(100000, 2000000),
         ).encode('utf-8')
         self.confirmation_code = hashlib.sha1(source).hexdigest()
+        return self.confirmation_code
 
-    def send_confirmation_email(self):
-        self.generate_confirmation_code()
+    def send_confirmation_email(self, confirmation_url):
         mail.send_mail(
             subject='Veuillez confirmer votre adresse email',
             message="""
             Veuillez cliquer sur ce lien de confirmation: {}
-            """.format(self.confirmation_code),
+            """.format(confirmation_url),
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[self.email],
             fail_silently=False)

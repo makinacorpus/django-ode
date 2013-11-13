@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 from django.test import TestCase
 from django.core import mail
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from accounts.models import User
 
@@ -56,14 +58,22 @@ class TestSignup(TestCase):
         }
         data = dict(minimal_valid_data)
         data.update(kwargs)
-        self.client.post('/accounts/signup/', data)
+        return self.client.post('/accounts/signup/', data, follow=True)
 
     def test_successful_signup(self):
-        self.post_signup(organization_url='http://example.com/foo/bar',
-                         organization_town=u"Paris")
+        response = self.post_signup(
+            organization_url='http://example.com/foo/bar',
+            organization_town=u"Paris")
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization_town, 'Paris')
         self.assertEqual(user.organization_url, 'http://example.com/foo/bar')
+        self.assertContains(response, 'email de confirmation')
+
+    def test_successful_provider_signup(self):
+        response = self.post_signup(is_provider=True)
+        user = User.objects.get(username='bob')
+        self.assertTrue(user.is_provider)
+        self.assertContains(response, 'modérateur')
 
     def test_accepting_terms_of_service_required(self):
         self.client.post('/accounts/signup/', {
@@ -95,7 +105,11 @@ class TestSignup(TestCase):
         user = User.objects.get(username='bob')
         email_body = mail.outbox[0].body
         self.assertEqual(len(user.confirmation_code), 40)
-        self.assertIn(user.confirmation_code, email_body)
+        confirmation_url = 'http://testserver' + reverse(
+            'accounts:confirm_email', kwargs={
+                'confirmation_code': user.confirmation_code
+            })
+        self.assertIn(confirmation_url, email_body)
 
     def test_user_is_not_active_without_confirmation(self):
         self.post_signup()
@@ -110,7 +124,26 @@ class TestSignup(TestCase):
 
         self.assertContains(response, 'succès')
         user = User.objects.get(username='bob')
-        self.assertTrue(user.is_active)  # Sanity check
+        self.assertTrue(user.is_active,
+                        "User should now be activated")
+
+    def test_provider_email_confirmation_success(self):
+        User.objects.create(username='bob', confirmation_code='s3cr3t',
+                            is_provider=True)
+
+        response = self.client.get('/accounts/confirm_email/s3cr3t/')
+
+        self.assertContains(response, 'succès')
+        user = User.objects.get(username='bob')
+        self.assertFalse(user.is_active,
+                         "Providers shouldn't get activated automatically.")
+        self.assertEqual(len(mail.outbox), 1,
+                         "Email should get sent to moderator")
+        email = mail.outbox[0]
+        self.assertEqual(email.recipients(),
+                         settings.ACCOUNTS_MODERATOR_EMAILS)
+        self.assertIn('http://testserver/admin/accounts/user/%s/' % user.pk,
+                      email.body)
 
     def test_email_confirmation_error(self):
         User.objects.create(username='bob', confirmation_code='s3cr3t')
@@ -119,4 +152,4 @@ class TestSignup(TestCase):
 
         self.assertContains(response, 'invalide')
         user = User.objects.get(username='bob')
-        self.assertFalse(user.is_active)  # Sanity check
+        self.assertFalse(user.is_active)

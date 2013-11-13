@@ -1,0 +1,10 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+Un email de confirmation vous a été envoyé.
+{% if request.GET.is_provider %}
+Lorsque vous aurez confirmé votre inscription, un modérateur se chargera de la valider.
+{% endif %}
+{% endblock %}
+
+

@@ -77,10 +77,3 @@ class SignupForm(UserCreationForm):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
-
-    def save(self, commit=True):
-        user = super(SignupForm, self).save(commit=False)
-        user.send_confirmation_email()
-        if commit:
-            user.save()
-        return user
