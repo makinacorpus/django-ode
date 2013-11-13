@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 
 from accounts.models import User
-from accounts.widgets import CheckboxInput, TextInput, Select, PasswordInput
+from accounts import widgets as custom_widgets
 
 
 class SignupForm(UserCreationForm):
@@ -16,13 +16,13 @@ class SignupForm(UserCreationForm):
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")},
-        widget=TextInput)
+        widget=custom_widgets.TextInput)
 
     password1 = forms.CharField(label=_("Password"),
-                                widget=PasswordInput)
+                                widget=custom_widgets.PasswordInput)
     password2 = forms.CharField(
         label=_("Password confirmation"),
-        widget=PasswordInput,
+        widget=custom_widgets.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
 
     class Meta:
@@ -57,10 +57,12 @@ class SignupForm(UserCreationForm):
         widgets = {}
         for field in fields:
             if field.startswith('is_'):
-                widgets[field] = CheckboxInput
+                widgets[field] = custom_widgets.CheckboxInput
             else:
-                widgets[field] = TextInput
-        widgets['organization_type'] = Select
+                widgets[field] = custom_widgets.TextInput
+        widgets['organization_type'] = custom_widgets.Select
+        widgets['is_provider'] = custom_widgets.IsProviderCheckboxInput
+        widgets['is_consumer'] = custom_widgets.IsConsumerCheckboxInput
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,

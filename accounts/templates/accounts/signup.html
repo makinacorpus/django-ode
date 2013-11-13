@@ -19,15 +19,31 @@
 
   <fieldset>
     <legend>Statut</legend>
-    {% include 'accounts/checkbox_field.html' with field=form.is_provider label="Fournisseur de données" %}
-    <div class="subchoices">
+    {% with field=form.is_provider %}
+    <div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
+      {% if field.errors %}
+      <span class="help-block">{{ field.errors }}</span>
+      {% endif %}
+      {{ field }}
+      <label class="control-label" for="{{ field.id_for_label }}">Fournisseur</label>
+    </div>
+    {% endwith %}
+    <div id="is-provider-details" class="subchoices collapse out">
       {% include 'accounts/checkbox_field.html' with field=form.is_host label="Lieu d'accueil d'événement" %}
       {% include 'accounts/checkbox_field.html' with field=form.is_creator label="Créateur d'événement" %}
       {% include 'accounts/checkbox_field.html' with field=form.is_performer label="Intervenants/artistes" %}
     </div>
 
-    {% include 'accounts/checkbox_field.html' with field=form.is_consumer label="Réutilisateur de données" %}
-    <div class="subchoices">
+    {% with field=form.is_consumer %}
+    <div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
+      {% if field.errors %}
+      <span class="help-block">{{ field.errors }}</span>
+      {% endif %}
+      {{ field }}
+      <label class="control-label" for="{{ field.id_for_label }}">Réutilisateur de données</label>
+    </div>
+    {% endwith %}
+    <div id="is-consumer-details" class="subchoices collapse out">
       {% include 'accounts/checkbox_field.html' with field=form.is_media label="Publication d'un média print/web" %}
       {% include 'accounts/field.html' with field=form.media_url label="URL" %}
       {% include 'accounts/checkbox_field.html' with field=form.is_website label="Site web" %}

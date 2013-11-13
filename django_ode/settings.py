@@ -37,9 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'frontend',
-    'pipeline',
     'django_extensions',
+    'pipeline',
+    'frontend',
     'accounts',
 )
 
@@ -88,21 +88,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-PIPELINE_COMPILERS = (
-    'pipeline.compilers.less.LessCompiler',
-)
-PIPELINE_CSS = {
-    'style': {
-        'source_filenames': (
-            'css/bootstrap.css',
-            'css/*.less',
-        ),
-        'output_filename': 'css/style.css',
-        'extra_context': {
-            'media': 'screen,projection',
-        },
-    },
-}
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -120,6 +105,34 @@ SITE_ID = 1
 ALLOWED_HOSTS = ['*']  # FIXME
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# Third-party apps settings
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+PIPELINE_CSS = {
+    'style': {
+        'source_filenames': (
+            'css/bootstrap.css',
+            'css/*.less',
+        ),
+        'output_filename': 'css/style.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        },
+    },
+}
+
+
+PIPELINE_JS = {
+    'scripts': {
+        'source_filenames': (
+            'js/jquery.js',
+            'js/bootstrap.js',
+        ),
+        'output_filename': 'js/scripts.js',
+    }
+}
 
 # Project-specific settings
 EVENT_API_BASE_URL = 'http://localhost:6543'

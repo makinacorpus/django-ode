@@ -27,3 +27,24 @@ class CheckboxInput(forms.CheckboxInput):
     def __init__(self, *args, **kwargs):
         super(CheckboxInput, self).__init__(*args, **kwargs)
         self.attrs = {'class': 'form-control'}
+
+
+class CollapseCheckboxInput(CheckboxInput):
+
+    def __init__(self, *args, **kwargs):
+        super(CollapseCheckboxInput, self).__init__(*args, **kwargs)
+        self.attrs['data-toggle'] = 'collapse'
+
+
+class IsProviderCheckboxInput(CollapseCheckboxInput):
+
+    def __init__(self, *args, **kwargs):
+        super(IsProviderCheckboxInput, self).__init__(*args, **kwargs)
+        self.attrs['data-target'] = '#is-provider-details'
+
+
+class IsConsumerCheckboxInput(CollapseCheckboxInput):
+
+    def __init__(self, *args, **kwargs):
+        super(IsConsumerCheckboxInput, self).__init__(*args, **kwargs)
+        self.attrs['data-target'] = '#is-consumer-details'
