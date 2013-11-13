@@ -12,10 +12,18 @@ class User(AbstractUser):
     )
 
     is_provider = models.BooleanField(default=False)
-    is_consumer = models.BooleanField(default=False)
     is_host = models.BooleanField(default=False)
     is_creator = models.BooleanField(default=False)
     is_performer = models.BooleanField(default=False)
+    is_consumer = models.BooleanField(default=False)
+    is_media = models.BooleanField(default=False)
+    media_url = models.URLField(blank=True)
+    is_website = models.BooleanField(default=False)
+    website_url = models.URLField(blank=True)
+    is_mobile_app = models.BooleanField(default=False)
+    mobile_app_name = models.CharField(max_length=100, blank=True)
+    is_other = models.BooleanField(default=False)
+    other_details = models.CharField(max_length=100, blank=True)
     organization_type = models.CharField(choices=ORGANIZATION_TYPES,
                                          max_length=32,
                                          blank=True)

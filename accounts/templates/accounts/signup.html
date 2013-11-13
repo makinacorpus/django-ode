@@ -8,7 +8,7 @@
 {% block content %}
 <h1>Formulaire d'inscription</h1>
 
-<form class="signup form-horizontal" id="signup_form" method="post"
+<form id="signup-form" class="signup form-horizontal" id="signup_form" method="post"
       action="{% url 'accounts:signup' %}">
   {% csrf_token %}
   {% if form.non_field_errors %}
@@ -19,14 +19,24 @@
 
   <fieldset>
     <legend>Statut</legend>
-    {% include 'accounts/field.html' with field=form.is_provider label="Fournisseur de données" %}
+    {% include 'accounts/checkbox_field.html' with field=form.is_provider label="Fournisseur de données" %}
     <div class="subchoices">
-      {% include 'accounts/field.html' with field=form.is_host label="Lieu d'accueil d'événement" %}
-      {% include 'accounts/field.html' with field=form.is_creator label="Créateur d'événement" %}
-      {% include 'accounts/field.html' with field=form.is_performer label="Intervenants/artistes" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_host label="Lieu d'accueil d'événement" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_creator label="Créateur d'événement" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_performer label="Intervenants/artistes" %}
     </div>
 
-    {% include 'accounts/field.html' with field=form.is_consumer label="Réutilisateur de données" %}
+    {% include 'accounts/checkbox_field.html' with field=form.is_consumer label="Réutilisateur de données" %}
+    <div class="subchoices">
+      {% include 'accounts/checkbox_field.html' with field=form.is_media label="Publication d'un média print/web" %}
+      {% include 'accounts/field.html' with field=form.media_url label="URL" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_website label="Site web" %}
+      {% include 'accounts/field.html' with field=form.website_url label="URL" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_mobile_app label="Application mobile" %}
+      {% include 'accounts/field.html' with field=form.mobile_app_name label="Nom" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_other label="Autre" %}
+      {% include 'accounts/field.html' with field=form.other_details label="Précisions" %}
+    </div>
   </fieldset>
 
   <fieldset>
