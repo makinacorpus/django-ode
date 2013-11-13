@@ -1,0 +1,28 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+
+{% if form.non_field_errors %}
+<div class="alert alert-danger">
+  {{form.non_field_errors}}
+</div>
+{% endif %}
+
+<form method="post" action="{% url 'accounts:login' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="Connexion" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

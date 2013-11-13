@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.core import mail
 from django.core.urlresolvers import reverse
 from django.views.generic import CreateView, TemplateView
