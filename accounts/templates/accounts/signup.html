@@ -81,6 +81,16 @@
     {% include 'accounts/field.html' with field=form.password2 label="Confirmation du mot de passe" %}
   </fieldset>
 
+  {% with field=form.accept_terms_of_service %}
+  <div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
+    {% if field.errors %}
+    <span class="help-block">{{ field.errors }}</span>
+    {% endif %}
+    {{ field }}
+    <label class="control-label" for="{{ field.id_for_label }}">Valider les GCU</label>
+  </div>
+  {% endwith %}
+
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}

@@ -39,6 +39,8 @@ class TestSignup(TestCase):
         self.assertContains(response, 'username')
         self.assertContains(response, 'password')
 
+        self.assertContains(response, 'accept_terms_of_service')
+
     def test_bootstrap_form_control_class(self):
         response = self.client.get('/accounts/signup/')
         self.assertContains(response, 'form-control')
@@ -51,7 +53,20 @@ class TestSignup(TestCase):
             'password2': 'foobar',
             'organization_url': 'http://example.com/foo/bar',
             'organization_town': u"Paris",
+            'accept_terms_of_service': 'on',
         })
         user = User.objects.filter(username='bob').get()
         self.assertEqual(user.organization_town, 'Paris')
         self.assertEqual(user.organization_url, 'http://example.com/foo/bar')
+
+    def test_signup_requires_accepting_terms_of_service(self):
+        self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'foobar',
+        })
+        self.assertFalse(
+            User.objects.filter(username='bob').exists(),
+            "We shouldn't be able to sign up without acceptiong "
+            "terms of service")

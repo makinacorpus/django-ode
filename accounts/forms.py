@@ -25,6 +25,10 @@ class SignupForm(UserCreationForm):
         widget=custom_widgets.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
 
+    accept_terms_of_service = forms.BooleanField(
+        widget=custom_widgets.CheckboxInput
+    )
+
     class Meta:
         model = User
         fields = [
