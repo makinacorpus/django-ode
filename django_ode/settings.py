@@ -105,6 +105,7 @@ SITE_ID = 1
 ALLOWED_HOSTS = ['*']  # FIXME
 
 AUTH_USER_MODEL = 'accounts.User'
+DEFAULT_FROM_EMAIL = 'ode@example.com'
 
 # Third-party apps settings
 PIPELINE_COMPILERS = (

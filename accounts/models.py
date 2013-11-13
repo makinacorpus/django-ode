@@ -1,6 +1,12 @@
 # -*- encoding: utf-8 -*-
+import random
+import time
+import hashlib
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core import mail
+from django.conf import settings
 
 
 class User(AbstractUser):
@@ -35,3 +41,27 @@ class User(AbstractUser):
     organization_url = models.URLField(blank=True)
 
     phone_number = models.CharField(max_length=50, blank=True)
+    confirmation_code = models.CharField(max_length=40)
+
+    def generate_confirmation_code(self):
+        source = "{}:{}:{}".format(
+            time.time(),
+            self.username,
+            random.randint(100000, 2000000),
+        ).encode('utf-8')
+        self.confirmation_code = hashlib.sha1(source).hexdigest()
+
+    def send_confirmation_email(self):
+        self.generate_confirmation_code()
+        mail.send_mail(
+            subject='Veuillez confirmer votre adresse email',
+            message="""
+            Veuillez cliquer sur ce lien de confirmation: {}
+            """.format(self.confirmation_code),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[self.email],
+            fail_silently=False)
+
+# Override attributes of fields defined in AbstractUser
+User._meta.get_field('is_active').default = False
+User._meta.get_field('email').blank = False

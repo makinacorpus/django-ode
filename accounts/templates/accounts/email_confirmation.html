@@ -1,0 +1,11 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+{% if view.success %}
+Votre adresse email a été confirmée avec succès.
+{% else %}
+Ce lien de confirmation est invalide.
+{% endif %}
+{% endblock %}
+
+
