@@ -10,9 +10,10 @@
       <div id="account-links">
         <ul>
           {% if user.is_authenticated %}
-          logged in
+          <li><a href="{% url "accounts:logout" %}">Déconnexion</a></li>
           {% else %}
-          not logged in
+          <li><a href="{% url "accounts:login" %}">Connexion</a></li>
+          <li><a href="{% url "accounts:signup" %}">Inscription</a></li>
           {% endif %}
         </ul>
       </div>
