@@ -2,9 +2,10 @@ from django.conf import settings
 from django.test import TestCase
 
 from .support import PatchMixin
+from accounts.tests.base import LoginTestMixin
 
 
-class TestSources(PatchMixin, TestCase):
+class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
     resource_name_plural = 'sources'
     end_point = settings.SOURCES_ENDPOINT

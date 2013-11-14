@@ -1,9 +1,10 @@
+# -*- encoding: utf-8 -*-
 from django.test import TestCase
 
-from accounts.models import User
+from accounts.tests.base import LoginTestMixin
 
 
-class SimpleTest(TestCase):
+class SimpleTest(LoginTestMixin, TestCase):
 
     def test_home_anonymous(self):
         response = self.client.get('/')
@@ -14,8 +15,7 @@ class SimpleTest(TestCase):
         self.assertContains(response, '/accounts/signup/')
 
     def test_home_authenticated(self):
-        User.objects.create_user(username='bob', password='foobar')
-        self.client.login(username='bob', password='foobar')
+        self.login()
         response = self.client.get('/')
         self.assertContains(response, 'Déconnexion')
         self.assertContains(response, '/accounts/logout/')

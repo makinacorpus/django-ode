@@ -1,0 +1,20 @@
+{% extends "accounts/base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block head_title %}Profil{% endblock %}
+
+{% block content %}
+<form id="signup-form" class="signup form-horizontal" id="signup_form" method="post"
+      action="{% url 'accounts:profile' %}">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Connexion</legend>
+    {% include 'accounts/field.html' with field=form.password1 label="Mot de passe" %}
+    {% include 'accounts/field.html' with field=form.password2 label="Confirmation du mot de passe" %}
+  </fieldset>
+</form>
+{% endblock %}
+
+

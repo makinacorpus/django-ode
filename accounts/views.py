@@ -1,10 +1,12 @@
 # -*- encoding: utf-8 -*-
 from django.core import mail
 from django.core.urlresolvers import reverse
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from accounts.forms import SignupForm
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from accounts.forms import SignupForm, ProfileForm
 from accounts.models import User
 
 
@@ -72,6 +74,14 @@ class SignupSuccess(TemplateView):
     template_name = 'accounts/signup_success.html'
 
 
-class ProfileView(TemplateView):
+class ProfileView(UpdateView):
 
-    template_name = 'accounts/profile_form.html'
+    template_name = 'accounts/profile.html'
+    form_class = ProfileForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProfileView, self).dispatch(*args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return self.request.user

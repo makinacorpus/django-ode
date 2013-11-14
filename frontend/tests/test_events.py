@@ -3,9 +3,10 @@ from django.test import TestCase
 from django.conf import settings
 
 from .support import PatchMixin
+from accounts.tests.base import LoginTestMixin
 
 
-class TestEvents(PatchMixin, TestCase):
+class TestEvents(LoginTestMixin, PatchMixin, TestCase):
 
     resource_name_plural = 'events'
     end_point = settings.EVENTS_ENDPOINT

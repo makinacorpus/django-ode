@@ -11,7 +11,7 @@
         <ul>
           {% if user.is_authenticated %}
           <li><a href="{% url "accounts:logout" %}">Déconnexion</a></li>
-          <li><a href="{% url "accounts:edit_profile" %}">Profil</a></li>
+          <li><a href="{% url "accounts:profile" %}">Profil</a></li>
           {% else %}
           <li><a href="{% url "accounts:login" %}">Connexion</a></li>
           <li><a href="{% url "accounts:signup" %}">Inscription</a></li>

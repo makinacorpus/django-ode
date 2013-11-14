@@ -77,3 +77,17 @@ class SignupForm(UserCreationForm):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
+
+
+class ProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = []
+
+    password1 = forms.CharField(label=_("Password"),
+                                widget=custom_widgets.PasswordInput)
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=custom_widgets.PasswordInput,
+        help_text=_("Enter the same password as above, for verification."))

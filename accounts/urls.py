@@ -14,6 +14,5 @@ urlpatterns = patterns(
         views.EmailConfirmationView.as_view(), name='confirm_email'),
     url(r'signup_success/', views.SignupSuccess.as_view(),
         name='signup_success'),
-    url(r'profile/', views.ProfileView.as_view(),
-        name='edit_profile'),
+    url(r'profile/', views.ProfileView.as_view(), name='profile'),
 )
