@@ -70,3 +70,8 @@ class EmailConfirmationView(TemplateView):
 class SignupSuccess(TemplateView):
 
     template_name = 'accounts/signup_success.html'
+
+
+class ProfileView(TemplateView):
+
+    template_name = 'accounts/profile_form.html'

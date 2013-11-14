@@ -5,7 +5,7 @@ from accounts.models import User
 
 class SimpleTest(TestCase):
 
-    def test_home(self):
+    def test_home_anonymous(self):
         response = self.client.get('/')
         self.assertContains(response, '<!DOCTYPE html>')
         self.assertContains(response, 'Connexion')
@@ -19,3 +19,5 @@ class SimpleTest(TestCase):
         response = self.client.get('/')
         self.assertContains(response, 'Déconnexion')
         self.assertContains(response, '/accounts/logout/')
+        self.assertContains(response, 'Profil')
+        self.assertContains(response, '/accounts/profile/')
