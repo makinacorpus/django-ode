@@ -2,6 +2,7 @@
 from django.test import TestCase
 
 from accounts.tests.base import LoginTestMixin
+from accounts.models import User
 
 
 class TestProfile(LoginTestMixin, TestCase):
@@ -20,3 +21,26 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertContains(response, '<form')
         self.assertContains(response, '<legend>Connexion</legend>')
         self.assertContains(response, 'password1')
+
+    def test_change_password_success(self):
+        self.login(username='bob', password='foobar')
+        old_password = self.user.password
+        self.client.post('/accounts/profile/', {
+            'password1': 'barfoo',
+            'password2': 'barfoo',
+        })
+        user = User.objects.get(username='bob')
+        self.assertNotEqual(user.password, old_password,
+                            "New password should be different")
+
+    def test_change_password_error(self):
+        self.login(username='bob', password='foobar')
+        old_password = self.user.password
+        response = self.client.post('/accounts/profile/', {
+            'password1': 'barfoo',
+            'password2': 'quux',
+        })
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.password, old_password,
+                         "Password should remain unchanged")
+        self.assertContains(response, 'correspondent pas')

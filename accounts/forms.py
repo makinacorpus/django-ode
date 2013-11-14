@@ -81,6 +81,10 @@ class SignupForm(UserCreationForm):
 
 class ProfileForm(forms.ModelForm):
 
+    error_messages = {
+        'password_mismatch': _("The two password fields didn't match."),
+    }
+
     class Meta:
         model = User
         fields = []
@@ -91,3 +95,22 @@ class ProfileForm(forms.ModelForm):
         label=_("Password confirmation"),
         widget=custom_widgets.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'])
+        return password2
+
+    def save(self, commit=True):
+        self.user.set_password(self.cleaned_data['password1'])
+        if commit:
+            self.user.save()
+        return self.user
