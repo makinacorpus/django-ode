@@ -4,6 +4,62 @@ p {
     color: @mycolor;
 }
 
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+a:hover, a:visited, a:focus {
+	text-decoration: none;
+}
+
+/* Header styling */
+header {
+	background: url('../img/header_background.png') repeat;
+	padding: 3em 0;
+
+	span, a, a:hover {
+		color: white;
+	}
+
+	li {
+		display: inline-block;
+	}
+}
+
+#nav-auth {
+
+	margin-top: 3em;
+}
+
+nav {
+
+	ul {
+		border-bottom: 1px solid white;
+	}
+
+	li {
+
+		margin-right: 1em;
+		cursor: pointer;
+
+		a {
+			font-weight: bold;
+			padding-bottom: 1px;
+
+			&:hover {
+				border-bottom: 5px solid black;
+			}
+		}
+
+		& + li {
+			margin-left: 1em;
+		}
+	}
+}
+
+
 form p label {
     display: block;
 }

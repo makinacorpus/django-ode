@@ -1,23 +1,45 @@
 <!DOCTYPE html>
 {% load compressed %}
+{% load staticfiles %}
 <html lang="fr">
   <head>
     {% compressed_css 'style' %}
     <title>ODE</title>
   </head>
   <body>
-    <div class="container">
-      <div id="account-links">
-        <ul>
-          {% if user.is_authenticated %}
-          <li><a href="{% url "accounts:logout" %}">Déconnexion</a></li>
-          <li><a href="{% url "accounts:profile" %}">Profil</a></li>
-          {% else %}
-          <li><a href="{% url "accounts:login" %}">Connexion</a></li>
-          <li><a href="{% url "accounts:signup" %}">Inscription</a></li>
-          {% endif %}
-        </ul>
+    <header>
+      <div id="header-content" class="container">
+        <div class="row">
+          <div id="site-logo" class="col-md-2">
+            <a href="/"><img src="{% static 'img/site_logo.png' %}" alt="logo"/></a>
+          </div>
+          <div id="nav-auth" class="col-md-10">
+            <div class="row">
+              <nav class="col-md-8">
+                <ul>
+                  <li><a href="#">Le projet</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Blog</a></li>
+                </ul>
+              </nav>
+              <div id="account-links" class="col-md-4">
+                <ul>
+                  {% if user.is_authenticated %}
+                  <li><a href="{% url "accounts:logout" %}">Déconnexion</a></li>
+                  <li><a href="{% url "accounts:profile" %}">Profil</a></li>
+                  {% else %}
+                  <li><a href="{% url "accounts:login" %}">Connexion</a></li>
+                  <li><a href="{% url "accounts:signup" %}">Inscription</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </header>
+    <div class="container">
+      
       {% if messages %}
       {% for message in messages %}
       <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
