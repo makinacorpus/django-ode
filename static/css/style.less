@@ -1,4 +1,5 @@
 @mycolor: #444;
+@header-buttons-color: #36333a;
 
 p {
     color: @mycolor;
@@ -17,8 +18,7 @@ a:hover, a:visited, a:focus {
 /* Header styling */
 header {
 	background: url('../img/header_background.png') repeat;
-	padding: 3em 0;
-
+	
 	span, a, a:hover {
 		color: white;
 	}
@@ -28,12 +28,16 @@ header {
 	}
 }
 
-#nav-auth {
-
-	margin-top: 3em;
+#header-content {
+	padding: 2em 0 1.5em 0;
 }
 
-nav {
+
+@menu-li-margin: 1.5em;
+#nav-bar {
+
+	margin-top: 4em;
+	padding-right: 0px;
 
 	ul {
 		border-bottom: 1px solid white;
@@ -41,7 +45,7 @@ nav {
 
 	li {
 
-		margin-right: 1em;
+		margin-right: @menu-li-margin;
 		cursor: pointer;
 
 		a {
@@ -54,11 +58,50 @@ nav {
 		}
 
 		& + li {
-			margin-left: 1em;
+			margin-left: @menu-li-margin;
 		}
 	}
 }
 
+#account-links {
+	margin-top: 1.5em;
+	padding-left: 0px;	
+}
+
+#my-space {
+	font-weight: bold;
+}
+
+#login-area {
+
+	margin-top: 0.2em;
+	background: white;
+
+	ul {
+		padding: 0.5em;
+	}
+
+	li {
+		margin: 0 0.3em;
+	}
+
+	a {
+		background-color: @header-buttons-color;
+		padding: 0.2em 2em;
+	}
+	
+}
+
+#login-help {
+
+	margin-top: 0.1em;
+	float: right;
+
+	a {
+		font-style: italic;
+		font-size: 90%;
+	}
+}
 
 form p label {
     display: block;

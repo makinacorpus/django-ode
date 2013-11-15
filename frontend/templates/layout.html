@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 {% load compressed %}
 {% load staticfiles %}
+{% load i18n %}
 <html lang="fr">
   <head>
     {% compressed_css 'style' %}
-    <title>ODE</title>
+    <title>{% trans "ODE" %}</title>
   </head>
   <body>
     <header>
@@ -13,32 +14,40 @@
           <div id="site-logo" class="col-md-2">
             <a href="/"><img src="{% static 'img/site_logo.png' %}" alt="logo"/></a>
           </div>
-          <div id="nav-auth" class="col-md-10">
-            <div class="row">
-              <nav class="col-md-8">
-                <ul>
-                  <li><a href="#">Le projet</a></li>
-                  <li><a href="#">Contact</a></li>
-                  <li><a href="#">Blog</a></li>
-                </ul>
-              </nav>
-              <div id="account-links" class="col-md-4">
-                <ul>
-                  {% if user.is_authenticated %}
-                  <li><a href="{% url "accounts:logout" %}">Déconnexion</a></li>
-                  <li><a href="{% url "accounts:profile" %}">Profil</a></li>
-                  {% else %}
-                  <li><a href="{% url "accounts:login" %}">Connexion</a></li>
-                  <li><a href="{% url "accounts:signup" %}">Inscription</a></li>
-                  {% endif %}
-                </ul>
-              </div>
+
+          <nav id="nav-bar" class="col-md-7">
+            <ul>
+              <li><a href="#">{% trans "Le Projet" %}</a></li>
+              <li><a href="#">{% trans "Contact" %}</a></li>
+              <li><a href="#">{% trans "Blog" %}</a></li>
+            </ul>
+          </nav>
+
+          <div id="account-links" class="col-md-3">
+            <span id="my-space">{% trans "Mon Espace" %}</span>
+            <div id="login-area">
+              <ul>
+                {% if user.is_authenticated %}
+                <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
+                <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
+                {% else %}
+                <li><a href="{% url "accounts:login" %}">{% trans "Connexion" %}</a></li>
+                <li><a href="{% url "accounts:signup" %}">{% trans "Inscription" %}</a></li>
+                {% endif %}
+              </ul>
+            </div>
+            <div id="login-help">
+              {% if not user.is_authenticated %}
+              <a href="#">{% trans "Mot de passe oublié ?" %}</a>
+              {% endif %}
             </div>
           </div>
         </div>
+
       </div>
     </header>
-    <div class="container">
+
+    <div id="main-content" class="container">
       
       {% if messages %}
       {% for message in messages %}
