@@ -4,12 +4,14 @@ from django.test import TestCase
 from django.core import mail
 
 from accounts.models import User
+from accounts.models import Organization
 
 
 class TestEmailConfirmation(TestCase):
 
     def test_email_confirmation_success(self):
-        User.objects.create(username='bob', confirmation_code='s3cr3t')
+        User.objects.create(username='bob', confirmation_code='s3cr3t',
+                            organization=Organization.objects.create())
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 
@@ -20,7 +22,8 @@ class TestEmailConfirmation(TestCase):
 
     def test_provider_email_confirmation_success(self):
         User.objects.create(username='bob', confirmation_code='s3cr3t',
-                            is_provider=True)
+                            is_provider=True,
+                            organization=Organization.objects.create())
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 
@@ -37,7 +40,8 @@ class TestEmailConfirmation(TestCase):
                       email.body)
 
     def test_email_confirmation_error(self):
-        User.objects.create(username='bob', confirmation_code='s3cr3t')
+        User.objects.create(username='bob', confirmation_code='s3cr3t',
+                            organization=Organization.objects.create())
 
         response = self.client.get('/accounts/confirm_email/wrong-code/')
 

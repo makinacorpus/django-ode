@@ -90,11 +90,15 @@ class ProfileForm(forms.ModelForm):
         fields = []
 
     password1 = forms.CharField(label=_("Password"),
-                                widget=custom_widgets.PasswordInput)
+                                widget=custom_widgets.PasswordInput,
+                                required=False)
     password2 = forms.CharField(
         label=_("Password confirmation"),
         widget=custom_widgets.PasswordInput,
-        help_text=_("Enter the same password as above, for verification."))
+        help_text=_("Enter the same password as above, for verification."),
+        required=False)
+
+    price_information = forms.CharField(max_length=100, required=False)
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -110,7 +114,8 @@ class ProfileForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        self.user.set_password(self.cleaned_data['password1'])
+        if self.cleaned_data['password1']:
+            self.user.set_password(self.cleaned_data['password1'])
         if commit:
             self.user.save()
         return self.user

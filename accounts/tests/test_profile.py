@@ -44,3 +44,24 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertEqual(user.password, old_password,
                          "Password should remain unchanged")
         self.assertContains(response, 'correspondent pas')
+
+    def test_edit_price_information(self):
+        self.login(username='bob')
+        self.user.organization.price_information = u"1,50 €"
+        self.user.organization.save()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, u"1,50 €")
+
+    def test_update_price_information(self):
+        self.login(username='bob')
+        old_password = self.user.password
+        response = self.client.post('/accounts/profile/', {
+            'price_information': u'1,25 €',
+        }, follow=True)
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.price_information, u'1,25 €')
+        self.assertEqual(user.password, old_password,
+                         "Password should remain unchanged")
+        self.assertContains(response, u'avec succès')

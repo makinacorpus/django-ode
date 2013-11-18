@@ -6,8 +6,11 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
+
 from accounts.forms import SignupForm, ProfileForm
-from accounts.models import User
+from accounts.models import User, Organization
 
 
 class SignupView(CreateView):
@@ -33,6 +36,7 @@ class SignupView(CreateView):
         })
         confirmation_url = self.request.build_absolute_uri(confirmation_path)
         user.send_confirmation_email(confirmation_url)
+        user.organization = Organization.objects.create()
         user.save()
         self.object = user
         return HttpResponseRedirect(self.get_success_url())
@@ -78,6 +82,7 @@ class ProfileView(UpdateView):
 
     template_name = 'accounts/profile.html'
     form_class = ProfileForm
+    success_url = '/'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -90,3 +95,16 @@ class ProfileView(UpdateView):
         kwargs = super(ProfileView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+    def form_valid(self, form):
+        organization = self.get_object().organization
+        organization.price_information = form.cleaned_data['price_information']
+        organization.save()
+        messages.success(self.request, _(u"Profile sauvegardé avec succès"))
+        return super(ProfileView, self).form_valid(form)
+
+    def get_initial(self):
+        initial = super(ProfileView, self).get_initial()
+        user = self.get_object()
+        initial['price_information'] = user.organization.price_information
+        return initial

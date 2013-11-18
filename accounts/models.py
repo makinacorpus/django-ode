@@ -9,6 +9,10 @@ from django.core import mail
 from django.conf import settings
 
 
+class Organization(models.Model):
+    price_information = models.CharField(max_length=100, blank=True)
+
+
 class User(AbstractUser):
     ORGANIZATION_TYPES = (
         ('enterprise', 'Entreprise'),
@@ -30,6 +34,7 @@ class User(AbstractUser):
     mobile_app_name = models.CharField(max_length=100, blank=True)
     is_other = models.BooleanField(default=False)
     other_details = models.CharField(max_length=100, blank=True)
+    organization = models.ForeignKey(Organization)
     organization_type = models.CharField(choices=ORGANIZATION_TYPES,
                                          max_length=32,
                                          blank=True)
