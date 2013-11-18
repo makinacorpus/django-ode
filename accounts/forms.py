@@ -6,6 +6,26 @@ from accounts.models import User
 from accounts import widgets as custom_widgets
 
 
+class Password1Field(forms.CharField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Password"))
+        kwargs.setdefault('widget', custom_widgets.PasswordInput)
+        kwargs.setdefault('min_length', 6)
+        super(Password1Field, self).__init__(*args, **kwargs)
+
+
+class Password2Field(forms.CharField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Password confirmation"))
+        kwargs.setdefault('widget', custom_widgets.PasswordInput)
+        kwargs.setdefault(
+            'help_text',
+            _("Enter the same password as above, for verification."))
+        super(Password2Field, self).__init__(*args, **kwargs)
+
+
 class SignupForm(UserCreationForm):
 
     username = forms.RegexField(
@@ -18,12 +38,8 @@ class SignupForm(UserCreationForm):
                          "@/./+/-/_ characters.")},
         widget=custom_widgets.TextInput)
 
-    password1 = forms.CharField(label=_("Password"),
-                                widget=custom_widgets.PasswordInput)
-    password2 = forms.CharField(
-        label=_("Password confirmation"),
-        widget=custom_widgets.PasswordInput,
-        help_text=_("Enter the same password as above, for verification."))
+    password1 = Password1Field
+    password2 = Password2Field
 
     accept_terms_of_service = forms.BooleanField(
         widget=custom_widgets.CheckboxInput
@@ -89,16 +105,8 @@ class ProfileForm(forms.ModelForm):
         model = User
         fields = []
 
-    password1 = forms.CharField(label=_("Password"),
-                                widget=custom_widgets.PasswordInput,
-                                required=False,
-                                min_length=6)
-    password2 = forms.CharField(
-        label=_("Password confirmation"),
-        widget=custom_widgets.PasswordInput,
-        help_text=_("Enter the same password as above, for verification."),
-        required=False,
-        min_length=6)
+    password1 = Password1Field(required=False)
+    password2 = Password2Field(required=False)
 
     price_information = forms.CharField(max_length=100, required=False,
                                         widget=custom_widgets.TextInput)
