@@ -33,12 +33,24 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertNotEqual(user.password, old_password,
                             "New password should be different")
 
+    def test_change_password_min_length(self):
+        self.login(username='bob', password='foobar')
+        old_password = self.user.password
+        response = self.client.post('/accounts/profile/', {
+            'password1': 'barfo',
+            'password2': 'barfo',
+        })
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.password, old_password,
+                         "Password should remain unchanged")
+        self.assertContains(response, 'au moins')
+
     def test_change_password_error(self):
         self.login(username='bob', password='foobar')
         old_password = self.user.password
         response = self.client.post('/accounts/profile/', {
             'password1': 'barfoo',
-            'password2': 'quux',
+            'password2': 'quuxbar',
         })
         user = User.objects.get(username='bob')
         self.assertEqual(user.password, old_password,

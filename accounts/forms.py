@@ -91,14 +91,17 @@ class ProfileForm(forms.ModelForm):
 
     password1 = forms.CharField(label=_("Password"),
                                 widget=custom_widgets.PasswordInput,
-                                required=False)
+                                required=False,
+                                min_length=6)
     password2 = forms.CharField(
         label=_("Password confirmation"),
         widget=custom_widgets.PasswordInput,
         help_text=_("Enter the same password as above, for verification."),
-        required=False)
+        required=False,
+        min_length=6)
 
-    price_information = forms.CharField(max_length=100, required=False)
+    price_information = forms.CharField(max_length=100, required=False,
+                                        widget=custom_widgets.TextInput)
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
