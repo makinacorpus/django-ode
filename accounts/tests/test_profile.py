@@ -57,10 +57,14 @@ class TestProfile(LoginTestMixin, TestCase):
                          "Password should remain unchanged")
         self.assertContains(response, 'correspondent pas')
 
+    def set_organization_attributes(self, **kwargs):
+        for attrname, value in kwargs.items():
+            setattr(self.user.organization, attrname, value)
+        self.user.organization.save()
+
     def test_edit_price_information(self):
         self.login(username='bob')
-        self.user.organization.price_information = u"1,50 €"
-        self.user.organization.save()
+        self.set_organization_attributes(price_information=u"1,50 €")
 
         response = self.client.get('/accounts/profile/')
 
@@ -77,3 +81,36 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertEqual(user.password, old_password,
                          "Password should remain unchanged")
         self.assertContains(response, u'avec succès')
+
+    def test_edit_audience(self):
+        self.login(username='bob')
+        self.set_organization_attributes(audience=u"Children")
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, u"Children")
+
+    def test_update_audience(self):
+        self.login(username='bob')
+        response = self.client.post('/accounts/profile/', {
+            'audience': u'Children',
+        }, follow=True)
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.audience, u'Children')
+        self.assertContains(response, u'avec succès')
+
+    def test_edit_capacity(self):
+        self.login(username='bob')
+        self.set_organization_attributes(capacity=u"42")
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, u"42")
+
+    def test_update_capacity(self):
+        self.login(username='bob')
+        self.client.post('/accounts/profile/', {
+            'capacity': u'42',
+        }, follow=True)
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.capacity, u'42')

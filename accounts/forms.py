@@ -103,6 +103,11 @@ class ProfileForm(forms.ModelForm):
     price_information = forms.CharField(max_length=100, required=False,
                                         widget=custom_widgets.TextInput)
 
+    audience = forms.CharField(max_length=100, required=False,
+                               widget=custom_widgets.TextInput)
+    capacity = forms.CharField(max_length=100, required=False,
+                               widget=custom_widgets.TextInput)
+
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super(ProfileForm, self).__init__(*args, **kwargs)

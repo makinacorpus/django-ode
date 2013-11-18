@@ -11,6 +11,8 @@ from django.conf import settings
 
 class Organization(models.Model):
     price_information = models.CharField(max_length=100, blank=True)
+    audience = models.CharField(max_length=100, blank=True)
+    capacity = models.CharField(max_length=100, blank=True)
 
 
 class User(AbstractUser):

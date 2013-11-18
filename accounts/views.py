@@ -83,6 +83,9 @@ class ProfileView(UpdateView):
     template_name = 'accounts/profile.html'
     form_class = ProfileForm
     success_url = '/'
+    organization_fields = Organization._meta.get_all_field_names()
+    organization_fields.remove('id')
+    organization_fields.remove('user')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -98,7 +101,8 @@ class ProfileView(UpdateView):
 
     def form_valid(self, form):
         organization = self.get_object().organization
-        organization.price_information = form.cleaned_data['price_information']
+        for name in self.organization_fields:
+            setattr(organization, name, form.cleaned_data[name])
         organization.save()
         messages.success(self.request, _(u"Profile sauvegardé avec succès"))
         return super(ProfileView, self).form_valid(form)
@@ -106,5 +110,6 @@ class ProfileView(UpdateView):
     def get_initial(self):
         initial = super(ProfileView, self).get_initial()
         user = self.get_object()
-        initial['price_information'] = user.organization.price_information
+        for name in self.organization_fields:
+            initial[name] = getattr(user.organization, name)
         return initial

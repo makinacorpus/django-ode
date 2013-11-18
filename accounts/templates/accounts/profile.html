@@ -23,6 +23,8 @@
     <legend>{% trans 'Infos générales événements' %}</legend>
     <p>{% trans 'À renseigner si applicable à tous vos événements' %}</p>
     {% include 'accounts/field.html' with field=form.price_information label="Tarif" %}
+    {% include 'accounts/field.html' with field=form.audience label="Public" %}
+    {% include 'accounts/field.html' with field=form.capacity label="Capacité de la salle" %}
   </fieldset>
   <button type="submit" class="btn btn-default">{% trans 'Sauvegarder' %}</button>
 </form>
