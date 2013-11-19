@@ -1,5 +1,38 @@
 {% extends 'layout.html' %}
 
+{% load staticfiles %}
+
+{% block header-additionnal-data %}
+
+<div id="header-carousel" class="row">
+    <div class="col-md-12">
+
+        <div id="carousel-base" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-base" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-base" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="active item"><img src="{% static 'img/slide_example.png' %}" alt="slide1"/></div>
+                <div class="item"><img src="{% static 'img/slide_example_2.png' %}" alt="slide2"/></div>
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#carousel-base" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#carousel-base" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
 {% block content %}
 
 <p>homepage</p>
