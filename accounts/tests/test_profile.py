@@ -137,11 +137,21 @@ class TestProfile(LoginTestMixin, TestCase):
     def test_update_other_details(self):
         self._test_update_char_field('other_details', u'foo')
 
-    def test_update_is_provider(self):
-        self._test_update_boolean_field('is_provider')
+    def test_update_is_provider_has_no_effect(self):
+        self.login(username='bob')
 
-    def test_update_is_consumer(self):
-        self._test_update_boolean_field('is_consumer')
+        self.post_with_required_params({'organization_is_provider': u'on'})
+
+        user = User.objects.get(username='bob')
+        self.assertFalse(user.organization.is_provider)
+
+    def test_update_is_consumer_has_no_effect(self):
+        self.login(username='bob')
+
+        self.post_with_required_params({'organization_is_consumer': u'on'})
+
+        user = User.objects.get(username='bob')
+        self.assertFalse(user.organization.is_consumer)
 
     def test_update_is_host(self):
         self._test_update_boolean_field('is_host')

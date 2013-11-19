@@ -105,7 +105,9 @@ class ProfileForm(forms.ModelForm):
     password2 = fields.Password2Field(required=False)
 
     organization_is_provider = fields.OrganizationIsProviderField()
+    organization_is_provider.widget.attrs['disabled'] = 'disabled'
     organization_is_consumer = fields.OrganizationIsConsumerField()
+    organization_is_consumer.widget.attrs['disabled'] = 'disabled'
     organization_is_host = fields.OrganizationIsHostField()
     organization_is_performer = fields.OrganizationIsPerformerField()
     organization_is_media = fields.OrganizationIsMediaField()
@@ -144,6 +146,12 @@ class ProfileForm(forms.ModelForm):
                 raise forms.ValidationError(
                     self.error_messages['password_mismatch'])
         return password2
+
+    def clean_organization_is_provider(self):
+        return self.instance.organization.is_provider
+
+    def clean_organization_is_consumer(self):
+        return self.instance.organization.is_consumer
 
     def save(self, commit=True):
         if self.cleaned_data['password1']:
