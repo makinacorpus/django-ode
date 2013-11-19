@@ -134,3 +134,80 @@ class TestProfile(LoginTestMixin, TestCase):
 
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization.activity_field, u'Théatre')
+
+    def test_update_media_url(self):
+        self.login(username='bob')
+
+        self.client.post('/accounts/profile/',
+                         {'organization_media_url': u'http://example.com/'},
+                         follow=True)
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.media_url, u'http://example.com/')
+
+    def test_update_website_url(self):
+        self.login(username='bob')
+
+        self.client.post('/accounts/profile/',
+                         {'organization_website_url': u'http://example.com/'},
+                         follow=True)
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.website_url, u'http://example.com/')
+
+    def test_update_mobile_app_name(self):
+        self.login(username='bob')
+
+        self.client.post('/accounts/profile/',
+                         {'organization_mobile_app_name': u'Zoo App'},
+                         follow=True)
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.mobile_app_name, u'Zoo App')
+
+    def test_update_other_details(self):
+        self.login(username='bob')
+
+        self.client.post('/accounts/profile/',
+                         {'organization_other_details': u'foo'},
+                         follow=True)
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.other_details, u'foo')
+
+    def verify_boolean_field(self, model_field):
+        self.login(username='bob')
+
+        self.client.post('/accounts/profile/',
+                         {'organization_' + model_field: u'on'},
+                         follow=True)
+
+        user = User.objects.get(username='bob')
+        self.assertTrue(getattr(user.organization, model_field))
+
+    def test_update_is_provider(self):
+        self.verify_boolean_field('is_provider')
+
+    def test_update_is_consumer(self):
+        self.verify_boolean_field('is_consumer')
+
+    def test_update_is_host(self):
+        self.verify_boolean_field('is_host')
+
+    def test_update_is_performer(self):
+        self.verify_boolean_field('is_performer')
+
+    def test_update_is_media(self):
+        self.verify_boolean_field('is_media')
+
+    def test_update_is_creator(self):
+        self.verify_boolean_field('is_creator')
+
+    def test_update_is_website(self):
+        self.verify_boolean_field('is_website')
+
+    def test_update_is_mobile_app(self):
+        self.verify_boolean_field('is_mobile_app')
+
+    def test_update_is_other(self):
+        self.verify_boolean_field('is_other')

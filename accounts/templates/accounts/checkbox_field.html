@@ -3,7 +3,7 @@
   <span class="help-block">{{ field.errors }}</span>
   {% endif %}
   {{ field }}
-  {% if label %}
-  <label class="control-label" for="{{ field.id_for_label }}">{{ label }}</label>
+  {% if field.label %}
+  <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
   {% endif %}
 </div>

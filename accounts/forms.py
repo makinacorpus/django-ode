@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django import forms
@@ -36,37 +37,32 @@ class SignupForm(UserCreationForm):
     accept_terms_of_service = forms.BooleanField(
         widget=custom_widgets.CheckboxInput
     )
-    organization_is_provider = forms.BooleanField(
-        widget=custom_widgets.IsProviderCheckboxInput, required=False)
+
+    organization_is_provider = fields.OrganizationIsProviderField()
+    organization_is_host = fields.OrganizationIsHostField()
+    organization_is_performer = fields.OrganizationIsPerformerField()
+    organization_is_media = fields.OrganizationIsMediaField()
+    organization_is_creator = fields.OrganizationIsCreatorField()
+
+    organization_is_consumer = fields.OrganizationIsConsumerField()
+    organization_is_website = fields.OrganizationIsWebsiteField()
+    organization_is_mobile_app = fields.OrganizationIsMobileAppField()
+    organization_is_other = fields.OrganizationIsOtherField()
+    organization_media_url = fields.OrganizationMediaURLField()
+    organization_website_url = fields.OrganizationWebsiteURLField()
+    organization_other_details = fields.StandardCharField(label="")
+    organization_mobile_app_name = fields.StandardCharField(label="")
 
     class Meta:
         model = User
         fields = [
-            'is_host',
-            'is_creator',
-            'is_performer',
-            'is_consumer',
-            'is_media',
-            'is_website',
-            'is_mobile_app',
-            'mobile_app_name',
-            'is_other',
-            'other_details',
-            'website_url',
-            'media_url',
             'last_name',
             'first_name',
             'email',
             'phone_number',
             'username',
         ]
-        widgets = {}
-        for field in fields:
-            if field.startswith('is_'):
-                widgets[field] = custom_widgets.CheckboxInput
-            else:
-                widgets[field] = custom_widgets.TextInput
-        widgets['is_consumer'] = custom_widgets.IsConsumerCheckboxInput
+        widgets = {field: custom_widgets.TextInput for field in fields}
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
@@ -92,6 +88,16 @@ class ProfileForm(forms.ModelForm):
     password1 = fields.Password1Field(required=False, label=_('Mot de passe'))
     password2 = fields.Password2Field(required=False)
 
+    organization_is_provider = fields.OrganizationIsProviderField()
+    organization_is_consumer = fields.OrganizationIsConsumerField()
+    organization_is_host = fields.OrganizationIsHostField()
+    organization_is_performer = fields.OrganizationIsPerformerField()
+    organization_is_media = fields.OrganizationIsMediaField()
+    organization_is_creator = fields.OrganizationIsCreatorField()
+    organization_is_website = fields.OrganizationIsWebsiteField()
+    organization_is_mobile_app = fields.OrganizationIsMobileAppField()
+    organization_is_other = fields.OrganizationIsOtherField()
+
     organization_name = fields.OrganizationNameField()
     organization_type = fields.OrganizationTypeField()
     organization_activity_field = fields.OrganizationActivityFieldField()
@@ -99,6 +105,10 @@ class ProfileForm(forms.ModelForm):
     organization_post_code = fields.OrganizationPostCodeField()
     organization_town = fields.OrganizationTownField()
     organization_url = fields.OrganizationURLField()
+    organization_media_url = fields.OrganizationMediaURLField()
+    organization_website_url = fields.OrganizationWebsiteURLField()
+    organization_other_details = fields.StandardCharField(label="")
+    organization_mobile_app_name = fields.StandardCharField(label="")
 
     # Infos générales événements
     organization_price_information = fields.StandardCharField(label=_("Tarif"))

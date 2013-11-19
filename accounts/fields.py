@@ -40,7 +40,8 @@ class OrganizationTypeField(forms.ChoiceField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('choices', Organization.TYPES)
         kwargs.setdefault('required', False)
-        kwargs.setdefault('label', '')
+        kwargs.setdefault('label', ' ')
+        kwargs.setdefault('widget', custom_widgets.Select)
         super(OrganizationTypeField, self).__init__(*args, **kwargs)
 
 
@@ -86,3 +87,96 @@ class OrganizationURLField(forms.URLField):
         kwargs.setdefault('required', False)
         kwargs.setdefault('widget', custom_widgets.TextInput)
         super(OrganizationURLField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsProviderField(forms.BooleanField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Fournisseur de données"))
+        kwargs.setdefault('widget', custom_widgets.IsProviderCheckboxInput)
+        kwargs.setdefault('required', False)
+        super(OrganizationIsProviderField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsConsumerField(forms.BooleanField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Réutilisateur de données"))
+        kwargs.setdefault('widget', custom_widgets.IsConsumerCheckboxInput)
+        kwargs.setdefault('required', False)
+        super(OrganizationIsConsumerField, self).__init__(*args, **kwargs)
+
+
+class SimpleCheckboxField(forms.BooleanField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('widget', custom_widgets.CheckboxInput)
+        kwargs.setdefault('required', False)
+        super(SimpleCheckboxField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsHostField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Lieu d'accueil d'événements"))
+        super(OrganizationIsHostField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsPerformerField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Intervenant/artiste"))
+        super(OrganizationIsPerformerField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsMediaField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Publication d'un media print/web"))
+        super(OrganizationIsMediaField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsCreatorField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Créateur d'événements"))
+        super(OrganizationIsCreatorField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsWebsiteField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Site web"))
+        super(OrganizationIsWebsiteField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsMobileAppField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Application mobile"))
+        super(OrganizationIsMobileAppField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsOtherField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _("Autre"))
+        super(OrganizationIsOtherField, self).__init__(*args, **kwargs)
+
+
+class OrganizationMediaURLField(forms.URLField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', "")
+        kwargs.setdefault('required', False)
+        kwargs.setdefault('widget', custom_widgets.TextInput)
+        super(OrganizationMediaURLField, self).__init__(*args, **kwargs)
+
+
+class OrganizationWebsiteURLField(forms.URLField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', "")
+        kwargs.setdefault('required', False)
+        kwargs.setdefault('widget', custom_widgets.TextInput)
+        super(OrganizationWebsiteURLField, self).__init__(*args, **kwargs)

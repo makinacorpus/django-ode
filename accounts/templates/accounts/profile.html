@@ -21,6 +21,8 @@
   </fieldset>
   <fieldset>
     <legend>{% trans 'Infos structure' %}</legend>
+    {% include 'accounts/checkbox_field.html' with field=form.organization_is_provider %}
+    {% include 'accounts/checkbox_field.html' with field=form.organization_is_consumer %}
     {% include 'accounts/field.html' with field=form.organization_type %}
     {% include 'accounts/field.html' with field=form.organization_name %}
     {% include 'accounts/field.html' with field=form.organization_address %}

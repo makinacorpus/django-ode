@@ -30,6 +30,18 @@ class Organization(models.Model):
     town = models.CharField(max_length=100, blank=True)
     url = models.URLField(blank=True)
     is_provider = models.BooleanField(default=False)
+    is_consumer = models.BooleanField(default=False)
+    is_host = models.BooleanField(default=False)
+    is_creator = models.BooleanField(default=False)
+    is_performer = models.BooleanField(default=False)
+    is_media = models.BooleanField(default=False)
+    is_website = models.BooleanField(default=False)
+    is_mobile_app = models.BooleanField(default=False)
+    is_other = models.BooleanField(default=False)
+    media_url = models.URLField(blank=True)
+    website_url = models.URLField(blank=True)
+    mobile_app_name = models.CharField(max_length=100, blank=True)
+    other_details = models.CharField(max_length=100, blank=True)
 
     def update(self, cleaned_data):
         for form_name in cleaned_data:
@@ -39,18 +51,6 @@ class Organization(models.Model):
 
 
 class User(AbstractUser):
-    is_host = models.BooleanField(default=False)
-    is_creator = models.BooleanField(default=False)
-    is_performer = models.BooleanField(default=False)
-    is_consumer = models.BooleanField(default=False)
-    is_media = models.BooleanField(default=False)
-    media_url = models.URLField(blank=True)
-    is_website = models.BooleanField(default=False)
-    website_url = models.URLField(blank=True)
-    is_mobile_app = models.BooleanField(default=False)
-    mobile_app_name = models.CharField(max_length=100, blank=True)
-    is_other = models.BooleanField(default=False)
-    other_details = models.CharField(max_length=100, blank=True)
     organization = models.ForeignKey(Organization)
 
     phone_number = models.CharField(max_length=50, blank=True,
