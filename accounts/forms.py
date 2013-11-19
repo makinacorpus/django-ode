@@ -83,7 +83,13 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = []
+        fields = [
+            'last_name',
+            'first_name',
+            'email',
+            'phone_number',
+        ]
+        widgets = {field: custom_widgets.TextInput for field in fields}
 
     password1 = fields.Password1Field(required=False, label=_('Mot de passe'))
     password2 = fields.Password2Field(required=False)
