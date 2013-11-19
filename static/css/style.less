@@ -6,101 +6,185 @@ p {
 }
 
 ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 a:hover, a:visited, a:focus {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 /* Header styling */
 header {
-	background: url('../img/header_background.png') repeat;
-	
-	span, a, a:hover {
-		color: white;
-	}
+    background: url('../img/header_background.png') repeat;
 
-	li {
-		display: inline-block;
-	}
+    span, a, a:hover {
+        color: white;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+    .row {
+        position: relative;
+    }
 }
 
 #header-content {
-	padding: 2em 0 1.5em 0;
+    padding-bottom: 1.5em;
+}
+
+#site-logo {
+    margin-top: 2em;
 }
 
 
 @menu-li-margin: 1.5em;
 #nav-bar {
 
-	margin-top: 4em;
-	padding-right: 0px;
+    margin-top: 6em;
+    padding-right: 0px;
 
-	ul {
-		border-bottom: 1px solid white;
-	}
+    ul {
+        border-bottom: 1px solid white;
+    }
 
-	li {
+    li {
 
-		margin-right: @menu-li-margin;
-		cursor: pointer;
+        margin-right: @menu-li-margin;
+        cursor: pointer;
 
-		a {
-			font-weight: bold;
-			padding-bottom: 1px;
+        a {
+            font-weight: bold;
+            padding-bottom: 1px;
 
-			&:hover {
-				border-bottom: 5px solid black;
-			}
-		}
+            &:hover {
+                border-bottom: 5px solid black;
+            }
+        }
 
-		& + li {
-			margin-left: @menu-li-margin;
-		}
-	}
+        & + li {
+            margin-left: @menu-li-margin;
+        }
+    }
 }
 
 #account-links {
-	margin-top: 1.5em;
-	padding-left: 0px;	
+    margin-top: 3.5em;
+    padding-left: 0px;
 }
 
 #my-space {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 #login-area {
 
-	margin-top: 0.2em;
-	background: white;
+    margin-top: 0.2em;
+    background: white;
+    text-align: center;
 
-	ul {
-		padding: 0.5em;
-	}
+    ul {
+        padding: 0.5em;
+    }
 
-	li {
-		margin: 0 0.3em;
-	}
+    li {
+        margin: 0 0.3em;
+    }
 
-	a {
-		background-color: @header-buttons-color;
-		padding: 0.2em 2em;
-	}
-	
+    a {
+        background-color: @header-buttons-color;
+        padding: 0.2em 1em;
+    }
+
 }
 
 #login-help {
 
-	margin-top: 0.1em;
-	float: right;
+    margin-top: 0.1em;
+    float: right;
 
-	a {
-		font-style: italic;
-		font-size: 90%;
-	}
+    a {
+        font-style: italic;
+        font-size: 0.9rem;
+    }
+}
+
+/* Logged part */
+#header-nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#logged-header {
+    padding-right: 0;
+}
+
+#shortcuts {
+    display: inline-block;
+    font-size: 0.8em;
+
+    a {
+        color: #86878b;
+    }
+
+    li {
+        margin: 0 0.5em;
+    }
+
+    li + li {
+
+        margin-left: 0;
+
+        a {
+            margin-left: 0.6em;
+        }
+
+        &:before {
+            content: "|";
+            color: white;
+        }
+    }
+}
+
+#login-area-logged {
+    display: inline-block;
+    background: #e9ebea;
+
+    a {
+        color: #36333a;
+        font-weight: bold;
+        font-size: 0.8em;
+
+        &:hover {
+            border-bottom: 5px solid black;
+        }
+    }
+
+    ul {
+        padding: 0.4em;
+    }
+
+    li {
+        margin: 0 0.5em;
+    }
+
+    li + li {
+        
+        margin-left: 0;
+
+        a {
+            margin-left: 0.6em;
+        }
+
+        &:before {
+            content: "|";
+        }
+    }
+
 }
 
 form p label {

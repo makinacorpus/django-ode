@@ -14,36 +14,8 @@
           <div id="site-logo" class="col-md-2">
             <a href="/"><img src="{% static 'img/site_logo.png' %}" alt="logo"/></a>
           </div>
-
-          <nav id="nav-bar" class="col-md-7">
-            <ul>
-              <li><a href="#">{% trans "Le Projet" %}</a></li>
-              <li><a href="#">{% trans "Contact" %}</a></li>
-              <li><a href="#">{% trans "Blog" %}</a></li>
-            </ul>
-          </nav>
-
-          <div id="account-links" class="col-md-3">
-            <span id="my-space">{% trans "Mon Espace" %}</span>
-            <div id="login-area">
-              <ul>
-                {% if user.is_authenticated %}
-                <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
-                <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
-                {% else %}
-                <li><a href="{% url "accounts:login" %}">{% trans "Connexion" %}</a></li>
-                <li><a href="{% url "accounts:signup" %}">{% trans "Inscription" %}</a></li>
-                {% endif %}
-              </ul>
-            </div>
-            <div id="login-help">
-              {% if not user.is_authenticated %}
-              <a href="#">{% trans "Mot de passe oublié ?" %}</a>
-              {% endif %}
-            </div>
-          </div>
+          {% include "header_area.html" %}
         </div>
-
       </div>
     </header>
 

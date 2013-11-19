@@ -1,0 +1,53 @@
+{% load i18n %}
+
+{% if user.is_authenticated %}
+
+  <div id="logged-header" class="col-md-10">
+    <nav id="nav-bar">
+      <ul>
+        <li><a href="#">{% trans "Mes événements" %}</a></li>
+        <li><a href="#">{% trans "Mes sources" %}</a></li>
+        <li><a href="#">{% trans "Créer" %}</a></li>
+      </ul>
+    </nav>
+    <div id="header-nav">
+      <nav id="shortcuts">
+        <ul>
+          <li><a href="#">{% trans "Le Projet" %}</a></li>
+          <li><a href="#">{% trans "Contact" %}</a></li>
+          <li><a href="#">{% trans "Blog" %}</a></li>
+        </ul>
+      </nav>
+      <div id="login-area-logged">
+        <ul class="actions">
+          <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
+          <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% else %}
+
+  <nav id="nav-bar" class="col-md-7">
+    <ul>
+      <li><a href="#">{% trans "Le Projet" %}</a></li>
+      <li><a href="#">{% trans "Contact" %}</a></li>
+      <li><a href="#">{% trans "Blog" %}</a></li>
+    </ul>
+  </nav>
+
+  <div id="account-links" class="col-md-3">
+    <span id="my-space">{% trans "Mon Espace" %}</span>
+    <div id="login-area">
+      <ul>
+        <li><a href="{% url "accounts:login" %}">{% trans "Connexion" %}</a></li>
+        <li><a href="{% url "accounts:signup" %}">{% trans "Inscription" %}</a></li>
+      </ul>
+    </div>
+    <div id="login-help">
+      <a href="#">{% trans "Mot de passe oublié ?" %}</a>
+    </div>
+  </div>
+
+{% endif %}
