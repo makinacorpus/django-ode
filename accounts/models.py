@@ -51,7 +51,7 @@ class Organization(models.Model):
 
 
 class User(AbstractUser):
-    organization = models.ForeignKey(Organization)
+    organization = models.ForeignKey(Organization, null=True)
 
     phone_number = models.CharField(max_length=50, blank=True,
                                     verbose_name=_(u"Téléphone"))

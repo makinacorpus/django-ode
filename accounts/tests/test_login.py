@@ -11,8 +11,7 @@ class TestLogin(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_login_success(self):
-        User.objects.create_user(username='bob', password='foobar',
-                                 organization=Organization.objects.create())
+        User.objects.create_user(username='bob', password='foobar')
         response = self.client.post('/accounts/login/', {
             'username': 'bob',
             'password': 'foobar',
