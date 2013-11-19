@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
-from accounts.models import User
+from accounts.models import User, Organization
 from accounts import widgets as custom_widgets
 
 
@@ -41,6 +41,25 @@ class SignupForm(UserCreationForm):
     password1 = Password1Field
     password2 = Password2Field
 
+    organization_activity_field = forms.CharField(
+        max_length=100, required=False, widget=custom_widgets.TextInput)
+    organization_name = forms.CharField(
+        max_length=100, required=False, widget=custom_widgets.TextInput)
+    organization_price_information = forms.CharField(
+        max_length=100, required=False, widget=custom_widgets.TextInput)
+    organization_audience = forms.CharField(max_length=100, required=False,
+                                            widget=custom_widgets.TextInput)
+    organization_type = forms.ChoiceField(choices=Organization.TYPES,
+                                          required=False)
+    organization_address = forms.CharField(max_length=100, required=False,
+                                           widget=custom_widgets.TextInput)
+    organization_post_code = forms.CharField(max_length=20, required=False,
+                                             widget=custom_widgets.TextInput)
+    organization_town = forms.CharField(max_length=100, required=False,
+                                        widget=custom_widgets.TextInput)
+    organization_url = forms.CharField(required=False,
+                                       widget=custom_widgets.TextInput)
+
     accept_terms_of_service = forms.BooleanField(
         widget=custom_widgets.CheckboxInput
     )
@@ -61,13 +80,6 @@ class SignupForm(UserCreationForm):
             'other_details',
             'website_url',
             'media_url',
-            'organization_type',
-            'organization_activity_field',
-            'organization_name',
-            'organization_address',
-            'organization_post_code',
-            'organization_town',
-            'organization_url',
             'last_name',
             'first_name',
             'email',
@@ -108,13 +120,28 @@ class ProfileForm(forms.ModelForm):
     password1 = Password1Field(required=False)
     password2 = Password2Field(required=False)
 
-    price_information = forms.CharField(max_length=100, required=False,
+    organization_name = forms.CharField(
+        max_length=100, required=False, widget=custom_widgets.TextInput)
+    organization_activity_field = forms.CharField(
+        max_length=100, required=False,
+        widget=custom_widgets.TextInput)
+    organization_price_information = forms.CharField(
+        max_length=100, required=False,
+        widget=custom_widgets.TextInput)
+    organization_audience = forms.CharField(max_length=100, required=False,
+                                            widget=custom_widgets.TextInput)
+    organization_capacity = forms.CharField(max_length=100, required=False,
+                                            widget=custom_widgets.TextInput)
+    organization_type = forms.ChoiceField(choices=Organization.TYPES,
+                                          required=False)
+    organization_address = forms.CharField(max_length=100, required=False,
+                                           widget=custom_widgets.TextInput)
+    organization_post_code = forms.CharField(max_length=20, required=False,
+                                             widget=custom_widgets.TextInput)
+    organization_town = forms.CharField(max_length=100, required=False,
                                         widget=custom_widgets.TextInput)
-
-    audience = forms.CharField(max_length=100, required=False,
-                               widget=custom_widgets.TextInput)
-    capacity = forms.CharField(max_length=100, required=False,
-                               widget=custom_widgets.TextInput)
+    organization_url = forms.CharField(required=False,
+                                       widget=custom_widgets.TextInput)
 
     def __init__(self, user, *args, **kwargs):
         self.user = user

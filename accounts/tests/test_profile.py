@@ -74,7 +74,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.login(username='bob')
         old_password = self.user.password
         response = self.client.post('/accounts/profile/', {
-            'price_information': u'1,25 €',
+            'organization_price_information': u'1,25 €',
         }, follow=True)
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization.price_information, u'1,25 €')
@@ -83,7 +83,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertContains(response, u'avec succès')
 
     def test_edit_audience(self):
-        self.login(username='bob')
+        self.login()
         self.set_organization_attributes(audience=u"Children")
 
         response = self.client.get('/accounts/profile/')
@@ -92,15 +92,15 @@ class TestProfile(LoginTestMixin, TestCase):
 
     def test_update_audience(self):
         self.login(username='bob')
-        response = self.client.post('/accounts/profile/', {
-            'audience': u'Children',
-        }, follow=True)
+        response = self.client.post('/accounts/profile/',
+                                    {'organization_audience': u'Children'},
+                                    follow=True)
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization.audience, u'Children')
         self.assertContains(response, u'avec succès')
 
     def test_edit_capacity(self):
-        self.login(username='bob')
+        self.login()
         self.set_organization_attributes(capacity=u"42")
 
         response = self.client.get('/accounts/profile/')
@@ -109,8 +109,28 @@ class TestProfile(LoginTestMixin, TestCase):
 
     def test_update_capacity(self):
         self.login(username='bob')
-        self.client.post('/accounts/profile/', {
-            'capacity': u'42',
-        }, follow=True)
+
+        self.client.post('/accounts/profile/',
+                         {'organization_capacity': u'42'},
+                         follow=True)
+
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization.capacity, u'42')
+
+    def test_edit_activity_field(self):
+        self.login()
+        self.set_organization_attributes(activity_field=u"Théatre")
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, u"Théatre")
+
+    def test_update_activity_field(self):
+        self.login(username='bob')
+
+        self.client.post('/accounts/profile/',
+                         {'organization_activity_field': u'Théatre'},
+                         follow=True)
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.activity_field, u'Théatre')

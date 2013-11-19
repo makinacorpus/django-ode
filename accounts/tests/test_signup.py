@@ -61,11 +61,28 @@ class TestSignup(TestCase):
 
     def test_successful_signup(self):
         response = self.post_signup(
+            organization_name=u'Évé',
+            organization_activity_field=u'Théatre',
             organization_url='http://example.com/foo/bar',
-            organization_town=u"Paris")
+            organization_price_information='4 €',
+            organization_audience=u'Children',
+            organization_town=u"Paris",
+            organization_type=u"individual",
+            organization_address=u"65 Baker Street",
+            organization_post_code=u"123 ABC",
+        )
+
         user = User.objects.get(username='bob')
-        self.assertEqual(user.organization_town, 'Paris')
-        self.assertEqual(user.organization_url, 'http://example.com/foo/bar')
+
+        self.assertEqual(user.organization.name, u'Évé')
+        self.assertEqual(user.organization.activity_field, u'Théatre')
+        self.assertEqual(user.organization.price_information, u'4 €')
+        self.assertEqual(user.organization.audience, u'Children')
+        self.assertEqual(user.organization.type, u'individual')
+        self.assertEqual(user.organization.address, u'65 Baker Street')
+        self.assertEqual(user.organization.post_code, u'123 ABC')
+        self.assertEqual(user.organization.town, 'Paris')
+        self.assertEqual(user.organization.url, 'http://example.com/foo/bar')
         self.assertContains(response, 'email de confirmation')
 
     def test_successful_provider_signup(self):

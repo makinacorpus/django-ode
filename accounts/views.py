@@ -37,6 +37,7 @@ class SignupView(CreateView):
         confirmation_url = self.request.build_absolute_uri(confirmation_path)
         user.send_confirmation_email(confirmation_url)
         user.organization = Organization.objects.create()
+        user.organization.update(form.cleaned_data)
         user.save()
         self.object = user
         return HttpResponseRedirect(self.get_success_url())
@@ -101,9 +102,7 @@ class ProfileView(UpdateView):
 
     def form_valid(self, form):
         organization = self.get_object().organization
-        for name in self.organization_fields:
-            setattr(organization, name, form.cleaned_data[name])
-        organization.save()
+        organization.update(form.cleaned_data)
         messages.success(self.request, _(u"Profile sauvegardé avec succès"))
         return super(ProfileView, self).form_valid(form)
 
@@ -111,5 +110,5 @@ class ProfileView(UpdateView):
         initial = super(ProfileView, self).get_initial()
         user = self.get_object()
         for name in self.organization_fields:
-            initial[name] = getattr(user.organization, name)
+            initial['organization_' + name] = getattr(user.organization, name)
         return initial
