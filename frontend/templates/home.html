@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% load staticfiles %}
+{% load i18n %}
 
 {% block header-additionnal-data %}
 
@@ -35,6 +36,86 @@
 
 {% block content %}
 
-<p>homepage</p>
+
+
+<div id="ode-presentation">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{% trans 'BIENVENUE SUR LE SITE DU PROJET "OPENDATAEVENTS"' %}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>{% trans "Bienvenue sur Open Data Events," %}</span>
+            <span>{% trans "Ce site héberge le projet collaboratif d'ouverture de données événementielles." %}</span>
+            <span>{% trans "ODE est un projet issu de rencontres et ateliers de production avec les acteurs culturels du territoire. Son objectif est de faciliter et rationaliser le partage d'informations événementielles entre producteurs et réutilisateurs de données." %}</span>
+        </div>
+        <div class="col-md-6">
+            <span>{% trans "ODE  propose un outil d'aggrégation des événements culturels et offre aux acteurs du projet les moyens de publication et extraction de données librement réutilisables." %}</span>
+            <span>{% trans "Vous trouverez les dernières actualités du projet sur le Blog." %}</span>
+            <span>{% trans "Ce projet collectif et co-produit avec les participants est animé par Stereolux et Libertic avec le soutien du département de Loire-Atlantique." %}</span>
+        </div>
+    </div>
+</div>
+
+<div class="last-news">
+    <div class="row title">
+        <div class="col-md-12">
+            <h2>{% trans 'LES DERNIERES NEWS DU RESEAU' %}</h1>
+        </div>
+    </div>
+
+    <div class="row news">
+        <div class="col-md-2 news-image">
+            <img src="{% static "img/news_thumbnail.png" %}"/>
+        </div>
+        <div class="col-md-9 news-content">
+            <div class="row">
+                <div class="col-md-12 news-title">
+                    <h3>EXEMPLE DE BILLET DE BLOG</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 news-description">
+                    <span>Description du billet</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 news-more">
+        </div>
+
+    </div>
+
+    <div class="row news">
+        <div class="col-md-2 news-image">
+            <img src="{% static "img/news_thumbnail.png" %}"/>
+        </div>
+        <div class="col-md-9 news-content">
+            <div class="row">
+                <div class="col-md-12 news-title">
+                    <h3>EXEMPLE DE BILLET DE BLOG 2</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 news-description">
+                    <span>Description du billet</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 news-more">
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="provider-listing row">
+
+</div>
+
+<div class="consumer-listing row">
+
+</div>        
 
 {% endblock %}
