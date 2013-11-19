@@ -30,9 +30,9 @@
     </div>
     {% endwith %}
     <div id="is-provider-details" class="subchoices collapse out">
-      {% include 'accounts/checkbox_field.html' with field=form.is_host label="Lieu d'accueil d'événement" %}
-      {% include 'accounts/checkbox_field.html' with field=form.is_creator label="Créateur d'événement" %}
-      {% include 'accounts/checkbox_field.html' with field=form.is_performer label="Intervenants/artistes" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_host %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_creator %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_performer %}
     </div>
 
     {% with field=form.is_consumer %}
@@ -45,41 +45,41 @@
     </div>
     {% endwith %}
     <div id="is-consumer-details" class="subchoices collapse out">
-      {% include 'accounts/checkbox_field.html' with field=form.is_media label="Publication d'un média print/web" %}
-      {% include 'accounts/field.html' with field=form.media_url label="URL" %}
-      {% include 'accounts/checkbox_field.html' with field=form.is_website label="Site web" %}
-      {% include 'accounts/field.html' with field=form.website_url label="URL" %}
-      {% include 'accounts/checkbox_field.html' with field=form.is_mobile_app label="Application mobile" %}
-      {% include 'accounts/field.html' with field=form.mobile_app_name label="Nom" %}
-      {% include 'accounts/checkbox_field.html' with field=form.is_other label="Autre" %}
-      {% include 'accounts/field.html' with field=form.other_details label="Précisions" %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_media %}
+      {% include 'accounts/field.html' with field=form.media_url %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_website %}
+      {% include 'accounts/field.html' with field=form.website_url %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_mobile_app %}
+      {% include 'accounts/field.html' with field=form.mobile_app_name %}
+      {% include 'accounts/checkbox_field.html' with field=form.is_other %}
+      {% include 'accounts/field.html' with field=form.other_details %}
     </div>
   </fieldset>
 
   <fieldset>
     <legend>Structure</legend>
     {% include 'accounts/field.html' with field=form.organization_type %}
-    {% include 'accounts/field.html' with field=form.organization_activity_field label="Domaine d'activité" %}
-    {% include 'accounts/field.html' with field=form.organization_name label="Nom structure" %}
-    {% include 'accounts/field.html' with field=form.organization_address label="Adresse" %}
-    {% include 'accounts/field.html' with field=form.organization_post_code label="Code Postal" %}
-    {% include 'accounts/field.html' with field=form.organization_town label="Ville" %}
-    {% include 'accounts/field.html' with field=form.organization_url label="Site Internet" %}
+    {% include 'accounts/field.html' with field=form.organization_activity_field %}
+    {% include 'accounts/field.html' with field=form.organization_name %}
+    {% include 'accounts/field.html' with field=form.organization_address %}
+    {% include 'accounts/field.html' with field=form.organization_post_code %}
+    {% include 'accounts/field.html' with field=form.organization_town %}
+    {% include 'accounts/field.html' with field=form.organization_url %}
   </fieldset>
 
   <fieldset>
     <legend>Contact</legend>
-    {% include 'accounts/field.html' with field=form.last_name label="Nom" %}
-    {% include 'accounts/field.html' with field=form.first_name label="Prénom" %}
-    {% include 'accounts/field.html' with field=form.email label="Email" %}
-    {% include 'accounts/field.html' with field=form.phone_number label="Téléphone" %}
+    {% include 'accounts/field.html' with field=form.last_name %}
+    {% include 'accounts/field.html' with field=form.first_name %}
+    {% include 'accounts/field.html' with field=form.email %}
+    {% include 'accounts/field.html' with field=form.phone_number %}
   </fieldset>
 
   <fieldset>
     <legend>Connexion</legend>
-    {% include 'accounts/field.html' with field=form.username label="Identifiant" %}
-    {% include 'accounts/field.html' with field=form.password1 label="Mot de passe" %}
-    {% include 'accounts/field.html' with field=form.password2 label="Confirmation du mot de passe" %}
+    {% include 'accounts/field.html' with field=form.username %}
+    {% include 'accounts/field.html' with field=form.password1 %}
+    {% include 'accounts/field.html' with field=form.password2 %}
   </fieldset>
 
   {% with field=form.accept_terms_of_service %}

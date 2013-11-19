@@ -16,18 +16,24 @@
   {% endif %}
   <fieldset>
     <legend>{% trans 'Connexion' %}</legend>
-    {% include 'accounts/field.html' with field=form.password1 label="Mot de passe" %}
-    {% include 'accounts/field.html' with field=form.password2 label="Confirmation du mot de passe" %}
+    {% include 'accounts/field.html' with field=form.password1 %}
+    {% include 'accounts/field.html' with field=form.password2 %}
   </fieldset>
   <fieldset>
     <legend>{% trans 'Infos structure' %}</legend>
-    {% include 'accounts/field.html' with field=form.organization_activity_field label="Domaine d'activité" %}
+    {% include 'accounts/field.html' with field=form.organization_type %}
+    {% include 'accounts/field.html' with field=form.organization_name %}
+    {% include 'accounts/field.html' with field=form.organization_address %}
+    {% include 'accounts/field.html' with field=form.organization_post_code %}
+    {% include 'accounts/field.html' with field=form.organization_town %}
+    {% include 'accounts/field.html' with field=form.organization_url %}
+    {% include 'accounts/field.html' with field=form.organization_activity_field %}
   <fieldset>
     <legend>{% trans 'Infos générales événements' %}</legend>
     <p>{% trans 'À renseigner si applicable à tous vos événements' %}</p>
-    {% include 'accounts/field.html' with field=form.organization_price_information label="Tarif" %}
-    {% include 'accounts/field.html' with field=form.organization_audience label="Public" %}
-    {% include 'accounts/field.html' with field=form.organization_capacity label="Capacité de la salle" %}
+    {% include 'accounts/field.html' with field=form.organization_price_information %}
+    {% include 'accounts/field.html' with field=form.organization_audience %}
+    {% include 'accounts/field.html' with field=form.organization_capacity %}
   </fieldset>
   <button type="submit" class="btn btn-default">{% trans 'Sauvegarder' %}</button>
 </form>

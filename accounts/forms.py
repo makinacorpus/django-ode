@@ -2,28 +2,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
-from accounts.models import User, Organization
+from accounts.models import User
 from accounts import widgets as custom_widgets
-
-
-class Password1Field(forms.CharField):
-
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Password"))
-        kwargs.setdefault('widget', custom_widgets.PasswordInput)
-        kwargs.setdefault('min_length', 6)
-        super(Password1Field, self).__init__(*args, **kwargs)
-
-
-class Password2Field(forms.CharField):
-
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Password confirmation"))
-        kwargs.setdefault('widget', custom_widgets.PasswordInput)
-        kwargs.setdefault(
-            'help_text',
-            _("Enter the same password as above, for verification."))
-        super(Password2Field, self).__init__(*args, **kwargs)
+from accounts import fields
 
 
 class SignupForm(UserCreationForm):
@@ -36,29 +17,21 @@ class SignupForm(UserCreationForm):
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")},
-        widget=custom_widgets.TextInput)
+        widget=custom_widgets.TextInput,
+        label=_("Identifiant"))
 
-    password1 = Password1Field
-    password2 = Password2Field
+    password1 = fields.Password1Field(label=_('Mot de passe'))
+    password2 = fields.Password2Field()
 
-    organization_activity_field = forms.CharField(
-        max_length=100, required=False, widget=custom_widgets.TextInput)
-    organization_name = forms.CharField(
-        max_length=100, required=False, widget=custom_widgets.TextInput)
+    organization_activity_field = fields.OrganizationActivityFieldField()
+    organization_name = fields.OrganizationNameField()
     organization_price_information = forms.CharField(
         max_length=100, required=False, widget=custom_widgets.TextInput)
-    organization_audience = forms.CharField(max_length=100, required=False,
-                                            widget=custom_widgets.TextInput)
-    organization_type = forms.ChoiceField(choices=Organization.TYPES,
-                                          required=False)
-    organization_address = forms.CharField(max_length=100, required=False,
-                                           widget=custom_widgets.TextInput)
-    organization_post_code = forms.CharField(max_length=20, required=False,
-                                             widget=custom_widgets.TextInput)
-    organization_town = forms.CharField(max_length=100, required=False,
-                                        widget=custom_widgets.TextInput)
-    organization_url = forms.CharField(required=False,
-                                       widget=custom_widgets.TextInput)
+    organization_type = fields.OrganizationTypeField()
+    organization_address = fields.OrganizationAddressField()
+    organization_post_code = fields.OrganizationPostCodeField()
+    organization_town = fields.OrganizationTownField()
+    organization_url = fields.OrganizationURLField()
 
     accept_terms_of_service = forms.BooleanField(
         widget=custom_widgets.CheckboxInput
@@ -117,31 +90,22 @@ class ProfileForm(forms.ModelForm):
         model = User
         fields = []
 
-    password1 = Password1Field(required=False)
-    password2 = Password2Field(required=False)
+    password1 = fields.Password1Field(required=False, label=_('Mot de passe'))
+    password2 = fields.Password2Field(required=False)
 
-    organization_name = forms.CharField(
-        max_length=100, required=False, widget=custom_widgets.TextInput)
-    organization_activity_field = forms.CharField(
-        max_length=100, required=False,
-        widget=custom_widgets.TextInput)
-    organization_price_information = forms.CharField(
-        max_length=100, required=False,
-        widget=custom_widgets.TextInput)
-    organization_audience = forms.CharField(max_length=100, required=False,
-                                            widget=custom_widgets.TextInput)
-    organization_capacity = forms.CharField(max_length=100, required=False,
-                                            widget=custom_widgets.TextInput)
-    organization_type = forms.ChoiceField(choices=Organization.TYPES,
-                                          required=False)
-    organization_address = forms.CharField(max_length=100, required=False,
-                                           widget=custom_widgets.TextInput)
-    organization_post_code = forms.CharField(max_length=20, required=False,
-                                             widget=custom_widgets.TextInput)
-    organization_town = forms.CharField(max_length=100, required=False,
-                                        widget=custom_widgets.TextInput)
-    organization_url = forms.CharField(required=False,
-                                       widget=custom_widgets.TextInput)
+    organization_name = fields.OrganizationNameField()
+    organization_type = fields.OrganizationTypeField()
+    organization_activity_field = fields.OrganizationActivityFieldField()
+    organization_address = fields.OrganizationAddressField()
+    organization_post_code = fields.OrganizationPostCodeField()
+    organization_town = fields.OrganizationTownField()
+    organization_url = fields.OrganizationURLField()
+
+    # Infos générales événements
+    organization_price_information = fields.StandardCharField(label=_("Tarif"))
+    organization_audience = fields.StandardCharField(label=_("Public"))
+    organization_capacity = fields.StandardCharField(
+        label=_("Capacité de la salle"))
 
     def __init__(self, user, *args, **kwargs):
         self.user = user

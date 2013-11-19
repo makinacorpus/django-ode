@@ -65,7 +65,6 @@ class TestSignup(TestCase):
             organization_activity_field=u'Théatre',
             organization_url='http://example.com/foo/bar',
             organization_price_information='4 €',
-            organization_audience=u'Children',
             organization_town=u"Paris",
             organization_type=u"individual",
             organization_address=u"65 Baker Street",
@@ -77,7 +76,6 @@ class TestSignup(TestCase):
         self.assertEqual(user.organization.name, u'Évé')
         self.assertEqual(user.organization.activity_field, u'Théatre')
         self.assertEqual(user.organization.price_information, u'4 €')
-        self.assertEqual(user.organization.audience, u'Children')
         self.assertEqual(user.organization.type, u'individual')
         self.assertEqual(user.organization.address, u'65 Baker Street')
         self.assertEqual(user.organization.post_code, u'123 ABC')

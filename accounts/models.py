@@ -7,6 +7,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core import mail
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 
 class Organization(models.Model):
@@ -18,7 +19,8 @@ class Organization(models.Model):
     )
 
     name = models.CharField(max_length=100, blank=True)
-    activity_field = models.CharField(max_length=50, blank=True)
+    activity_field = models.CharField(max_length=50, blank=True,
+                                      verbose_name=_("Domaine d'activité"))
     price_information = models.CharField(max_length=100, blank=True)
     audience = models.CharField(max_length=100, blank=True)
     capacity = models.CharField(max_length=100, blank=True)
@@ -51,7 +53,8 @@ class User(AbstractUser):
     other_details = models.CharField(max_length=100, blank=True)
     organization = models.ForeignKey(Organization)
 
-    phone_number = models.CharField(max_length=50, blank=True)
+    phone_number = models.CharField(max_length=50, blank=True,
+                                    verbose_name=_("Téléphone"))
     confirmation_code = models.CharField(max_length=40)
 
     def generate_confirmation_code(self):
@@ -76,3 +79,4 @@ class User(AbstractUser):
 # Override attributes of fields defined in AbstractUser
 User._meta.get_field('is_active').default = False
 User._meta.get_field('email').blank = False
+User._meta.get_field('email').verbose_name = _("Email ")
