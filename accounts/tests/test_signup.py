@@ -105,6 +105,30 @@ class TestSignup(TestCase):
             "We shouldn't be able to sign up without acceptiong "
             "terms of service")
 
+    def test_redisplay_form_keeps_consumer_selected(self):
+        response = self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'barfoo',
+            'organization_is_consumer': 'on',
+        })
+        self.assertContains(
+            response,
+            '<div id="is-consumer-details" class="subchoices collapse in">')
+
+    def test_redisplay_form_keeps_provider_selected(self):
+        response = self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'barfoo',
+            'organization_is_provider': 'on',
+        })
+        self.assertContains(
+            response,
+            '<div id="is-provider-details" class="subchoices collapse in">')
+
     def test_email_required(self):
         self.client.post('/accounts/signup/', {
             'username': 'bob',

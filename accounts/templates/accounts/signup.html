@@ -31,7 +31,7 @@
       <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
     </div>
     {% endwith %}
-    <div id="is-provider-details" class="subchoices collapse out">
+    <div id="is-provider-details" class="subchoices collapse{% if form.organization_is_provider.value %} in{% else %} out{% endif %}">
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_host %}
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_creator %}
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_performer %}
@@ -46,7 +46,7 @@
       <label class="control-label" for="{{ field.id_for_label }}">{% trans 'Réutilisateur de données' %}</label>
     </div>
     {% endwith %}
-    <div id="is-consumer-details" class="subchoices collapse out">
+    <div id="is-consumer-details" class="subchoices collapse{% if form.organization_is_consumer.value %} in{% else %} out{% endif %}">
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_media %}
       {% include 'accounts/field.html' with field=form.organization_media_url %}
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_website %}
