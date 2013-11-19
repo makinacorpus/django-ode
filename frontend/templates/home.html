@@ -38,7 +38,7 @@
 
 
 
-<div id="ode-presentation">
+<div id="ode-presentation" class="content-block">
     <div class="row">
         <div class="col-md-12">
             <h2>{% trans 'BIENVENUE SUR LE SITE DU PROJET "OPENDATAEVENTS"' %}</h1>
@@ -58,7 +58,7 @@
     </div>
 </div>
 
-<div class="last-news">
+<div class="last-news content-block">
     <div class="row title">
         <div class="col-md-12">
             <h2>{% trans 'LES DERNIERES NEWS DU RESEAU' %}</h1>
@@ -110,11 +110,131 @@
 
 </div>
 
-<div class="provider-listing row">
+<div class="provider-listing content-block">
+    <div class="row title">
+        <div class="col-md-12">
+            <h2>{% trans 'FOURNISSEURS DE DONNEES' %}</h1>
+        </div>
+    </div>
+    <div class="row title">
+        <div id="carousel-providers" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-providers" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-providers" data-slide-to="1"></li>
+            </ol>
 
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="active item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_1.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_2.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_3.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_4.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_5.png' %}" alt="slide1"/>
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>
+
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#carousel-providers" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#carousel-providers" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </div>
 </div>
 
-<div class="consumer-listing row">
+<div class="consumer-listing content-block">
+    <div class="row title">
+        <div class="col-md-12">
+            <h2>{% trans 'REUTILISATEURS DE DONNEES' %}</h1>
+        </div>
+    </div>
+
+    <div class="row title">
+        <div id="carousel-consumers" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-consumers" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-consumers" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="active item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_1.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_2.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_3.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_4.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_5.png' %}" alt="slide1"/>
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>
+
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#carousel-consumers" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#carousel-consumers" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </div>
 
 </div>        
 
