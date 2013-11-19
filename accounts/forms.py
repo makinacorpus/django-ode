@@ -74,6 +74,16 @@ class SignupForm(UserCreationForm):
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
 
+    def clean(self):
+        cleaned_data = super(SignupForm, self).clean()
+        is_provider = cleaned_data.get('organization_is_provider')
+        is_consumer = cleaned_data.get('organization_is_consumer')
+        if not is_consumer and not is_provider:
+            raise forms.ValidationError(
+                _("Vous devez indiquer si vous êtes fournisseur ou "
+                  "consommateur de données"))
+        return cleaned_data
+
 
 class ProfileForm(forms.ModelForm):
 

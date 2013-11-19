@@ -15,6 +15,7 @@ class TestSignup(TestCase):
             'password1': 'foobar',
             'password2': 'foobar',
             'accept_terms_of_service': 'on',
+            'organization_is_provider': 'on',
         }
         data = dict(minimal_valid_data)
         data.update(kwargs)
@@ -97,6 +98,7 @@ class TestSignup(TestCase):
             'username': 'bob',
             'password1': 'foobar',
             'password2': 'foobar',
+            'organization_is_provider': 'on',
         })
         self.assertFalse(
             User.objects.filter(username='bob').exists(),
@@ -109,10 +111,36 @@ class TestSignup(TestCase):
             'password1': 'foobar',
             'password2': 'foobar',
             'accept_terms_of_service': 'on',
+            'organization_is_provider': 'on',
         })
         self.assertFalse(
             User.objects.filter(username='bob').exists(),
             "We shouldn't be able to sign up without an email address")
+
+    def test_provider_or_consumer_required(self):
+        response = self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'foobar',
+            'accept_terms_of_service': 'on',
+        })
+        self.assertFalse(
+            User.objects.filter(username='bob').exists(),
+            "We shouldn't be able to sign up without "
+            "being a provider or a consumer")
+        self.assertContains(response, "fournisseur ou consommateur")
+
+    def test_consumer_can_sign_up(self):
+        self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'foobar',
+            'accept_terms_of_service': 'on',
+            'organization_is_provider': 'on',
+        })
+        self.assertTrue(User.objects.filter(username='bob').exists())
 
     def test_send_confirmation_email(self):
         self.post_signup()
