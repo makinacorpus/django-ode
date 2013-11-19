@@ -184,7 +184,11 @@ header {
             content: "|";
         }
     }
+}
 
+/* Main content styling */
+#main-content {
+    min-height: 500px;
 }
 
 form p label {
@@ -193,4 +197,69 @@ form p label {
 
 #signup-form .subchoices {
     margin-left: 2em;
+}
+
+/* Footer styling */
+footer {
+
+    background: url('../img/header_background.png') repeat;
+    font-size: 0.9em;
+
+    span, a {
+        color: white;
+    }
+
+    a:hover {
+        color: white;
+        border-bottom: 3px solid black;
+    }
+
+    .links {
+        li {
+            padding: 0.2em 0;
+
+            &:before {
+                content: url('../img/list_triangle.png');
+            }
+        }
+
+        a {
+            margin-left: 0.5em;
+        }
+    }
+
+    .other-links {
+
+        padding-top: 1em;
+        padding-bottom: 1em;
+        background-color: rgba(255, 255, 255, 0.1);
+        
+        li {
+            display: inline-block;
+
+            & + li {
+
+                margin-left: 0;
+
+                a {
+                    margin-left: 0.6em;
+                }
+
+                &:before {
+                    content: "|";
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .row {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+}
+
+#footer-logo {
+    margin-left: 3em;
+    margin-top: 0.5em;
 }
