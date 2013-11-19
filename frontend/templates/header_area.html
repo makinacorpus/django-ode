@@ -3,33 +3,40 @@
 {% if user.is_authenticated %}
 
   <div id="logged-header" class="col-md-10">
-    <nav id="nav-bar">
-      <ul>
-        <li><a href="#">{% trans "Mes événements" %}</a></li>
-        <li><a href="#">{% trans "Mes sources" %}</a></li>
-        <li><a href="#">{% trans "Créer" %}</a></li>
-      </ul>
-    </nav>
-    <div id="header-nav">
-      <nav id="shortcuts">
+
+    <div class="row">
+
+      <div id="header-nav" class="col-md-5 col-md-offset-7">
+        <nav id="shortcuts">
+          <ul>
+            <li><a href="#">{% trans "Le Projet" %}</a></li>
+            <li><a href="#">{% trans "Contact" %}</a></li>
+            <li><a href="#">{% trans "Blog" %}</a></li>
+          </ul>
+        </nav>
+        <div id="login-area-logged">
+          <ul class="actions">
+            <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
+            <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <nav class="main-nav logged col-md-12">
         <ul>
-          <li><a href="#">{% trans "Le Projet" %}</a></li>
-          <li><a href="#">{% trans "Contact" %}</a></li>
-          <li><a href="#">{% trans "Blog" %}</a></li>
+          <li><a href="#">{% trans "Mes événements" %}</a></li>
+          <li><a href="#">{% trans "Mes sources" %}</a></li>
+          <li><a href="#">{% trans "Créer" %}</a></li>
         </ul>
       </nav>
-      <div id="login-area-logged">
-        <ul class="actions">
-          <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
-          <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
-        </ul>
-      </div>
     </div>
   </div>
 
 {% else %}
 
-  <nav id="nav-bar" class="col-md-7">
+  <nav class="main-nav unlogged col-md-7">
     <ul>
       <li><a href="#">{% trans "Le Projet" %}</a></li>
       <li><a href="#">{% trans "Contact" %}</a></li>

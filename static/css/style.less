@@ -36,16 +36,17 @@ header {
     padding-bottom: 1.5em;
 }
 
+#header-nav {
+    text-align: right;
+}
+
 #site-logo {
     margin-top: 2em;
 }
 
 
 @menu-li-margin: 1.5em;
-#nav-bar {
-
-    margin-top: 6em;
-    padding-right: 0px;
+.main-nav {
 
     ul {
         border-bottom: 1px solid white;
@@ -68,6 +69,15 @@ header {
         & + li {
             margin-left: @menu-li-margin;
         }
+    }
+
+    &.unlogged {
+        margin-top: 6em;
+        padding-right: 0px;
+    }
+
+    &.logged {
+        margin-top: 3.8em;
     }
 }
 
@@ -112,16 +122,6 @@ header {
     }
 }
 
-/* Logged part */
-#header-nav {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-#logged-header {
-    padding-right: 0;
-}
 
 #shortcuts {
     display: inline-block;
@@ -129,6 +129,10 @@ header {
 
     a {
         color: #86878b;
+
+        &:hover {
+            border-bottom: 3px solid white;
+        }
     }
 
     li {
@@ -260,6 +264,5 @@ footer {
 }
 
 #footer-logo {
-    margin-left: 3em;
-    margin-top: 0.5em;
+    margin: 3em 0.5em 0 0.5em;
 }
