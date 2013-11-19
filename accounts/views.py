@@ -21,7 +21,7 @@ class SignupView(CreateView):
 
     def get_success_url(self):
         success_url = super(SignupView, self).get_success_url()
-        if self.object.is_provider:
+        if self.object.organization.is_provider:
             success_url += '?is_provider=True'
         return success_url
 
@@ -64,7 +64,7 @@ class EmailConfirmationView(TemplateView):
     def get(self, request, confirmation_code, *args, **kwargs):
         try:
             user = User.objects.get(confirmation_code=confirmation_code)
-            if user.is_provider:
+            if user.organization.is_provider:
                 self.send_moderation_request_email(user)
             else:
                 self.activate_user(user)

@@ -22,7 +22,7 @@ class TestSignup(TestCase):
 
     def test_form_fields(self):
         response = self.client.get('/accounts/signup/')
-        self.assertContains(response, 'is_provider')
+        self.assertContains(response, 'organization_is_provider')
         self.assertContains(response, 'is_host')
         self.assertContains(response, 'is_creator')
         self.assertContains(response, 'is_performer')
@@ -69,6 +69,7 @@ class TestSignup(TestCase):
             organization_type=u"individual",
             organization_address=u"65 Baker Street",
             organization_post_code=u"123 ABC",
+            organization_is_provider='on',
         )
 
         user = User.objects.get(username='bob')
@@ -81,12 +82,13 @@ class TestSignup(TestCase):
         self.assertEqual(user.organization.post_code, u'123 ABC')
         self.assertEqual(user.organization.town, 'Paris')
         self.assertEqual(user.organization.url, 'http://example.com/foo/bar')
+        self.assertTrue(user.organization.is_provider)
         self.assertContains(response, 'email de confirmation')
 
     def test_successful_provider_signup(self):
-        response = self.post_signup(is_provider=True)
+        response = self.post_signup(organization_is_provider=True)
         user = User.objects.get(username='bob')
-        self.assertTrue(user.is_provider)
+        self.assertTrue(user.organization.is_provider)
         self.assertContains(response, 'modérateur')
 
     def test_accepting_terms_of_service_required(self):

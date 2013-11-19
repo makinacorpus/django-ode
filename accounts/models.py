@@ -29,6 +29,7 @@ class Organization(models.Model):
     post_code = models.CharField(max_length=20, blank=True)
     town = models.CharField(max_length=100, blank=True)
     url = models.URLField(blank=True)
+    is_provider = models.BooleanField(default=False)
 
     def update(self, cleaned_data):
         for form_name in cleaned_data:
@@ -38,7 +39,6 @@ class Organization(models.Model):
 
 
 class User(AbstractUser):
-    is_provider = models.BooleanField(default=False)
     is_host = models.BooleanField(default=False)
     is_creator = models.BooleanField(default=False)
     is_performer = models.BooleanField(default=False)

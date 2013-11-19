@@ -21,9 +21,9 @@ class TestEmailConfirmation(TestCase):
                         "User should now be activated")
 
     def test_provider_email_confirmation_success(self):
-        User.objects.create(username='bob', confirmation_code='s3cr3t',
-                            is_provider=True,
-                            organization=Organization.objects.create())
+        User.objects.create(
+            username='bob', confirmation_code='s3cr3t',
+            organization=Organization.objects.create(is_provider=True))
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 

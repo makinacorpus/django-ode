@@ -36,11 +36,12 @@ class SignupForm(UserCreationForm):
     accept_terms_of_service = forms.BooleanField(
         widget=custom_widgets.CheckboxInput
     )
+    organization_is_provider = forms.BooleanField(
+        widget=custom_widgets.IsProviderCheckboxInput, required=False)
 
     class Meta:
         model = User
         fields = [
-            'is_provider',
             'is_host',
             'is_creator',
             'is_performer',
@@ -65,8 +66,6 @@ class SignupForm(UserCreationForm):
                 widgets[field] = custom_widgets.CheckboxInput
             else:
                 widgets[field] = custom_widgets.TextInput
-        widgets['organization_type'] = custom_widgets.Select
-        widgets['is_provider'] = custom_widgets.IsProviderCheckboxInput
         widgets['is_consumer'] = custom_widgets.IsConsumerCheckboxInput
 
     def clean_username(self):
