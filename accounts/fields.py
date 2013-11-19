@@ -49,7 +49,7 @@ class OrganizationTypeField(forms.ChoiceField):
 class OrganizationActivityFieldField(StandardCharField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Domaine d'activité"))
+        kwargs.setdefault('label', _(u"Domaine d'activité"))
         super(OrganizationActivityFieldField, self).__init__(*args, **kwargs)
 
 
@@ -93,7 +93,7 @@ class OrganizationURLField(forms.URLField):
 class OrganizationIsProviderField(forms.BooleanField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Fournisseur de données"))
+        kwargs.setdefault('label', _(u"Fournisseur de données"))
         kwargs.setdefault('widget', custom_widgets.IsProviderCheckboxInput)
         kwargs.setdefault('required', False)
         super(OrganizationIsProviderField, self).__init__(*args, **kwargs)
@@ -102,7 +102,7 @@ class OrganizationIsProviderField(forms.BooleanField):
 class OrganizationIsConsumerField(forms.BooleanField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Réutilisateur de données"))
+        kwargs.setdefault('label', _(u"Réutilisateur de données"))
         kwargs.setdefault('widget', custom_widgets.IsConsumerCheckboxInput)
         kwargs.setdefault('required', False)
         super(OrganizationIsConsumerField, self).__init__(*args, **kwargs)
@@ -119,14 +119,14 @@ class SimpleCheckboxField(forms.BooleanField):
 class OrganizationIsHostField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Lieu d'accueil d'événements"))
+        kwargs.setdefault('label', _(u"Lieu d'accueil d'événements"))
         super(OrganizationIsHostField, self).__init__(*args, **kwargs)
 
 
 class OrganizationIsPerformerField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Intervenant/artiste"))
+        kwargs.setdefault('label', _(u"Intervenant/artiste"))
         super(OrganizationIsPerformerField, self).__init__(*args, **kwargs)
 
 
@@ -140,7 +140,7 @@ class OrganizationIsMediaField(SimpleCheckboxField):
 class OrganizationIsCreatorField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Créateur d'événements"))
+        kwargs.setdefault('label', _(u"Créateur d'événements"))
         super(OrganizationIsCreatorField, self).__init__(*args, **kwargs)
 
 

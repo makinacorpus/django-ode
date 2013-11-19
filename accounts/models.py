@@ -20,7 +20,7 @@ class Organization(models.Model):
 
     name = models.CharField(max_length=100, blank=True)
     activity_field = models.CharField(max_length=50, blank=True,
-                                      verbose_name=_("Domaine d'activité"))
+                                      verbose_name=_(u"Domaine d'activité"))
     price_information = models.CharField(max_length=100, blank=True)
     audience = models.CharField(max_length=100, blank=True)
     capacity = models.CharField(max_length=100, blank=True)
@@ -54,7 +54,7 @@ class User(AbstractUser):
     organization = models.ForeignKey(Organization)
 
     phone_number = models.CharField(max_length=50, blank=True,
-                                    verbose_name=_("Téléphone"))
+                                    verbose_name=_(u"Téléphone"))
     confirmation_code = models.CharField(max_length=40)
 
     def generate_confirmation_code(self):

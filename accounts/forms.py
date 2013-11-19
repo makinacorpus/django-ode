@@ -80,8 +80,8 @@ class SignupForm(UserCreationForm):
         is_consumer = cleaned_data.get('organization_is_consumer')
         if not is_consumer and not is_provider:
             raise forms.ValidationError(
-                _("Vous devez indiquer si vous êtes fournisseur ou "
-                  "consommateur de données"))
+                _(u"Vous devez indiquer si vous êtes fournisseur ou "
+                  u"consommateur de données"))
         return cleaned_data
 
 
@@ -132,7 +132,7 @@ class ProfileForm(forms.ModelForm):
     organization_price_information = fields.StandardCharField(label=_("Tarif"))
     organization_audience = fields.StandardCharField(label=_("Public"))
     organization_capacity = fields.StandardCharField(
-        label=_("Capacité de la salle"))
+        label=_(u"Capacité de la salle"))
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
