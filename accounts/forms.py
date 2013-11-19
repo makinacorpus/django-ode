@@ -84,6 +84,52 @@ class SignupForm(UserCreationForm):
                   u"consommateur de données"))
         return cleaned_data
 
+    def ensure_other_field(self, field, other_field, default=False):
+        if self.cleaned_data.get(other_field):
+            return self.cleaned_data[field]
+        else:
+            return default
+
+    def ensure_provider(self, field):
+        return self.ensure_other_field(field, 'organization_is_provider')
+
+    def ensure_consumer(self, field, default=False):
+        return self.ensure_other_field(field, 'organization_is_consumer',
+                                       default)
+
+    def clean_organization_is_host(self):
+        return self.ensure_provider('organization_is_host')
+
+    def clean_organization_is_performer(self):
+        return self.ensure_provider('organization_is_performer')
+
+    def clean_organization_is_creator(self):
+        return self.ensure_provider('organization_is_creator')
+
+    def clean_organization_is_media(self):
+        return self.ensure_consumer('organization_is_media')
+
+    def clean_organization_media_url(self):
+        return self.ensure_consumer('organization_media_url', default='')
+
+    def clean_organization_is_website(self):
+        return self.ensure_consumer('organization_is_website')
+
+    def clean_organization_website_url(self):
+        return self.ensure_consumer('organization_website_url', default='')
+
+    def clean_organization_is_mobile_app(self):
+        return self.ensure_consumer('organization_is_mobile_app')
+
+    def clean_organization_mobile_app_name(self):
+        return self.ensure_consumer('organization_mobile_app_name', default='')
+
+    def clean_organization_is_other(self):
+        return self.ensure_consumer('organization_is_other')
+
+    def clean_organization_other_details(self):
+        return self.ensure_consumer('organization_other_details', default='')
+
 
 class ProfileForm(forms.ModelForm):
 

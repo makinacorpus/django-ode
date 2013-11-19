@@ -166,6 +166,53 @@ class TestSignup(TestCase):
         })
         self.assertTrue(User.objects.filter(username='bob').exists())
 
+    def test_cannot_select_provider_type_if_not_provider(self):
+        self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'foobar',
+            'accept_terms_of_service': 'on',
+            'organization_is_consumer': 'on',
+            'organization_is_host': 'on',
+            'organization_is_performer': 'on',
+            'organization_is_creator': 'on',
+        })
+        organization = User.objects.filter(username='bob').get().organization
+        self.assertFalse(organization.is_provider)
+        self.assertFalse(organization.is_host)
+        self.assertFalse(organization.is_performer)
+        self.assertFalse(organization.is_creator)
+
+    def test_cannot_select_consumer_type_if_not_consumer(self):
+        self.client.post('/accounts/signup/', {
+            'email': 'bob@example.com',
+            'username': 'bob',
+            'password1': 'foobar',
+            'password2': 'foobar',
+            'accept_terms_of_service': 'on',
+            'organization_is_provider': 'on',
+            'organization_is_media': 'on',
+            'organization_media_url': 'http://example.com',
+            'organization_is_website': 'on',
+            'organization_website_url': 'http://example.com',
+            'organization_is_mobile_app': 'on',
+            'organization_mobile_app_name': 'Foo',
+            'organization_is_other': 'on',
+            'organization_other_details': 'Blah',
+        })
+        organization = User.objects.filter(username='bob').get().organization
+        self.assertTrue(organization.is_provider)
+        self.assertFalse(organization.is_consumer)
+        self.assertFalse(organization.is_media)
+        self.assertEqual(organization.media_url, '')
+        self.assertFalse(organization.is_mobile_app)
+        self.assertEqual(organization.mobile_app_name, '')
+        self.assertFalse(organization.is_website)
+        self.assertEqual(organization.website_url, '')
+        self.assertFalse(organization.is_other)
+        self.assertEqual(organization.other_details, '')
+
     def test_send_confirmation_email(self):
         self.post_signup()
         self.assertEqual(len(mail.outbox), 1,
