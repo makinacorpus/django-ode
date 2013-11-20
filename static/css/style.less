@@ -1,6 +1,8 @@
 @mycolor: #444;
 @header-buttons-color: #36333a;
 
+/* General Styling */
+
 p {
     color: @mycolor;
 }
@@ -11,13 +13,52 @@ ul {
     padding: 0;
 }
 
-h2, h3 {
+h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h2, h3, legend {
     font-size: 1em;
     font-weight: bold;
 }
 
 a:hover, a:visited, a:focus {
     text-decoration: none;
+}
+
+form p label {
+    display: block;
+}
+
+legend {
+    margin-bottom: 0.4em;
+}
+
+/* Form Styling */
+
+fieldset, .form-element {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+
+/* Overwrite bootstrap properties */
+.form-control {
+    height: 2em;
+    width: 20em;
+    padding: 0.2em;
+    background-color: #eeeeee;
+    box-shadow: 1px -2px 0 rgba(0, 0, 0, 0.075) inset;
+    border: 1px solid #eeeeee;
+}
+
+input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus {
+    outline: none;
+}
+
+label {
+    font-weight: normal;
 }
 
 /* Header styling */
@@ -227,13 +268,17 @@ header {
     margin: 1em 0;
 }
 
-/*form p label {
-    display: block;
+/* Signup page styling */
+#signup-form {
+
+    .subchoices {
+        padding-left: 2em;
+    }
 }
 
-#signup-form .subchoices {
-    margin-left: 2em;
-}*/
+#is-consumer-details .checkbox {
+    padding-bottom: 3px;
+}
 
 /* Footer styling */
 footer {
