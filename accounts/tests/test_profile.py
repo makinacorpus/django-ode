@@ -17,21 +17,42 @@ class TestProfile(LoginTestMixin, TestCase):
         params.update(required_params)
         return self.client.post('/accounts/profile/', params, follow=True)
 
-    def _test_update_char_field(self, field_name, value):
-        self.login(username='bob')
+    def _test_update_char_field(self, field_name, value, login=True):
+        if login:
+            self.login(username='bob')
 
         self.post_with_required_params({'organization_' + field_name: value})
 
         user = User.objects.get(username='bob')
         self.assertEqual(getattr(user.organization, field_name), value)
 
-    def _test_update_boolean_field(self, model_field):
-        self.login(username='bob')
+    def _test_update_char_field_as_consumer(self, field_name, value):
+        user = self.login(username='bob')
+        user.organization.is_consumer = True
+        user.organization.save()
+        self._test_update_char_field(field_name, value, login=False)
+
+    def _test_update_boolean_field(self, model_field, login=True):
+        if login:
+            self.login(username='bob')
 
         self.post_with_required_params({'organization_' + model_field: u'on'})
 
         user = User.objects.get(username='bob')
         self.assertTrue(getattr(user.organization, model_field))
+
+    def _test_update_boolean_field_as(self, model_field, flag):
+        user = self.login(username='bob')
+        setattr(user.organization, flag, True)
+        user.organization.save()
+
+        self._test_update_boolean_field(model_field, login=False)
+
+    def _test_update_boolean_field_as_provider(self, model_field):
+        self._test_update_boolean_field_as(model_field, flag='is_provider')
+
+    def _test_update_boolean_field_as_consumer(self, model_field):
+        self._test_update_boolean_field_as(model_field, flag='is_consumer')
 
     def _test_prefilled_field(self, field_name, value):
         self.login(username='bob')
@@ -126,16 +147,18 @@ class TestProfile(LoginTestMixin, TestCase):
         self._test_update_char_field('activity_field', u'Théatre')
 
     def test_update_media_url(self):
-        self._test_update_char_field('media_url', u'http://example.com/')
+        self._test_update_char_field_as_consumer('media_url',
+                                                 u'http://example.com/')
 
     def test_update_website_url(self):
-        self._test_update_char_field('website_url', u'http://example.com/')
+        self._test_update_char_field_as_consumer('website_url',
+                                                 u'http://example.com/')
 
     def test_update_mobile_app_name(self):
-        self._test_update_char_field('mobile_app_name', u'Zoé App')
+        self._test_update_char_field_as_consumer('mobile_app_name', u'Zoé App')
 
     def test_update_other_details(self):
-        self._test_update_char_field('other_details', u'foo')
+        self._test_update_char_field_as_consumer('other_details', u'foo')
 
     def test_update_is_provider_has_no_effect(self):
         self.login(username='bob')
@@ -154,25 +177,25 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertFalse(user.organization.is_consumer)
 
     def test_update_is_host(self):
-        self._test_update_boolean_field('is_host')
+        self._test_update_boolean_field_as_provider('is_host')
 
     def test_update_is_performer(self):
-        self._test_update_boolean_field('is_performer')
-
-    def test_update_is_media(self):
-        self._test_update_boolean_field('is_media')
+        self._test_update_boolean_field_as_provider('is_performer')
 
     def test_update_is_creator(self):
-        self._test_update_boolean_field('is_creator')
+        self._test_update_boolean_field_as_provider('is_creator')
+
+    def test_update_is_media(self):
+        self._test_update_boolean_field_as_consumer('is_media')
 
     def test_update_is_website(self):
-        self._test_update_boolean_field('is_website')
+        self._test_update_boolean_field_as_consumer('is_website')
 
     def test_update_is_mobile_app(self):
-        self._test_update_boolean_field('is_mobile_app')
+        self._test_update_boolean_field_as_consumer('is_mobile_app')
 
     def test_update_is_other(self):
-        self._test_update_boolean_field('is_other')
+        self._test_update_boolean_field_as_consumer('is_other')
 
     def test_provider_can_see_event_creator_checkbox(self):
         user = self.login()
@@ -215,3 +238,32 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertNotContains(response, u"Site web")
         self.assertNotContains(response, u"Application mobile")
         self.assertNotContains(response, u"Autre")
+
+    def test_cannot_select_provider_type_if_not_provider(self):
+        self.login()
+
+        self.post_with_required_params({
+            'organization_is_host': 'on',
+            'organization_is_performer': 'on',
+            'organization_is_creator': 'on',
+        })
+        organization = User.objects.filter(username='bob').get().organization
+        self.assertFalse(organization.is_provider)
+        self.assertFalse(organization.is_host)
+        self.assertFalse(organization.is_performer)
+        self.assertFalse(organization.is_creator)
+
+    def test_cannot_selec_consumer_type_if_not_consumer(self):
+        self.login()
+
+        self.post_with_required_params({
+            'organization_is_media': 'on',
+            'organization_is_website': 'on',
+            'organization_is_mobile_app': 'on',
+            'organization_is_other': 'on',
+        })
+        organization = User.objects.filter(username='bob').get().organization
+        self.assertFalse(organization.is_media)
+        self.assertFalse(organization.is_website)
+        self.assertFalse(organization.is_mobile_app)
+        self.assertFalse(organization.is_other)
