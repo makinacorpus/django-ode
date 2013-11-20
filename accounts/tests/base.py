@@ -10,3 +10,4 @@ class LoginTestMixin(object):
                                              organization=organization)
         login_result = self.client.login(username=username, password=password)
         self.assertTrue(login_result)
+        return self.user

@@ -173,3 +173,45 @@ class TestProfile(LoginTestMixin, TestCase):
 
     def test_update_is_other(self):
         self._test_update_boolean_field('is_other')
+
+    def test_provider_can_see_event_creator_checkbox(self):
+        user = self.login()
+        user.organization.is_provider = True
+        user.organization.save()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, u"Créateur")
+        self.assertContains(response, u"accueil")
+        self.assertContains(response, u"artiste")
+
+    def test_non_provider_cannot_see_event_creator_checkbox(self):
+        self.login()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertNotContains(response, u"Créateur")
+        self.assertNotContains(response, u"accueil")
+        self.assertNotContains(response, u"artiste")
+
+    def test_consumer_can_see_event_creator_checkbox(self):
+        user = self.login()
+        user.organization.is_consumer = True
+        user.organization.save()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, u"un media print")
+        self.assertContains(response, u"Site web")
+        self.assertContains(response, u"Application mobile")
+        self.assertContains(response, u"Autre")
+
+    def test_non_consumer_cannot_see_event_creator_checkbox(self):
+        self.login()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertNotContains(response, u"un media print")
+        self.assertNotContains(response, u"Site web")
+        self.assertNotContains(response, u"Application mobile")
+        self.assertNotContains(response, u"Autre")
