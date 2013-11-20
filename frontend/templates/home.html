@@ -1,7 +1,241 @@
 {% extends 'layout.html' %}
 
+{% load staticfiles %}
+{% load i18n %}
+
+{% block header-additionnal-data %}
+
+<div id="header-carousel" class="row">
+    <div class="col-md-12">
+
+        <div id="carousel-base" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-base" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-base" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="active item"><img src="{% static 'img/slide_example.png' %}" alt="slide1"/></div>
+                <div class="item"><img src="{% static 'img/slide_example_2.png' %}" alt="slide2"/></div>
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#carousel-base" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#carousel-base" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
 {% block content %}
 
-<p>homepage</p>
+
+
+<div id="ode-presentation" class="content-block">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{% trans 'BIENVENUE SUR LE SITE DU PROJET "OPENDATAEVENTS"' %}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <span>{% trans "Bienvenue sur Open Data Events," %}</span>
+            <span>{% trans "Ce site héberge le projet collaboratif d'ouverture de données événementielles." %}</span>
+            <span>{% trans "ODE est un projet issu de rencontres et ateliers de production avec les acteurs culturels du territoire. Son objectif est de faciliter et rationaliser le partage d'informations événementielles entre producteurs et réutilisateurs de données." %}</span>
+        </div>
+        <div class="col-md-6">
+            <span>{% trans "ODE  propose un outil d'aggrégation des événements culturels et offre aux acteurs du projet les moyens de publication et extraction de données librement réutilisables." %}</span>
+            <span>{% trans "Vous trouverez les dernières actualités du projet sur le Blog." %}</span>
+            <span>{% trans "Ce projet collectif et co-produit avec les participants est animé par Stereolux et Libertic avec le soutien du département de Loire-Atlantique." %}</span>
+        </div>
+    </div>
+</div>
+
+<div class="last-news content-block">
+    <div class="row title">
+        <div class="col-md-12">
+            <h2>{% trans 'LES DERNIERES NEWS DU RESEAU' %}</h1>
+        </div>
+    </div>
+
+    <div class="row news">
+        <div class="col-md-2 news-image">
+            <img src="{% static "img/news_thumbnail.png" %}"/>
+        </div>
+        <div class="col-md-9 news-content">
+            <div class="row">
+                <div class="col-md-12 news-title">
+                    <h3>EXEMPLE DE BILLET DE BLOG</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 news-description">
+                    <span>Description du billet</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 news-more">
+        </div>
+
+    </div>
+
+    <div class="row news">
+        <div class="col-md-2 news-image">
+            <img src="{% static "img/news_thumbnail.png" %}"/>
+        </div>
+        <div class="col-md-9 news-content">
+            <div class="row">
+                <div class="col-md-12 news-title">
+                    <h3>EXEMPLE DE BILLET DE BLOG 2</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 news-description">
+                    <span>Description du billet</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 news-more">
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="provider-listing content-block">
+    <div class="row title">
+        <div class="col-md-12">
+            <h2>{% trans 'FOURNISSEURS DE DONNEES' %}</h1>
+        </div>
+    </div>
+    <div class="row title">
+        <div id="carousel-providers" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-providers" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-providers" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="active item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_1.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_2.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_3.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_4.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/provider_5.png' %}" alt="slide1"/>
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>
+
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#carousel-providers" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#carousel-providers" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="consumer-listing content-block">
+    <div class="row title">
+        <div class="col-md-12">
+            <h2>{% trans 'REUTILISATEURS DE DONNEES' %}</h1>
+        </div>
+    </div>
+
+    <div class="row title">
+        <div id="carousel-consumers" class="carousel slide">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-consumers" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-consumers" data-slide-to="1"></li>
+            </ol>
+
+            <!-- Carousel items -->
+            <div class="carousel-inner">
+                <div class="active item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_1.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_2.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_3.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_4.png' %}" alt="slide1"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <ul class="thumbnails">
+                        <li class="col-md-2">
+                            <div class="thumbnail">
+                                <img src="{% static 'img/consumer_5.png' %}" alt="slide1"/>
+                            </div>
+                        </li>                        
+                    </ul>
+                </div>
+
+            </div>
+            <!-- Carousel nav -->
+            <a class="carousel-control left" href="#carousel-consumers" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#carousel-consumers" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    </div>
+
+</div>        
 
 {% endblock %}

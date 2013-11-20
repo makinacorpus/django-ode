@@ -1,13 +1,300 @@
 @mycolor: #444;
+@header-buttons-color: #36333a;
 
 p {
     color: @mycolor;
 }
 
-form p label {
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3 {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+a:hover, a:visited, a:focus {
+    text-decoration: none;
+}
+
+/* Header styling */
+header {
+    background: url('../img/header_background.png') repeat;
+
+    span, a, a:hover {
+        color: white;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+    .row {
+        position: relative;
+    }
+}
+
+#header-content {
+    padding-bottom: 1.5em;
+}
+
+#header-nav {
+    text-align: right;
+}
+
+#site-logo {
+    margin-top: 2em;
+}
+
+
+@menu-li-margin: 1.5em;
+.main-nav {
+
+    ul {
+        border-bottom: 1px solid white;
+    }
+
+    li {
+
+        margin-right: @menu-li-margin;
+        cursor: pointer;
+
+        a {
+            font-weight: bold;
+            padding-bottom: 1px;
+
+            &:hover {
+                border-bottom: 5px solid black;
+            }
+        }
+
+        & + li {
+            margin-left: @menu-li-margin;
+        }
+    }
+
+    &.unlogged {
+        margin-top: 6em;
+        padding-right: 0px;
+    }
+
+    &.logged {
+        margin-top: 3.8em;
+    }
+}
+
+#account-links {
+    margin-top: 3.5em;
+    padding-left: 0px;
+}
+
+#my-space {
+    font-weight: bold;
+}
+
+#login-area {
+
+    margin-top: 0.2em;
+    background: white;
+    text-align: center;
+
+    ul {
+        padding: 0.5em;
+    }
+
+    li {
+        margin: 0 0.3em;
+    }
+
+    a {
+        background-color: @header-buttons-color;
+        padding: 0.2em 1em;
+    }
+
+}
+
+#login-help {
+
+    margin-top: 0.1em;
+    float: right;
+
+    a {
+        font-style: italic;
+        font-size: 0.9rem;
+    }
+}
+
+
+#shortcuts {
+    display: inline-block;
+    font-size: 0.8em;
+
+    a {
+        color: #86878b;
+
+        &:hover {
+            border-bottom: 3px solid white;
+        }
+    }
+
+    li {
+        margin: 0 0.5em;
+    }
+
+    li + li {
+
+        margin-left: 0;
+
+        a {
+            margin-left: 0.6em;
+        }
+
+        &:before {
+            content: "|";
+            color: white;
+        }
+    }
+}
+
+#login-area-logged {
+    display: inline-block;
+    background: #e9ebea;
+
+    a {
+        color: #36333a;
+        font-weight: bold;
+        font-size: 0.8em;
+
+        &:hover {
+            border-bottom: 5px solid black;
+        }
+    }
+
+    ul {
+        padding: 0.4em;
+    }
+
+    li {
+        margin: 0 0.5em;
+    }
+
+    li + li {
+        
+        margin-left: 0;
+
+        a {
+            margin-left: 0.6em;
+        }
+
+        &:before {
+            content: "|";
+        }
+    }
+}
+
+/* Carousel styling */
+#header-carousel {
+    margin-top: 2em;
+}
+
+/* Main content styling */
+#main-content {
+    min-height: 500px;
+}
+
+
+/* Homepage content styling */
+#ode-presentation {
+
+    span {
+        display: block;
+    }
+}
+
+.news-more {
+    background: url('../img/news_more_details.png') no-repeat;
+    height: 73px;
+}
+
+.row.news {
+    margin: 1em 0;
+}
+
+.content-block {
+    margin: 1em 0;
+}
+
+/*form p label {
     display: block;
 }
 
 #signup-form .subchoices {
     margin-left: 2em;
+}*/
+
+/* Footer styling */
+footer {
+
+    background: url('../img/header_background.png') repeat;
+    font-size: 0.9em;
+
+    span, a {
+        color: white;
+    }
+
+    a:hover {
+        color: white;
+        border-bottom: 3px solid black;
+    }
+
+    .links {
+        li {
+            padding: 0.2em 0;
+
+            &:before {
+                content: url('../img/list_triangle.png');
+            }
+        }
+
+        a {
+            margin-left: 0.5em;
+        }
+    }
+
+    .other-links {
+
+        padding-top: 1em;
+        padding-bottom: 1em;
+        background-color: rgba(255, 255, 255, 0.1);
+        
+        li {
+            display: inline-block;
+
+            & + li {
+
+                margin-left: 0;
+
+                a {
+                    margin-left: 0.6em;
+                }
+
+                &:before {
+                    content: "|";
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .row {
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+}
+
+#footer-logo {
+    margin: 0.5em 3em 0 3em;
 }
