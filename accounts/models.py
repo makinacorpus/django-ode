@@ -7,6 +7,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core import mail
 from django.conf import settings
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -67,11 +68,12 @@ class User(AbstractUser):
         return self.confirmation_code
 
     def send_confirmation_email(self, confirmation_url):
+        message = render_to_string(
+            'accounts/email_activation.html',
+            {'confirm_link': confirmation_url})
         mail.send_mail(
-            subject='Veuillez confirmer votre adresse email',
-            message="""
-            Veuillez cliquer sur ce lien de confirmation: {}
-            """.format(confirmation_url),
+            subject="Ouverture d'un compte sur www.opendataevents.fr",
+            message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[self.email],
             fail_silently=False)
