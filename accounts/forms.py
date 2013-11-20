@@ -1,11 +1,19 @@
 # -*- encoding: utf-8 -*-
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
 from accounts.models import User
 from accounts import widgets as custom_widgets
 from accounts import fields
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+
+    username = forms.CharField(max_length=254,
+                               widget=custom_widgets.TextInput)
+    password = forms.CharField(label=_("Password"),
+                               widget=custom_widgets.PasswordInput)
 
 
 class SignupForm(UserCreationForm):
