@@ -35,9 +35,13 @@
     {% if user.organization.is_consumer %}
     <div class="organization-type-details">
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_media %}
+      {% include 'accounts/checkbox_field.html' with field=form.organization_media_url %}
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_website %}
+      {% include 'accounts/checkbox_field.html' with field=form.organization_website_url %}
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_mobile_app %}
+      {% include 'accounts/checkbox_field.html' with field=form.organization_mobile_app_name %}
       {% include 'accounts/checkbox_field.html' with field=form.organization_is_other %}
+      {% include 'accounts/checkbox_field.html' with field=form.organization_other_details %}
     </div>
     {% endif %}
     {% include 'accounts/field.html' with field=form.organization_type %}
