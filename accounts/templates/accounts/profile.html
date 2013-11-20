@@ -47,6 +47,14 @@
     {% include 'accounts/field.html' with field=form.organization_town %}
     {% include 'accounts/field.html' with field=form.organization_url %}
     {% include 'accounts/field.html' with field=form.organization_activity_field %}
+  </fieldset>
+  <fieldset>
+    <legend>{% trans 'Contact / référent ODE' %}</legend>
+    {% include 'accounts/field.html' with field=form.last_name %}
+    {% include 'accounts/field.html' with field=form.first_name %}
+    {% include 'accounts/field.html' with field=form.email %}
+    {% include 'accounts/field.html' with field=form.phone_number %}
+  </fieldset>
   <fieldset>
     <legend>{% trans 'Infos générales événements' %}</legend>
     <p>{% trans 'À renseigner si applicable à tous vos événements' %}</p>

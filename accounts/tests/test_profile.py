@@ -14,10 +14,12 @@ class TestProfile(LoginTestMixin, TestCase):
             'email': 'bob@example.com',
             'phone_number': '123456789',
         }
-        params.update(required_params)
-        return self.client.post('/accounts/profile/', params, follow=True)
+        required_params.update(params)
+        return self.client.post('/accounts/profile/', required_params,
+                                follow=True)
 
-    def _test_update_char_field(self, field_name, value, login=True):
+    def _test_update_organization_char_field(self, field_name, value,
+                                             login=True):
         if login:
             self.login(username='bob')
 
@@ -26,11 +28,21 @@ class TestProfile(LoginTestMixin, TestCase):
         user = User.objects.get(username='bob')
         self.assertEqual(getattr(user.organization, field_name), value)
 
+    def _test_update_char_field(self, field_name, value, login=True):
+        if login:
+            self.login(username='bob')
+
+        self.post_with_required_params({field_name: value})
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(getattr(user, field_name), value)
+
     def _test_update_char_field_as_consumer(self, field_name, value):
         user = self.login(username='bob')
         user.organization.is_consumer = True
         user.organization.save()
-        self._test_update_char_field(field_name, value, login=False)
+        self._test_update_organization_char_field(field_name, value,
+                                                  login=False)
 
     def _test_update_boolean_field(self, model_field, login=True):
         if login:
@@ -54,10 +66,19 @@ class TestProfile(LoginTestMixin, TestCase):
     def _test_update_boolean_field_as_consumer(self, model_field):
         self._test_update_boolean_field_as(model_field, flag='is_consumer')
 
-    def _test_prefilled_field(self, field_name, value):
+    def _test_prefilled_organization_field(self, field_name, value):
         self.login(username='bob')
         setattr(self.user.organization, field_name, value)
         self.user.organization.save()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, value)
+
+    def _test_prefilled_field(self, field_name, value):
+        self.login(username='bob')
+        setattr(self.user, field_name, value)
+        self.user.save()
 
         response = self.client.get('/accounts/profile/')
 
@@ -114,7 +135,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertContains(response, 'correspondent pas')
 
     def test_edit_price_information(self):
-        self._test_prefilled_field('price_information', u"1,50 €")
+        self._test_prefilled_organization_field('price_information', u"1,50 €")
 
     def test_update_price_information(self):
         self.login(username='bob')
@@ -129,22 +150,46 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertContains(response, u'avec succès')
 
     def test_edit_audience(self):
-        self._test_prefilled_field('audience', u"Children")
+        self._test_prefilled_organization_field('audience', u"Children")
 
     def test_update_audience(self):
-        self._test_update_char_field('audience', u'Children')
+        self._test_update_organization_char_field('audience', u'Children')
 
     def test_edit_capacity(self):
-        self._test_prefilled_field('capacity', u"42")
+        self._test_prefilled_organization_field('capacity', u"42")
 
     def test_update_capacity(self):
-        self._test_update_char_field('capacity', u'42')
+        self._test_update_organization_char_field('capacity', u'42')
+
+    def test_edit_main_contact_last_name(self):
+        self._test_prefilled_field('last_name', 'Dupont')
+
+    def test_update_main_contact_last_name(self):
+        self._test_update_char_field('last_name', 'Dupont')
+
+    def test_edit_main_contact_first_name(self):
+        self._test_prefilled_field('first_name', u'Éric')
+
+    def test_edit_main_contact_email(self):
+        self._test_prefilled_field('email', u'bob@example.com')
+
+    def test_update_main_contact_email(self):
+        self._test_update_char_field('email', u'bob@example.com')
+
+    def test_edit_main_contact_phone_number(self):
+        self._test_prefilled_field('phone_number', u'1234567890')
+
+    def test_update_main_contact_phone_number(self):
+        self._test_update_char_field('phone_number', u'1234567890')
+
+    def test_update_main_contact_first_name(self):
+        self._test_update_char_field('first_name', u'Éric')
 
     def test_edit_activity_field(self):
-        self._test_prefilled_field('activity_field', u"Théatre")
+        self._test_prefilled_organization_field('activity_field', u"Théatre")
 
     def test_update_activity_field(self):
-        self._test_update_char_field('activity_field', u'Théatre')
+        self._test_update_organization_char_field('activity_field', u'Théatre')
 
     def test_update_media_url(self):
         self._test_update_char_field_as_consumer('media_url',
