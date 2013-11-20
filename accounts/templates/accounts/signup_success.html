@@ -1,10 +1,16 @@
 {% extends "accounts/base.html" %}
 
+{% load i18n %}
+
 {% block content %}
-Un email de confirmation vous a été envoyé.
-{% if request.GET.is_provider %}
-Lorsque vous aurez confirmé votre inscription, un modérateur se chargera de la valider.
-{% endif %}
+<h1>{% trans "Votre inscription a été prise en compte" %}</h1>
+
+<div class="alert alert-info">
+	<span>{% trans "Un email de confirmation vous a été envoyé." %}</span>
+	{% if request.GET.is_provider %}
+		<span>{% trans "Lorsque vous aurez confirmé votre inscription, un modérateur se chargera de la valider."%}</span>
+	{% endif %}
+</div>
 {% endblock %}
 
 
