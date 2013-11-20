@@ -10,6 +10,12 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 
+class Contact(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(blank=True)
+    phone_number = models.CharField(max_length=50, blank=True)
+
+
 class Organization(models.Model):
     TYPES = (
         ('enterprise', 'Entreprise'),
@@ -42,11 +48,34 @@ class Organization(models.Model):
     website_url = models.URLField(blank=True)
     mobile_app_name = models.CharField(max_length=100, blank=True)
     other_details = models.CharField(max_length=100, blank=True)
+    ticket_contact = models.ForeignKey(Contact, null=True,
+                                       related_name='ticket_organization')
+    press_contact = models.ForeignKey(Contact, null=True,
+                                      related_name='press_organization')
+    CONTACT_TYPES = ('ticket_contact', 'press_contact')
+
+    def update_contact_field(self, form_name, cleaned_data):
+        for contact_type in self.CONTACT_TYPES:
+            prefix = 'organization_{}_'.format(contact_type)
+            if form_name.startswith(prefix):
+                model_name = form_name.replace(prefix, '')
+                contact = getattr(self, contact_type)
+                setattr(contact, model_name, cleaned_data[form_name])
+                return True
 
     def update(self, cleaned_data):
+        for contact_type in self.CONTACT_TYPES:
+            if not getattr(self, contact_type):
+                setattr(self, contact_type, Contact.objects.create())
+
         for form_name in cleaned_data:
+            if self.update_contact_field(form_name, cleaned_data):
+                continue
             model_name = form_name.replace('organization_', '')
             setattr(self, model_name, cleaned_data[form_name])
+
+        self.ticket_contact.save()
+        self.press_contact.save()
         self.save()
 
 

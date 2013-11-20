@@ -109,6 +109,13 @@ class ProfileView(UpdateView):
     def get_initial(self):
         initial = super(ProfileView, self).get_initial()
         user = self.get_object()
+        organization = user.organization
         for name in self.organization_fields:
-            initial['organization_' + name] = getattr(user.organization, name)
+            initial['organization_' + name] = getattr(organization, name)
+        for contact_type in Organization.CONTACT_TYPES:
+            for attr in ('name', 'email', 'phone_number'):
+                if getattr(organization, contact_type):
+                    contact = getattr(organization, contact_type)
+                    field = 'organization_{}_{}'.format(contact_type, attr)
+                    initial[field] = getattr(contact, attr)
         return initial

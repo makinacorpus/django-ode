@@ -2,7 +2,7 @@
 from django.test import TestCase
 
 from accounts.tests.base import LoginTestMixin
-from accounts.models import User
+from accounts.models import User, Contact
 
 
 class TestProfile(LoginTestMixin, TestCase):
@@ -83,6 +83,26 @@ class TestProfile(LoginTestMixin, TestCase):
         response = self.client.get('/accounts/profile/')
 
         self.assertContains(response, value)
+
+    def _test_edit_contact(self, contact_type, field, value):
+        user = self.login(username='bob')
+        setattr(user.organization, contact_type,
+                Contact.objects.create(**{field: value}))
+        user.organization.save()
+
+        response = self.client.get('/accounts/profile/')
+
+        self.assertContains(response, value)
+
+    def _test_update_contact(self, contact_type, field, value):
+        self.login(username='bob')
+
+        field_name = '{}_{}_{}'.format('organization', contact_type, field)
+        self.post_with_required_params({field_name: value})
+
+        organization = User.objects.get(username='bob').organization
+        contact = getattr(organization, contact_type)
+        self.assertEqual(getattr(contact, field), value)
 
     def test_login_required(self):
         response = self.client.get('/accounts/profile/')
@@ -187,6 +207,49 @@ class TestProfile(LoginTestMixin, TestCase):
 
     def test_edit_activity_field(self):
         self._test_prefilled_organization_field('activity_field', u"Théatre")
+
+    def test_edit_ticket_contact_name(self):
+        self._test_edit_contact('ticket_contact', 'name', value=u'Bob Smith')
+
+    def test_update_ticket_contact_name(self):
+        self._test_update_contact('ticket_contact', 'name', u'Alice Robert')
+
+    def test_edit_ticket_contact_email(self):
+        self._test_edit_contact('ticket_contact', 'email',
+                                value=u'bob@example.com')
+
+    def test_update_ticket_contact_email(self):
+        self._test_update_contact('ticket_contact', 'email',
+                                  u'bob@example.com')
+
+    def test_edit_ticket_contact_phone_number(self):
+        self._test_edit_contact('ticket_contact', 'phone_number',
+                                value=u'1234556678')
+
+    def test_update_ticket_contact_phone_number(self):
+        self._test_update_contact('ticket_contact', 'phone_number',
+                                  u'1234556678')
+
+    def test_edit_press_contact_name(self):
+        self._test_edit_contact('press_contact', 'name', value=u'Bob Smith')
+
+    def test_update_press_contact_name(self):
+        self._test_update_contact('press_contact', 'name', u'Alice Robert')
+
+    def test_edit_press_contact_email(self):
+        self._test_edit_contact('press_contact', 'email',
+                                value=u'bob@example.com')
+
+    def test_update_press_contact_email(self):
+        self._test_update_contact('press_contact', 'email', u'bob@example.com')
+
+    def test_edit_press_contact_phone_number(self):
+        self._test_edit_contact('press_contact', 'phone_number',
+                                value=u'1234556678')
+
+    def test_update_press_contact_phone_number(self):
+        self._test_update_contact('press_contact', 'phone_number',
+                                  u'1234556678')
 
     def test_update_activity_field(self):
         self._test_update_organization_char_field('activity_field', u'Théatre')
@@ -298,7 +361,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertFalse(organization.is_performer)
         self.assertFalse(organization.is_creator)
 
-    def test_cannot_selec_consumer_type_if_not_consumer(self):
+    def test_cannot_select_consumer_type_if_not_consumer(self):
         self.login()
 
         self.post_with_required_params({
@@ -312,3 +375,11 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertFalse(organization.is_website)
         self.assertFalse(organization.is_mobile_app)
         self.assertFalse(organization.is_other)
+
+    def test_ticket_contact(self):
+        user = self.login()
+        user.organization.ticket_contact = Contact.objects.create(name=u'Bob')
+        user.organization.save()
+
+        user = User.objects.get(username='bob')
+        self.assertEqual(user.organization.ticket_contact.name, u'Bob')

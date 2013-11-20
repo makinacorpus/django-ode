@@ -177,11 +177,23 @@ class ProfileForm(OrganizationValidationMixin, forms.ModelForm):
     organization_other_details = fields.StandardCharField(label="")
     organization_mobile_app_name = fields.StandardCharField(label="")
 
-    # Infos générales événements
     organization_price_information = fields.StandardCharField(label=_("Tarif"))
     organization_audience = fields.StandardCharField(label=_("Public"))
     organization_capacity = fields.StandardCharField(
         label=_(u"Capacité de la salle"))
+
+    organization_ticket_contact_name = fields.StandardCharField(
+        label=_(u"Nom"))
+    organization_ticket_contact_email = fields.StandardCharField(
+        label=_(u"Email"))
+    organization_ticket_contact_phone_number = fields.StandardCharField(
+        label=_(u"Téléphone"))
+    organization_press_contact_name = fields.StandardCharField(
+        label=_(u"Nom"))
+    organization_press_contact_email = fields.StandardCharField(
+        label=_(u"Email"))
+    organization_press_contact_phone_number = fields.StandardCharField(
+        label=_(u"Téléphone"))
 
     def __init__(self, user, *args, **kwargs):
         self.user = user

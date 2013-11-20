@@ -62,8 +62,16 @@
     {% include 'accounts/field.html' with field=form.organization_audience %}
     {% include 'accounts/field.html' with field=form.organization_capacity %}
   </fieldset>
+  <fieldset>
+    <legend>{% trans 'Contact Billeterie' %}</legend>
+    {% include 'accounts/field.html' with field=form.organization_ticket_contact_name %}
+    {% include 'accounts/field.html' with field=form.organization_ticket_contact_email %}
+    {% include 'accounts/field.html' with field=form.organization_ticket_contact_phone_number %}
+    <legend>{% trans 'Contact Presse' %}</legend>
+    {% include 'accounts/field.html' with field=form.organization_press_contact_name %}
+    {% include 'accounts/field.html' with field=form.organization_press_contact_email %}
+    {% include 'accounts/field.html' with field=form.organization_press_contact_phone_number %}
+  </fieldset>
   <button type="submit" class="btn btn-default">{% trans 'Sauvegarder' %}</button>
 </form>
 {% endblock %}
-
-
