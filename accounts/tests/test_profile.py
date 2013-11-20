@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+import os
+
 from django.test import TestCase
 
 from accounts.tests.base import LoginTestMixin
@@ -383,3 +385,20 @@ class TestProfile(LoginTestMixin, TestCase):
 
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization.ticket_contact.name, u'Bob')
+
+    def test_update_picture(self):
+        self.login()
+        here = os.path.abspath(os.path.dirname(__file__))
+        filename = os.path.join(here, 'data', 'site_logo.png')
+        with open(filename, 'rb') as fp:
+            self.post_with_required_params({
+                'organization_picture': fp,
+            })
+        user = User.objects.get(username='bob')
+        self.assertTrue(user.organization.picture.name.endswith('.png'))
+
+    def test_edit_picture(self):
+        self.login()
+        response = self.client.get('/accounts/profile/')
+        self.assertContains(response, 'organization_picture')
+        self.assertContains(response, '<img alt="Photo profil"')

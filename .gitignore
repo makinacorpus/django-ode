@@ -43,3 +43,6 @@ tags
 
 # Generated CSS
 static/css/style.css
+
+# User uploaded media
+media

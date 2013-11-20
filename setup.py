@@ -13,6 +13,7 @@ requires = [
     'requests==2.0.1',
     'django-pipeline==1.3.15',
     'django-extensions==1.2.5',
+    'Pillow==2.2.1',
 ]
 
 setup(

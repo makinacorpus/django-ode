@@ -2,11 +2,13 @@
 
 {% load url from future %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block head_title %}Profil{% endblock %}
 
 {% block content %}
 <form id="signup-form" class="signup form-horizontal" method="post"
+      enctype='multipart/form-data'
       action="{% url 'accounts:profile' %}">
   {% csrf_token %}
   {% if form.non_field_errors %}
@@ -18,6 +20,11 @@
     <legend>{% trans 'Connexion' %}</legend>
     {% include 'accounts/field.html' with field=form.password1 %}
     {% include 'accounts/field.html' with field=form.password2 %}
+  </fieldset>
+  <fieldset>
+    <legend>{% trans 'Photo profil' %}</legend>
+    <img alt="Photo profil" src="{% if user.organization.picture %}{{MEDIA_URL}}/{{ user.organization.picture }}{% else %}{% static "img/profile_picture_placeholder.png" %}{% endif %}">
+    {% include 'accounts/field.html' with field=form.organization_picture %}
   </fieldset>
   <fieldset>
     <legend>{% trans 'Infos structure' %}</legend>

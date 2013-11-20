@@ -89,6 +89,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",

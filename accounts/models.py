@@ -25,6 +25,7 @@ class Organization(models.Model):
     )
 
     name = models.CharField(max_length=100, blank=True)
+    picture = models.ImageField(upload_to="organization/profile_picture")
     activity_field = models.CharField(max_length=50, blank=True,
                                       verbose_name=_(u"Domaine d'activité"))
     price_information = models.CharField(max_length=100, blank=True)
