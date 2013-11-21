@@ -118,7 +118,7 @@ class TestProfile(LoginTestMixin, TestCase):
         response = self.client.get('/accounts/profile/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '<form')
-        self.assertContains(response, '<legend>Connexion</legend>')
+        self.assertContains(response, '<legend>CONNEXION</legend>')
         self.assertContains(response, 'password1')
 
     def test_change_password_success(self):
