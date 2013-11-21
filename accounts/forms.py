@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
@@ -49,6 +49,14 @@ class OrganizationValidationMixin(object):
 
     def clean_organization_other_details(self):
         return self.ensure_consumer('organization_other_details', default='')
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+
+    username = forms.CharField(max_length=254,
+                               widget=custom_widgets.TextInput)
+    password = forms.CharField(label=_("Password"),
+                               widget=custom_widgets.PasswordInput)
 
 
 class SignupForm(OrganizationValidationMixin, UserCreationForm):
