@@ -83,10 +83,12 @@ class ProfileView(UpdateView):
 
     template_name = 'accounts/profile.html'
     form_class = ProfileForm
-    success_url = '/'
     organization_fields = Organization._meta.get_all_field_names()
     organization_fields.remove('id')
     organization_fields.remove('user')
+
+    def get_success_url(self):
+        return reverse('accounts:profile')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -103,7 +105,7 @@ class ProfileView(UpdateView):
     def form_valid(self, form):
         organization = self.get_object().organization
         organization.update(form.cleaned_data)
-        messages.success(self.request, _(u"Profile sauvegardé avec succès"))
+        messages.success(self.request, _(u"Profil sauvegardé avec succès"))
         return super(ProfileView, self).form_valid(form)
 
     def get_initial(self):
