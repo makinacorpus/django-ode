@@ -65,6 +65,7 @@ class EmailConfirmationView(TemplateView):
         try:
             user = User.objects.get(confirmation_code=confirmation_code)
             if user.organization.is_provider:
+                self.account_is_provider = True
                 self.send_moderation_request_email(user)
             else:
                 self.activate_user(user)

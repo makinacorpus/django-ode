@@ -9,13 +9,15 @@ from accounts.models import Organization
 
 class TestEmailConfirmation(TestCase):
 
-    def test_email_confirmation_success(self):
+    def test_consumer_only_email_confirmation_success(self):
         User.objects.create(username='bob', confirmation_code='s3cr3t',
                             organization=Organization.objects.create())
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 
         self.assertContains(response, 'succès')
+        self.assertNotContains(response, 'validation')
+
         user = User.objects.get(username='bob')
         self.assertTrue(user.is_active,
                         "User should now be activated")
@@ -28,6 +30,8 @@ class TestEmailConfirmation(TestCase):
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 
         self.assertContains(response, 'succès')
+        self.assertContains(response, 'validation')
+
         user = User.objects.get(username='bob')
         self.assertFalse(user.is_active,
                          "Providers shouldn't get activated automatically.")
