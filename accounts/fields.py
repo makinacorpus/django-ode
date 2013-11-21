@@ -41,7 +41,7 @@ class OrganizationTypeField(forms.ChoiceField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('choices', Organization.TYPES)
         kwargs.setdefault('required', False)
-        kwargs.setdefault('label', ' ')
+        kwargs.setdefault('label', _(u"Type de structure"))
         kwargs.setdefault('widget', custom_widgets.Select)
         super(OrganizationTypeField, self).__init__(*args, **kwargs)
 
