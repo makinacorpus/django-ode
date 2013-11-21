@@ -3,6 +3,7 @@
 {% load url from future %}
 {% load i18n %}
 {% load staticfiles %}
+{% load thumbnail %}
 
 {% block head_title %}Profil{% endblock %}
 
@@ -23,7 +24,7 @@
   </fieldset>
   <fieldset>
     <legend>{% trans 'Photo profil' %}</legend>
-    <img width="100" height="100" alt="Photo profil" src="{% if user.organization.picture and user.organization.picture != 'False' %}{{MEDIA_URL}}/{{ user.organization.picture }}{% else %}{% static "img/profile_picture_placeholder.png" %}{% endif %}">
+    <img alt="Photo profil" src="{% if user.organization.picture and user.organization.picture != 'False' %}{% thumbnail user.organization.picture 100x100 %}{% else %}{% static "img/profile_picture_placeholder.png" %}{% endif %}">
     {% include 'accounts/field.html' with field=form.organization_picture %}
   </fieldset>
   <fieldset>

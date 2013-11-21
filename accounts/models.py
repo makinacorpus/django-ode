@@ -109,4 +109,4 @@ class User(AbstractUser):
 # Override attributes of fields defined in AbstractUser
 User._meta.get_field('is_active').default = False
 User._meta.get_field('email').blank = False
-User._meta.get_field('email').verbose_name = _("Email ")
+User._meta.get_field('email').verbose_name = _(u"Email ")

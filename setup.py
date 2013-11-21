@@ -14,6 +14,7 @@ requires = [
     'django-pipeline==1.3.15',
     'django-extensions==1.2.5',
     'Pillow==2.2.1',
+    'easy-thumbnails==1.4',
 ]
 
 setup(
