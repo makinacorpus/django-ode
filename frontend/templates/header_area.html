@@ -26,9 +26,18 @@
     <div class="row">
       <nav class="main-nav logged col-md-12">
         <ul>
-          <li><a href="#">{% trans "Mes événements" %}</a></li>
-          <li><a href="#">{% trans "Mes sources" %}</a></li>
+          <li><a href="#">{% trans "Événements" %}</a></li>
+          {% if user.organization.is_provider or user.is_superuser %}
           <li><a href="#">{% trans "Créer" %}</a></li>
+          <li><a href="#">{% trans "Importer" %}</a></li>
+          <li><a href="#">{% trans "Exporter" %}</a></li>
+          <li><a href="#">{% trans "Réutilisateurs" %}</a></li>
+          {% endif %}
+          {% if user.organization.is_consumer or user.is_superuser %}
+          <li><a href="#">{% trans "Fournisseurs" %}</a></li>
+          <li><a href="#">{% trans "Webservices" %}</a></li>
+          <li><a href="#">{% trans "Télécharger" %}</a></li>
+          {% endif %}
         </ul>
       </nav>
     </div>

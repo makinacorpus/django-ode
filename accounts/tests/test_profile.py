@@ -279,7 +279,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertFalse(user.organization.is_provider)
 
     def test_update_is_consumer_has_no_effect(self):
-        self.login(username='bob')
+        self.login_as_provider(username='bob')
 
         self.post_with_required_params({'organization_is_consumer': u'on'})
 
@@ -340,7 +340,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertContains(response, u"Autre")
 
     def test_non_consumer_cannot_see_event_creator_checkbox(self):
-        self.login()
+        self.login_as_provider()
 
         response = self.client.get('/accounts/profile/')
 
@@ -364,7 +364,7 @@ class TestProfile(LoginTestMixin, TestCase):
         self.assertFalse(organization.is_creator)
 
     def test_cannot_select_consumer_type_if_not_consumer(self):
-        self.login()
+        self.login_as_provider()
 
         self.post_with_required_params({
             'organization_is_media': 'on',
