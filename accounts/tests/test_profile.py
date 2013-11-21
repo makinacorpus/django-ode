@@ -386,19 +386,38 @@ class TestProfile(LoginTestMixin, TestCase):
         user = User.objects.get(username='bob')
         self.assertEqual(user.organization.ticket_contact.name, u'Bob')
 
-    def test_update_picture(self):
-        self.login()
+    def _post_picture(self, filename='site_logo.png'):
         here = os.path.abspath(os.path.dirname(__file__))
-        filename = os.path.join(here, 'data', 'site_logo.png')
+        filename = os.path.join(here, 'data', filename)
         with open(filename, 'rb') as fp:
             self.post_with_required_params({
                 'organization_picture': fp,
             })
+
+    def test_update_picture(self):
+        self.login()
+        self._post_picture()
         user = User.objects.get(username='bob')
         self.assertTrue(user.organization.picture.name.endswith('.png'))
 
-    def test_edit_picture(self):
+    def test_edit_picture_no_profile_picutre_set(self):
         self.login()
         response = self.client.get('/accounts/profile/')
-        self.assertContains(response, 'organization_picture')
-        self.assertContains(response, '<img alt="Photo profil"')
+        self.assertContains(response, 'profile_picture_placeholder.png')
+
+    def test_edit_picture_profile_picutre_set(self):
+        self.login()
+        self._post_picture('site_logo.png')
+        response = self.client.get('/accounts/profile/')
+        self.assertContains(response, 'site_logo.png')
+
+    def test_delete_picture(self):
+        self.login()
+        self.post_with_required_params({
+            'organization_picture-clear': 'on',
+        })
+        response = self.client.get('/accounts/profile/')
+        self.assertContains(response, 'profile_picture_placeholder.png')
+        self.assertNotContains(
+            response, 'Actuellement:',
+            msg_prefix="We don't want to display the existing file URL")
