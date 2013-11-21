@@ -58,6 +58,9 @@ class User(AbstractUser):
                                     verbose_name=_(u"Téléphone"))
     confirmation_code = models.CharField(max_length=40)
 
+    # This field is only used to know if its first user inscription
+    first_inscription = models.BooleanField(default=True, editable=False)
+
     def generate_confirmation_code(self):
         source = "{}:{}:{}".format(
             time.time(),
@@ -72,11 +75,36 @@ class User(AbstractUser):
             'accounts/email_activation.html',
             {'confirm_link': confirmation_url})
         mail.send_mail(
-            subject="Ouverture d'un compte sur www.opendataevents.fr",
+            subject=_(u"Ouverture d'un compte sur www.opendataevents.fr"),
             message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[self.email],
             fail_silently=False)
+
+    def save(self, *args, **kwargs):
+
+        super(User, self).save(*args, **kwargs)
+
+        if self.organization:
+            user_is_prov = self.organization.is_provider
+
+            # This case manage the first admin manual activation
+            # for provider inscription
+            # In that case, we send an email to provider, so that he can
+            # know that its inscription is validated
+            if self.first_inscription and self.is_active and user_is_prov:
+                self.first_inscription = False
+                message = render_to_string(
+                    'accounts/email_provider_validation.html')
+                sub = _(u"Votre compte a été validé sur www.opendataevents.fr")
+                mail.send_mail(
+                    subject=sub,
+                    message=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[self.email],
+                    fail_silently=False)
+                self.save()
+
 
 # Override attributes of fields defined in AbstractUser
 User._meta.get_field('is_active').default = False

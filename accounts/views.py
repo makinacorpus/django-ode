@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
 from accounts.forms import SignupForm, ProfileForm
@@ -54,9 +55,12 @@ class EmailConfirmationView(TemplateView):
     def send_moderation_request_email(self, user):
         path = reverse('admin:accounts_user_change', args=(user.id, ))
         url = self.request.build_absolute_uri(path)
+
+        tpl_name = 'accounts/email_admin_provider_validation.html'
+        message = render_to_string(tpl_name, {'prov_validation_url': url})
         mail.send_mail(
-            subject=u"Nouveau fournisseur de données",
-            message=u"Validez ce fournisseur: %s" % url,
+            subject=_(u"Nouveau fournisseur de données"),
+            message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=settings.ACCOUNTS_MODERATOR_EMAILS,
             fail_silently=False)

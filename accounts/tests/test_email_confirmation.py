@@ -43,6 +43,34 @@ class TestEmailConfirmation(TestCase):
         self.assertIn('http://testserver/admin/accounts/user/%s/' % user.pk,
                       email.body)
 
+    def test_send_provider_account_validation_email(self):
+        user = User.objects.create(
+            username='bob', confirmation_code='s3cr3t', email="bob@mc.com",
+            organization=Organization.objects.create(is_provider=True))
+
+        response = self.client.get('/accounts/confirm_email/s3cr3t/')
+        self.assertContains(response, 'succès')
+
+        # There are 2 mails in outbox
+
+        # First one to tell admin to validate newly provider created account
+        self.assertEqual(
+            len(mail.outbox), 1,
+            "Email should get sent to moderator")
+
+        user.is_active = True
+        user.save()
+
+        # Second one sent when activating user via django admin
+        self.assertEqual(
+            len(mail.outbox), 2,
+            "User must be notified that its provider account is validated.")
+
+        email = mail.outbox[1]
+        self.assertEqual(email.recipients(),
+                         [user.email])
+        self.assertIn(u'Votre compte fournisseur a été validé', email.body)
+
     def test_email_confirmation_error(self):
         User.objects.create(username='bob', confirmation_code='s3cr3t',
                             organization=Organization.objects.create())
