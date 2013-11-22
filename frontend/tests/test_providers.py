@@ -2,6 +2,7 @@
 
 import json
 
+from django.utils.encoding import force_text
 from django.test import TestCase
 
 from accounts.models import User, Organization
@@ -29,7 +30,7 @@ class TestProviders(LoginTestMixin, TestCase):
 
         response = self.client.get('/provider_json_list/')
 
-        response_json = json.loads(str(response.content, encoding='UTF-8'))
+        response_json = json.loads(force_text(response.content))
 
         # aaData is Datatable mandatory key for displayed data
         self.assertIn('aaData', response_json.keys())
