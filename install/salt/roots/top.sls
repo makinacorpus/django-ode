@@ -10,3 +10,5 @@ base:
     - python3
     - ode_user
     - git_repository
+    - database_user
+    - database
