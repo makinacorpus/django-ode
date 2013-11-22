@@ -3,12 +3,13 @@
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from django_datatables_view.base_datatable_view import BaseDatatableView
+from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 
 from accounts.models import Organization
+from frontend.views.base import LoginRequiredMixin
 
 
-class ProviderListView(TemplateView):
+class ProviderListView(LoginRequiredMixin, TemplateView):
     template_name = 'provider_list.html'
     column_labels = [_(u'Nom'), _(u"Type"),
                      _(u"Activité"), _(u"Ville")]
@@ -22,11 +23,11 @@ class ProviderListView(TemplateView):
         return context
 
 
-class ProviderJsonListView(BaseDatatableView):
+class ProviderJsonListView(LoginRequiredMixin, BaseDatatableView):
     model = Organization
     columns = ['name', 'type', 'activity_field', 'town']
     order_columns = ['name', 'type', 'activity_field', 'town']
 
-    #def get_initial_queryset(self):
-#
- #       return self.model.objects.filter(is_provider=True).all()
+    def get_initial_queryset(self):
+
+        return self.model.objects.filter(is_provider=True).all()
