@@ -15,8 +15,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "https://dl.dropboxusercontent.com/s/xymcvez85i29lym/vagrant-debian-wheezy64.box"
-  config.vm.provision :shell, :path => "install/bootstrap.sh"
   config.vm.network :forwarded_port, host: 8080, guest: 80
+  config.vm.synced_folder "install/salt/roots/", "/srv/salt/"
+  config.vm.provision :shell, :path => "install/salt/bootstrap.sh"
+  config.vm.provision :salt do |salt|
+    salt.minion_config = "install/salt/minion"
+    salt.run_highstate = true
+  end
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
