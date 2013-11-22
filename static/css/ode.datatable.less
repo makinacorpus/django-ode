@@ -1,5 +1,6 @@
 @import "lesshat.less";
 
+
 @table-border-radius: 10px;
 .datatable-listing {
 
@@ -15,6 +16,7 @@
     th {
         color: white;
         background-color: #363339;
+        cursor: pointer;
     
         &.sorting:after, &.sorting_desc:after, &.sorting_asc:after {
             background-image: url('../img/sprite_datatable_sort_icons.png');
@@ -115,5 +117,45 @@
 }
 
 .dataTables_paginate {
+
     float: right;
+
+    & > a, span {
+        margin: 0 5px;
+        display: inline-block;
+        cursor: pointer;
+
+        /* Used to avoid display bug with .test-hide bootstrap class */
+        line-height: 30px;
+    }
+
+    & > a {
+
+        width: 20px;
+        height: 20px;
+
+        &.first, &.previous, &.next, &.last {
+            background-image: url('../img/sprite_datatable_pagination_icons.png');
+            background-repeat: no-repeat;
+        }
+
+        &.first {
+            background-position: 0px 0px;
+        }
+        &.previous {
+            background-position: -20px 0px;
+        }
+        &.next {
+            background-position: -40px 0px;
+        }
+        &.last {
+            background-position: -60px 0px;
+        }
+    }
+
+    span a {
+        border: 1px solid #808080;
+        color: #808080;
+        padding: 0.2em 0.4em;
+    }
 }
