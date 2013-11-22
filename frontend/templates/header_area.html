@@ -34,7 +34,7 @@
           <li><a href="#">{% trans "Réutilisateurs" %}</a></li>
           {% endif %}
           {% if user.organization.is_consumer or user.is_superuser %}
-          <li><a href="#">{% trans "Fournisseurs" %}</a></li>
+          <li><a href="{% url 'provider_list' %}">{% trans "Fournisseurs" %}</a></li>
           <li><a href="#">{% trans "Webservices" %}</a></li>
           <li><a href="#">{% trans "Télécharger" %}</a></li>
           {% endif %}

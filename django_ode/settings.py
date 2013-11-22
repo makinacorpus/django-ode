@@ -135,6 +135,8 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/jquery.js',
             'js/bootstrap.js',
+            'js/jquery.dataTables.js',
+            'js/ode.dataTables.js',
         ),
         'output_filename': 'js/scripts.js',
     }

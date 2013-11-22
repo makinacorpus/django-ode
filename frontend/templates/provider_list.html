@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<table class="datatable" data-source="{% url 'provider_json_list' %}">
+  <thead>
+    <tr>
+      {% for label in column_labels %}
+        <th>{{label}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for label in column_labels %}
+        <td></td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
