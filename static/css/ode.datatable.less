@@ -14,6 +14,23 @@
     th {
         color: white;
         background-color: #363339;
+    
+        &.sorting:after, &.sorting_desc:after, &.sorting_asc:after {
+            background-image: url('../img/sprite_datatable_sort_icons.png');
+            background-repeat: no-repeat;
+            content: "";
+            margin-left: 10px;
+            height: 20px;
+            position: absolute;
+            width: 20px;
+            background-position: 0px 0px;
+        }
+        &.sorting_desc:after {
+            background-position: -20px 0px;
+        }
+        &.sorting_asc:after {
+            background-position: -40px 0px;
+        }
     }
 
     tr {

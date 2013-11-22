@@ -15,6 +15,24 @@
   color: white;
   background-color: #363339;
 }
+.datatable-listing th.sorting:after,
+.datatable-listing th.sorting_desc:after,
+.datatable-listing th.sorting_asc:after {
+  background-image: url('../img/sprite_datatable_sort_icons.png');
+  background-repeat: no-repeat;
+  content: "";
+  margin-left: 10px;
+  height: 20px;
+  position: absolute;
+  width: 20px;
+  background-position: 0px 0px;
+}
+.datatable-listing th.sorting_desc:after {
+  background-position: -20px 0px;
+}
+.datatable-listing th.sorting_asc:after {
+  background-position: -40px 0px;
+}
 .datatable-listing tr.even td {
   background-color: white;
 }
