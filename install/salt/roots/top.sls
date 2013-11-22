@@ -9,3 +9,4 @@ base:
     - yuglify
     - python3
     - ode_user
+    - git_repository
