@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 
 from accounts.models import Organization
-from frontend.views.base import LoginRequiredMixin
+from .base import LoginRequiredMixin
 
 
 class ProviderListView(LoginRequiredMixin, TemplateView):
