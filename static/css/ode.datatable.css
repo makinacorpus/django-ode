@@ -1,0 +1,59 @@
+.datatable-listing {
+  border: 10px solid #363339;
+  border-collapse: separate;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 10px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tbody {
+  background-color: #363339;
+}
+.datatable-listing th {
+  color: white;
+  background-color: #363339;
+}
+.datatable-listing tr.even td {
+  background-color: white;
+}
+.datatable-listing tr.odd td {
+  background-color: #f2f2f2;
+}
+.datatable-listing tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-topleft: 10px;
+  -moz-background-clip: padding;
+  border-top-left-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-topright: 10px;
+  -moz-background-clip: padding;
+  border-top-right-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tr:last-child td:first-child {
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-bottomleft: 10px;
+  -moz-background-clip: padding;
+  border-bottom-left-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-bottomright: 10px;
+  -moz-background-clip: padding;
+  border-bottom-right-radius: 10px;
+  background-clip: padding-box;
+}
+/* Overwriting bootstrap theming */
+.table > thead > tr > th {
+  border-bottom: none;
+}

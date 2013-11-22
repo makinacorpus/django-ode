@@ -3,7 +3,7 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 
 +function ($) { "use strict";
 
-	$(document).find('.datatable').each(function() {
+	$(document).find('.datatable-listing').each(function() {
 
 		var datatable$ = $(this);
 	    

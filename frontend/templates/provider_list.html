@@ -3,7 +3,9 @@
 
 {% block content %}
 
-<table class="datatable" data-source="{% url 'provider_json_list' %}">
+<h1>{% trans "Liste des fournisseurs" %}</h1>
+
+<table class="datatable-listing table table-striped" data-source="{% url 'provider_json_list' %}">
   <thead>
     <tr>
       {% for label in column_labels %}
@@ -19,5 +21,6 @@
     </tr>
   </tbody>
 </table>
+
 
 {% endblock %}

@@ -120,7 +120,8 @@ PIPELINE_CSS = {
     'style': {
         'source_filenames': (
             'css/bootstrap.css',
-            'css/*.less',
+            'css/style.less',
+            'css/ode.datatable.less',
         ),
         'output_filename': 'css/style.css',
         'extra_context': {

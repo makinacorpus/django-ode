@@ -1,0 +1,58 @@
+@import "lesshat.less";
+
+@table-border-radius: 10px;
+.datatable-listing {
+
+    border: @table-border-radius solid #363339;
+    border-collapse: separate;
+    .border-radius(@table-border-radius);
+
+    tbody {
+        background-color: #363339;
+    }
+
+    th {
+        color: white;
+        background-color: #363339;
+    }
+
+    tr {
+
+        &.even td {
+            background-color: white;    
+        }
+
+        &.odd td {
+            background-color: #f2f2f2;
+        }
+
+        &:first-child {
+
+            td:first-child {
+                .border-top-left-radius(@table-border-radius);
+            }
+
+            td:last-child {
+                .border-top-right-radius(@table-border-radius);
+            }
+        }
+
+        &:last-child {
+
+            td:first-child {
+                .border-bottom-left-radius(@table-border-radius);
+            }
+
+            td:last-child {
+                .border-bottom-right-radius(@table-border-radius);
+            }
+        }       
+    }
+
+
+}
+
+/* Overwriting bootstrap theming */
+.table > thead > tr > th {
+    border-bottom: none;
+}
