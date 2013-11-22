@@ -6,6 +6,7 @@
     border: @table-border-radius solid #363339;
     border-collapse: separate;
     .border-radius(@table-border-radius);
+    margin-bottom: 0.5em;
 
     tbody {
         background-color: #363339;
@@ -30,6 +31,17 @@
         }
         &.sorting_asc:after {
             background-position: -40px 0px;
+        }
+
+        border-right: 1px solid #2c2c2c;
+        border-left: 1px solid #414141;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
         }
     }
 
@@ -72,4 +84,36 @@
 /* Overwriting bootstrap theming */
 .table > thead > tr > th {
     border-bottom: none;
+}
+
+
+.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 30px;
+    margin-left: -125px;
+    margin-top: -15px;
+    padding: 14px 0 2px 0;
+    border: 1px solid #ddd;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    background-color: white;
+}
+
+.dataTables_length {
+    text-align: right;
+}
+
+.dataTables_info {
+    display: inline-block;
+    color: #867A7E;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.dataTables_paginate {
+    float: right;
 }

@@ -15,6 +15,8 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 	        "bServerSide": true,
 	        "sAjaxSource": ajaxSource,
 	        "aaSorting": [[0, "desc"]],
+	        "bFilter": false,
+			"sPaginationType": "full_numbers",
 	    });
 	});
 

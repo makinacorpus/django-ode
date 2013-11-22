@@ -7,6 +7,7 @@
   -moz-background-clip: padding;
   border-radius: 10px;
   background-clip: padding-box;
+  margin-bottom: 0.5em;
 }
 .datatable-listing tbody {
   background-color: #363339;
@@ -14,6 +15,8 @@
 .datatable-listing th {
   color: white;
   background-color: #363339;
+  border-right: 1px solid #2c2c2c;
+  border-left: 1px solid #414141;
 }
 .datatable-listing th.sorting:after,
 .datatable-listing th.sorting_desc:after,
@@ -32,6 +35,12 @@
 }
 .datatable-listing th.sorting_asc:after {
   background-position: -40px 0px;
+}
+.datatable-listing th:first-child {
+  border-left: none;
+}
+.datatable-listing th:last-child {
+  border-right: none;
 }
 .datatable-listing tr.even td {
   background-color: white;
@@ -74,4 +83,31 @@
 /* Overwriting bootstrap theming */
 .table > thead > tr > th {
   border-bottom: none;
+}
+.dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 30px;
+  margin-left: -125px;
+  margin-top: -15px;
+  padding: 14px 0 2px 0;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background-color: white;
+}
+.dataTables_length {
+  text-align: right;
+}
+.dataTables_info {
+  display: inline-block;
+  color: #867A7E;
+  font-size: 0.8em;
+  font-style: italic;
+}
+.dataTables_paginate {
+  float: right;
 }
