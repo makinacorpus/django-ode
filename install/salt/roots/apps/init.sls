@@ -9,7 +9,19 @@
 /home/users/{{ app_name }}/env:
     virtualenv.managed:
         - no_site_packages: True
-        - runas: {{ app_name }}
+        - user: {{ app_name }}
         - requirements: /home/users/{{ app_name }}/{{ config['target'] }}/requirements.txt
 
 {% endfor %}
+
+circus.ini:
+    file.managed:
+        - name: /home/users/ode_frontend/django_ode/circus.ini
+        - source: salt://apps/circus.ini
+        - template: jinja
+
+ode_frontend_settings:
+    file.managed:
+        - name: /home/users/ode_frontend/django_ode/django_ode/settings/local.py
+        - source: salt://apps/local_settings.py
+        - template: jinja
