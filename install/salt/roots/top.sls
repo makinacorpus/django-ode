@@ -5,4 +5,4 @@ base:
     - asset_processors
     - users
     - database
-    - source_code
+    - apps
