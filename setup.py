@@ -7,15 +7,8 @@ with open(os.path.join(here, 'README.rst')) as f:
     README = f.read()
 with open(os.path.join(here, 'CHANGES.rst')) as f:
     CHANGES = f.read()
-
-requires = [
-    'django==1.6',
-    'requests==2.0.1',
-    'django-pipeline==1.3.15',
-    'django-extensions==1.2.5',
-    'Pillow==2.2.1',
-    'easy-thumbnails==1.4',
-]
+with open(os.path.join(here, 'requirements.txt')) as f:
+    REQUIRES = f.read().split()
 
 setup(
     name='django-ode',
@@ -35,5 +28,5 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=requires,
+    install_requires=REQUIRES,
 )

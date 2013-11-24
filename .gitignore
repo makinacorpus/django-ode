@@ -46,3 +46,9 @@ static/css/style.css
 
 # User uploaded media
 media
+
+# SaltStack pillar files
+install/salt/pillar
+
+# Vagrant hidden files
+.vagrant

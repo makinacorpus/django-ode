@@ -41,4 +41,4 @@ backup:
 	#TODO
 
 flake8: $(FLAKE8)
-	flake8 .
+	flake8 --exclude='./install/*' .

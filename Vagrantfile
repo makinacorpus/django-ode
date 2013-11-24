@@ -10,13 +10,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "wheeze"
+  config.vm.box = "wheezy-lxc"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://dl.dropboxusercontent.com/s/xymcvez85i29lym/vagrant-debian-wheezy64.box"
-  config.vm.provision :shell, :path => "install/bootstrap.sh"
+  config.vm.box_url = "http://bit.ly/vagrant-lxc-wheezy64-2013-10-23"
   config.vm.network :forwarded_port, host: 8080, guest: 80
+  config.vm.synced_folder "install/salt/roots/", "/srv/salt/"
+  config.vm.synced_folder "install/salt/pillar/", "/srv/pillar/"
+  config.vm.provision :shell, :path => "install/salt/bootstrap.sh"
+  config.vm.provision :salt do |salt|
+    salt.minion_config = "install/salt/minion"
+    salt.run_highstate = true
+  end
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -60,7 +66,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
-  # the file wheeze.pp in the manifests_path directory.
+  # the file wheezy.pp in the manifests_path directory.
   #
   # An example Puppet manifest to provision the message of the day:
   #
