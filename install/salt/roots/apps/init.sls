@@ -25,3 +25,9 @@ ode_frontend_settings:
         - name: /home/users/ode_frontend/django_ode/django_ode/settings/local.py
         - source: salt://apps/local_settings.py
         - template: jinja
+
+syncdb:
+  cmd.run:
+    - name: ". ../env/bin/activate && python manage.py syncdb --settings=django_ode.settings.local --noinput"
+    - cwd: /home/users/ode_frontend/django_ode
+    - user: ode_frontend
