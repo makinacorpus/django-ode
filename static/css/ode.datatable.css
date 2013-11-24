@@ -1,0 +1,150 @@
+.datatable-listing {
+  border: 10px solid #363339;
+  border-collapse: separate;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 10px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+  margin-bottom: 0.5em;
+}
+.datatable-listing tbody {
+  background-color: #363339;
+}
+.datatable-listing th {
+  color: white;
+  background-color: #363339;
+  cursor: pointer;
+  border-right: 1px solid #2c2c2c;
+  border-left: 1px solid #414141;
+}
+.datatable-listing th.sorting:after,
+.datatable-listing th.sorting_desc:after,
+.datatable-listing th.sorting_asc:after {
+  background-image: url('../img/sprite_datatable_sort_icons.png');
+  background-repeat: no-repeat;
+  content: "";
+  margin-left: 10px;
+  height: 20px;
+  position: absolute;
+  width: 20px;
+  background-position: 0px 0px;
+}
+.datatable-listing th.sorting_desc:after {
+  background-position: -20px 0px;
+}
+.datatable-listing th.sorting_asc:after {
+  background-position: -40px 0px;
+}
+.datatable-listing th:first-child {
+  border-left: none;
+}
+.datatable-listing th:last-child {
+  border-right: none;
+}
+.datatable-listing tr.even td {
+  background-color: white;
+}
+.datatable-listing tr.odd td {
+  background-color: #f2f2f2;
+}
+.datatable-listing tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-topleft: 10px;
+  -moz-background-clip: padding;
+  border-top-left-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-topright: 10px;
+  -moz-background-clip: padding;
+  border-top-right-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tr:last-child td:first-child {
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-bottomleft: 10px;
+  -moz-background-clip: padding;
+  border-bottom-left-radius: 10px;
+  background-clip: padding-box;
+}
+.datatable-listing tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-bottomright: 10px;
+  -moz-background-clip: padding;
+  border-bottom-right-radius: 10px;
+  background-clip: padding-box;
+}
+/* Overwriting bootstrap theming */
+.table > thead > tr > th {
+  border-bottom: none;
+}
+.dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 30px;
+  margin-left: -125px;
+  margin-top: -15px;
+  padding: 14px 0 2px 0;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background-color: white;
+}
+.dataTables_length {
+  text-align: right;
+}
+.dataTables_info {
+  display: inline-block;
+  color: #867A7E;
+  font-size: 0.8em;
+  font-style: italic;
+}
+.dataTables_paginate {
+  float: right;
+}
+.dataTables_paginate > a,
+.dataTables_paginate span {
+  margin: 0 5px;
+  display: inline-block;
+  cursor: pointer;
+  /* Used to avoid display bug with .test-hide bootstrap class */
+  line-height: 30px;
+}
+.dataTables_paginate > a {
+  width: 20px;
+  height: 20px;
+}
+.dataTables_paginate > a.first,
+.dataTables_paginate > a.previous,
+.dataTables_paginate > a.next,
+.dataTables_paginate > a.last {
+  background-image: url('../img/sprite_datatable_pagination_icons.png');
+  background-repeat: no-repeat;
+}
+.dataTables_paginate > a.first {
+  background-position: 0px 0px;
+}
+.dataTables_paginate > a.previous {
+  background-position: -20px 0px;
+}
+.dataTables_paginate > a.next {
+  background-position: -40px 0px;
+}
+.dataTables_paginate > a.last {
+  background-position: -60px 0px;
+}
+.dataTables_paginate span a {
+  border: 1px solid #808080;
+  color: #808080;
+  padding: 0.2em 0.4em;
+}

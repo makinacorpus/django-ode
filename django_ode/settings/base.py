@@ -120,7 +120,8 @@ PIPELINE_CSS = {
     'style': {
         'source_filenames': (
             'css/bootstrap.css',
-            'css/*.less',
+            'css/style.less',
+            'css/ode.datatable.less',
         ),
         'output_filename': 'css/style.css',
         'extra_context': {
@@ -135,6 +136,8 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/jquery.js',
             'js/bootstrap.js',
+            'js/jquery.dataTables.js',
+            'js/ode.dataTables.js',
         ),
         'output_filename': 'js/scripts.js',
     }

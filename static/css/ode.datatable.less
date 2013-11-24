@@ -1,0 +1,161 @@
+@import "lesshat.less";
+
+
+@table-border-radius: 10px;
+.datatable-listing {
+
+    border: @table-border-radius solid #363339;
+    border-collapse: separate;
+    .border-radius(@table-border-radius);
+    margin-bottom: 0.5em;
+
+    tbody {
+        background-color: #363339;
+    }
+
+    th {
+        color: white;
+        background-color: #363339;
+        cursor: pointer;
+    
+        &.sorting:after, &.sorting_desc:after, &.sorting_asc:after {
+            background-image: url('../img/sprite_datatable_sort_icons.png');
+            background-repeat: no-repeat;
+            content: "";
+            margin-left: 10px;
+            height: 20px;
+            position: absolute;
+            width: 20px;
+            background-position: 0px 0px;
+        }
+        &.sorting_desc:after {
+            background-position: -20px 0px;
+        }
+        &.sorting_asc:after {
+            background-position: -40px 0px;
+        }
+
+        border-right: 1px solid #2c2c2c;
+        border-left: 1px solid #414141;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    tr {
+
+        &.even td {
+            background-color: white;    
+        }
+
+        &.odd td {
+            background-color: #f2f2f2;
+        }
+
+        &:first-child {
+
+            td:first-child {
+                .border-top-left-radius(@table-border-radius);
+            }
+
+            td:last-child {
+                .border-top-right-radius(@table-border-radius);
+            }
+        }
+
+        &:last-child {
+
+            td:first-child {
+                .border-bottom-left-radius(@table-border-radius);
+            }
+
+            td:last-child {
+                .border-bottom-right-radius(@table-border-radius);
+            }
+        }       
+    }
+
+
+}
+
+/* Overwriting bootstrap theming */
+.table > thead > tr > th {
+    border-bottom: none;
+}
+
+
+.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 30px;
+    margin-left: -125px;
+    margin-top: -15px;
+    padding: 14px 0 2px 0;
+    border: 1px solid #ddd;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    background-color: white;
+}
+
+.dataTables_length {
+    text-align: right;
+}
+
+.dataTables_info {
+    display: inline-block;
+    color: #867A7E;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.dataTables_paginate {
+
+    float: right;
+
+    & > a, span {
+        margin: 0 5px;
+        display: inline-block;
+        cursor: pointer;
+
+        /* Used to avoid display bug with .test-hide bootstrap class */
+        line-height: 30px;
+    }
+
+    & > a {
+
+        width: 20px;
+        height: 20px;
+
+        &.first, &.previous, &.next, &.last {
+            background-image: url('../img/sprite_datatable_pagination_icons.png');
+            background-repeat: no-repeat;
+        }
+
+        &.first {
+            background-position: 0px 0px;
+        }
+        &.previous {
+            background-position: -20px 0px;
+        }
+        &.next {
+            background-position: -40px 0px;
+        }
+        &.last {
+            background-position: -60px 0px;
+        }
+    }
+
+    span a {
+        border: 1px solid #808080;
+        color: #808080;
+        padding: 0.2em 0.4em;
+    }
+}

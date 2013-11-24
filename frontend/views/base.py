@@ -22,15 +22,21 @@ def error_list_to_dict(api_errors):
     return result
 
 
-class APIForm(View):
+class LoginRequiredMixin(object):
+    """
+    View mixin which requires that the user is authenticated.
+    """
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(request, *args,
+                                                        **kwargs)
+
+
+class APIForm(LoginRequiredMixin, View):
 
     def __init__(self, *args, **kwargs):
         super(APIForm, self).__init__(*args, **kwargs)
         self.api = APIClient(self.endpoint)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(APIForm, self).dispatch(*args, **kwargs)
 
     def prepare_api_input(self, data):
         pass
