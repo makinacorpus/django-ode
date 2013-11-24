@@ -7,3 +7,4 @@ packages:
           - python-virtualenv
           - python-dev
           - libpq-dev
+          - libjpeg8-dev
