@@ -26,8 +26,27 @@ ode_frontend_settings:
         - source: salt://apps/local_settings.py
         - template: jinja
 
-syncdb:
+initapp:
   cmd.run:
-    - name: ". ../env/bin/activate && python manage.py syncdb --settings=django_ode.settings.local --noinput"
+    - name: ". ../env/bin/activate
+             && python manage.py syncdb --settings=django_ode.settings.local --noinput
+             && python manage.py collectstatic --settings=django_ode.settings.local --noinput"
     - cwd: /home/users/ode_frontend/django_ode
+    - user: ode_frontend
+
+start_script:
+    file.managed:
+        - name: /home/users/ode_frontend/django_ode/start_server.sh
+        - source: salt://apps/start_server.sh
+        - template: jinja
+        - user: ode_frontend
+        - group: ode_frontend
+        - mode: 744
+
+start_circus:
+  cmd.run:
+    - name: /home/users/ode_frontend/django_ode/start_server.sh
+    - user: ode_frontend
+  cron.file:
+    - name: salt://apps/crontab
     - user: ode_frontend
