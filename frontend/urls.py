@@ -1,7 +1,5 @@
 from django.conf.urls import patterns, url
-from frontend.views import sources
-from frontend.views import events
-from frontend.views import providers
+from frontend.views import sources, events, providers, consumers
 
 urlpatterns = patterns(
     'frontend.views',
@@ -14,4 +12,8 @@ urlpatterns = patterns(
         name='provider_list'),
     url(r'^provider_json_list/', providers.ProviderJsonListView.as_view(),
         name='provider_json_list'),
+    url(r'^consumer_list/', consumers.ConsumerListView.as_view(),
+        name='consumer_list'),
+    url(r'^consumer_json_list/', consumers.ConsumerJsonListView.as_view(),
+        name='consumer_json_list'),
 )

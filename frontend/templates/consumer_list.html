@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% trans "Liste des réutilisateurs" %}</h1>
+
+<table class="datatable-listing table table-striped" data-source="{% url 'consumer_json_list' %}">
+  <thead>
+    <tr>
+      {% for label in column_labels %}
+        <th>{{label}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for label in column_labels %}
+        <td></td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
