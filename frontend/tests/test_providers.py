@@ -5,8 +5,8 @@ import json
 from django.utils.encoding import force_text
 from django.test import TestCase
 
-from accounts.models import User, Organization
 from accounts.tests.base import LoginTestMixin
+from accounts.tests.test_factory import ProviderUserFactory
 
 
 class TestProviders(LoginTestMixin, TestCase):
@@ -22,9 +22,8 @@ class TestProviders(LoginTestMixin, TestCase):
 
     def test_datatable_has_provider(self):
 
-        user = User.objects.create(
-            username='bob2', confirmation_code='s3cr3t', email="bob2@mc.com",
-            organization=Organization.objects.create(is_provider=True))
+        user = ProviderUserFactory.create(
+            username='bob2', confirmation_code='s3cr3t', email="bob2@mc.com")
         user.is_active = True
         user.save()
 

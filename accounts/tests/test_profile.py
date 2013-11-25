@@ -4,7 +4,8 @@ import os
 from django.test import TestCase
 
 from accounts.tests.base import LoginTestMixin
-from accounts.models import User, Contact
+from accounts.models import User
+from accounts.tests.test_factory import ContactFactory
 
 
 class TestProfile(LoginTestMixin, TestCase):
@@ -89,7 +90,7 @@ class TestProfile(LoginTestMixin, TestCase):
     def _test_edit_contact(self, contact_type, field, value):
         user = self.login(username='bob')
         setattr(user.organization, contact_type,
-                Contact.objects.create(**{field: value}))
+                ContactFactory.create(**{field: value}))
         user.organization.save()
 
         response = self.client.get('/accounts/profile/')
@@ -380,7 +381,7 @@ class TestProfile(LoginTestMixin, TestCase):
 
     def test_ticket_contact(self):
         user = self.login()
-        user.organization.ticket_contact = Contact.objects.create(name=u'Bob')
+        user.organization.ticket_contact = ContactFactory.create(name=u'Bob')
         user.organization.save()
 
         user = User.objects.get(username='bob')
