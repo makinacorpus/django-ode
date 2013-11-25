@@ -7,3 +7,4 @@ easy-thumbnails==1.4
 chaussette==1.0
 circus==0.10.0
 psycopg2==2.5.1
+slimit==0.8.1

@@ -143,6 +143,8 @@ PIPELINE_JS = {
     }
 }
 
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
+
 # Project-specific settings
 EVENT_API_BASE_URL = 'http://localhost:6543'
 SOURCES_ENDPOINT = EVENT_API_BASE_URL + '/v1/sources'
