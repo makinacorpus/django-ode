@@ -21,3 +21,15 @@ DATABASES = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+ADMINS = (
+    ('Romain Garrigues', 'romain.garrigues@makina-corpus.com'),
+    ('Alex Marandon', 'alex.marandon@makina-corpus.com'),
+)
+
+ACCOUNTS_MODERATOR_EMAILS = [
+    'romain.garrigues@makina-corpus.com',
+    'alex.marandon@makina-corpus.com',
+]
+
+ALLOWED_HOSTS = ['preprod-ode.makina-corpus.net']

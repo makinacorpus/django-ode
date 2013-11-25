@@ -25,6 +25,9 @@ ode_frontend_settings:
         - name: /home/users/ode_frontend/django_ode/django_ode/settings/local.py
         - source: salt://apps/local_settings.py
         - template: jinja
+        - user: ode_frontend
+        - group: ode_frontend
+        - mode: 600
 
 initapp:
   cmd.run:
