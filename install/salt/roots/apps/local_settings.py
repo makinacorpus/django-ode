@@ -2,7 +2,7 @@ from base import *
 
 DEBUG = False
 TEMPLATE_DEBUG = False
-STATIC_URL = "/"
+STATIC_URL = "/static/"
 STATIC_ROOT = "{{ pillar['apps']['ode_frontend']['static_root'] }}"
 SECRET_KEY = "{{ pillar['apps']['ode_frontend']['secret_key'] }}"
 MEDIA_ROOT = os.path.join(STATIC_ROOT, "media")
