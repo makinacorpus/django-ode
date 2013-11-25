@@ -10,7 +10,10 @@ class TestLogin(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_login_success(self):
-        UserFactory.create(username='bob', password='foobar')
+        user = UserFactory.create(username='bob', password='foobar')
+        user.is_active = True
+        user.save()
+
         response = self.client.post('/accounts/login/', {
             'username': 'bob',
             'password': 'foobar',

@@ -68,7 +68,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     username = factory.Sequence(lambda n: u'user_#%s' % n)
     password = USER_PASSWORD
     email = factory.LazyAttribute(lambda obj: u'%s@example.com' % obj.username)
-    is_active = True
+    is_active = False
 
     organization = factory.SubFactory(OrganizationFactory)
 

@@ -4,14 +4,14 @@ from django.test import TestCase
 from django.core import mail
 
 from accounts.models import User
-from accounts.models import Organization
+from accounts.tests.test_factory import UserFactory, ProviderUserFactory
 
 
 class TestEmailConfirmation(TestCase):
 
     def test_consumer_only_email_confirmation_success(self):
-        User.objects.create(username='bob', confirmation_code='s3cr3t',
-                            organization=Organization.objects.create())
+
+        UserFactory.create(username='bob', confirmation_code='s3cr3t')
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 
@@ -23,9 +23,8 @@ class TestEmailConfirmation(TestCase):
                         "User should now be activated")
 
     def test_provider_email_confirmation_success(self):
-        User.objects.create(
-            username='bob', confirmation_code='s3cr3t',
-            organization=Organization.objects.create(is_provider=True))
+
+        ProviderUserFactory.create(username='bob', confirmation_code='s3cr3t')
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
 
@@ -44,9 +43,9 @@ class TestEmailConfirmation(TestCase):
                       email.body)
 
     def test_send_provider_account_validation_email(self):
-        user = User.objects.create(
-            username='bob', confirmation_code='s3cr3t', email="bob@mc.com",
-            organization=Organization.objects.create(is_provider=True))
+        user = ProviderUserFactory.create(username='bob',
+                                          email="bob@mc.com",
+                                          confirmation_code='s3cr3t')
 
         response = self.client.get('/accounts/confirm_email/s3cr3t/')
         self.assertContains(response, 'succès')
@@ -72,8 +71,7 @@ class TestEmailConfirmation(TestCase):
         self.assertIn(u'Votre compte fournisseur a été validé', email.body)
 
     def test_email_confirmation_error(self):
-        User.objects.create(username='bob', confirmation_code='s3cr3t',
-                            organization=Organization.objects.create())
+        UserFactory.create(username='bob', confirmation_code='s3cr3t')
 
         response = self.client.get('/accounts/confirm_email/wrong-code/')
 
