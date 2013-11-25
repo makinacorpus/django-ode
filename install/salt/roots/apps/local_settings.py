@@ -33,3 +33,5 @@ ACCOUNTS_MODERATOR_EMAILS = [
 ]
 
 ALLOWED_HOSTS = ['preprod-ode.makina-corpus.net']
+DEFAULT_FROM_EMAIL = 'ode@preprod-ode.makina-corpus.net'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
