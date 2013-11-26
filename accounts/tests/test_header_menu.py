@@ -16,7 +16,9 @@ class TestHeaderMenu(LoginTestMixin, TestCase):
         self.assertContains(response, 'Créer')
         self.assertContains(response, 'Importer')
         self.assertContains(response, 'Exporter')
+        self.assertContains(response, 'Webservices')
         self.assertContains(response, 'Réutilisateurs')
+        self.assertContains(response, 'Fournisseurs')
 
         self.client.logout()
 
@@ -26,6 +28,9 @@ class TestHeaderMenu(LoginTestMixin, TestCase):
 
         response = self.client.get('/')
         self.assertContains(response, 'Événements')
-        self.assertContains(response, 'Fournisseurs')
+        self.assertNotContains(response, 'Créer')
+        self.assertNotContains(response, 'Importer')
+        self.assertContains(response, 'Exporter')
         self.assertContains(response, 'Webservices')
-        self.assertContains(response, 'Télécharger')
+        self.assertContains(response, 'Réutilisateurs')
+        self.assertContains(response, 'Fournisseurs')
