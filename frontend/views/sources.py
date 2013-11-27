@@ -9,9 +9,15 @@ from frontend.views.base import (APIForm,
 from frontend.api_client import APIClient
 
 
-class Form(APIForm):
-    template_name = 'source_form.html'
-    list_template_name = 'source_list.html'
+class SourceListingFieldsMixin(object):
+
+    source_column_labels = ['ID', 'URL']
+    # These fields are ODE API fields returned for each source record
+    source_api_columns = ['id', 'url']
+
+
+class Form(SourceListingFieldsMixin, APIForm):
+    template_name = 'import.html'
     endpoint = settings.SOURCES_ENDPOINT
     resource_name_plural = 'sources'
     success_message = (u"Cette nouvelle source de données a été "
@@ -28,9 +34,9 @@ class SourceListView(LoginRequiredMixin, View):
         return render(request, 'source_list.html', response_data)
 
 
-class SourceJsonListView(LoginRequiredMixin, APIDatatableBaseView):
-    # These fields are ODE API fields returned for each source record
-    columns = ['id', 'url']
+class SourceJsonListView(SourceListingFieldsMixin,
+                         LoginRequiredMixin,
+                         APIDatatableBaseView):
 
     # TODO : remove this function when parameter total_count is returned by api
     def total_records(self, api_data):
@@ -49,7 +55,7 @@ class SourceJsonListView(LoginRequiredMixin, APIDatatableBaseView):
         for source in sources:
 
             raw_data = []
-            for field in self.columns:
+            for field in self.source_api_columns:
                 raw_data.append(source[field])
 
             displayed_data.append(raw_data)

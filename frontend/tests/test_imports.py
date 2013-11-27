@@ -20,7 +20,7 @@ class TestImports(LoginTestMixin, TestCase):
         self.assertContains(response, 'name="events_file"')
 
         # Input field used to add an event source
-        self.assertContains(response, 'name="source_url"')
+        self.assertContains(response, 'name="url"')
 
         self.assertContains(response, 'datatable-listing')
 

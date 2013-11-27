@@ -15,12 +15,12 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
     end_point = settings.SOURCES_ENDPOINT
 
     def setUp(self):
-        self.login()
+        self.login_as_provider()
         self.requests_mock = self.patch('frontend.api_client.requests')
 
     def test_source_form(self):
-        response = self.client.get('/sources/create/')
-        self.assertContains(response, '<form action="/sources/create/"')
+        response = self.client.get('/imports/')
+        self.assertContains(response, '<form action="/imports/"')
         self.assertNotContains(response, 'error')
 
     def test_create_valid_source(self):
@@ -28,7 +28,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             'url': 'http://example.com/foo',
         }
 
-        response = self.client.post('/sources/create/', sample_data,
+        response = self.client.post('/imports/', sample_data,
                                     follow=True)
 
         self.assert_post_to_api(sample_data)
@@ -48,7 +48,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             }]
         }
 
-        response = self.client.post('/sources/create/', sample_data,
+        response = self.client.post('/imports/', sample_data,
                                     follow=True)
 
         self.assert_post_to_api(sample_data)

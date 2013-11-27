@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 from frontend.api_client import APIClient
@@ -56,10 +56,24 @@ class APIForm(LoginRequiredMixin, View):
         super(APIForm, self).__init__(*args, **kwargs)
         self.api = APIClient(self.endpoint)
 
+    def _update_context_data(self, context=None):
+
+        if context is None:
+            context = {}
+
+        defined_context = self.add_context()
+        new_context = dict(list(context.items()) +
+                           list(defined_context.items()))
+
+        return new_context
+
+    def add_context(self):
+        return {}
+
     def prepare_api_input(self, data):
         pass
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         user_input = request.POST.dict()
         user_input.pop('csrfmiddlewaretoken', None)
         api_input = dict(user_input)
@@ -73,13 +87,17 @@ class APIForm(LoginRequiredMixin, View):
             context['input'] = user_input
             context['errors'] = error_list_to_dict(response_data['errors'])
             messages.error(request, self.error_message, extra_tags='danger')
-            return render(request, self.template_name, context)
-        else:
-            messages.success(request, self.success_message)
-            return redirect(self.resource_name_plural + '_list')
 
-    def get(self, request):
-        return render(self.request, self.template_name)
+            new_context = self._update_context_data(context)
+            return render(request, self.template_name, new_context)
+        else:
+            new_context = self._update_context_data()
+            messages.success(request, self.success_message)
+            return render(request, self.template_name, new_context)
+
+    def get(self, request, *args, **kwargs):
+        new_context = self._update_context_data()
+        return render(self.request, self.template_name, new_context)
 
 
 class APIDatatableBaseView(BaseDatatableView):
