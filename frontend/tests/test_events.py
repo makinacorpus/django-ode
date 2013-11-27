@@ -15,13 +15,13 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.requests_mock = self.patch('frontend.api_client.requests')
 
     def test_anonymous_cannot_access_creation_form(self):
-        response = self.client.get('/events/create')
+        response = self.client.get('/events/create/')
         self.assertEqual(response.status_code, 302)
         self.assertIn('/login', response['location'])
 
     def test_event_form(self):
         self.login()
-        response = self.client.get('/events/create')
+        response = self.client.get('/events/create/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="title"')
 
@@ -33,7 +33,7 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             'end_time': '2012-01-02T18:00',
         }
 
-        response = self.client.post('/events/create', user_data, follow=True)
+        response = self.client.post('/events/create/', user_data, follow=True)
 
         self.assert_post_to_api(user_data)
         self.assertContains(response, 'alert-success')
@@ -57,7 +57,7 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             ]
         }
 
-        response = self.client.post('/events/create', invalid_data,
+        response = self.client.post('/events/create/', invalid_data,
                                     follow=True)
         self.assertEqual(response.status_code, 200)
 
@@ -91,7 +91,7 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             ]
         }
 
-        response = self.client.get('/events')
+        response = self.client.get('/events/')
 
         self.assertEqual(response.status_code, 200)
         self.requests_mock.get.assert_called_with(

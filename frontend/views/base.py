@@ -1,9 +1,13 @@
+# -*- encoding: utf-8 -*-
+from django.http import HttpResponseForbidden
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
 from django.shortcuts import render, redirect
 
+from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 from frontend.api_client import APIClient
 
 
@@ -30,6 +34,20 @@ class LoginRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args,
                                                         **kwargs)
+
+
+class ProviderLoginRequiredMixin(object):
+    """
+    View mixin which requires that the user is authenticated AND is a provider
+    """
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+
+        if not request.user.organization.is_provider:
+            return HttpResponseForbidden()
+        else:
+            return super(ProviderLoginRequiredMixin, self).dispatch(
+                request, *args, **kwargs)
 
 
 class APIForm(LoginRequiredMixin, View):
@@ -62,3 +80,67 @@ class APIForm(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(self.request, self.template_name)
+
+
+class APIDatatableBaseView(BaseDatatableView):
+
+    def get_sorting_col(self):
+
+        i_sorting_cols = int(self.request.REQUEST.get('iSortingCols', 0))
+
+        return i_sorting_cols
+
+    def get_limit_value(self):
+
+        limit = min(int(self.request.REQUEST.get('iDisplayLength', 10)),
+                    self.max_display_length)
+
+        return limit
+
+    def get_offset_value(self):
+
+        offset = int(self.request.REQUEST.get('iDisplayStart', 0))
+
+        return offset
+
+    def get_api_values(self, **kwargs):
+
+        # Call distant API to get corresponding data
+        api = APIClient(settings.SOURCES_ENDPOINT)
+        response_data = api.get(self.request.user.id, **kwargs)
+
+        return response_data
+
+    def total_records(self, api_data):
+
+        return api_data['total_count']
+
+    def returned_records(self, api_data):
+
+        raise NotImplemented()
+
+    def prepare_results(self, api_data):
+
+        raise NotImplemented()
+
+    def get_context_data(self, *args, **kwargs):
+
+        sorting = self.get_sorting_col()
+        limit = self.get_limit_value()
+        offset = self.get_offset_value()
+
+        get_args = dict(sort_by=sorting,
+                        limit=limit,
+                        offset=offset,
+                        sort_direction=sorting)
+        response_data = self.get_api_values(**get_args)
+
+        aaData = self.prepare_results(response_data)
+
+        ret = {'sEcho': int(self.request.REQUEST.get('sEcho', 0)),
+               'iTotalRecords': self.total_records(response_data),
+               'iTotalDisplayRecords': self.returned_records(response_data),
+               'aaData': aaData
+               }
+
+        return ret
