@@ -48,14 +48,14 @@
         <table class="datatable-listing table table-striped" data-source="{% url 'source_json_list' %}">
           <thead>
             <tr>
-              {% for label in column_labels %}
+              {% for label in source_column_labels %}
                 <th>{{label}}</th>
               {% endfor %}
             </tr>
           </thead>
           <tbody>
             <tr>
-              {% for label in column_labels %}
+              {% for label in source_column_labels %}
                 <td></td>
               {% endfor %}
             </tr>

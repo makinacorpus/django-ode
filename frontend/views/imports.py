@@ -6,12 +6,12 @@ from frontend.views.base import ProviderLoginRequiredMixin
 
 class ImportView(ProviderLoginRequiredMixin, TemplateView):
     template_name = 'import.html'
-    column_labels = ['ID', 'URL']
+    source_column_labels = ['ID', 'URL']
 
     def get_context_data(self, *args, **kwargs):
 
         context = super(ImportView, self).get_context_data(
             *args, **kwargs)
-        context['column_labels'] = self.column_labels
+        context['source_column_labels'] = self.source_column_labels
 
         return context

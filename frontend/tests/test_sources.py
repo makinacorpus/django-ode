@@ -1,5 +1,9 @@
+# -*- encoding: utf-8 -*-
+import json
+
 from django.conf import settings
 from django.test import TestCase
+from django.utils.encoding import force_text
 
 from .support import PatchMixin
 from accounts.tests.base import LoginTestMixin
@@ -76,3 +80,23 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         self.assertNotContains(
             response, "success",
             msg_prefix="not a redirect from an edition form")
+
+    def test_datatable_source_list(self):
+        response_mock = self.requests_mock.get.return_value
+        response_mock.json.return_value = {
+            "sources": [
+                {"id": 1,
+                 "url": "http://example.com/source1", },
+                {"id": 2,
+                 "url": "http://example.com/source2", },
+            ]
+        }
+
+        response = self.client.get('/sources/json/')
+        response_json = json.loads(force_text(response.content))
+
+        # aaData is Datatable mandatory key for displayed data
+        self.assertIn('aaData', response_json.keys())
+        datas = response_json['aaData']
+
+        self.assertEqual(len(datas), 2)
