@@ -20,8 +20,8 @@ def error_list_to_dict(api_errors):
     for error in api_errors:
         name = error['name']
         # Error names returned by the API look like
-        # <resource_name>.<error_index>.<field_name>
-        field_name = name.split('.')[2]
+        # collection.items.<error_index>.data.<field_name>
+        field_name = name.split('.')[4]
         result[field_name] = error['description']
     return result
 
@@ -70,18 +70,35 @@ class APIForm(LoginRequiredMixin, View):
     def add_context(self):
         return {}
 
-    def prepare_api_input(self, data):
-        pass
+    def prepare_api_input(self, dict_data):
+
+        formatted_data = {}
+        for key, value in dict_data.items():
+            formatted_data['name'] = key
+            formatted_data['value'] = value
+
+        post_data = {
+            'collection':
+            {
+                'items': [
+                    {
+                        'data': formatted_data
+                    }
+                ]
+            }
+        }
+
+        return post_data
 
     def post(self, request, *args, **kwargs):
+
         user_input = request.POST.dict()
         user_input.pop('csrfmiddlewaretoken', None)
         api_input = dict(user_input)
-        self.prepare_api_input(api_input)
-        post_data = {
-            self.resource_name_plural: [api_input]
-        }
+
+        post_data = self.prepare_api_input(api_input)
         response_data = self.api.post(post_data, self.request.user.id)
+
         if response_data.get('status') == 'error':
             context = dict(response_data)
             context['input'] = user_input
@@ -102,11 +119,14 @@ class APIForm(LoginRequiredMixin, View):
 
 class APIDatatableBaseView(BaseDatatableView):
 
-    def get_sorting_col(self):
+    def get_sort_by(self):
+        raise NotImplementedError()
 
-        i_sorting_cols = int(self.request.REQUEST.get('iSortingCols', 0))
+    def get_sort_direction(self):
 
-        return i_sorting_cols
+        s_sort_dir = self.request.REQUEST.get('sSortDir_0', 'desc')
+
+        return s_sort_dir
 
     def get_limit_value(self):
 
@@ -131,26 +151,41 @@ class APIDatatableBaseView(BaseDatatableView):
 
     def total_records(self, api_data):
 
-        return api_data['total_count']
+        return api_data['collection']['total_count']
 
     def returned_records(self, api_data):
 
-        raise NotImplemented()
+        return api_data['collection']['total_count']
+        #return api_data['collection']['current_count']
 
     def prepare_results(self, api_data):
 
-        raise NotImplemented()
+        displayed_data = []
+
+        collection = api_data['collection']
+
+        for source in collection['items']:
+
+            data = source['data']
+            raw_data = []
+            for field in self.source_api_columns:
+                raw_data.append(data[field])
+
+            displayed_data.append(raw_data)
+
+        return displayed_data
 
     def get_context_data(self, *args, **kwargs):
 
-        sorting = self.get_sorting_col()
+        sort_by = self.get_sort_by()
+        sort_direction = self.get_sort_direction()
         limit = self.get_limit_value()
         offset = self.get_offset_value()
 
-        get_args = dict(sort_by=sorting,
+        get_args = dict(sort_by=sort_by,
                         limit=limit,
                         offset=offset,
-                        sort_direction=sorting)
+                        sort_direction=sort_direction)
         response_data = self.get_api_values(**get_args)
 
         aaData = self.prepare_results(response_data)

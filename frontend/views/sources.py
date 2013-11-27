@@ -11,9 +11,9 @@ from frontend.api_client import APIClient
 
 class SourceListingFieldsMixin(object):
 
-    source_column_labels = ['ID', 'URL']
+    source_column_labels = ['URL']
     # These fields are ODE API fields returned for each source record
-    source_api_columns = ['id', 'url']
+    source_api_columns = ['url']
 
 
 class Form(SourceListingFieldsMixin, APIForm):
@@ -38,26 +38,8 @@ class SourceJsonListView(SourceListingFieldsMixin,
                          LoginRequiredMixin,
                          APIDatatableBaseView):
 
-    # TODO : remove this function when parameter total_count is returned by api
-    def total_records(self, api_data):
+    def get_sort_by(self):
 
-        return len(api_data['sources'])
+        i_sort_col = int(self.request.REQUEST.get('iSortCol_0', 0))
 
-    def returned_records(self, api_data):
-
-        return len(api_data['sources'])
-
-    def prepare_results(self, api_data):
-
-        displayed_data = []
-        sources = api_data['sources']
-
-        for source in sources:
-
-            raw_data = []
-            for field in self.source_api_columns:
-                raw_data.append(source[field])
-
-            displayed_data.append(raw_data)
-
-        return displayed_data
+        return self.source_api_columns[i_sort_col]
