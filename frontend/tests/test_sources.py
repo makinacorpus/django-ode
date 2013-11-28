@@ -43,7 +43,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             "status": "error",
             "errors": [{
                 "location": "body",
-                "name": "sources.0.url",
+                "name": "collection.items.0.data.url",
                 "description": "field error message"
             }]
         }
@@ -84,12 +84,26 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
     def test_datatable_source_list(self):
         response_mock = self.requests_mock.get.return_value
         response_mock.json.return_value = {
-            "sources": [
-                {"id": 1,
-                 "url": "http://example.com/source1", },
-                {"id": 2,
-                 "url": "http://example.com/source2", },
-            ]
+            "collection": {
+                "items": [
+                    {
+                        "data":
+                        {
+                            "id": {"value": 1},
+                            "url": {"value": "http://example.com/source1"}
+                        }
+                    },
+                    {
+                        "data":
+                        {
+                            "id": {"value": 2},
+                            "url": {"value": "http://example.com/source2"}
+                        }
+                    }
+                ],
+                "total_count": 2,
+                "current_count": 2,
+            }
         }
 
         response = self.client.get('/sources/json/')

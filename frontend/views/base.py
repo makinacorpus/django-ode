@@ -173,6 +173,8 @@ class APIDatatableBaseView(BaseDatatableView):
 
             displayed_data.append(raw_data)
 
+        return displayed_data
+
     def get_context_data(self, *args, **kwargs):
 
         sort_by = self.get_sort_by()
