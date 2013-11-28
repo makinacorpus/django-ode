@@ -147,4 +147,11 @@
   border: 1px solid #808080;
   color: #808080;
   padding: 0.2em 0.4em;
+  margin: 0 0.2em;
+}
+.dataTables_paginate span a.paginate_active {
+  color: black;
+  border-color: black;
+  background-color: #E9EBEA;
+  font-weight: bold;
 }
