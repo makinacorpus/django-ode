@@ -123,6 +123,43 @@ class APIDatatableBaseView(BaseDatatableView):
     def get_sort_by(self):
         raise NotImplementedError()
 
+    def get_xpath_ind(self, xpath_value):
+
+        try:
+            ind = int(xpath_value)
+        except ValueError:
+            ind = xpath_value
+
+        return ind
+
+    def get_data_from_field(self, data, field):
+
+        xpath = field.split(".")
+
+        xelement = self.get_xpath_ind(xpath[0])
+
+        if len(xpath) == 1:
+            return data[xelement]['value']
+        else:
+            return self.get_data_from_field(
+                data[xelement],
+                ".".join(xpath[1:]))
+
+    def get_index_for(self, field_name):
+
+        for i, column in enumerate(self.api_columns):
+
+            column_splitted = column.split(".")
+            if len(column_splitted) > 1:
+                field_to_compare = column_splitted[-1]
+            else:
+                field_to_compare = column_splitted[0]
+
+            if field_to_compare == field_name:
+                return i
+
+        return None
+
     def get_sort_direction(self):
 
         s_sort_dir = self.request.REQUEST.get('sSortDir_0', 'desc')
@@ -150,19 +187,9 @@ class APIDatatableBaseView(BaseDatatableView):
 
         return response_data
 
-    def total_records(self, api_data):
+    def convert_api_to_datatable_data(self, api_data):
 
-        return api_data['collection']['total_count']
-
-    def returned_records(self, api_data):
-
-        return api_data['collection']['total_count']
-        #return api_data['collection']['current_count']
-
-    def prepare_results(self, api_data):
-
-        displayed_data = []
-
+        converted_data = []
         collection = api_data['collection']
 
         for source in collection['items']:
@@ -170,11 +197,21 @@ class APIDatatableBaseView(BaseDatatableView):
             data = source['data']
             raw_data = []
             for field in self.api_columns:
-                raw_data.append(data[field]['value'])
+                raw_value = self.get_data_from_field(data, field)
+                raw_data.append(raw_value)
 
-            displayed_data.append(raw_data)
+            converted_data.append(raw_data)
 
-        return displayed_data
+        return converted_data
+
+    def total_records(self, api_data):
+        return api_data['collection']['total_count']
+
+    def returned_records(self, api_data):
+        return api_data['collection']['total_count']
+
+    def prepare_results(self, api_data):
+        return api_data
 
     def get_context_data(self, *args, **kwargs):
 
@@ -189,7 +226,9 @@ class APIDatatableBaseView(BaseDatatableView):
                         sort_direction=sort_direction)
         response_data = self.get_api_values(**get_args)
 
-        aaData = self.prepare_results(response_data)
+        api_data = self.convert_api_to_datatable_data(response_data)
+
+        aaData = self.prepare_results(api_data)
 
         ret = {'sEcho': int(self.request.REQUEST.get('sEcho', 0)),
                'iTotalRecords': self.total_records(response_data),
