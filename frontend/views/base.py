@@ -118,6 +118,7 @@ class APIForm(LoginRequiredMixin, View):
 class APIDatatableBaseView(BaseDatatableView):
 
     endpoint = None
+    api_columns = None
 
     def get_sort_by(self):
         raise NotImplementedError()
@@ -168,7 +169,7 @@ class APIDatatableBaseView(BaseDatatableView):
 
             data = source['data']
             raw_data = []
-            for field in self.source_api_columns:
+            for field in self.api_columns:
                 raw_data.append(data[field]['value'])
 
             displayed_data.append(raw_data)

@@ -2,21 +2,23 @@
 {% load i18n %}
 
 {% block content %}
-<table class="table table-bordered table-striped">
+
+<h1>{% trans "Liste des événements" %}</h1>
+
+<table class="datatable-listing table table-striped" data-source="{% url 'event_json_list' %}">
   <thead>
-    <tr><th>ID</th><th>Auteur</th><th>Titre</th><th>Début</th><th>Fin</th></tr>
+    <tr>
+      {% for label in event_column_labels %}
+        <th>{{label}}</th>
+      {% endfor %}
+    </tr>
   </thead>
-  {% for event in events %}
-  <tr>
-    <td>{{ event.id }}</td>
-    <td>{{ user.username }}</td>
-    <td>{{ event.title }}</td>
-    <td>{{ event.start_time }}</td>
-    <td>{{ event.end_time }}</td>
-  </tr>
-  {% endfor %}
-  <tfoot>
-    <tr><th>ID</th><th>Auteur</th><th>Titre</th><th>Début</th><th>Fin</th></tr>
-  </tfoot>
+  <tbody>
+    <tr>
+      {% for label in event_column_labels %}
+        <td></td>
+      {% endfor %}
+    </tr>
+  </tbody>
 </table>
 {% endblock %}

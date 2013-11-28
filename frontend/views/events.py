@@ -1,10 +1,19 @@
 # -*- encoding: utf-8 -*-
 from django.conf import settings
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
-from frontend.views.base import APIForm
-from frontend.api_client import APIClient
+from frontend.views.base import (APIForm,
+                                 LoginRequiredMixin,
+                                 APIDatatableBaseView)
+
+
+class EventListingFieldsMixin(object):
+
+    event_column_labels = ['Title', 'Uid']
+    # These fields are ODE API fields returned for each source record
+    api_columns = ['title', 'uid']
+
+    endpoint = settings.EVENTS_ENDPOINT
 
 
 class Form(APIForm):
@@ -17,8 +26,23 @@ class Form(APIForm):
     resource_name_plural = 'events'
 
 
-@login_required
-def list(request):
-    api = APIClient(settings.EVENTS_ENDPOINT)
-    response_data = api.get(request.user.id)
-    return render(request, 'event_list.html', response_data)
+class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
+    template_name = 'event_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventListView, self).get_context_data(*args, **kwargs)
+
+        context['event_column_labels'] = self.event_column_labels
+        print('HEY')
+        return context
+
+
+class EventJsonListView(EventListingFieldsMixin,
+                        LoginRequiredMixin,
+                        APIDatatableBaseView):
+
+    def get_sort_by(self):
+
+        i_sort_col = int(self.request.REQUEST.get('iSortCol_0', 0))
+
+        return self.api_columns[i_sort_col]
