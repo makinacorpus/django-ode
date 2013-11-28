@@ -17,11 +17,18 @@ class APIClient(object):
             })
         return response.json()
 
-    def get(self, producer_id):
-        response = requests.get(
-            self.endpoint,
+    def get(self, producer_id, *args, **kwargs):
+
+        getkwargs = dict(
             headers={
                 'X-ODE-Producer-Id': producer_id,
                 'Accept': 'application/json',
             })
+
+        # requests lib needs 'params' keyword for get call
+        if kwargs:
+            getkwargs['params'] = kwargs
+
+        response = requests.get(self.endpoint, *args, **getkwargs)
+
         return response.json()

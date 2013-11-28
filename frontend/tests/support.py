@@ -2,6 +2,26 @@ import json
 from mock import patch
 
 
+def prepare_api_input(dict_data):
+
+    formatted_data = {}
+    for key, value in dict_data.items():
+        formatted_data[key] = {'value': value}
+
+    post_data = {
+        'collection':
+        {
+            'items': [
+                {
+                    'data': formatted_data
+                }
+            ]
+        }
+    }
+
+    return post_data
+
+
 class PatchMixin(object):
     """
     Testing utility mixin that provides methods to patch objects so that they
@@ -27,7 +47,7 @@ class PatchMixin(object):
         args, kwargs = self.requests_mock.post.call_args
         self.assertEqual(args[0], self.end_point)
         self.assertEqual(json.loads(kwargs['data']),
-                         {self.resource_name_plural: [data]})
+                         prepare_api_input(data))
         self.assertEqual(kwargs['headers'],
                          {'X-ODE-Producer-Id': self.user.pk,
                           'Content-Type': 'application/json'})
