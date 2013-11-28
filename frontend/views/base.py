@@ -4,7 +4,6 @@ from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.conf import settings
 from django.shortcuts import render
 
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
@@ -74,8 +73,7 @@ class APIForm(LoginRequiredMixin, View):
 
         formatted_data = {}
         for key, value in dict_data.items():
-            formatted_data['name'] = key
-            formatted_data['value'] = value
+            formatted_data[key] = {'value': value}
 
         post_data = {
             'collection':
@@ -119,6 +117,8 @@ class APIForm(LoginRequiredMixin, View):
 
 class APIDatatableBaseView(BaseDatatableView):
 
+    endpoint = None
+
     def get_sort_by(self):
         raise NotImplementedError()
 
@@ -144,7 +144,7 @@ class APIDatatableBaseView(BaseDatatableView):
     def get_api_values(self, **kwargs):
 
         # Call distant API to get corresponding data
-        api = APIClient(settings.SOURCES_ENDPOINT)
+        api = APIClient(self.endpoint)
         response_data = api.get(self.request.user.id, **kwargs)
 
         return response_data
@@ -169,11 +169,9 @@ class APIDatatableBaseView(BaseDatatableView):
             data = source['data']
             raw_data = []
             for field in self.source_api_columns:
-                raw_data.append(data[field])
+                raw_data.append(data[field]['value'])
 
             displayed_data.append(raw_data)
-
-        return displayed_data
 
     def get_context_data(self, *args, **kwargs):
 
