@@ -32,3 +32,15 @@ class APIClient(object):
         response = requests.get(self.endpoint, *args, **getkwargs)
 
         return response.json()
+
+    def delete(self, id_to_delete, producer_id, *args, **kwargs):
+
+        delete_url = self.endpoint + "/" + str(id_to_delete)
+        response = requests.delete(
+            delete_url,
+            headers={
+                'X-ODE-Producer-Id': producer_id,
+                'Content-Type': 'application/json',
+            })
+
+        return response.json()

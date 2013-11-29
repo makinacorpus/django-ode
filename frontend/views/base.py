@@ -145,6 +145,15 @@ class APIDatatableBaseView(BaseDatatableView):
                 data[xelement],
                 ".".join(xpath[1:]))
 
+    def get_index_from_column_label(self, field_name):
+
+        for i, column in enumerate(self.column_labels):
+
+            if column == field_name:
+                return i
+
+        return None
+
     def get_index_for(self, field_name):
 
         for i, column in enumerate(self.api_columns):
