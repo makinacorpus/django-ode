@@ -7,21 +7,21 @@ class APIClient(object):
     def __init__(self, endpoint):
         self.endpoint = endpoint
 
-    def post(self, data, producer_id):
+    def post(self, data, provider_id):
         response = requests.post(
             self.endpoint,
             data=json.dumps(data),
             headers={
-                'X-ODE-Producer-Id': producer_id,
+                'X-ODE-Provider-Id': provider_id,
                 'Content-Type': 'application/json',
             })
         return response.json()
 
-    def get(self, producer_id, *args, **kwargs):
+    def get(self, provider_id, *args, **kwargs):
 
         getkwargs = dict(
             headers={
-                'X-ODE-Producer-Id': producer_id,
+                'X-ODE-Provider-Id': provider_id,
                 'Accept': 'application/json',
             })
 

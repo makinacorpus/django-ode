@@ -73,7 +73,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
         self.requests_mock.get.assert_called_with(
             settings.SOURCES_ENDPOINT,
-            headers={'X-ODE-Producer-Id': self.user.pk,
+            headers={'X-ODE-Provider-Id': self.user.pk,
                      'Accept': 'application/json'})
         self.assertContains(response, "http://example.com/source1")
         self.assertContains(response, "http://example.com/source2")

@@ -137,7 +137,7 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         response_json = json.loads(force_text(response.content))
         self.requests_mock.get.assert_called_with(
             settings.EVENTS_ENDPOINT,
-            headers={'X-ODE-Producer-Id': self.user.pk,
+            headers={'X-ODE-Provider-Id': self.user.pk,
                      'Accept': 'application/json'},
             params={'sort_direction': 'desc', 'offset': 0, 'limit': 10,
                     'sort_by': 'title'})

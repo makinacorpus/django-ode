@@ -49,5 +49,5 @@ class PatchMixin(object):
         self.assertEqual(json.loads(kwargs['data']),
                          prepare_api_input(data))
         self.assertEqual(kwargs['headers'],
-                         {'X-ODE-Producer-Id': self.user.pk,
+                         {'X-ODE-Provider-Id': self.user.pk,
                           'Content-Type': 'application/json'})
