@@ -1,6 +1,9 @@
 # -*- encoding: utf-8 -*-
-from django.test import TestCase
+import json
+
 from django.conf import settings
+from django.test import TestCase
+from django.utils.encoding import force_text
 
 from .support import PatchMixin
 from accounts.tests.base import LoginTestMixin
@@ -72,45 +75,75 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             msg_prefix="input should be pre-filled with previous input")
 
     def test_event_list(self):
-        self.skipTest("Will be corrected in next branch named event_listing")
+        self.login()
+
+        response = self.client.get('/events/')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, 'Liste des événements')
+        self.assertContains(response, 'datatable-listing')
+
+        self.client.logout()
+
+    def test_datatable_event_list(self):
         self.login()
         response_mock = self.requests_mock.get.return_value
+        start_t = "2013-02-02T09:00"
+        start_t2 = "2013-01-02T09:00"
+        end_t = "2013-02-04T19:00"
+        end_t2 = "2013-01-04T19:00"
         response_mock.json.return_value = {
             "collection": {
-                "items": [
-                    {
-                        "data":
-                        {
-                            "id": {'value': 1},
-                            "title": {'value': u"Un événement"},
-                            "start_time": {'value': "2013-02-02T09:00"},
-                            "end_time": {'value': "2013-02-04T19:00"},
-                        },
+                "items": [{
+                    "data": {
+                        "id": {'value': 1},
+                        "title": {'value': u"Un événement"},
+                        "description": {'value': u"Description 1"},
+                        "locations": {
+                            "value": [{
+                                "dates": {
+                                    "value": [{
+                                        "start_time": {'value': start_t},
+                                        "end_time": {'value': end_t},
+                                    }]
+                                }
+                            }]
+                        }
                     },
-                    {
-                        "data":
-                        {
-                            "id": {'value': 2},
-                            "title": {'value': u"イベント"},
-                            "start_time": {'value': "2013-01-02T09:00"},
-                            "end_time": {'value': "2013-01-04T19:00"},
-                        },
-                    }
-                ]
+                }, {
+                    "data": {
+                        "id": {'value': 2},
+                        "title": {'value': u"イベント"},
+                        "description": {'value': u"Description 2"},
+                        "locations": {
+                            "value": [{
+                                "dates": {
+                                    "value": [{
+                                        "start_time": {'value': start_t2},
+                                        "end_time": {'value': end_t2},
+                                    }]
+                                }
+                            }]
+                        }
+                    },
+                }],
+                "total_count": 2,
+                "current_count": 2
             }
         }
 
-        response = self.client.get('/events/')
+        response = self.client.get('/events/json/')
 
-        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(force_text(response.content))
         self.requests_mock.get.assert_called_with(
             settings.EVENTS_ENDPOINT,
             headers={'X-ODE-Producer-Id': self.user.pk,
-                     'Accept': 'application/json'})
-        self.assertContains(response, u"Un événement")
-        self.assertContains(response, u"イベント")
-        self.assertContains(response, u"2013-02-02T09:00")
-        self.assertContains(response, u"2013-01-04T19:00")
-        self.assertNotContains(
-            response, "success",
-            msg_prefix="not a redirect from an edition form")
+                     'Accept': 'application/json'},
+            params={'sort_direction': 'desc', 'offset': 0, 'limit': 10,
+                    'sort_by': 'title'})
+
+        # aaData is Datatable mandatory key for displayed data
+        self.assertIn('aaData', response_json.keys())
+        datas = response_json['aaData']
+
+        self.assertEqual(len(datas), 2)

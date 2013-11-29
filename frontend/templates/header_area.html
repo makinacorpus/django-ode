@@ -26,7 +26,7 @@
     <div class="row">
       <nav class="main-nav logged col-md-12">
         <ul>
-          <li><a href="#">{% trans "Événements" %}</a></li>
+          <li><a href="{% url 'event_list' %}">{% trans "Événements" %}</a></li>
           {% if user.organization.is_provider or user.is_superuser %}
             <li><a href="#">{% trans "Créer" %}</a></li>
             <li><a href="{% url 'imports' %}">{% trans "Importer" %}</a></li>

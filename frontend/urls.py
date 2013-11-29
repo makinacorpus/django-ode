@@ -7,7 +7,7 @@ urlpatterns = patterns(
     url(r'^sources/create/$', sources.Form.as_view(), name='sources_create'),
     url(r'^sources/$', sources.SourceListView.as_view(), name='sources_list'),
     url(r'^events/create/$', events.Form.as_view(), name='events_create'),
-    url(r'^events/$', 'events.list', name='events_list'),
+    url(r'^events/$', events.EventListView.as_view(), name='event_list'),
     url(r'^provider_list/$', providers.ProviderListView.as_view(),
         name='provider_list'),
     url(r'^provider_json_list/$', providers.ProviderJsonListView.as_view(),
@@ -20,4 +20,6 @@ urlpatterns = patterns(
     url(r'^imports/$', imports.ImportView.as_view(), name='imports'),
     url(r'^sources/json/$', sources.SourceJsonListView.as_view(),
         name='source_json_list'),
+    url(r'^events/json/$', events.EventJsonListView.as_view(),
+        name='event_json_list'),
 )

@@ -13,7 +13,7 @@ class SourceListingFieldsMixin(object):
 
     source_column_labels = ['URL']
     # These fields are ODE API fields returned for each source record
-    source_api_columns = ['url']
+    api_columns = ['url']
 
     endpoint = settings.SOURCES_ENDPOINT
 
@@ -43,4 +43,4 @@ class SourceJsonListView(SourceListingFieldsMixin,
 
         i_sort_col = int(self.request.REQUEST.get('iSortCol_0', 0))
 
-        return self.source_api_columns[i_sort_col]
+        return self.api_columns[i_sort_col]
