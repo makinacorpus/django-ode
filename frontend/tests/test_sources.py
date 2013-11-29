@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import json
+from mock import call
 
 from django.conf import settings
 from django.test import TestCase
@@ -114,3 +115,61 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         datas = response_json['aaData']
 
         self.assertEqual(len(datas), 2)
+
+    def test_delete_invalid_source(self):
+        response_mock = self.requests_mock.delete.return_value
+        response_mock.json.return_value = {
+            'errors': [{
+                'description': 'Not found'
+            }],
+            'status': 404
+        }
+
+        sample_data = {
+            'id_to_delete': ['123456'],
+        }
+
+        response = self.client.post('/sources/delete_rows/', sample_data,
+                                    follow=True)
+        self.requests_mock.delete.assert_called_with(
+            settings.SOURCES_ENDPOINT + '/123456',
+            headers={'X-ODE-Producer-Id': self.user.pk,
+                     'Content-Type': 'application/json'})
+
+        self.assertEqual(response.status_code, 500)
+
+    def test_delete_valid_source(self):
+
+        sample_data = {
+            'url': 'http://example.com/foo',
+        }
+        response = self.client.post('/imports/', sample_data, follow=True)
+
+        sample_data_2 = {
+            'url': 'http://example2.com/foo',
+        }
+        response = self.client.post('/imports/', sample_data_2, follow=True)
+
+        response_mock = self.requests_mock.delete.return_value
+        response_mock.json.return_value = {
+            'status': 'deleted'
+        }
+
+        sample_data = {
+            'id_to_delete': ['1', '2'],
+        }
+
+        response = self.client.post('/sources/delete_rows/', sample_data,
+                                    follow=True)
+        expected = [
+            call(settings.SOURCES_ENDPOINT + '/1',
+                 headers={'X-ODE-Producer-Id': self.user.pk,
+                          'Content-Type': 'application/json'}),
+            call(settings.SOURCES_ENDPOINT + '/2',
+                 headers={'X-ODE-Producer-Id': self.user.pk,
+                          'Content-Type': 'application/json'})
+        ]
+        self.assertEqual(self.requests_mock.delete.call_args_list, expected)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Done')

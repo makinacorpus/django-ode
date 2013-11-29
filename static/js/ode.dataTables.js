@@ -51,7 +51,7 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
             // delete a source just after having added it
             location.href = window.location.href;
         }).fail(function(data){
-            console.log("Connection to server failed...");
+            alert("Un problème est apparu lors de la suppression d'une donnée. Contactez l'administrateur pour plus d'informations.");
         });
     });
 
