@@ -50,7 +50,7 @@
             <button type="submit" class="btn btn-default">{% trans "Ajouter" %}</button>
         </form>
 
-        <table class="datatable-listing table table-striped" data-source="{% url 'source_json_list' %}">
+        <table id="sources-listing" class="datatable-listing table table-striped" data-source="{% url 'source_json_list' %}">
           <thead>
             <tr>
               {% for label in source_column_labels %}
@@ -66,6 +66,9 @@
             </tr>
           </tbody>
         </table>
+
+        <a href="{% url 'source_delete_rows' %}" class="btn btn-default datatable-delete-rows" data-source="#sources-listing">{% trans "Supprimer" %}</a>
+
     </div>
 </div>
 {% endblock %}

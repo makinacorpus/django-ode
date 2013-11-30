@@ -17,6 +17,6 @@ class ImportView(ProviderLoginRequiredMixin,
     error_message = u"Cette source de données n'a pas pu être enregistrée"
 
     def add_context(self):
-        context = dict(source_column_labels=self.source_column_labels)
+        context = dict(source_column_labels=self.column_labels)
 
         return context

@@ -12,7 +12,7 @@ from frontend.views.base import (APIForm,
 
 class EventListingFieldsMixin(object):
 
-    event_column_labels = ['Title', 'Description', 'Start Date', 'End Date']
+    column_labels = ['Title', 'Description', 'Start Date', 'End Date']
     # These fields are ODE API fields returned for each source record
     api_columns = ['title', 'description',
                    'locations.value.0.dates.value.0.start_time',
@@ -37,7 +37,7 @@ class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(EventListView, self).get_context_data(*args, **kwargs)
 
-        context['event_column_labels'] = self.event_column_labels
+        context['event_column_labels'] = self.column_labels
         return context
 
 
