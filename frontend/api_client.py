@@ -39,7 +39,7 @@ class APIClient(object):
         response = requests.delete(
             delete_url,
             headers={
-                'X-ODE-Producer-Id': producer_id,
+                'X-ODE-Provider-Id': producer_id,
                 'Content-Type': 'application/json',
             })
 

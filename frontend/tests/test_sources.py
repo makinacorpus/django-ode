@@ -133,7 +133,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
                                     follow=True)
         self.requests_mock.delete.assert_called_with(
             settings.SOURCES_ENDPOINT + '/123456',
-            headers={'X-ODE-Producer-Id': self.user.pk,
+            headers={'X-ODE-Provider-Id': self.user.pk,
                      'Content-Type': 'application/json'})
 
         self.assertEqual(response.status_code, 500)
@@ -163,10 +163,10 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
                                     follow=True)
         expected = [
             call(settings.SOURCES_ENDPOINT + '/1',
-                 headers={'X-ODE-Producer-Id': self.user.pk,
+                 headers={'X-ODE-Provider-Id': self.user.pk,
                           'Content-Type': 'application/json'}),
             call(settings.SOURCES_ENDPOINT + '/2',
-                 headers={'X-ODE-Producer-Id': self.user.pk,
+                 headers={'X-ODE-Provider-Id': self.user.pk,
                           'Content-Type': 'application/json'})
         ]
         self.assertEqual(self.requests_mock.delete.call_args_list, expected)
