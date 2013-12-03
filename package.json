@@ -1,0 +1,8 @@
+{
+    "name": "django-ode",
+    "version": "0.1.0",
+    "description": "Django frontend for ODE API",
+    "dependencies" : {
+	"less": "*"
+    }
+}
