@@ -95,37 +95,21 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         response_mock.json.return_value = {
             "collection": {
                 "items": [{
-                    "data": {
-                        "id": {'value': 1},
-                        "title": {'value': u"Un événement"},
-                        "description": {'value': u"Description 1"},
-                        "locations": {
-                            "value": [{
-                                "dates": {
-                                    "value": [{
-                                        "start_time": {'value': start_t},
-                                        "end_time": {'value': end_t},
-                                    }]
-                                }
-                            }]
-                        }
-                    },
+                    "data": [
+                        {'name': "id", 'value': 1},
+                        {'name': "title", 'value': u"Un événement"},
+                        {'name': "description", 'value': u"Description 1"},
+                        {'name': "start_time", 'value': start_t},
+                        {'name': "end_time", 'value': end_t},
+                    ],
                 }, {
-                    "data": {
-                        "id": {'value': 2},
-                        "title": {'value': u"イベント"},
-                        "description": {'value': u"Description 2"},
-                        "locations": {
-                            "value": [{
-                                "dates": {
-                                    "value": [{
-                                        "start_time": {'value': start_t2},
-                                        "end_time": {'value': end_t2},
-                                    }]
-                                }
-                            }]
-                        }
-                    },
+                    "data": [
+                        {"name": "id", 'value': 2},
+                        {"name": "title", 'value': u"イベント"},
+                        {"name": "description", 'value': u"Description 2"},
+                        {'name': "start_time", 'value': start_t2},
+                        {'name': "end_time", 'value': end_t2},
+                    ],
                 }],
                 "total_count": 2,
                 "current_count": 2

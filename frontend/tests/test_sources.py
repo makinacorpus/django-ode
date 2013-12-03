@@ -88,18 +88,16 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             "collection": {
                 "items": [
                     {
-                        "data":
-                        {
-                            "id": {"value": 1},
-                            "url": {"value": "http://example.com/source1"}
-                        }
+                        "data": [
+                            {"name": "id", "value": 1},
+                            {"name": "url", "value": "http://example.com/source1"}
+                        ]
                     },
                     {
-                        "data":
-                        {
-                            "id": {"value": 2},
-                            "url": {"value": "http://example.com/source2"}
-                        }
+                        "data": [
+                            {"name": "id", "value": 2},
+                            {"name": "url", "value": "http://example.com/source2"}
+                        ]
                     }
                 ],
                 "total_count": 2,

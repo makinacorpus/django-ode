@@ -10,6 +10,23 @@ from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 from frontend.api_client import APIClient
 
 
+def data_list_to_dict(data_list):
+    result = {}
+    for data_field in data_list:
+        key = data_field['name']
+        new_value = data_field['value']
+        if key in result:
+            existing_value = result[key]['value']
+            if isinstance(existing_value, list):
+                existing_value.append({'value': new_value})
+            else:
+                result[key]['value'] = [{'value': existing_value},
+                                        {'value': new_value}]
+        else:
+            result[key] = {'value': new_value}
+    return result
+
+
 def error_list_to_dict(api_errors):
     """
     Convert error list returned by the API into a dictionary of error messages
@@ -71,18 +88,15 @@ class APIForm(LoginRequiredMixin, View):
 
     def prepare_api_input(self, dict_data):
 
-        formatted_data = {}
+        formatted_data = []
         for key, value in dict_data.items():
-            formatted_data[key] = {'value': value}
+            formatted_data.append(
+                {'name': key, 'value': value}
+            )
 
         post_data = {
-            'collection':
-            {
-                'items': [
-                    {
-                        'data': formatted_data
-                    }
-                ]
+            'template': {
+                'data': formatted_data
             }
         }
 
@@ -133,6 +147,7 @@ class APIDatatableBaseView(BaseDatatableView):
         return ind
 
     def get_data_from_field(self, data, field):
+        data = data_list_to_dict(data)
 
         xpath = field.split(".")
 

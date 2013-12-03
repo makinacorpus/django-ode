@@ -4,18 +4,13 @@ from mock import patch
 
 def prepare_api_input(dict_data):
 
-    formatted_data = {}
+    formatted_data = []
     for key, value in dict_data.items():
-        formatted_data[key] = {'value': value}
+        formatted_data.append({'name': key, 'value': value})
 
     post_data = {
-        'collection':
-        {
-            'items': [
-                {
-                    'data': formatted_data
-                }
-            ]
+        'template': {
+            'data': formatted_data
         }
     }
 

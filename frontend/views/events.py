@@ -14,9 +14,7 @@ class EventListingFieldsMixin(object):
 
     column_labels = ['Title', 'Description', 'Start Date', 'End Date']
     # These fields are ODE API fields returned for each source record
-    api_columns = ['title', 'description',
-                   'locations.value.0.dates.value.0.start_time',
-                   'locations.value.0.dates.value.0.end_time']
+    api_columns = ['title', 'description', 'start_time', 'end_time']
 
     endpoint = settings.EVENTS_ENDPOINT
 
