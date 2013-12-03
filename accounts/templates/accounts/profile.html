@@ -42,7 +42,11 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-        <img alt="Photo profil" src="{% if user.organization.picture and user.organization.picture != 'False' %}{% thumbnail user.organization.picture 100x100 %}{% else %}{% static "img/profile_picture_placeholder.png" %}{% endif %}">
+        <img alt="Photo profil" src="{% if user.organization.picture and user.organization.picture != 'False' %}
+				     {% thumbnail user.organization.picture 100x100 crop="smart" %}
+				     {% else %}
+				     {% static "img/profile_picture_placeholder.png" %}
+			             {% endif %}">
       </div>
       <div class="col-md-10">
         {% include 'accounts/field.html' with field=form.organization_picture %}
