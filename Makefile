@@ -31,7 +31,7 @@ test: develop flake8
 	$(PYTHON) $(TEST_COMMAND)
 
 coverage: develop
-	$(COVERAGE) run --branch --source=. $(TEST_COMMAND)
+	$(COVERAGE) run --branch --source=. --omit='./install/*,./bin/*,./lib/*' $(TEST_COMMAND)
 	$(COVERAGE) report -m
 
 start: $(PROC) .env
@@ -41,7 +41,7 @@ backup:
 	#TODO
 
 flake8: $(FLAKE8)
-	flake8 --exclude='./install/*' .
+	flake8 --exclude='./install/*,./bin/*,./lib/*' .
 
 serve:
 	python manage.py runserver
