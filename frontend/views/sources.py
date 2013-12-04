@@ -22,19 +22,9 @@ class SourceListingFieldsMixin(object):
 
 class Form(SourceListingFieldsMixin, APIForm):
     template_name = 'import.html'
-    resource_name_plural = 'sources'
     success_message = (u"Cette nouvelle source de données a été "
                        u"enregistrée avec succès")
     error_message = u"Cette source de données n'a pas pu être enregistrée"
-
-
-class SourceListView(SourceListingFieldsMixin, LoginRequiredMixin, View):
-
-    def get(self, request, *args, **kwargs):
-
-        api = APIClient(self.endpoint)
-        response_data = api.get(request.user.id)
-        return render(request, 'source_list.html', response_data)
 
 
 class SourceJsonListView(SourceListingFieldsMixin,

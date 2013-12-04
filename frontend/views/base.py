@@ -14,16 +14,7 @@ def data_list_to_dict(data_list):
     result = {}
     for data_field in data_list:
         key = data_field['name']
-        new_value = data_field['value']
-        if key in result:
-            existing_value = result[key]['value']
-            if isinstance(existing_value, list):
-                existing_value.append({'value': new_value})
-            else:
-                result[key]['value'] = [{'value': existing_value},
-                                        {'value': new_value}]
-        else:
-            result[key] = {'value': new_value}
+        result[key] = {'value': data_field['value']}
     return result
 
 

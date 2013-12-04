@@ -5,8 +5,6 @@ urlpatterns = patterns(
     'frontend.views',
     url(r'^$', 'main.home', name='home'),
     url(r'^sources/create/$', sources.Form.as_view(), name='sources_create'),
-
-    url(r'^sources/$', sources.SourceListView.as_view(), name='sources_list'),
     url(r'^events/create/$', events.Form.as_view(), name='events_create'),
     url(r'^events/$', events.EventListView.as_view(), name='event_list'),
     url(r'^provider_list/$', providers.ProviderListView.as_view(),

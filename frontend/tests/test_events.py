@@ -11,7 +11,6 @@ from accounts.tests.base import LoginTestMixin
 
 class TestEvents(LoginTestMixin, PatchMixin, TestCase):
 
-    resource_name_plural = 'events'
     end_point = settings.EVENTS_ENDPOINT
 
     def setUp(self):

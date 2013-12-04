@@ -12,7 +12,6 @@ from accounts.tests.base import LoginTestMixin
 
 class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
-    resource_name_plural = 'sources'
     end_point = settings.SOURCES_ENDPOINT
 
     def setUp(self):
@@ -59,29 +58,6 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             response, u'value="*** invalid url ***"',
             msg_prefix="input should be pre-filled with previous input")
 
-    def test_source_list(self):
-        response_mock = self.requests_mock.get.return_value
-        response_mock.json.return_value = {
-            "sources": [
-                {"id": 1,
-                 "url": "http://example.com/source1", },
-                {"id": 2,
-                 "url": "http://example.com/source2", },
-            ]
-        }
-
-        response = self.client.get('/sources/')
-
-        self.requests_mock.get.assert_called_with(
-            settings.SOURCES_ENDPOINT,
-            headers={'X-ODE-Provider-Id': self.user.pk,
-                     'Accept': 'application/json'})
-        self.assertContains(response, "http://example.com/source1")
-        self.assertContains(response, "http://example.com/source2")
-        self.assertNotContains(
-            response, "success",
-            msg_prefix="not a redirect from an edition form")
-
     def test_datatable_source_list(self):
         response_mock = self.requests_mock.get.return_value
         response_mock.json.return_value = {
@@ -90,13 +66,15 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
                     {
                         "data": [
                             {"name": "id", "value": 1},
-                            {"name": "url", "value": "http://example.com/source1"}
+                            {"name": "url",
+                             "value": "http://example.com/source1"}
                         ]
                     },
                     {
                         "data": [
                             {"name": "id", "value": 2},
-                            {"name": "url", "value": "http://example.com/source2"}
+                            {"name": "url",
+                             "value": "http://example.com/source2"}
                         ]
                     }
                 ],

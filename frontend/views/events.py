@@ -26,7 +26,6 @@ class Form(APIForm):
     endpoint = settings.EVENTS_ENDPOINT
     success_message = u"L'événement a été enregistré avec succès"
     error_message = u"L'événement n'a pas pu être enregistré"
-    resource_name_plural = 'events'
 
 
 class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
