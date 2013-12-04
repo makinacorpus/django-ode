@@ -11,7 +11,7 @@
 <h1>{{ organization.name }}</h1>
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-5">
     <img alt="Photo profil"
 	 src="{% if organization.picture and organization.picture != 'False' %}
 	      {% thumbnail organization.picture 100x100 crop='smart' %}
@@ -30,10 +30,10 @@
       {% endif %}
     </ul>
   </div>
-  <div class="col-md-9">
+  <div class="col-md-7">
     <dl class="dl-horizontal">
       <dt>{% trans "Type de structure" %}</dt>
-      <dd>{{ organization.type }}</dd>
+      <dd>{% trans organization.get_type_display %}</dd>
 
       <dt>{% trans "Nom structure" %}</dt>
       <dd>{{ organization.name }}</dd>
