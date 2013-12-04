@@ -94,12 +94,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
     def test_delete_invalid_source(self):
         response_mock = self.requests_mock.delete.return_value
-        response_mock.json.return_value = {
-            'errors': [{
-                'description': 'Not found'
-            }],
-            'status': 404
-        }
+        response_mock.status_code = 404
 
         sample_data = {
             'id_to_delete': ['123456'],
@@ -127,9 +122,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         response = self.client.post('/imports/', sample_data_2, follow=True)
 
         response_mock = self.requests_mock.delete.return_value
-        response_mock.json.return_value = {
-            'status': 'deleted'
-        }
+        response_mock.status_code = 204
 
         sample_data = {
             'id_to_delete': ['1', '2'],

@@ -61,11 +61,11 @@ class SourceDeleteRowsView(LoginRequiredMixin, View):
 
         self.api = APIClient(settings.SOURCES_ENDPOINT)
         for id_to_delete in ids_to_delete:
-            response_data = self.api.delete(id_to_delete,
-                                            request.user.id)
+            response = self.api.delete(id_to_delete, request.user.id)
             # If there is a problem when deleting a resource,
             # we raise an exception to warn user that there is "a" problem
-            if response_data['status'] == 404:
+            no_content = 204
+            if response.status_code != no_content:
                 return HttpResponseServerError()
 
         return HttpResponse("Done")
