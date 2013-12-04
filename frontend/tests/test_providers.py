@@ -20,7 +20,6 @@ class TestProviders(LoginTestMixin, TestCase):
         self.assertContains(response, "Liste des fournisseurs")
         self.assertContains(response, "datatable-listing")
 
-
     def test_has_provider_view(self):
 
         user = ProviderUserFactory.create(
@@ -30,7 +29,6 @@ class TestProviders(LoginTestMixin, TestCase):
 
         response = self.client.get('/provider/1/')
         self.assertContains(response, "Type de structure")
-
 
     def test_datatable_has_provider(self):
 
