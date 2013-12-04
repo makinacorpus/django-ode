@@ -47,21 +47,15 @@ class TestProfile(LoginTestMixin, TestCase):
         self._test_update_organization_char_field(field_name, value,
                                                   login=False)
 
-    def _test_update_boolean_field(self, model_field, login=True):
-        if login:
-            self.login(username='bob')
-
-        self.post_with_required_params({'organization_' + model_field: u'on'})
-
-        user = User.objects.get(username='bob')
-        self.assertTrue(getattr(user.organization, model_field))
-
     def _test_update_boolean_field_as(self, model_field, flag):
         user = self.login(username='bob')
         setattr(user.organization, flag, True)
         user.organization.save()
 
-        self._test_update_boolean_field(model_field, login=False)
+        self.post_with_required_params({'organization_' + model_field: u'on'})
+
+        user = User.objects.get(username='bob')
+        self.assertTrue(getattr(user.organization, model_field))
 
     def _test_update_boolean_field_as_provider(self, model_field):
         self._test_update_boolean_field_as(model_field, flag='is_provider')
