@@ -2,7 +2,6 @@
 
 from django.http import HttpResponse, HttpResponseServerError
 from django.conf import settings
-from django.shortcuts import render
 from django.views.generic import View
 
 from frontend.views.base import (APIForm,
