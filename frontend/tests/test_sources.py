@@ -12,7 +12,6 @@ from accounts.tests.base import LoginTestMixin
 
 class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
-    resource_name_plural = 'sources'
     end_point = settings.SOURCES_ENDPOINT
 
     def setUp(self):
@@ -59,47 +58,24 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             response, u'value="*** invalid url ***"',
             msg_prefix="input should be pre-filled with previous input")
 
-    def test_source_list(self):
-        response_mock = self.requests_mock.get.return_value
-        response_mock.json.return_value = {
-            "sources": [
-                {"id": 1,
-                 "url": "http://example.com/source1", },
-                {"id": 2,
-                 "url": "http://example.com/source2", },
-            ]
-        }
-
-        response = self.client.get('/sources/')
-
-        self.requests_mock.get.assert_called_with(
-            settings.SOURCES_ENDPOINT,
-            headers={'X-ODE-Provider-Id': self.user.pk,
-                     'Accept': 'application/json'})
-        self.assertContains(response, "http://example.com/source1")
-        self.assertContains(response, "http://example.com/source2")
-        self.assertNotContains(
-            response, "success",
-            msg_prefix="not a redirect from an edition form")
-
     def test_datatable_source_list(self):
         response_mock = self.requests_mock.get.return_value
         response_mock.json.return_value = {
             "collection": {
                 "items": [
                     {
-                        "data":
-                        {
-                            "id": {"value": 1},
-                            "url": {"value": "http://example.com/source1"}
-                        }
+                        "data": [
+                            {"name": "id", "value": 1},
+                            {"name": "url",
+                             "value": "http://example.com/source1"}
+                        ]
                     },
                     {
-                        "data":
-                        {
-                            "id": {"value": 2},
-                            "url": {"value": "http://example.com/source2"}
-                        }
+                        "data": [
+                            {"name": "id", "value": 2},
+                            {"name": "url",
+                             "value": "http://example.com/source2"}
+                        ]
                     }
                 ],
                 "total_count": 2,
@@ -118,12 +94,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
     def test_delete_invalid_source(self):
         response_mock = self.requests_mock.delete.return_value
-        response_mock.json.return_value = {
-            'errors': [{
-                'description': 'Not found'
-            }],
-            'status': 404
-        }
+        response_mock.status_code = 404
 
         sample_data = {
             'id_to_delete': ['123456'],
@@ -151,9 +122,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         response = self.client.post('/imports/', sample_data_2, follow=True)
 
         response_mock = self.requests_mock.delete.return_value
-        response_mock.json.return_value = {
-            'status': 'deleted'
-        }
+        response_mock.status_code = 204
 
         sample_data = {
             'id_to_delete': ['1', '2'],

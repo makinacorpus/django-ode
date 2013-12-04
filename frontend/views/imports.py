@@ -11,7 +11,6 @@ class ImportView(ProviderLoginRequiredMixin,
                  APIForm):
     template_name = 'import.html'
     endpoint = settings.SOURCES_ENDPOINT
-    resource_name_plural = 'sources'
     success_message = (u"Cette nouvelle source de données a été "
                        u"enregistrée avec succès")
     error_message = u"Cette source de données n'a pas pu être enregistrée"

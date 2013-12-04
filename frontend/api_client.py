@@ -43,4 +43,4 @@ class APIClient(object):
                 'Content-Type': 'application/json',
             })
 
-        return response.json()
+        return response

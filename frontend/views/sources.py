@@ -2,7 +2,6 @@
 
 from django.http import HttpResponse, HttpResponseServerError
 from django.conf import settings
-from django.shortcuts import render
 from django.views.generic import View
 
 from frontend.views.base import (APIForm,
@@ -22,19 +21,9 @@ class SourceListingFieldsMixin(object):
 
 class Form(SourceListingFieldsMixin, APIForm):
     template_name = 'import.html'
-    resource_name_plural = 'sources'
     success_message = (u"Cette nouvelle source de données a été "
                        u"enregistrée avec succès")
     error_message = u"Cette source de données n'a pas pu être enregistrée"
-
-
-class SourceListView(SourceListingFieldsMixin, LoginRequiredMixin, View):
-
-    def get(self, request, *args, **kwargs):
-
-        api = APIClient(self.endpoint)
-        response_data = api.get(request.user.id)
-        return render(request, 'source_list.html', response_data)
 
 
 class SourceJsonListView(SourceListingFieldsMixin,
@@ -72,11 +61,11 @@ class SourceDeleteRowsView(LoginRequiredMixin, View):
 
         self.api = APIClient(settings.SOURCES_ENDPOINT)
         for id_to_delete in ids_to_delete:
-            response_data = self.api.delete(id_to_delete,
-                                            request.user.id)
+            response = self.api.delete(id_to_delete, request.user.id)
             # If there is a problem when deleting a resource,
             # we raise an exception to warn user that there is "a" problem
-            if response_data['status'] == 404:
+            no_content = 204
+            if response.status_code != no_content:
                 return HttpResponseServerError()
 
         return HttpResponse("Done")

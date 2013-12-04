@@ -231,3 +231,8 @@ class TestSignup(TestCase):
         user = User.objects.get(username='bob')
         self.assertFalse(user.is_active,
                          "User shouldn't be active without email confirmation")
+
+    def test_duplicate_username(self):
+        self.post_signup(username=u'bob')
+        self.post_signup(username=u'bob')
+        self.assertEqual(User.objects.count(), 1)
