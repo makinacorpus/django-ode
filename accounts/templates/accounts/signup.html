@@ -5,6 +5,8 @@
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
+
+
 {% block content %}
 <h1>{% trans "Formulaire d'inscription" %}</h1>
 
@@ -23,66 +25,81 @@
   <fieldset>
     <div class="row">
       <div class="col-md-12">
-        <legend>{% trans 'STATUT' %}</legend>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        {% with field=form.organization_is_provider %}
-        <div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
-          {% if field.errors %}
-          <span class="help-block">{{ field.errors }}</span>
-          {% endif %}
-          {{ field }}
-          <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        </div>
-        {% endwith %}
-        <div id="is-provider-details" class="subchoices collapse{% if form.organization_is_provider.value %} in{% else %} out{% endif %}">
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_host %}
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_creator %}
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_performer %}
-        </div>
-
-        {% with field=form.organization_is_consumer %}
-        <div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
-          {% if field.errors %}
-          <span class="help-block">{{ field.errors }}</span>
-          {% endif %}
-          {{ field }}
-          <label class="control-label" for="{{ field.id_for_label }}">{% trans 'Réutilisateur de données' %}</label>
-        </div>
-        {% endwith %}
-        <div id="is-consumer-details" class="subchoices collapse{% if form.organization_is_consumer.value %} in{% else %} out{% endif %}">
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_media %}
-          {% include 'accounts/field.html' with field=form.organization_media_url %}
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_website %}
-          {% include 'accounts/field.html' with field=form.organization_website_url %}
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_mobile_app %}
-          {% include 'accounts/field.html' with field=form.organization_mobile_app_name %}
-          {% include 'accounts/checkbox_field.html' with field=form.organization_is_other %}
-          {% include 'accounts/field.html' with field=form.organization_other_details %}
-        </div>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <div class="row">
-      <div class="col-md-12">
         <legend>{% trans 'STRUCTURE' %}</legend>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        {% include 'accounts/field.html' with field=form.organization_type %}
-        {% include 'accounts/field.html' with field=form.organization_activity_field %}
-      </div>
-      <div class="col-md-4">
-        {% include 'accounts/field.html' with field=form.organization_name %}
-        {% include 'accounts/field.html' with field=form.organization_address %}
-        {% include 'accounts/field.html' with field=form.organization_post_code %}
-        {% include 'accounts/field.html' with field=form.organization_town %}
-        {% include 'accounts/field.html' with field=form.organization_url %}
+      <div class="col-md-12">
+	{% include 'accounts/field.html' with field=form.organization_list %}
+	<div id="organization-details" class="subchoices collapse{% if not form.organization_organization_list.value %} in{% else %} out{% endif %}">
+
+	  <fieldset>
+	    <div class="row">
+	      <div class="col-md-12">
+		<legend>{% trans 'STATUT' %}</legend>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-md-12">
+		{% with field=form.organization_is_provider %}
+		<div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
+		  {% if field.errors %}
+		  <span class="help-block">{{ field.errors }}</span>
+		  {% endif %}
+		  {{ field }}
+		  <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+		</div>
+		{% endwith %}
+		<div id="is-provider-details" class="subchoices collapse{% if form.organization_is_provider.value %} in{% else %} out{% endif %}">
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_host %}
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_creator %}
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_performer %}
+		</div>
+
+		{% with field=form.organization_is_consumer %}
+		<div class="fieldWrapper checkbox {% if field.errors %}has-error{% endif %}">
+		  {% if field.errors %}
+		  <span class="help-block">{{ field.errors }}</span>
+		  {% endif %}
+		  {{ field }}
+		  <label class="control-label" for="{{ field.id_for_label }}">{% trans 'Réutilisateur de données' %}</label>
+		</div>
+		{% endwith %}
+		<div id="is-consumer-details" class="subchoices collapse{% if form.organization_is_consumer.value %} in{% else %} out{% endif %}">
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_media %}
+		  {% include 'accounts/field.html' with field=form.organization_media_url %}
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_website %}
+		  {% include 'accounts/field.html' with field=form.organization_website_url %}
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_mobile_app %}
+		  {% include 'accounts/field.html' with field=form.organization_mobile_app_name %}
+		  {% include 'accounts/checkbox_field.html' with field=form.organization_is_other %}
+		  {% include 'accounts/field.html' with field=form.organization_other_details %}
+		</div>
+	      </div>
+	    </div>
+	  </fieldset>
+
+	  <fieldset>
+	    <div class="row">
+	      <div class="col-md-12">
+		<legend>{% trans 'INFORMATIONS' %}</legend>
+	      </div>
+	    </div>
+	    <div class="row">
+	      <div class="col-md-4">
+		{% include 'accounts/field.html' with field=form.organization_type %}
+		{% include 'accounts/field.html' with field=form.organization_activity_field %}
+	      </div>
+	      <div class="col-md-4">
+		{% include 'accounts/field.html' with field=form.organization_name %}
+		{% include 'accounts/field.html' with field=form.organization_address %}
+		{% include 'accounts/field.html' with field=form.organization_post_code %}
+		{% include 'accounts/field.html' with field=form.organization_town %}
+		{% include 'accounts/field.html' with field=form.organization_url %}
+	      </div>
+	    </div>
+	  </fieldset>
+	</div>
       </div>
     </div>
   </fieldset>
@@ -108,11 +125,13 @@
       <div class="col-md-12">
         <legend>{% trans 'CONNEXION' %}</legend>
 
-    <div class="row">
-      <div class="col-md-12">        
-        {% include 'accounts/field.html' with field=form.username %}
-        {% include 'accounts/field.html' with field=form.password1 %}
-        {% include 'accounts/field.html' with field=form.password2 %}
+	<div class="row">
+	  <div class="col-md-12">
+            {% include 'accounts/field.html' with field=form.username %}
+            {% include 'accounts/field.html' with field=form.password1 %}
+            {% include 'accounts/field.html' with field=form.password2 %}
+	  </div>
+	</div>
       </div>
     </div>
   </fieldset>
@@ -143,8 +162,6 @@
   </div>
 
 </form>
-
-
 {% endblock %}
 
 

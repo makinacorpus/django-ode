@@ -139,6 +139,7 @@ PIPELINE_JS = {
             'js/csrf.js',
             'js/jquery.dataTables.js',
             'js/ode.dataTables.js',
+            'js/ode.signup.js'
         ),
         'output_filename': 'js/scripts.js',
     }

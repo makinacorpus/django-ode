@@ -81,6 +81,12 @@ class Organization(models.Model):
         self.press_contact.save()
         self.save()
 
+    def __unicode__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
 
 class User(AbstractUser):
     organization = models.ForeignKey(Organization, null=True)

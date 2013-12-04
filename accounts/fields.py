@@ -36,6 +36,17 @@ class StandardCharField(forms.CharField):
         super(StandardCharField, self).__init__(*args, **kwargs)
 
 
+class OrganizationListField(forms.ModelChoiceField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('queryset', Organization.objects.all())
+        kwargs.setdefault('empty_label', _(u"Créez une nouvelle structure"))
+        kwargs.setdefault('required', False)
+        kwargs.setdefault('label', _(u"Choisissez votre structure"))
+        kwargs.setdefault('widget', custom_widgets.Select)
+        super(OrganizationListField, self).__init__(*args, **kwargs)
+
+
 class OrganizationTypeField(forms.ChoiceField):
 
     def __init__(self, *args, **kwargs):

@@ -75,6 +75,8 @@ class SignupForm(OrganizationValidationMixin, UserCreationForm):
     password1 = fields.Password1Field(label=_('Mot de passe'))
     password2 = fields.Password2Field()
 
+    organization_list = fields.OrganizationListField()
+
     organization_activity_field = fields.OrganizationActivityFieldField()
     organization_name = fields.OrganizationNameField()
     organization_price_information = forms.CharField(
