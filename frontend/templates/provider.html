@@ -1,0 +1,58 @@
+{% extends request.is_ajax|yesno:"ajax_modal.html,layout.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block head_title %}{{ organization.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ organization.name }}</h1>
+
+<div class="row">
+  <div class="col-md-3">
+    <img alt="Photo profil"
+	 src="{% if organization.picture and organization.picture != 'False' %}
+	      {% thumbnail organization.picture 100x100 crop='smart' %}
+	      {% else %}
+	      {% static 'img/profile_picture_placeholder.png' %}
+	      {% endif %}">
+    <ul>
+      {% if organization.is_creator %}
+      <li>{% trans "Créateur d'événements" %}</li>
+      {% endif %}
+      {% if organization.is_host %}
+      <li>{% trans "Lieu d'accueil d'événements" %}</li>
+      {% endif %}
+      {% if organization.is_perfomer %}
+      <li>{% trans "Intervenant/artiste" %}</li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <dl class="dl-horizontal">
+      <dt>{% trans "Type de structure" %}</dt>
+      <dd>{{ organization.type }}</dd>
+
+      <dt>{% trans "Nom structure" %}</dt>
+      <dd>{{ organization.name }}</dd>
+
+      <dt>{% trans "Adresse" %}</dt>
+      <dd>{{ organization.address }}</dd>
+
+      <dt>{% trans "Code Postal" %}</dt>
+      <dd>{{ organization.post_code }}</dd>
+
+      <dt>{% trans "Ville" %}</dt>
+      <dd>{{ organization.town }}</dd>
+
+      <dt>{% trans "Site Internet" %}</dt>
+      <dd>{{ organization.url }}</dd>
+
+      <dt>{% trans "Domaine d'activité" %}</dt>
+      <dd>{{ organization.activity_field }}</dd>
+    </dl>
+  </div>
+</div>
+{% endblock %}

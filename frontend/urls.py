@@ -13,6 +13,8 @@ urlpatterns = patterns(
         name='provider_list'),
     url(r'^provider_json_list/$', providers.ProviderJsonListView.as_view(),
         name='provider_json_list'),
+    url(r'^provider/(?P<pk>.+)/$', providers.ProviderView.as_view(),
+        name='provider'),
     url(r'^consumer_list/$', consumers.ConsumerListView.as_view(),
         name='consumer_list'),
     url(r'^consumer_json_list/$', consumers.ConsumerJsonListView.as_view(),

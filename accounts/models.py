@@ -29,9 +29,6 @@ class Organization(models.Model):
     picture = models.ImageField(upload_to="organization/profile_picture")
     activity_field = models.CharField(max_length=50, blank=True,
                                       verbose_name=_(u"Domaine d'activité"))
-    price_information = models.CharField(max_length=100, blank=True)
-    audience = models.CharField(max_length=100, blank=True)
-    capacity = models.CharField(max_length=100, blank=True)
     type = models.CharField(choices=TYPES, max_length=32, blank=True)
     address = models.CharField(max_length=100, blank=True)
     post_code = models.CharField(max_length=20, blank=True)
@@ -50,6 +47,10 @@ class Organization(models.Model):
     website_url = models.URLField(blank=True)
     mobile_app_name = models.CharField(max_length=100, blank=True)
     other_details = models.CharField(max_length=100, blank=True)
+    # Event related
+    price_information = models.CharField(max_length=100, blank=True)
+    audience = models.CharField(max_length=100, blank=True)
+    capacity = models.CharField(max_length=100, blank=True)
     ticket_contact = models.ForeignKey(Contact, null=True,
                                        related_name='ticket_organization')
     press_contact = models.ForeignKey(Contact, null=True,
