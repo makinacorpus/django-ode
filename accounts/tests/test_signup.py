@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.core import mail
 
 from accounts.models import User
+from accounts.tests.test_factory import ProviderOrganizationFactory
 
 
 class TestSignup(TestCase):
@@ -23,6 +24,7 @@ class TestSignup(TestCase):
 
     def test_form_fields(self):
         response = self.client.get('/accounts/signup/')
+        self.assertContains(response, 'organization_list')
         self.assertContains(response, 'organization_is_provider')
         self.assertContains(response, 'organization_is_consumer')
         self.assertContains(response, 'organization_is_host')
@@ -71,6 +73,35 @@ class TestSignup(TestCase):
             organization_address=u"65 Baker Street",
             organization_post_code=u"123 ABC",
             organization_is_provider='on',
+        )
+
+        user = User.objects.get(username='bob')
+
+        self.assertEqual(user.organization.name, u'Évé')
+        self.assertEqual(user.organization.activity_field, u'Théatre')
+        self.assertEqual(user.organization.price_information, u'4 €')
+        self.assertEqual(user.organization.type, u'individual')
+        self.assertEqual(user.organization.address, u'65 Baker Street')
+        self.assertEqual(user.organization.post_code, u'123 ABC')
+        self.assertEqual(user.organization.town, 'Paris')
+        self.assertEqual(user.organization.url, 'http://example.com/foo/bar')
+        self.assertTrue(user.organization.is_provider)
+        self.assertContains(response, 'email de confirmation')
+
+    def test_successful_organization_signup(self):
+        organization = ProviderOrganizationFactory.create(
+            name=u'Évé',
+            activity_field=u'Théatre',
+            url='http://example.com/foo/bar',
+            price_information='4 €',
+            town=u"Paris",
+            type=u"individual",
+            address=u"65 Baker Street",
+            post_code=u"123 ABC",
+            is_provider=True,
+            )
+        response = self.post_signup(
+            organization_list=organization.pk
         )
 
         user = User.objects.get(username='bob')
