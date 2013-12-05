@@ -17,6 +17,8 @@ urlpatterns = patterns(
         name='consumer_list'),
     url(r'^consumer_json_list/$', consumers.ConsumerJsonListView.as_view(),
         name='consumer_json_list'),
+    url(r'^consumer/(?P<pk>.+)/$', consumers.ConsumerView.as_view(),
+        name='consumer'),
 
     url(r'^imports/$', imports.ImportView.as_view(), name='imports'),
     url(r'^sources/json/$', sources.SourceJsonListView.as_view(),

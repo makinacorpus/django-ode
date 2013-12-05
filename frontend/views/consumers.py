@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 
@@ -31,3 +31,19 @@ class ConsumerJsonListView(LoginRequiredMixin, BaseDatatableView):
     def get_initial_queryset(self):
 
         return self.model.objects.filter(is_consumer=True).all()
+
+    def render_column(self, row, column):
+
+        text = super(ConsumerJsonListView, self).render_column(row, column)
+        if column == 'name':
+            text = (u'<a class="load-in-modal" data-toggle="modal" '
+                    u'data-target="#consumer-modal" '
+                    u'href="/consumer/{}/">{}</a>'
+                    .format(row.pk, text))
+        return text
+
+
+class ConsumerView(LoginRequiredMixin, DetailView):
+    model = Organization
+    template_name = 'consumer.html'
+    context_object_name = 'organization'

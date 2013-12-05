@@ -1,0 +1,65 @@
+{% extends request.is_ajax|yesno:"ajax_modal.html,layout.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block head_title %}{{ organization.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ organization.name }}</h1>
+
+<div class="row">
+  <div class="col-md-5">
+    <img alt="Photo profil"
+	 src="{% if organization.picture and organization.picture != 'False' %}
+	      {% thumbnail organization.picture 100x100 crop='smart' %}
+	      {% else %}
+	      {% static 'img/profile_picture_placeholder.png' %}
+	      {% endif %}">
+    <dl>
+      {% if organization.is_media %}
+      <dt>{% trans "Publication d'un media print/web" %}</dt>
+      <dd><a href="{{ organization.media_url }}">{{ organization.media_url }}</a></dd>
+      {% endif %}
+      {% if organization.is_website %}
+      <dt>{% trans "Site web" %}</dt>
+      <dd><a href="{{ organization.website_url }}">{{ organization.website_url }}</a></dd>
+      {% endif %}
+      {% if organization.is_mobile_app %}
+      <dt>{% trans "Application mobile" %}</dt>
+      <dd>{{ organization.mobile_app_name }}</dd>
+      {% endif %}
+      {% if organization.is_other %}
+      <dt>{% trans "Autre" %}</dt>
+      <dd>{{ organization.other_details }}</dd>
+      {% endif %}
+    </dl>
+  </div>
+  <div class="col-md-7">
+    <dl class="dl-horizontal">
+      <dt>{% trans "Type de structure" %}</dt>
+      <dd>{% trans organization.get_type_display %}</dd>
+
+      <dt>{% trans "Nom structure" %}</dt>
+      <dd>{{ organization.name }}</dd>
+
+      <dt>{% trans "Adresse" %}</dt>
+      <dd>{{ organization.address }}</dd>
+
+      <dt>{% trans "Code Postal" %}</dt>
+      <dd>{{ organization.post_code }}</dd>
+
+      <dt>{% trans "Ville" %}</dt>
+      <dd>{{ organization.town }}</dd>
+
+      <dt>{% trans "Site Internet" %}</dt>
+      <dd>{{ organization.url }}</dd>
+
+      <dt>{% trans "Domaine d'activité" %}</dt>
+      <dd>{{ organization.activity_field }}</dd>
+    </dl>
+  </div>
+</div>
+{% endblock %}
