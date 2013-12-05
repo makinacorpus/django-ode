@@ -42,7 +42,16 @@ INSTALLED_APPS = (
     'frontend',
     'accounts',
     'easy_thumbnails',
+    'rest_framework.authtoken',
 )
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

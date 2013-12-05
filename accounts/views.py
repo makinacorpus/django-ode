@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from rest_framework.authtoken.models import Token
+
 from accounts.forms import SignupForm, ProfileForm
 from accounts.models import User, Organization
 
@@ -44,6 +46,7 @@ class SignupView(CreateView):
             user.organization = Organization.objects.create()
             user.organization.update(form.cleaned_data)
         user.save()
+        Token.objects.create(user=user)
         self.object = user
         return HttpResponseRedirect(self.get_success_url())
 

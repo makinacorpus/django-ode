@@ -3,6 +3,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core import mail
 
+from rest_framework.authtoken.models import Token
+
 from accounts.models import User
 from accounts.tests.test_factory import ProviderOrganizationFactory
 
@@ -87,6 +89,7 @@ class TestSignup(TestCase):
         self.assertEqual(user.organization.url, 'http://example.com/foo/bar')
         self.assertTrue(user.organization.is_provider)
         self.assertContains(response, 'email de confirmation')
+        self.assertEqual(Token.objects.get().user, user)
 
     def test_successful_organization_signup(self):
         organization = ProviderOrganizationFactory.create(
