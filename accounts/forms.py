@@ -129,9 +129,10 @@ class SignupForm(OrganizationValidationMixin, UserCreationForm):
 
     def clean(self):
         cleaned_data = super(SignupForm, self).clean()
+        organization = cleaned_data.get('organization_list')
         is_provider = cleaned_data.get('organization_is_provider')
         is_consumer = cleaned_data.get('organization_is_consumer')
-        if not is_consumer and not is_provider:
+        if not organization and not is_consumer and not is_provider:
             raise forms.ValidationError(
                 _(u"Vous devez indiquer si vous êtes fournisseur ou "
                   u"consommateur de données"))

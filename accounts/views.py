@@ -37,8 +37,12 @@ class SignupView(CreateView):
         })
         confirmation_url = self.request.build_absolute_uri(confirmation_path)
         user.send_confirmation_email(confirmation_url)
-        user.organization = Organization.objects.create()
-        user.organization.update(form.cleaned_data)
+        organization = form.cleaned_data['organization_list']
+        if organization:
+            user.organization = organization
+        else:
+            user.organization = Organization.objects.create()
+            user.organization.update(form.cleaned_data)
         user.save()
         self.object = user
         return HttpResponseRedirect(self.get_success_url())
