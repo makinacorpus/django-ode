@@ -20,6 +20,29 @@ class TestConsumers(LoginTestMixin, TestCase):
         self.assertContains(response, "Liste des réutilisateurs")
         self.assertContains(response, "datatable-listing")
 
+    def test_has_provider_view(self):
+
+        user = ConsumerUserFactory.create(
+            username='bob2', confirmation_code='s3cr3t', email="bob2@mc.com")
+        user.is_active = True
+        user.save()
+
+        response = self.client.get('/consumer/1/')
+        self.assertNotContains(response, "modal")
+        self.assertContains(response, "Type de structure")
+
+    def test_provider_ajax_view(self):
+
+        user = ConsumerUserFactory.create(
+            username='bob2', confirmation_code='s3cr3t', email="bob2@mc.com")
+        user.is_active = True
+        user.save()
+
+        response = self.client.get('/consumer/1/',
+                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertContains(response, "modal")
+        self.assertContains(response, "Type de structure")
+
     def test_datatable_has_consumer(self):
 
         ConsumerUserFactory.create(username='bob2', confirmation_code='s3cr3t',
