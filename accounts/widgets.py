@@ -15,6 +15,13 @@ class TextInput(forms.TextInput):
         self.attrs = {'class': 'form-control'}
 
 
+class EmailInput(forms.TextInput):
+
+    def __init__(self, *args, **kwargs):
+        super(EmailInput, self).__init__(*args, **kwargs)
+        self.attrs = {'class': 'form-control'}
+
+
 class PasswordInput(forms.PasswordInput):
 
     def __init__(self, *args, **kwargs):

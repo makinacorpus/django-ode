@@ -30,6 +30,6 @@ urlpatterns = patterns(
     url(r'^sources/delete_rows/$', sources.SourceDeleteRowsView.as_view(),
         name='source_delete_rows'),
 
-    url(r'^eula$', TemplateView.as_view(template_name="eula.html"),
+    url(r'^eula/$', TemplateView.as_view(template_name="eula.html"),
         name='eula'),
 )

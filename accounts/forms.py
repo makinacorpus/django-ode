@@ -1,5 +1,10 @@
 # -*- encoding: utf-8 -*-
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    PasswordResetForm,
+    SetPasswordForm
+    )
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
@@ -57,6 +62,18 @@ class CustomAuthenticationForm(AuthenticationForm):
                                widget=custom_widgets.TextInput)
     password = forms.CharField(label=_("Password"),
                                widget=custom_widgets.PasswordInput)
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+
+    email = forms.EmailField(label=_("Email"), max_length=254,
+                             widget=custom_widgets.EmailInput)
+
+
+class CustomSetPasswordForm(SetPasswordForm):
+
+    new_password1 = fields.Password1Field(label=_('Mot de passe'))
+    new_password2 = fields.Password2Field()
 
 
 class SignupForm(OrganizationValidationMixin, UserCreationForm):
