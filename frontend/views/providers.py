@@ -36,7 +36,7 @@ class ProviderJsonListView(LoginRequiredMixin, BaseDatatableView):
 
         text = super(ProviderJsonListView, self).render_column(row, column)
         if column == 'name':
-            text = (u'<a class="load-in-modal" data-toggle="modal" '
+            text = (u'<a data-toggle="modal" '
                     u'data-target="#provider-modal" '
                     u'href="/provider/{}/">{}</a>'
                     .format(row.pk, text))

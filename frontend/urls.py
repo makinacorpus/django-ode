@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, url
+from django.views.generic.base import TemplateView
 from frontend.views import sources, events, providers, consumers, imports
 
 urlpatterns = patterns(
@@ -27,5 +28,8 @@ urlpatterns = patterns(
         name='event_json_list'),
 
     url(r'^sources/delete_rows/$', sources.SourceDeleteRowsView.as_view(),
-        name='source_delete_rows')
+        name='source_delete_rows'),
+
+    url(r'^eula$', TemplateView.as_view(template_name="eula.html"),
+        name='eula'),
 )

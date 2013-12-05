@@ -145,7 +145,17 @@
         <span class="help-block">{{ field.errors }}</span>
         {% endif %}
         {{ field }}
-        <label class="control-label" for="{{ field.id_for_label }}">{% trans 'Valider les GCU' %}</label>
+        <label class="control-label" for="{{ field.id_for_label }}">
+	  {% url 'eula' as eula_url %}
+	  {% blocktrans %}
+	  Valider les
+	  <a data-toggle="modal"
+	     data-target="#signup-modal"
+	     href="{{ eula_url }}">
+	    CGU
+	  </a>
+	  {% endblocktrans %}
+	</label>
       </div>
       {% endwith %}
     </div>
@@ -162,6 +172,27 @@
   </div>
 
 </form>
+
+<div class="modal fade" id="signup-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-hidden="true">
+	  &times;
+	</button>
+	<h4>{% trans "Chargement en cours..." %}</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">
+	  {% trans "Fermer" %}
+	</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 

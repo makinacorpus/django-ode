@@ -36,7 +36,7 @@ class ConsumerJsonListView(LoginRequiredMixin, BaseDatatableView):
 
         text = super(ConsumerJsonListView, self).render_column(row, column)
         if column == 'name':
-            text = (u'<a class="load-in-modal" data-toggle="modal" '
+            text = (u'<a data-toggle="modal" '
                     u'data-target="#consumer-modal" '
                     u'href="/consumer/{}/">{}</a>'
                     .format(row.pk, text))
