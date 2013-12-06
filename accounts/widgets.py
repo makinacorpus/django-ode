@@ -33,7 +33,6 @@ class CheckboxInput(forms.CheckboxInput):
 
     def __init__(self, *args, **kwargs):
         super(CheckboxInput, self).__init__(*args, **kwargs)
-        self.attrs = {'class': 'form-control'}
 
 
 class CollapseCheckboxInput(CheckboxInput):
