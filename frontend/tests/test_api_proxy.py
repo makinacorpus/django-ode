@@ -53,20 +53,31 @@ class TestApiProxy(PatchMixin, TestCase):
         data = {u'foo': u'bar'}
         self.make_authenticated_request('get', token, data=data)
         self.requests_mock.request.assert_called_with(
-            'GET', self.target_url, params=data
+            'GET', self.target_url, params=data,
+            headers={
+                'X-ODE-API-Mount-Point': 'http://testserver/api',
+            }
         )
 
     def test_auth_header_is_present_for_provider(self):
         user, token = self.make_user_with_token(ProviderUserFactory)
         self.make_authenticated_request('get', token)
         self.requests_mock.request.assert_called_with(
-            'GET', self.target_url, headers={'X-ODE-Provider-Id': user.pk}
+            'GET', self.target_url, headers={
+                'X-ODE-Provider-Id': user.pk,
+                'X-ODE-API-Mount-Point': 'http://testserver/api',
+            }
         )
 
     def test_auth_header_is_absent_for_non_provider(self):
         user, token = self.make_user_with_token(UserFactory)
         self.make_authenticated_request('get', token)
-        self.requests_mock.request.assert_called_with('GET', self.target_url)
+        self.requests_mock.request.assert_called_with(
+            'GET',
+            self.target_url,
+            headers={
+                'X-ODE-API-Mount-Point': 'http://testserver/api',
+            })
 
     def test_provider_can_make_unsafe_operation(self):
         user, token = self.make_user_with_token(ProviderUserFactory)
@@ -79,6 +90,7 @@ class TestApiProxy(PatchMixin, TestCase):
                 data=smart_bytes(data, 'utf-8'),
                 headers={
                     'X-ODE-Provider-Id': user.pk,
+                    'X-ODE-API-Mount-Point': 'http://testserver/api',
                     'CONTENT-TYPE': 'application/json',
                 })
 

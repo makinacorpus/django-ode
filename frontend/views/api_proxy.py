@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.http import HttpResponse
 from django.conf import settings
+from urllib.parse import urlparse
 import requests
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authentication import SessionAuthentication
@@ -32,14 +33,14 @@ def proxy_view(request, path):
     given url.  Respond with as close to an exact copy of the resulting
     response as possible.
     """
-    requests_args = get_requests_args(request)
+    requests_args = get_requests_args(request, path)
     url = '/'.join([settings.EVENT_API_BASE_URL, path])
 
     response = requests.request(request.method, url, **requests_args)
     return process_response(response)
 
 
-def get_requests_args(request):
+def get_requests_args(request, path):
     requests_args = {}
 
     if request.QUERY_PARAMS:
@@ -48,13 +49,13 @@ def get_requests_args(request):
     if request.body:
         requests_args['data'] = request.body
 
-    headers = get_requests_headers(request)
+    headers = get_requests_headers(request, path)
     if headers:
         requests_args['headers'] = headers
     return requests_args
 
 
-def get_requests_headers(request):
+def get_requests_headers(request, path):
     """
     Retrieve the HTTP headers from a WSGI environment dictionary.
     """
@@ -76,7 +77,17 @@ def get_requests_headers(request):
             del headers[key]
     if request.user.organization.is_provider:
         headers['X-ODE-Provider-Id'] = request.user.pk
+    headers['X-ODE-API-Mount-Point'] = get_api_mount_point(request, path)
     return headers
+
+
+def get_api_mount_point(request, path):
+    absolute_url = request.build_absolute_uri()
+    path_length = len('/' + path)
+    parsed_url = urlparse(absolute_url)
+    if parsed_url.query:
+        path_length += len('?' + parsed_url.query)
+    return absolute_url[:-path_length]
 
 
 def process_response(response):
