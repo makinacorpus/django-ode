@@ -8,6 +8,7 @@
     border-collapse: separate;
     .border-radius(@table-border-radius);
     margin-bottom: 0.5em;
+    background-color: #363339;
 
     tbody {
         background-color: #363339;
@@ -17,7 +18,7 @@
         color: white;
         background-color: #363339;
         cursor: pointer;
-    
+
         &.sorting:after, &.sorting_desc:after, &.sorting_asc:after {
             background-image: url('../img/sprite_datatable_sort_icons.png');
             background-repeat: no-repeat;
@@ -50,7 +51,7 @@
     tr {
 
         &.even td {
-            background-color: white;    
+            background-color: white;
         }
 
         &.odd td {
@@ -77,10 +78,8 @@
             td:last-child {
                 .border-bottom-right-radius(@table-border-radius);
             }
-        }       
+        }
     }
-
-
 }
 
 /* Overwriting bootstrap theming */
