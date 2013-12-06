@@ -19,10 +19,11 @@ class Contact(models.Model):
 
 class Organization(models.Model):
     TYPES = (
-        (u'enterprise', u'Entreprise'),
-        (u'public', u'Collectivité/Organisme public'),
-        (u'individual', u'Particulier'),
-        (u'independent', u'Indépendant'),
+        (u'enterprise', _(u'Entreprise')),
+        (u'public', _(u'Collectivité/Organisme public')),
+        (u'individual', _(u'Particulier')),
+        (u'independent', _(u'Indépendant')),
+        (u'non-profit', _(u'Association')),
     )
 
     name = models.CharField(max_length=100, blank=True)
