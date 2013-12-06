@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.generic.base import TemplateView
 from frontend.views import sources, events, providers, consumers, imports
-from frontend.views import api_proxy
 
 
 urlpatterns = patterns(
@@ -34,6 +33,5 @@ urlpatterns = patterns(
 
     url(r'^eula/$', TemplateView.as_view(template_name="eula.html"),
         name='eula'),
-    url(r'^api/(?P<path>.+)$', api_proxy.ApiProxyView.as_view(),
-        name='api_proxy'),
+    url(r'^api/(?P<path>.+)$', 'api_proxy.proxy_view', name='api_proxy'),
 )
