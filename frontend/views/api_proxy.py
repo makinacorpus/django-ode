@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 import requests
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import SAFE_METHODS
@@ -21,7 +22,7 @@ class IsProviderOrReadOnly(BasePermission):
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-@authentication_classes((TokenAuthentication, ))
+@authentication_classes((TokenAuthentication, SessionAuthentication, ))
 @permission_classes((IsAuthenticated, IsProviderOrReadOnly))
 def proxy_view(request, path):
     """
@@ -66,7 +67,7 @@ def get_requests_headers(request):
         elif key in ('CONTENT_TYPE', 'CONTENT_LENGTH'):
             headers[key.replace('_', '-')] = value
 
-    del headers['AUTHORIZATION']
+    headers.pop('AUTHORIZATION', None)
     headers.pop('COOKIE', None)
     # If there's a content-length header from Django, it's probably in all-caps
     # and requests might not notice it, so just remove it.

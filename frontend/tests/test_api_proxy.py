@@ -7,7 +7,7 @@ from django.utils.encoding import smart_bytes
 from rest_framework.authtoken.models import Token
 
 from frontend.tests.support import PatchMixin
-from accounts.tests.test_factory import UserFactory
+from accounts.tests.test_factory import UserFactory, USER_PASSWORD
 from accounts.tests.test_factory import ProviderUserFactory
 
 
@@ -36,11 +36,22 @@ class TestApiProxy(PatchMixin, TestCase):
         response = self.client.get('/api/v1/events')
         self.assertEqual(response.status_code, 401)
 
+    def test_session_authentication(self):
+        user = UserFactory.create(is_active=True)
+        response = self.client.login(username=user.username,
+                                     password=USER_PASSWORD)
+        response = self.client.get('/api/v1/events')
+        self.assertEqual(response.status_code, 200)
+
+    def test_token_authentication(self):
+        user, token = self.make_user_with_token(UserFactory)
+        response = self.make_authenticated_request('get', token)
+        self.assertEqual(response.status_code, 200)
+
     def test_get_query_string_parameters(self):
         user, token = self.make_user_with_token(UserFactory)
         data = {u'foo': u'bar'}
-        response = self.make_authenticated_request('get', token, data=data)
-        self.assertEqual(response.status_code, 200)
+        self.make_authenticated_request('get', token, data=data)
         self.requests_mock.request.assert_called_with(
             'GET', self.target_url, params=data
         )
