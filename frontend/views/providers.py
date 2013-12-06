@@ -11,7 +11,7 @@ from .base import LoginRequiredMixin
 
 class ProviderListView(LoginRequiredMixin, TemplateView):
     template_name = 'provider_list.html'
-    column_labels = [_(u'Nom'), _(u"Type"),
+    column_labels = [_(u'Nom'), _(u"Type"), _(u"Vocation du lieu"),
                      _(u"Activité"), _(u"Ville")]
 
     def get_context_data(self, *args, **kwargs):
@@ -25,7 +25,7 @@ class ProviderListView(LoginRequiredMixin, TemplateView):
 
 class ProviderJsonListView(LoginRequiredMixin, BaseDatatableView):
     model = Organization
-    columns = ['name', 'type', 'activity_field', 'town']
+    columns = ['name', 'type', 'vocation', 'activity_field', 'town']
     order_columns = ['name', 'type', 'activity_field', 'town']
 
     def get_initial_queryset(self):
@@ -33,6 +33,16 @@ class ProviderJsonListView(LoginRequiredMixin, BaseDatatableView):
         return self.model.objects.filter(is_provider=True).all()
 
     def render_column(self, row, column):
+
+        if column == 'vocation':
+            vocation = []
+            if row.is_host:
+                vocation.append(unicode(_(u"Lieu d'accueil d'événements")))
+            if row.is_creator:
+                vocation.append(unicode(_(u"Créateur d'événements")))
+            if row.is_performer:
+                vocation.append(unicode(_(u"Intervenant/artiste")))
+            return ', '.join(vocation)
 
         text = super(ProviderJsonListView, self).render_column(row, column)
         if column == 'name':
