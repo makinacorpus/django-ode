@@ -1,7 +1,10 @@
 # -*- encoding: utf-8 -*-
 from django.http import HttpResponse
 from django.conf import settings
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse  # Py3
+except ImportError:
+    from urlparse import urlparse  # Py2
 import requests
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authentication import SessionAuthentication
