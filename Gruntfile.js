@@ -29,6 +29,24 @@ module.exports = function(grunt) {
 		src: ['jquery.js'],
 		dest: 'static/js/'
 	    },
+	    moment: {
+		expand: true,
+		cwd: 'bower_components/moment/',
+		src: ['moment.js'],
+		dest: 'static/js/'
+	    },
+	    bootstrap_daterangepicker_js: {
+		expand: true,
+		cwd: 'bower_components/bootstrap-daterangepicker/',
+		src: ['daterangepicker.js'],
+		dest: 'static/js/'
+	    },
+	    bootstrap_daterangepicker_css: {
+		expand: true,
+		cwd: 'bower_components/bootstrap-daterangepicker/',
+		src: ['daterangepicker-bs3.css'],
+		dest: 'static/css/'
+	    }
 	}
     });
 

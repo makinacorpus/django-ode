@@ -131,6 +131,7 @@ PIPELINE_CSS = {
             'css/bootstrap.css',
             'css/style.less',
             'css/ode.datatable.less',
+            'css/daterangepicker-bs3.css'
         ),
         'output_filename': 'css/style.css',
         'extra_context': {
@@ -145,6 +146,8 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/jquery.js',
             'js/bootstrap.js',
+            'js/moment.js',
+            'js/daterangepicker.js',
             'js/csrf.js',
             'js/jquery.dataTables.js',
             'js/ode.dataTables.js',

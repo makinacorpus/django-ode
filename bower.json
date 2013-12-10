@@ -15,7 +15,8 @@
   ],
   "dependencies": {
     "bootstrap": "3.0.3",
-    "datatables": "1.9.4"
+    "datatables": "1.9.4",
+    "bootstrap-daterangepicker": "master"
   },
   "license": "BSD New",
   "private": true,
