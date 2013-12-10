@@ -2,7 +2,11 @@
     "name": "django-ode",
     "version": "0.1.0",
     "description": "Django frontend for ODE API",
-    "dependencies" : {
-	"less": "*"
+    "devDependencies" : {
+	"less": "~1.5.1",
+	"bower": "~1.2.8",
+	"grunt": "~0.4.2",
+	"grunt-bower-task": "~0.3.4",
+	"grunt-contrib-copy": "~0.4.1"
     }
 }

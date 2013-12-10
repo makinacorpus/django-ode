@@ -62,3 +62,15 @@ install/salt/pillar
 
 # Vagrant hidden files
 .vagrant
+
+# Grabbed by bower/grunt
+bower_components
+static/css/bootstrap-theme.css
+static/css/bootstrap-theme.min.css
+static/css/bootstrap.css
+static/css/bootstrap.min.css
+static/fonts/
+static/js/bootstrap.js
+static/js/bootstrap.min.js
+static/js/jquery.dataTables.js
+static/js/jquery.js

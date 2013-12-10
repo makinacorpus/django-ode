@@ -15,6 +15,9 @@ virtualenv: $(PYTHON)
 
 dev_requirements:
 	$(PIP) install -r dev_requirements.txt
+	sudo npm install -g grunt-cli
+	npm install
+	grunt
 
 install:
 	$(PYTHON) setup.py install

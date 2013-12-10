@@ -1,0 +1,32 @@
+{
+  "name": "django-ode",
+  "version": "0.1.0",
+  "homepage": "https://github.com/makinacorpus/django-ode",
+  "authors": [
+    "Gagaro <yfo@makina-corpus.net>"
+  ],
+  "description": "Frontend for ODE api",
+  "main": [
+    "static/css/ode.datatable.less",
+    "static/css/style.less",
+    "static/js/ode.dataTables.js",
+    "static/js/ode.signup.js",
+    "static/js/csrf.js"
+  ],
+  "dependencies": {
+    "bootstrap": "3.0.3",
+    "datatables": "1.9.4"
+  },
+  "license": "BSD New",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "jquery": ">= 1.9.0"
+  }
+}
