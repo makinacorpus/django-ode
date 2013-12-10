@@ -130,49 +130,49 @@ class SimpleCheckboxField(forms.BooleanField):
 class OrganizationIsHostField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _(u"Lieu d'accueil d'événements"))
+        kwargs.setdefault('label', Organization.PROVIDERS_DICT['host'])
         super(OrganizationIsHostField, self).__init__(*args, **kwargs)
 
 
 class OrganizationIsPerformerField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _(u"Intervenant/artiste"))
+        kwargs.setdefault('label', Organization.PROVIDERS_DICT['performer'])
         super(OrganizationIsPerformerField, self).__init__(*args, **kwargs)
-
-
-class OrganizationIsMediaField(SimpleCheckboxField):
-
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Publication d'un media print/web"))
-        super(OrganizationIsMediaField, self).__init__(*args, **kwargs)
 
 
 class OrganizationIsCreatorField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _(u"Créateur d'événements"))
+        kwargs.setdefault('label', Organization.PROVIDERS_DICT['creator'])
         super(OrganizationIsCreatorField, self).__init__(*args, **kwargs)
+
+
+class OrganizationIsMediaField(SimpleCheckboxField):
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', Organization.CONSUMERS_DICT['media'])
+        super(OrganizationIsMediaField, self).__init__(*args, **kwargs)
 
 
 class OrganizationIsWebsiteField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Site web"))
+        kwargs.setdefault('label', Organization.CONSUMERS_DICT['website'])
         super(OrganizationIsWebsiteField, self).__init__(*args, **kwargs)
 
 
 class OrganizationIsMobileAppField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Application mobile"))
+        kwargs.setdefault('label', Organization.CONSUMERS_DICT['mobile_app'])
         super(OrganizationIsMobileAppField, self).__init__(*args, **kwargs)
 
 
 class OrganizationIsOtherField(SimpleCheckboxField):
 
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('label', _("Autre"))
+        kwargs.setdefault('label', Organization.CONSUMERS_DICT['other'])
         super(OrganizationIsOtherField, self).__init__(*args, **kwargs)
 
 

@@ -26,6 +26,22 @@ class Organization(models.Model):
         (u'non-profit', _(u'Association')),
     )
 
+    PROVIDERS = (
+        (u'host', _(u"Lieu d'accueil d'événements")),
+        (u'performer', _(u"Intervenant/artiste")),
+        (u'creator', _(u"Créateur d'événements")),
+        )
+
+    CONSUMERS = (
+        (u'media', _("Publication d'un media print/web")),
+        (u'website', _("Site web")),
+        (u'mobile_app', _("Application mobile")),
+        (u'other', _("Autre")),
+        )
+
+    PROVIDERS_DICT = dict(PROVIDERS)
+    CONSUMERS_DICT = dict(CONSUMERS)
+
     name = models.CharField(max_length=100, blank=True)
     picture = models.ImageField(upload_to="organization/profile_picture")
     activity_field = models.CharField(max_length=50, blank=True,

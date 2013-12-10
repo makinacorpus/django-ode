@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import string_concat
 from django.views.generic import TemplateView, DetailView
 
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
@@ -32,17 +33,26 @@ class ProviderJsonListView(LoginRequiredMixin, BaseDatatableView):
 
         return self.model.objects.filter(is_provider=True).all()
 
+    def _get_vocation_string(self, row):
+        vocations = []
+        if row.is_host:
+            vocations.append(Organization.PROVIDERS_DICT['host'])
+        if row.is_creator:
+            vocations.append(Organization.PROVIDERS_DICT['creator'])
+        if row.is_performer:
+            vocations.append(Organization.PROVIDERS_DICT['performer'])
+        vocation_str = ''
+        for vocation in vocations:
+            if not vocation_str:
+                vocation_str = vocation
+            else:
+                vocation_str = string_concat(vocation_str, ', ', vocation)
+        return vocation_str
+
     def render_column(self, row, column):
 
         if column == 'vocation':
-            vocation = []
-            if row.is_host:
-                vocation.append(unicode(_(u"Lieu d'accueil d'événements")))
-            if row.is_creator:
-                vocation.append(unicode(_(u"Créateur d'événements")))
-            if row.is_performer:
-                vocation.append(unicode(_(u"Intervenant/artiste")))
-            return ', '.join(vocation)
+            return self._get_vocation_string(row)
 
         text = super(ProviderJsonListView, self).render_column(row, column)
         if column == 'name':
