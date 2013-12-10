@@ -33,4 +33,19 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 	}
     );
 
+    $('#daterange_publication').daterangepicker(
+	{
+	    format: 'DD/MM/YYYY',
+	    showDropdowns: false,
+	    timePicker: true,
+	    timePickerIncrement: 15,
+	    timePicker12Hour: false,
+	    locale: locale
+	},
+	function(start, end) {
+	    $('#start_time_publication').val(start.toISOString());
+	    $('#end_time_publication').val(end.toISOString());
+	}
+    );
+
 }(jQuery);
