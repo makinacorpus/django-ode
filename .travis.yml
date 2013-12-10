@@ -5,6 +5,7 @@ python:
   - 3.3
 
 install:
+ - sudo apt-get install npm
  - pip install -r dev_requirements.txt --use-mirrors
  - python setup.py develop
 
