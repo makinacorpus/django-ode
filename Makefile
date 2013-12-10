@@ -1,3 +1,4 @@
+
 # virtualenv_wrapper compatible names
 VIRTUALENVWRAPPER_VIRTUALENV?=virtualenv
 VIRTUAL_ENV?=venv
@@ -7,6 +8,7 @@ PIP=$(VIRTUAL_ENV)/bin/pip
 COVERAGE=$(VIRTUAL_ENV)/bin/coverage
 TEST_COMMAND=manage.py test frontend accounts
 COLLECT_STATIC=python manage.py collectstatic --noinput
+NPM=npm
 
 $(PYTHON):
 	$(VIRTUALENV) $(VIRTUAL_ENV)
@@ -15,8 +17,8 @@ virtualenv: $(PYTHON)
 
 dev_requirements:
 	$(PIP) install -r dev_requirements.txt
-	sudo npm install -g grunt-cli
-	npm install
+	sudo $(NPM) install -g grunt-cli
+	$(NPM) install
 	grunt
 
 install:

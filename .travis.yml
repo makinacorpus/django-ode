@@ -1,11 +1,15 @@
 language: python
 
+env:
+ - NPM=./node-v0.10.22-linux-x64/bin/npm
+
 python:
   - 2.7
   - 3.3
 
 install:
- - sudo apt-get install npm
+ - wget http://nodejs.org/dist/v0.10.22/node-v0.10.22-linux-x64.tar.gz
+ - tar xzvf node-v0.10.22-linux-x64.tar.gz
  - pip install -r dev_requirements.txt --use-mirrors
  - python setup.py develop
 
