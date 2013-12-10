@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Création d'un événement</h1>
 
-<form action="{% url 'events_create' %}" method="POST"  class="form-horizontal">
+<form action="{% url 'event_create' %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
   <fieldset>
     <div class="form-group {% if errors.title %}has-error{% endif %}">

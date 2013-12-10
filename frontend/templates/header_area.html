@@ -28,7 +28,7 @@
         <ul>
           <li><a href="{% url 'event_list' %}">{% trans "Événements" %}</a></li>
           {% if user.organization.is_provider or user.is_superuser %}
-            <li><a href="#">{% trans "Créer" %}</a></li>
+            <li><a href="{% url 'event_create' %}">{% trans "Créer" %}</a></li>
             <li><a href="{% url 'imports' %}">{% trans "Importer" %}</a></li>
           {% endif %}
           <li><a href="#">{% trans "Exporter" %}</a></li>
