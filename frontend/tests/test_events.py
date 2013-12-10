@@ -53,7 +53,7 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             "errors": [
                 {
                     "location": "body",
-                    "name": "collection.items.0.data.start_time",
+                    "name": "items.0.data.start_time",
                     "description": "datetime is invalid"
                 },
             ]

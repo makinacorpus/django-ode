@@ -43,7 +43,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             "status": "error",
             "errors": [{
                 "location": "body",
-                "name": "collection.items.0.data.url",
+                "name": "items.0.data.url",
                 "description": "field error message"
             }]
         }

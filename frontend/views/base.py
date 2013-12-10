@@ -27,8 +27,8 @@ def error_list_to_dict(api_errors):
     for error in api_errors:
         name = error['name']
         # Error names returned by the API look like
-        # collection.items.<error_index>.data.<field_name>
-        field_name = name.split('.')[4]
+        # items.<error_index>.data.<field_name>
+        field_name = name.split('.')[3]
         result[field_name] = error['description']
     return result
 
