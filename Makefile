@@ -2,6 +2,7 @@
 # virtualenv_wrapper compatible names
 VIRTUALENVWRAPPER_VIRTUALENV?=virtualenv
 VIRTUAL_ENV?=venv
+NPM?=npm
 
 PYTHON=$(VIRTUAL_ENV)/bin/python
 PIP=$(VIRTUAL_ENV)/bin/pip
@@ -9,7 +10,6 @@ COVERAGE=$(VIRTUAL_ENV)/bin/coverage
 OMIT='./install/*,./node-v0.10.22-linux-x64/'
 TEST_COMMAND=manage.py test frontend accounts
 COLLECT_STATIC=python manage.py collectstatic --noinput
-NPM=npm
 
 $(PYTHON):
 	$(VIRTUALENV) $(VIRTUAL_ENV)

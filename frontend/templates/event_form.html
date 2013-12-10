@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load i18n %}
 
 {% block content %}
 <h1>Création d'un événement</h1>
@@ -7,7 +8,7 @@
   {% csrf_token %}
   <fieldset>
     <div class="form-group {% if errors.title %}has-error{% endif %}">
-      <label  class="control-label" for="title">Titre</label>
+      <label  class="control-label" for="title">{% trans 'Titre' %}</label>
       <div class="controls">
         <input class="form-control" id="title" name="title"{% if input %} value="{{ input.title }}"{% endif %}>
         {% if errors.title %}
@@ -15,24 +16,19 @@
         {% endif %}
       </div>
     </div>
-    <div class="form-group {% if errors.start_time %}has-error{% endif %}">
-      <label  class="control-label" for="start_time">Début</label>
+  </fieldset>
+  <fieldset>
+    <div class="form-group {% if errors.daterange %}has-error{% endif %}">
+      <label class="control-label" for="time">{% trans 'Date' %}</label>
       <div class="controls">
-        <input class="form-control" id="start_time" name="start_time"{% if input %} value="{{ input.start_time }}"{% endif %}>
-        {% if errors.start_time %}
-        <span class="help-block">{{ errors.start_time }}</span>
+        <input class="form-control" id="daterange" name="daterange"{% if input %} value="{{ input.daterange }}"{% endif %}>
+        {% if errors.daterange %}
+        <span class="help-block">{{ errors.daterange }}</span>
         {% endif %}
       </div>
     </div>
-    <div class="form-group {% if errors.end_time %}has-error{% endif %}">
-      <label  class="control-label" for="end_time">Fin</label>
-      <div class="controls">
-        <input class="form-control" id="end_time" name="end_time"{% if input %} value="{{ input.end_time }}"{% endif %}>
-        {% if errors.end_time %}
-        <span class="help-block">{{ errors.end_time }}</span>
-        {% endif %}
-      </div>
-    </div>
+    <input type="hidden" id="start_time" name="start_time"{% if input %} value="{{ input.start_time }}"{% endif %}>
+    <input type="hidden" id="end_time" name="end_time"{% if input %} value="{{ input.end_time }}"{% endif %}>
   </fieldset>
   <button type="submit" class="btn btn-default">Créer l'événement</button>
 </form>
