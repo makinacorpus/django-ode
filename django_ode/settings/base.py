@@ -147,6 +147,7 @@ PIPELINE_JS = {
             'js/jquery.js',
             'js/bootstrap.js',
             'js/moment.js',
+            'js/langs.js',
             'js/daterangepicker.js',
             'js/csrf.js',
             'js/jquery.dataTables.js',

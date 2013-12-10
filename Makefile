@@ -19,7 +19,8 @@ virtualenv: $(PYTHON)
 dev_requirements:
 	$(PIP) install -r dev_requirements.txt
 	sudo $(NPM) install -g grunt-cli
-	$(NPM) install
+	# Need to be sudo for Travis
+	sudo $(NPM) install
 	grunt
 
 install:

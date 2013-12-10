@@ -35,6 +35,12 @@ module.exports = function(grunt) {
 		src: ['moment.js'],
 		dest: 'static/js/'
 	    },
+	    moment_lang: {
+		expand: true,
+		cwd: 'bower_components/moment/min/',
+		src: ['langs.js'],
+		dest: 'static/js/'
+	    },
 	    bootstrap_daterangepicker_js: {
 		expand: true,
 		cwd: 'bower_components/bootstrap-daterangepicker/',

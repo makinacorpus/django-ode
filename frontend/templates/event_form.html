@@ -25,6 +25,12 @@
         {% if errors.daterange %}
         <span class="help-block">{{ errors.daterange }}</span>
         {% endif %}
+        {% if errors.start_time %}
+        <span class="help-block">{{ errors.start_time }}</span>
+        {% endif %}
+        {% if errors.end_time %}
+        <span class="help-block">{{ errors.end_time }}</span>
+        {% endif %}
       </div>
     </div>
     <input type="hidden" id="start_time" name="start_time"{% if input %} value="{{ input.start_time }}"{% endif %}>
