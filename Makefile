@@ -6,6 +6,7 @@ VIRTUAL_ENV?=venv
 PYTHON=$(VIRTUAL_ENV)/bin/python
 PIP=$(VIRTUAL_ENV)/bin/pip
 COVERAGE=$(VIRTUAL_ENV)/bin/coverage
+OMIT='./install/*,./node-v0.10.22-linux-x64/'
 TEST_COMMAND=manage.py test frontend accounts
 COLLECT_STATIC=python manage.py collectstatic --noinput
 NPM=npm
@@ -36,7 +37,7 @@ test: develop flake8
 	$(PYTHON) $(TEST_COMMAND)
 
 coverage: develop
-	$(COVERAGE) run --branch --source=. --omit='./install/*' $(TEST_COMMAND)
+	$(COVERAGE) run --branch --source=. --omit=$(OMIT) $(TEST_COMMAND)
 	$(COVERAGE) report -m
 
 start: $(PROC) .env
@@ -46,7 +47,7 @@ backup:
 	#TODO
 
 flake8: $(FLAKE8)
-	flake8 --exclude='./install/*' .
+	flake8 --exclude=$(OMIT) .
 
 serve:
 	python manage.py runserver
