@@ -13,7 +13,7 @@ class APIClient(object):
             data=json.dumps(data),
             headers={
                 'X-ODE-Provider-Id': provider_id,
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/vnd.collection+json',
             })
         return response.json()
 
@@ -22,7 +22,7 @@ class APIClient(object):
         getkwargs = dict(
             headers={
                 'X-ODE-Provider-Id': provider_id,
-                'Accept': 'application/json',
+                'Accept': 'application/vnd.collection+json',
             })
 
         # requests lib needs 'params' keyword for get call
@@ -40,7 +40,7 @@ class APIClient(object):
             delete_url,
             headers={
                 'X-ODE-Provider-Id': producer_id,
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/vnd.collection+json',
             })
 
         return response

@@ -121,7 +121,7 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.requests_mock.get.assert_called_with(
             settings.EVENTS_ENDPOINT,
             headers={'X-ODE-Provider-Id': self.user.pk,
-                     'Accept': 'application/json'},
+                     'Accept': 'application/vnd.collection+json'},
             params={'sort_direction': 'desc', 'offset': 0, 'limit': 10,
                     'sort_by': 'title'})
 

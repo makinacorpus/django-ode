@@ -34,5 +34,5 @@ class PatchMixin(object):
         self.assertDictEqual(posted_data_as_dict, input_data)
         self.assertEqual(kwargs['headers'], {
             'X-ODE-Provider-Id': self.user.pk,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/vnd.collection+json'
         })
