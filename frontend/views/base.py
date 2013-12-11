@@ -90,6 +90,56 @@ class APIForm(LoginRequiredMixin, View):
     def add_context(self):
         return {}
 
+    def prepare_api_input(self, dict_data):
+
+        formatted_data = []
+        for key, value in dict_data.items():
+            if key in ('categories', 'tags'):
+                value = [v.strip() for v in value.split(',')]
+            formatted_data.append(
+                {'name': key, 'value': value}
+            )
+
+        post_data = {
+            'template': {
+                'data': formatted_data
+            }
+        }
+
+        return post_data
+
+    def post(self, request, *args, **kwargs):
+
+        user_input = request.POST.dict()
+        user_input.pop('csrfmiddlewaretoken', None)
+        api_input = dict(user_input)
+
+        post_data = self.prepare_api_input(api_input)
+        response_data = self.api.post(post_data, self.request.user.id)
+
+        if response_data.get('status') == 'error':
+            context = dict(response_data)
+            context['input'] = user_input
+            context['errors'] = error_list_to_dict(response_data['errors'])
+            messages.error(request, self.error_message, extra_tags='danger')
+            if 'items' in context['errors'].keys():
+                messages.error(request, context['errors']['items'],
+                               extra_tags='danger')
+
+            new_context = self._update_context_data(context)
+            return render(request, self.template_name, new_context)
+        else:
+            new_context = self._update_context_data()
+            messages.success(request, self.success_message)
+            return render(request, self.template_name, new_context)
+
+    def get(self, request, *args, **kwargs):
+        new_context = self._update_context_data()
+        return render(self.request, self.template_name, new_context)
+
+
+class APICreateEventForm(APIForm):
+
     def prepare_media(self, api_input):
 
         if 'media_photo' in api_input.keys() and api_input['media_photo']:
@@ -132,8 +182,9 @@ class APIForm(LoginRequiredMixin, View):
 
     def prepare_api_input(self, dict_data):
 
+        dict_data = self.prepare_media(dict_data)
         user = self.request.user
-        formatted_data = [
+        default_data = [
             {'name': 'firstname', 'value': user.first_name},
             {'name': 'lastname', 'value': user.last_name},
             {'name': 'email', 'value': user.email},
@@ -141,50 +192,10 @@ class APIForm(LoginRequiredMixin, View):
             {'name': 'language', 'value': 'fr'},
             {'name': 'organiser', 'value': user.organization.name},
             ]
-        for key, value in dict_data.items():
-            if key in ('categories', 'tags'):
-                value = [v.strip() for v in value.split(',')]
-            formatted_data.append(
-                {'name': key, 'value': value}
-            )
-
-        post_data = {
-            'template': {
-                'data': formatted_data
-            }
-        }
-
-        return post_data
-
-    def post(self, request, *args, **kwargs):
-
-        user_input = request.POST.dict()
-        user_input.pop('csrfmiddlewaretoken', None)
-        api_input = dict(user_input)
-
-        api_input = self.prepare_media(api_input)
-        post_data = self.prepare_api_input(api_input)
-        response_data = self.api.post(post_data, self.request.user.id)
-
-        if response_data.get('status') == 'error':
-            context = dict(response_data)
-            context['input'] = user_input
-            context['errors'] = error_list_to_dict(response_data['errors'])
-            messages.error(request, self.error_message, extra_tags='danger')
-            if 'items' in context['errors'].keys():
-                messages.error(request, context['errors']['items'],
-                               extra_tags='danger')
-
-            new_context = self._update_context_data(context)
-            return render(request, self.template_name, new_context)
-        else:
-            new_context = self._update_context_data()
-            messages.success(request, self.success_message)
-            return render(request, self.template_name, new_context)
-
-    def get(self, request, *args, **kwargs):
-        new_context = self._update_context_data()
-        return render(self.request, self.template_name, new_context)
+        formatted_data = super(APICreateEventForm, self)\
+            .prepare_api_input(dict_data)
+        formatted_data.update(default_data)
+        return formatted_data
 
 
 class APIDatatableBaseView(BaseDatatableView):

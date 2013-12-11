@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from frontend.views.base import (APIForm,
+from frontend.views.base import (APICreateEventForm,
                                  LoginRequiredMixin,
                                  APIDatatableBaseView)
 
@@ -19,7 +19,7 @@ class EventListingFieldsMixin(object):
     endpoint = settings.EVENTS_ENDPOINT
 
 
-class Form(APIForm):
+class Form(APICreateEventForm):
 
     template_name = 'event_form.html'
     list_template_name = 'event_list.html'
