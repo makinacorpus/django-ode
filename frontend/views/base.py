@@ -32,6 +32,12 @@ def error_list_to_dict(api_errors):
             # Error names returned by the API look like
             # items.<error_index>.data.<field_name>
             field_name = name.split('.')[3]
+        if field_name == 'videos':
+            field_name = 'media_video'
+        elif field_name == 'sounds':
+            field_name = 'media_audio'
+        elif field_name == 'images':
+            field_name = 'media_photo'
         result[field_name] = error['description']
     return result
 
@@ -80,6 +86,37 @@ class APIForm(LoginRequiredMixin, View):
     def add_context(self):
         return {}
 
+    def prepare_media(self, api_input):
+        if ('media_photo' in api_input.keys()
+            and 'media_photo_license' in api_input.keys()):
+            image = {
+                'url': api_input['media_photo'],
+                'license': api_input['media_photo_license']
+                }
+            del api_input['media_photo']
+            del api_input['media_photo_license']
+            api_input['images'] = [image]
+        if ('media_video' in api_input.keys()
+            and 'media_video_license' in api_input.keys()):
+            video = {
+                'url': api_input['media_video'],
+                'license': api_input['media_video_license']
+                }
+            del api_input['media_video']
+            del api_input['media_video_license']
+            api_input['videos'] = [video]
+
+        if ('media_audio' in api_input.keys()
+            and 'media_audio_license' in api_input.keys()):
+            sound = {
+                'url': api_input['media_audio'],
+                'license': api_input['media_audio_license']
+                }
+            del api_input['media_audio']
+            del api_input['media_audio_license']
+            api_input['sounds'] = [sound]
+        return api_input
+
     def prepare_api_input(self, dict_data):
 
         user = self.request.user
@@ -112,6 +149,7 @@ class APIForm(LoginRequiredMixin, View):
         user_input.pop('csrfmiddlewaretoken', None)
         api_input = dict(user_input)
 
+        api_input = self.prepare_media(api_input)
         post_data = self.prepare_api_input(api_input)
         response_data = self.api.post(post_data, self.request.user.id)
 
