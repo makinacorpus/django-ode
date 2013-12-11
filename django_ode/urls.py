@@ -11,6 +11,6 @@ urlpatterns = patterns(
     # url(r'^$', 'django_ode.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^dashboard/', include('dashboard.urls')),
     url(r'', include('frontend.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
