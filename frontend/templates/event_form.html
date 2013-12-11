@@ -251,6 +251,33 @@
     </div>
     <div class="row">
       <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_photo2 %}has-error{% endif %}">
+	  <label class="control-label" for="media_photo2">{% trans 'Photo' %}</label>
+	  <div class="controls">
+            <input class="form-control" id="media_photo2" name="media_photo2"{% if input %} value="{{ input.media_photo2 }}"{% endif %} />
+            {% if errors.media_photo2 %}
+            <span class="help-block">{{ errors.media_photo2 }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_photo_license2 %}has-error{% endif %}">
+	  <label class="control-label" for="media_photo_license2">{% trans 'Licence' %}</label>
+	  <div class="controls">
+	    <select class="form-control" id="media_photo_license2" name="media_photo_license2">
+	      <option value="CC BY" {% if input and input.media_photo_license == 'CC BY' %} selected="selected"{% endif %}>CC BY</option>
+	      <option value="unknown" {% if input and input.media_photo_license == 'unknown' %} selected="selected"{% endif %}>{% trans 'Inconnu' %}</option>
+	    </select>
+            {% if errors.media_photo_license %}
+            <span class="help-block">{{ errors.media_photo_license }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
 	<div class="fieldWrapper {% if errors.media_video %}has-error{% endif %}">
 	  <label class="control-label" for="media_video">{% trans 'Vidéo' %}</label>
 	  <div class="controls">

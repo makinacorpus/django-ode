@@ -37,7 +37,11 @@ def error_list_to_dict(api_errors):
         elif field_name == 'sounds':
             field_name = 'media_audio'
         elif field_name == 'images':
-            field_name = 'media_photo'
+            num = int(name.split('.')[4])
+            if num == 0:
+                field_name = 'media_photo'
+            elif num == 1:
+                field_name = 'media_photo2'
         result[field_name] = error['description']
     return result
 
@@ -87,8 +91,8 @@ class APIForm(LoginRequiredMixin, View):
         return {}
 
     def prepare_media(self, api_input):
-        if ('media_photo' in api_input.keys()
-            and 'media_photo_license' in api_input.keys()):
+
+        if api_input['media_photo']:
             image = {
                 'url': api_input['media_photo'],
                 'license': api_input['media_photo_license']
@@ -96,8 +100,18 @@ class APIForm(LoginRequiredMixin, View):
             del api_input['media_photo']
             del api_input['media_photo_license']
             api_input['images'] = [image]
-        if ('media_video' in api_input.keys()
-            and 'media_video_license' in api_input.keys()):
+        if api_input['media_photo2']:
+            image = {
+                'url': api_input['media_photo2'],
+                'license': api_input['media_photo_license2']
+                }
+            del api_input['media_photo2']
+            del api_input['media_photo_license2']
+            if 'images' in api_input.keys():
+                api_input['images'].append(image)
+            else:
+                api_input['images'] = [image]
+        if api_input['media_video']:
             video = {
                 'url': api_input['media_video'],
                 'license': api_input['media_video_license']
@@ -106,8 +120,7 @@ class APIForm(LoginRequiredMixin, View):
             del api_input['media_video_license']
             api_input['videos'] = [video]
 
-        if ('media_audio' in api_input.keys()
-            and 'media_audio_license' in api_input.keys()):
+        if api_input['media_audio']:
             sound = {
                 'url': api_input['media_audio'],
                 'license': api_input['media_audio_license']
