@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
+
 from accounts.models import User
 from accounts.models import Organization
 
@@ -17,21 +19,21 @@ class UserInline(admin.StackedInline):
 
 class OrganizationAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Image', {
+        (_('Image'), {
             'fields': ('picture',),
         }),
-        ('Fournisseur', {
+        (_('Fournisseur'), {
             'fields': ('is_provider', 'is_host', 'is_performer', 'is_creator'),
         }),
-        ('Réutilisateur', {
+        (_('Réutilisateur'), {
             'fields': ('is_consumer', 'is_media', 'is_website',
                        'is_mobile_app', 'is_other'),
         }),
-        ('Infos Structure', {
+        (_('Infos Structure'), {
             'fields': ('type', 'name', 'address', 'post_code', 'town', 'url',
                        'activity_field'),
         }),
-        ('Infos générales événement', {
+        (_('Infos générales événement'), {
             'fields': ('price_information', 'audience', 'capacity'),
         }),
     )

@@ -39,8 +39,9 @@ class TestEmailConfirmation(TestCase):
         email = mail.outbox[0]
         self.assertEqual(email.recipients(),
                          settings.ACCOUNTS_MODERATOR_EMAILS)
-        self.assertIn('http://testserver/dashboard/accounts/user/%s/' % user.pk,
-                      email.body)
+        self.assertIn(
+            'http://testserver/dashboard/accounts/user/%s/' % user.pk,
+            email.body)
 
     def test_send_provider_account_validation_email(self):
         user = ProviderUserFactory.create(username='bob',
