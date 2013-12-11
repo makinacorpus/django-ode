@@ -49,7 +49,6 @@ fieldset, .form-element {
     margin-bottom: 1.5em;
 }
 
-
 /* Overwrite bootstrap properties */
 .form-control {
     height: 2em;
@@ -149,19 +148,17 @@ header {
     background: white;
     text-align: center;
 
-    ul {
-        padding: 0.5em;
-    }
-
-    li {
-        margin: 0 0.3em;
-    }
-
-    a {
+    input {
         background-color: @header-buttons-color;
+	margin: 0.2em;
         padding: 0.2em 1em;
+	width: 45%;
+	color: white;
     }
 
+    input[type="submit"] {
+	display: none;
+    }
 }
 
 #login-help {
@@ -171,7 +168,7 @@ header {
 
     a {
         font-style: italic;
-        font-size: 0.9rem;
+        font-size: 1.3rem;
     }
 }
 

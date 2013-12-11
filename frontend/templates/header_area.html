@@ -53,12 +53,21 @@
   <div id="account-links" class="col-md-3">
     <span id="my-space">{% trans "Mon Espace" %}</span>
     <div id="login-area">
-      <ul>
-        <li><a href="{% url "accounts:login" %}">{% trans "Connexion" %}</a></li>
-        <li><a href="{% url "accounts:signup" %}">{% trans "Inscription" %}</a></li>
-      </ul>
+      <form class="form-inline" role="form"
+	    method="post" action="{% url "accounts:login" %}">
+	{% csrf_token %}
+	<div class="form-group">
+          <input class="form-control" type="text"
+		 name="username" placeholder="Identifiant" />
+          <input class="form-control" type="password"
+		 name="password" placeholder="Mot de passe" />
+	  <input type="submit" />
+	  </div>
+      </form>
     </div>
     <div id="login-help">
+      <a href="{% url "accounts:signup" %}">{% trans "Inscription" %}</a>
+      <span> - </span>
       <a href="{% url "accounts:password_reset" %}">{% trans "Mot de passe oublié ?" %}</a>
     </div>
   </div>
