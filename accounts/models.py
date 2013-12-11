@@ -16,8 +16,13 @@ class Contact(models.Model):
     email = models.EmailField(blank=True)
     phone_number = models.CharField(max_length=50, blank=True)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Organization(models.Model):
+    class Meta:
+        verbose_name = _("Structure")
     TYPES = (
         (u'enterprise', _(u'Entreprise')),
         (u'public', _(u'Collectivité/Organisme public')),
@@ -42,36 +47,59 @@ class Organization(models.Model):
     PROVIDERS_DICT = dict(PROVIDERS)
     CONSUMERS_DICT = dict(CONSUMERS)
 
-    name = models.CharField(max_length=100, blank=True)
-    picture = models.ImageField(upload_to="organization/profile_picture")
+    name = models.CharField(max_length=100, blank=True, verbose_name=_("Nom"))
+    picture = models.ImageField(upload_to="organization/profile_picture",
+                                verbose_name=_("Image"))
     activity_field = models.CharField(max_length=50, blank=True,
                                       verbose_name=_(u"Domaine d'activité"))
     type = models.CharField(choices=TYPES, max_length=32, blank=True)
-    address = models.CharField(max_length=100, blank=True)
-    post_code = models.CharField(max_length=20, blank=True)
-    town = models.CharField(max_length=100, blank=True)
-    url = models.URLField(blank=True)
-    is_provider = models.BooleanField(default=False)
-    is_consumer = models.BooleanField(default=False)
-    is_host = models.BooleanField(default=False)
-    is_creator = models.BooleanField(default=False)
-    is_performer = models.BooleanField(default=False)
-    is_media = models.BooleanField(default=False)
-    is_website = models.BooleanField(default=False)
-    is_mobile_app = models.BooleanField(default=False)
-    is_other = models.BooleanField(default=False)
-    media_url = models.URLField(blank=True)
-    website_url = models.URLField(blank=True)
-    mobile_app_name = models.CharField(max_length=100, blank=True)
-    other_details = models.CharField(max_length=100, blank=True)
+    address = models.CharField(max_length=100, blank=True,
+                               verbose_name=_("Adresse"))
+    post_code = models.CharField(max_length=20, blank=True,
+                                 verbose_name=_("Code postal"))
+    town = models.CharField(max_length=100, blank=True,
+                            verbose_name=_("Commune"))
+    url = models.URLField(blank=True, verbose_name=_("Site web"))
+    is_provider = models.BooleanField(default=False,
+                                      verbose_name=_("Fournisseur de données"))
+    is_consumer = models.BooleanField(
+        default=False,
+        verbose_name=_("Réutilisateur de données"))
+    is_host = models.BooleanField(default=False,
+                                  verbose_name=PROVIDERS_DICT['host'])
+    is_creator = models.BooleanField(default=False,
+                                     verbose_name=PROVIDERS_DICT['creator'])
+    is_performer = models.BooleanField(
+        default=False,
+        verbose_name=PROVIDERS_DICT['performer'])
+    is_media = models.BooleanField(default=False,
+                                   verbose_name=CONSUMERS_DICT['media'])
+    is_website = models.BooleanField(default=False,
+                                     verbose_name=CONSUMERS_DICT['website'])
+    is_mobile_app = models.BooleanField(
+        default=False,
+        verbose_name=CONSUMERS_DICT['mobile_app'])
+    is_other = models.BooleanField(default=False,
+                                   verbose_name=CONSUMERS_DICT['other'])
+    media_url = models.URLField(blank=True, verbose_name=_("URL media"))
+    website_url = models.URLField(blank=True, verbose_name=_("URL site web"))
+    mobile_app_name = models.CharField(max_length=100, blank=True,
+                                       verbose_name=_("Nom appli mobile"))
+    other_details = models.CharField(max_length=100, blank=True,
+                                     verbose_name=_("Autres détails"))
     # Event related
-    price_information = models.CharField(max_length=100, blank=True)
-    audience = models.CharField(max_length=100, blank=True)
-    capacity = models.CharField(max_length=100, blank=True)
+    price_information = models.CharField(max_length=100, blank=True,
+                                         verbose_name=_("Tarif"))
+    audience = models.CharField(max_length=100, blank=True,
+                                verbose_name=_("Public"))
+    capacity = models.CharField(max_length=100, blank=True,
+                                verbose_name=_("Capacité du lieu"))
     ticket_contact = models.ForeignKey(Contact, null=True,
-                                       related_name='ticket_organization')
+                                       related_name='ticket_organization',
+                                       verbose_name=_("Contact Billetterie"))
     press_contact = models.ForeignKey(Contact, null=True,
-                                      related_name='press_organization')
+                                      related_name='press_organization',
+                                      verbose_name=_("Contact Presse"))
     CONTACT_TYPES = ('ticket_contact', 'press_contact')
 
     def update_contact_field(self, form_name, cleaned_data):
