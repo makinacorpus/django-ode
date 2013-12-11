@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{% trans "Webservices" %}</h1>
+
+<p>
+{% blocktrans %}
+Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos requêtes
+à l'aide de l'entête <code>Authorization</code>.
+{% endblocktrans %}
+</p>
+
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans 'Votre clé' %}</div>
+  <div class="panel-body">
+    {{ key }}
+  </div>
+</div>
+<p>
+{% trans 'Les URLs pour accéder aux données sont les suivantes:' %}
+</p>
+<dl>
+  <dt>{% trans 'URL des événements' %}</dt>
+  <dd><a href="{{ events_url }}">{{ events_url }}</a></dd>
+  <dt>{% trans "URL des sources d'événements" %}</dt>
+  <dd><a href="{{ sources_url }}">{{ sources_url }}</a></dd>
+</dl>
+
+Voir <a href="https://ode.readthedocs.org/">la documentation</a> pour plus d'information.
+
+{% endblock %}

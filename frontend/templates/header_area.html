@@ -36,7 +36,7 @@
             <li><a href="{% url 'imports' %}">{% trans "Importer" %}</a></li>
           {% endif %}
           <li><a href="#">{% trans "Exporter" %}</a></li>
-          <li><a href="#">{% trans "Webservices" %}</a></li>
+          <li><a href="{% url 'webservices' %}">{% trans "Webservices" %}</a></li>
           <li><a href="{% url 'consumer_list' %}">{% trans "Réutilisateurs" %}</a></li>
           <li><a href="{% url 'provider_list' %}">{% trans "Fournisseurs" %}</a></li>
         </ul>
