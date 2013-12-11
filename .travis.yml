@@ -1,8 +1,7 @@
 language: python
 
 env:
- - NPM=./node-v0.10.22-linux-x64/bin/npm
- - GRUNT=./node-v0.10.22-linux-x64/bin/grunt
+ - NPM=./node-v0.10.22-linux-x64/bin/npm GRUNT=./node-v0.10.22-linux-x64/bin/grunt
 
 python:
   - 2.7
