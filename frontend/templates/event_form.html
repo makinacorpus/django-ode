@@ -44,32 +44,41 @@
             {% endif %}
 	  </div>
 	</div>
-	<div class="fieldWrapper {% if errors.adress %}has-error{% endif %}">
-	  <label  class="control-label" for="adress">{% trans 'Adresse' %}</label>
+	<div class="fieldWrapper {% if errors.location_address %}has-error{% endif %}">
+	  <label  class="control-label" for="location_address">{% trans 'Adresse' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="adress" name="adress"{% if input %} value="{{ input.adress }}"{% endif %} />
-            {% if errors.adress %}
-            <span class="help-block">{{ errors.adress }}</span>
+            <input class="form-control" id="location_address" name="location_address"{% if input %} value="{{ input.location_address }}"{% endif %} />
+            {% if errors.location_address %}
+            <span class="help-block">{{ errors.location_address }}</span>
+            {% endif %}
+	  </div>
+	</div>
+	<div class="fieldWrapper {% if errors.location_post_code %}has-error{% endif %}">
+	  <label  class="control-label" for="location_post_code">{% trans 'Code Postal' %}</label>
+	  <div class="controls">
+            <input class="form-control" id="location_post_code" name="location_post_code"{% if input %} value="{{ input.location_post_code }}"{% endif %} />
+            {% if errors.location_post_code %}
+            <span class="help-block">{{ errors.location_post_code }}</span>
             {% endif %}
 	  </div>
 	</div>
       </div>
       <div class="col-md-4">
-	<div class="fieldWrapper {% if errors.postal_code %}has-error{% endif %}">
-	  <label  class="control-label" for="postal_code">{% trans 'Code Postal' %}</label>
+	<div class="fieldWrapper {% if errors.location_town %}has-error{% endif %}">
+	  <label  class="control-label" for="location_town">{% trans 'Ville' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="postal_code" name="postal_code"{% if input %} value="{{ input.postal_code }}"{% endif %} />
-            {% if errors.postal_code %}
-            <span class="help-block">{{ errors.postal_code }}</span>
+            <input class="form-control" id="location_town" name="location_town"{% if input %} value="{{ input.location_town }}"{% endif %} />
+            {% if errors.location_town %}
+            <span class="help-block">{{ errors.location_town }}</span>
             {% endif %}
 	  </div>
 	</div>
-	<div class="fieldWrapper {% if errors.town %}has-error{% endif %}">
-	  <label  class="control-label" for="town">{% trans 'Ville' %}</label>
+	<div class="fieldWrapper {% if errors.location_country %}has-error{% endif %}">
+	  <label  class="control-label" for="location_country">{% trans 'Pays' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="town" name="town"{% if input %} value="{{ input.town }}"{% endif %} />
-            {% if errors.town %}
-            <span class="help-block">{{ errors.town }}</span>
+            <input class="form-control" id="location_country" name="location_country"{% if input %} value="{{ input.location_country }}"{% endif %} />
+            {% if errors.location_country %}
+            <span class="help-block">{{ errors.location_country }}</span>
             {% endif %}
 	  </div>
 	</div>
@@ -80,13 +89,13 @@
   <fieldset>
     <div class="row">
       <div class="col-md-12">
-        <legend>{% trans 'DATE' %}</legend>
+        <legend>{% trans 'DATES' %}</legend>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
 	<div class="fieldWrapper {% if errors.daterange %}has-error{% endif %}">
-	  <label class="control-label" for="daterange">{% trans 'Date' %}</label>
+	  <label class="control-label" for="daterange">{% trans "Dates de l'événement" %}</label>
 	  <div class="controls">
             <input class="form-control" id="daterange" name="daterange"{% if input %} value="{{ input.daterange }}"{% endif %} />
             {% if errors.daterange %}
@@ -117,7 +126,7 @@
 	<div class="fieldWrapper {% if errors.description %}has-error{% endif %}">
 	  <label  class="control-label" for="description">{% trans "Texte de description de l'événement" %}</label>
 	  <div class="controls">
-            <textarea class="form-control" id="description" name="description"{% if input %} value="{{ input.description }}"{% endif %}></textarea>
+            <textarea class="form-control" id="description" name="description">{% if input %}{{ input.description }}{% endif %}</textarea>
             {% if errors.description %}
             <span class="help-block">{{ errors.description }}</span>
             {% endif %}
@@ -135,30 +144,30 @@
       </div>
 
       <div class="col-md-4">
-	<div class="fieldWrapper {% if errors.price %}has-error{% endif %}">
-	  <label  class="control-label" for="price">{% trans 'Tarifs' %}</label>
+	<div class="fieldWrapper {% if errors.price_information %}has-error{% endif %}">
+	  <label  class="control-label" for="price_information">{% trans 'Tarifs' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="price" name="price"{% if input %} value="{{ input.price }}"{% endif %} />
-            {% if errors.price %}
-            <span class="help-block">{{ errors.price }}</span>
+            <input class="form-control" id="price_information" name="price_information"{% if input %} value="{{ input.price_information }}" {% else %} value="{{ organization.price_information }}" {% endif %} />
+            {% if errors.price_information %}
+            <span class="help-block">{{ errors.price_information }}</span>
             {% endif %}
 	  </div>
 	</div>
-	<div class="fieldWrapper {% if errors.capacity %}has-error{% endif %}">
-	  <label  class="control-label" for="capacity">{% trans 'Capacité' %}</label>
+	<div class="fieldWrapper {% if errors.location_capacity %}has-error{% endif %}">
+	  <label  class="control-label" for="location_capacity">{% trans 'Capacité de la salle' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="capacity" name="capacity"{% if input %} value="{{ input.capacity }}"{% endif %} />
-            {% if errors.capacity %}
-            <span class="help-block">{{ errors.capacity }}</span>
+            <input class="form-control" id="location_capacity" name="location_capacity"{% if input %} value="{{ input.location_capacity }}" {% else %} value="{{ organization.capacity }}" {% endif %} />
+            {% if errors.location_capacity %}
+            <span class="help-block">{{ errors.location_capacity }}</span>
             {% endif %}
 	  </div>
 	</div>
-	<div class="fieldWrapper {% if errors.audience %}has-error{% endif %}">
-	  <label  class="control-label" for="audience">{% trans 'Public' %}</label>
+	<div class="fieldWrapper {% if errors.target %}has-error{% endif %}">
+	  <label  class="control-label" for="target">{% trans 'Public' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="audience" name="audience"{% if input %} value="{{ input.audience }}"{% endif %} />
-            {% if errors.audience %}
-            <span class="help-block">{{ errors.audience }}</span>
+            <input class="form-control" id="target" name="target"{% if input %} value="{{ input.target }}" {% else %} value="{{ organization.audience }}" {% endif %} />
+            {% if errors.target %}
+            <span class="help-block">{{ errors.target }}</span>
             {% endif %}
 	  </div>
 	</div>
@@ -174,6 +183,15 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+	<div class="fieldWrapper {% if errors.categories %}has-error{% endif %}">
+	  <label class="control-label" for="categories">{% trans 'Catégories, séparés par des virgules' %}</label>
+	  <div class="controls">
+            <input class="form-control" id="categories" name="categories"{% if input %} value="{{ input.categories }}"{% endif %} />
+            {% if errors.categories %}
+            <span class="help-block">{{ errors.categories }}</span>
+            {% endif %}
+	  </div>
+	</div>
 	<div class="fieldWrapper {% if errors.tags %}has-error{% endif %}">
 	  <label class="control-label" for="tags">{% trans 'Insérer les mots clés, séparés par des virgules' %}</label>
 	  <div class="controls">
@@ -205,6 +223,88 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_photo %}has-error{% endif %}">
+	  <label class="control-label" for="media_photo">{% trans 'Photo' %}</label>
+	  <div class="controls">
+            <input class="form-control" id="media_photo" name="media_photo"{% if input %} value="{{ input.media_photo }}"{% endif %} />
+            {% if errors.media_photo %}
+            <span class="help-block">{{ errors.media_photo }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_photo_license %}has-error{% endif %}">
+	  <label class="control-label" for="media_photo_license">{% trans 'Licence' %}</label>
+	  <div class="controls">
+	    <select class="form-control" id="media_photo_license" name="media_photo_license">
+	      <option value="CC BY" {% if input and input.media_photo_license == 'CC BY' %} selected="selected"{% endif %}>CC BY</option>
+	      <option value="unknown" {% if input and input.media_photo_license == 'unknown' %} selected="selected"{% endif %}>{% trans 'Inconnu' %}</option>
+	    </select>
+            {% if errors.media_photo_license %}
+            <span class="help-block">{{ errors.media_photo_license }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_video %}has-error{% endif %}">
+	  <label class="control-label" for="media_video">{% trans 'Vidéo' %}</label>
+	  <div class="controls">
+            <input class="form-control" id="media_video" name="media_video"{% if input %} value="{{ input.media_video }}"{% endif %} />
+            {% if errors.media_video %}
+            <span class="help-block">{{ errors.media_video }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_video_license %}has-error{% endif %}">
+	  <label class="control-label" for="media_video_license">{% trans 'Licence' %}</label>
+	  <div class="controls">
+	    <select class="form-control" id="media_video_license" name="media_video_license">
+	      <option value="CC BY" {% if input and input.media_video_license == 'CC BY' %} selected="selected"{% endif %}>CC BY</option>
+	      <option value="unknown" {% if input and input.media_video_license == 'unknown' %} selected="selected"{% endif %}>{% trans 'Inconnu' %}</option>
+	    </select>
+            {% if errors.media_video_license %}
+            <span class="help-block">{{ errors.media_video_license }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_audio %}has-error{% endif %}">
+	  <label class="control-label" for="media_audio">{% trans 'Audio' %}</label>
+	  <div class="controls">
+            <input class="form-control" id="media_audio" name="media_audio"{% if input %} value="{{ input.media_audio }}"{% endif %} />
+            {% if errors.media_audio %}
+            <span class="help-block">{{ errors.media_audio }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+      <div class="col-md-4">
+	<div class="fieldWrapper {% if errors.media_audio_license %}has-error{% endif %}">
+	  <label class="control-label" for="media_audio_license">{% trans 'Licence' %}</label>
+	  <div class="controls">
+	    <select class="form-control" id="media_audio_license" name="media_audio_license">
+	      <option value="CC BY" {% if input and input.media_audio_license == 'CC BY' %} selected="selected"{% endif %}>CC BY</option>
+	      <option value="unknown" {% if input and input.media_audio_license == 'unknown' %} selected="selected"{% endif %}>{% trans 'Inconnu' %}</option>
+	    </select>
+            {% if errors.media_audio_license %}
+            <span class="help-block">{{ errors.media_audio_license }}</span>
+            {% endif %}
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-12">
 	<div class="fieldWrapper {% if errors.press_url %}has-error{% endif %}">
 	  <label class="control-label" for="press_url">{% trans 'Communiqué de presse' %}</label>
@@ -228,22 +328,22 @@
     <div class="row">
       <div class="col-md-12">
 	<div class="fieldWrapper {% if errors.daterange_publication %}has-error{% endif %}">
-	  <label class="control-label" for="daterange_publication">{% trans 'Date de publication' %}</label>
+	  <label class="control-label" for="daterange_publication">{% trans 'Dates de publication' %}</label>
 	  <div class="controls">
             <input class="form-control" id="daterange_publication" name="daterange_publication"{% if input %} value="{{ input.daterange_publication }}"{% endif %} />
             {% if errors.daterange_publication %}
             <span class="help-block">{{ errors.daterange_publication }}</span>
             {% endif %}
-            {% if errors.start_time_publication %}
-            <span class="help-block">{{ errors.start_time_publication }}</span>
+            {% if errors.publication_start %}
+            <span class="help-block">{{ errors.publication_start }}</span>
             {% endif %}
-            {% if errors.end_time_publication %}
-            <span class="help-block">{{ errors.end_time_publication }}</span>
+            {% if errors.publication_end %}
+            <span class="help-block">{{ errors.publication_end }}</span>
             {% endif %}
 	  </div>
 	</div>
-	<input type="hidden" id="start_time_publication" name="start_time_publication"{% if input %} value="{{ input.start_time_publication }}"{% endif %} />
-	<input type="hidden" id="end_time_publication" name="end_time_publication"{% if input %} value="{{ input.end_time_publication }}"{% endif %} />
+	<input type="hidden" id="publication_start" name="publication_start"{% if input %} value="{{ input.publication_start }}"{% endif %} />
+	<input type="hidden" id="publication_end" name="publication_end"{% if input %} value="{{ input.publication_end }}"{% endif %} />
       </div>
     </div>
   </fieldset>
@@ -260,27 +360,39 @@
 	<div class="fieldWrapper {% if errors.ticket_contact_name %}has-error{% endif %}">
 	  <label class="control-label" for="ticket_contact_name">{% trans 'Nom' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="ticket_contact_name" name="ticket_contact_name"{% if input %} value="{{ input.ticket_contact_name }}"{% endif %} />
+            <input class="form-control" id="ticket_contact_name"
+		   name="ticket_contact_name"
+		   {% if input %} value="{{ input.ticket_contact_name }}"
+		   {% else %} value="{{ organization.ticket_contact.name }}"
+		   {% endif %} />
             {% if errors.ticket_contact_name %}
             <span class="help-block">{{ errors.ticket_contact_name }}</span>
             {% endif %}
 	  </div>
 	</div>
 	<div class="fieldWrapper {% if errors.ticket_contact_email %}has-error{% endif %}">
-	  <label class="control-label" for="ticket_contact_email">{% trans 'Email' %}</label>
+	  <label class="control-label" for="ticket_contact_email">{% trans 'Courriel' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="ticket_contact_email" name="ticket_contact_email"{% if input %} value="{{ input.ticket_contact_email }}"{% endif %} />
+            <input class="form-control" id="ticket_contact_email"
+		   name="ticket_contact_email"
+		   {% if input %} value="{{ input.ticket_contact_email }}"
+		   {% else %} value="{{ organization.ticket_contact.email }}"
+		   {% endif %} />
             {% if errors.ticket_contact_email %}
             <span class="help-block">{{ errors.ticket_contact_email }}</span>
             {% endif %}
 	  </div>
 	</div>
-	<div class="fieldWrapper {% if errors.ticket_contact_phone %}has-error{% endif %}">
-	  <label class="control-label" for="ticket_contact_phone">{% trans 'Téléphone' %}</label>
+	<div class="fieldWrapper {% if errors.ticket_contact_phone_number %}has-error{% endif %}">
+	  <label class="control-label" for="ticket_contact_phone_number">{% trans 'Téléphone' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="ticket_contact_phone" name="ticket_contact_phone"{% if input %} value="{{ input.ticket_contact_phone }}"{% endif %} />
-            {% if errors.ticket_contact_phone %}
-            <span class="help-block">{{ errors.ticket_contact_phone }}</span>
+            <input class="form-control" id="ticket_contact_phone_number"
+		   name="ticket_contact_phone_number"
+		   {% if input %} value="{{ input.ticket_contact_phone_number }}"
+		   {% else %} value="{{ organization.ticket_contact.phone_number }}"
+		   {% endif %} />
+            {% if errors.ticket_contact_phone_number %}
+            <span class="help-block">{{ errors.ticket_contact_phone_number }}</span>
             {% endif %}
 	  </div>
 	</div>
@@ -290,27 +402,39 @@
 	<div class="fieldWrapper {% if errors.press_contact_name %}has-error{% endif %}">
 	  <label class="control-label" for="press_contact_name">{% trans 'Nom' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="press_contact_name" name="press_contact_name"{% if input %} value="{{ input.press_contact_name }}"{% endif %} />
+            <input class="form-control" id="press_contact_name"
+		   name="press_contact_name"
+		   {% if input %} value="{{ input.press_contact_name }}"
+		   {% else %} value="{{ organization.press_contact.name }}"
+		   {% endif %} />
             {% if errors.press_contact_name %}
             <span class="help-block">{{ errors.press_contact_name }}</span>
             {% endif %}
 	  </div>
 	</div>
 	<div class="fieldWrapper {% if errors.press_contact_email %}has-error{% endif %}">
-	  <label class="control-label" for="press_contact_email">{% trans 'Email' %}</label>
+	  <label class="control-label" for="press_contact_email">{% trans 'Courriel' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="press_contact_email" name="press_contact_email"{% if input %} value="{{ input.press_contact_email }}"{% endif %} />
+            <input class="form-control" id="press_contact_email"
+		   name="press_contact_email"
+		   {% if input %} value="{{ input.press_contact_email }}"
+		   {% else %} value="{{ organization.press_contact.email }}"
+		   {% endif %} />
             {% if errors.press_contact_email %}
             <span class="help-block">{{ errors.press_contact_email }}</span>
             {% endif %}
 	  </div>
 	</div>
-	<div class="fieldWrapper {% if errors.press_contact_phone %}has-error{% endif %}">
-	  <label class="control-label" for="press_contact_phone">{% trans 'Téléphone' %}</label>
+	<div class="fieldWrapper {% if errors.press_contact_phone_number %}has-error{% endif %}">
+	  <label class="control-label" for="press_contact_phone_number">{% trans 'Téléphone' %}</label>
 	  <div class="controls">
-            <input class="form-control" id="press_contact_phone" name="press_contact_phone"{% if input %} value="{{ input.press_contact_phone }}"{% endif %} />
-            {% if errors.press_contact_phone %}
-            <span class="help-block">{{ errors.press_contact_phone }}</span>
+            <input class="form-control" id="press_contact_phone_number"
+		   name="press_contact_phone_number"
+		   {% if input %} value="{{ input.press_contact_phone_number }}"
+		   {% else %} value="{{ organization.press_contact.phone_number }}"
+		   {% endif %} />
+            {% if errors.press_contact_phone_number %}
+            <span class="help-block">{{ errors.press_contact_phone_number }}</span>
             {% endif %}
 	  </div>
 	</div>

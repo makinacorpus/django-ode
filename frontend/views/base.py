@@ -26,9 +26,12 @@ def error_list_to_dict(api_errors):
     result = {}
     for error in api_errors:
         name = error['name']
-        # Error names returned by the API look like
-        # items.<error_index>.data.<field_name>
-        field_name = name.split('.')[3]
+        if name == 'items':
+            field_name = 'items'
+        else:
+            # Error names returned by the API look like
+            # items.<error_index>.data.<field_name>
+            field_name = name.split('.')[3]
         result[field_name] = error['description']
     return result
 
@@ -79,8 +82,18 @@ class APIForm(LoginRequiredMixin, View):
 
     def prepare_api_input(self, dict_data):
 
-        formatted_data = []
+        user = self.request.user
+        formatted_data = [
+            {'name': 'firstname', 'value': user.first_name},
+            {'name': 'lastname', 'value': user.last_name},
+            {'name': 'email', 'value': user.email},
+            {'name': 'telephone', 'value': user.phone_number},
+            {'name': 'language', 'value': 'fr'},
+            {'name': 'organiser', 'value': user.organization.name},
+            ]
         for key, value in dict_data.items():
+            if key in ('categories', 'tags'):
+                value = [v.strip() for v in value.split(',')]
             formatted_data.append(
                 {'name': key, 'value': value}
             )
@@ -107,6 +120,8 @@ class APIForm(LoginRequiredMixin, View):
             context['input'] = user_input
             context['errors'] = error_list_to_dict(response_data['errors'])
             messages.error(request, self.error_message, extra_tags='danger')
+            if 'items' in context['errors'].keys():
+                messages.error(request, context['errors']['items'], extra_tags='danger')
 
             new_context = self._update_context_data(context)
             return render(request, self.template_name, new_context)

@@ -27,6 +27,11 @@ class Form(APIForm):
     success_message = u"L'événement a été enregistré avec succès"
     error_message = u"L'événement n'a pas pu être enregistré"
 
+    def add_context(self, *args, **kwargs):
+        context = {}
+        context['organization'] = self.request.user.organization
+        return context
+
 
 class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
     template_name = 'event_list.html'

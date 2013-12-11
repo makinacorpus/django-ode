@@ -43,8 +43,8 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 	    locale: locale
 	},
 	function(start, end) {
-	    $('#start_time_publication').val(start.toISOString());
-	    $('#end_time_publication').val(end.toISOString());
+	    $('#publication_start').val(start.toISOString());
+	    $('#publication_end').val(end.toISOString());
 	}
     );
 
