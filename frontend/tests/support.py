@@ -31,7 +31,9 @@ class PatchMixin(object):
             field['name']: field['value']
             for field in posted_json['template']['data']
         }
-        self.assertDictEqual(posted_data_as_dict, input_data)
+        for key, value in input_data.items():
+            self.assertIn(key, posted_data_as_dict.keys())
+            self.assertEqual(value, posted_data_as_dict[key])
         self.assertEqual(kwargs['headers'], {
             'X-ODE-Provider-Id': self.user.pk,
             'Content-Type': 'application/vnd.collection+json'

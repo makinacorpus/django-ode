@@ -92,7 +92,7 @@ class APIForm(LoginRequiredMixin, View):
 
     def prepare_media(self, api_input):
 
-        if api_input['media_photo']:
+        if 'media_photo' in api_input.keys() and api_input['media_photo']:
             image = {
                 'url': api_input['media_photo'],
                 'license': api_input['media_photo_license']
@@ -100,7 +100,7 @@ class APIForm(LoginRequiredMixin, View):
             del api_input['media_photo']
             del api_input['media_photo_license']
             api_input['images'] = [image]
-        if api_input['media_photo2']:
+        if 'media_photo2' in api_input.keys() and api_input['media_photo2']:
             image = {
                 'url': api_input['media_photo2'],
                 'license': api_input['media_photo_license2']
@@ -111,7 +111,7 @@ class APIForm(LoginRequiredMixin, View):
                 api_input['images'].append(image)
             else:
                 api_input['images'] = [image]
-        if api_input['media_video']:
+        if 'media_video' in api_input.keys() and api_input['media_video']:
             video = {
                 'url': api_input['media_video'],
                 'license': api_input['media_video_license']
@@ -120,7 +120,7 @@ class APIForm(LoginRequiredMixin, View):
             del api_input['media_video_license']
             api_input['videos'] = [video]
 
-        if api_input['media_audio']:
+        if 'media_audio' in api_input.keys() and api_input['media_audio']:
             sound = {
                 'url': api_input['media_audio'],
                 'license': api_input['media_audio_license']
@@ -172,7 +172,8 @@ class APIForm(LoginRequiredMixin, View):
             context['errors'] = error_list_to_dict(response_data['errors'])
             messages.error(request, self.error_message, extra_tags='danger')
             if 'items' in context['errors'].keys():
-                messages.error(request, context['errors']['items'], extra_tags='danger')
+                messages.error(request, context['errors']['items'],
+                               extra_tags='danger')
 
             new_context = self._update_context_data(context)
             return render(request, self.template_name, new_context)

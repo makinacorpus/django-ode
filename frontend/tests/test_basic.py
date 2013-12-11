@@ -9,7 +9,6 @@ class SimpleTest(LoginTestMixin, TestCase):
     def test_home_anonymous(self):
         response = self.client.get('/')
         self.assertContains(response, '<!DOCTYPE html>')
-        self.assertContains(response, 'Connexion')
         self.assertContains(response, '/accounts/login/')
         self.assertContains(response, 'Inscription')
         self.assertContains(response, '/accounts/signup/')
