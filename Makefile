@@ -3,6 +3,7 @@
 VIRTUALENVWRAPPER_VIRTUALENV?=virtualenv
 VIRTUAL_ENV?=venv
 NPM?=npm
+GRUNT?=grunt
 
 PYTHON=$(VIRTUAL_ENV)/bin/python
 PIP=$(VIRTUAL_ENV)/bin/pip
@@ -21,7 +22,7 @@ dev_requirements:
 	sudo $(NPM) install -g grunt-cli
 	# Need to be sudo for Travis
 	sudo $(NPM) install
-	grunt
+	$(GRUNT)
 
 install:
 	$(PYTHON) setup.py install
