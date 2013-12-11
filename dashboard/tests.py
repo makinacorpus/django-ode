@@ -18,3 +18,14 @@ class TestDashboard(TestCase):
         self.login_as_admin()
         response = self.client.get('/dashboard', follow=True)
         self.assertContains(response, 'Structures')
+
+    def test_link_to_dashboard_on_homepage(self):
+        self.login_as_admin()
+        response = self.client.get('/', follow=True)
+        self.assertContains(response, 'Tableau de bord')
+
+    def test_non_superuser_cannot_see_link_to_dashboard(self):
+        User.objects.create_user('bob', password='foo')
+        self.client.login(username='bob', password='foo')
+        response = self.client.get('/', follow=True)
+        self.assertNotContains(response, 'Tableau de bord')

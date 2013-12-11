@@ -17,7 +17,11 @@
         <div id="login-area-logged">
           <ul class="actions">
             <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
+            {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">{% trans "Tableau de bord" %}</a></li>
+            {% else %}
             <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
