@@ -60,8 +60,9 @@ class Organization(models.Model):
     town = models.CharField(max_length=100, blank=True,
                             verbose_name=_("Commune"))
     url = models.URLField(blank=True, verbose_name=_(u"Site web"))
-    is_provider = models.BooleanField(default=False,
-                                      verbose_name=_(u"Fournisseur de données"))
+    is_provider = models.BooleanField(
+        default=False,
+        verbose_name=_(u"Fournisseur de données"))
     is_consumer = models.BooleanField(
         default=False,
         verbose_name=_(u"Réutilisateur de données"))
