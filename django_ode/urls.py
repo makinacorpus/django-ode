@@ -16,3 +16,8 @@ urlpatterns = patterns(
     url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'', include('frontend.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += patterns(
+    'django.contrib.flatpages.views',
+    (r'^(?P<url>.*/)$', 'flatpage'),
+)
