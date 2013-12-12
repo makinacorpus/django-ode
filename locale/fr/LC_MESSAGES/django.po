@@ -1,0 +1,1064 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-12 15:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/admin.py:22 accounts/models.py:52
+msgid "Image"
+msgstr ""
+
+#: accounts/admin.py:25
+msgid "Fournisseur"
+msgstr ""
+
+#: accounts/admin.py:28
+msgid "Réutilisateur"
+msgstr ""
+
+#: accounts/admin.py:32
+msgid "Infos Structure"
+msgstr ""
+
+#: accounts/admin.py:36 dashboard/admin.py:45
+msgid "Infos générales événement"
+msgstr ""
+
+#: accounts/fields.py:12 accounts/forms.py:63
+msgid "Password"
+msgstr ""
+
+#: accounts/fields.py:21
+msgid "Password confirmation"
+msgstr ""
+
+#: accounts/fields.py:25
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: accounts/fields.py:26
+msgid "Confirmation du mot de passe"
+msgstr ""
+
+#: accounts/fields.py:43
+msgid "Créez une nouvelle structure"
+msgstr ""
+
+#: accounts/fields.py:45
+msgid "Choisissez votre structure"
+msgstr ""
+
+#: accounts/fields.py:55 frontend/templates/consumer.html:42
+#: frontend/templates/provider.html:35
+msgid "Type de structure"
+msgstr ""
+
+#: accounts/fields.py:63 accounts/models.py:54
+#: frontend/templates/consumer.html:60 frontend/templates/provider.html:53
+msgid "Domaine d'activité"
+msgstr ""
+
+#: accounts/fields.py:70 accounts/models.py:57 dashboard/models.py:88
+#: frontend/templates/consumer.html:48 frontend/templates/event_form.html:48
+#: frontend/templates/provider.html:41
+msgid "Adresse"
+msgstr ""
+
+#: accounts/fields.py:77 frontend/templates/consumer.html:51
+#: frontend/templates/event_form.html:57 frontend/templates/provider.html:44
+msgid "Code Postal"
+msgstr ""
+
+#: accounts/fields.py:84 frontend/templates/consumer.html:54
+#: frontend/templates/event_form.html:68 frontend/templates/provider.html:47
+#: frontend/views/consumers.py:15 frontend/views/providers.py:16
+msgid "Ville"
+msgstr ""
+
+#: accounts/fields.py:91 frontend/templates/consumer.html:45
+#: frontend/templates/provider.html:38
+msgid "Nom structure"
+msgstr ""
+
+#: accounts/fields.py:98 frontend/templates/consumer.html:57
+#: frontend/templates/provider.html:50
+msgid "Site Internet"
+msgstr ""
+
+#: accounts/fields.py:107 accounts/models.py:64
+msgid "Fournisseur de données"
+msgstr ""
+
+#: accounts/fields.py:116 accounts/models.py:67
+#: accounts/templates/accounts/signup.html:65
+msgid "Réutilisateur de données"
+msgstr ""
+
+#: accounts/forms.py:69 accounts/forms.py:216 accounts/forms.py:222
+#: dashboard/models.py:63 dashboard/models.py:69
+msgid "Email"
+msgstr ""
+
+#: accounts/forms.py:75 accounts/forms.py:92 accounts/forms.py:181
+msgid "Mot de passe"
+msgstr ""
+
+#: accounts/forms.py:84
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: accounts/forms.py:87
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+
+#: accounts/forms.py:90
+msgid "Identifiant"
+msgstr ""
+
+#: accounts/forms.py:154
+msgid "Vous devez indiquer si vous êtes fournisseur ou consommateur de données"
+msgstr ""
+
+#: accounts/forms.py:168
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: accounts/forms.py:208 accounts/models.py:92 dashboard/models.py:45
+msgid "Tarif"
+msgstr ""
+
+#: accounts/forms.py:209 accounts/models.py:94
+#: frontend/templates/event_form.html:166
+msgid "Public"
+msgstr ""
+
+#: accounts/forms.py:211 dashboard/models.py:92
+#: frontend/templates/event_form.html:157
+msgid "Capacité de la salle"
+msgstr ""
+
+#: accounts/forms.py:214 accounts/forms.py:220 accounts/models.py:50
+#: dashboard/models.py:65 dashboard/models.py:71 dashboard/models.py:86
+#: frontend/templates/event_form.html:389
+#: frontend/templates/event_form.html:431 frontend/views/consumers.py:14
+#: frontend/views/providers.py:15
+msgid "Nom"
+msgstr ""
+
+#: accounts/forms.py:218 accounts/forms.py:224 accounts/models.py:140
+#: dashboard/models.py:35 dashboard/models.py:67 dashboard/models.py:73
+#: frontend/templates/event_form.html:415
+#: frontend/templates/event_form.html:457
+msgid "Téléphone"
+msgstr ""
+
+#: accounts/forms.py:227
+msgid "Remplacer la photo"
+msgstr ""
+
+#: accounts/models.py:25
+msgid "Structure"
+msgstr ""
+
+#: accounts/models.py:27
+msgid "Entreprise"
+msgstr ""
+
+#: accounts/models.py:28
+msgid "Collectivité/Organisme public"
+msgstr ""
+
+#: accounts/models.py:29
+msgid "Particulier"
+msgstr ""
+
+#: accounts/models.py:30
+msgid "Indépendant"
+msgstr ""
+
+#: accounts/models.py:31
+msgid "Association"
+msgstr ""
+
+#: accounts/models.py:35 frontend/templates/provider.html:26
+msgid "Lieu d'accueil d'événements"
+msgstr ""
+
+#: accounts/models.py:36 frontend/templates/provider.html:29
+msgid "Intervenant/artiste"
+msgstr ""
+
+#: accounts/models.py:37 frontend/templates/provider.html:23
+msgid "Créateur d'événements"
+msgstr ""
+
+#: accounts/models.py:41 frontend/templates/consumer.html:23
+msgid "Publication d'un media print/web"
+msgstr ""
+
+#: accounts/models.py:42 accounts/models.py:62
+#: frontend/templates/consumer.html:27
+msgid "Site web"
+msgstr ""
+
+#: accounts/models.py:43 frontend/templates/consumer.html:31
+msgid "Application mobile"
+msgstr ""
+
+#: accounts/models.py:44 frontend/templates/consumer.html:35
+msgid "Autre"
+msgstr ""
+
+#: accounts/models.py:59 dashboard/models.py:90
+msgid "Code postal"
+msgstr ""
+
+#: accounts/models.py:61 dashboard/models.py:94
+msgid "Commune"
+msgstr ""
+
+#: accounts/models.py:84
+msgid "URL media"
+msgstr ""
+
+#: accounts/models.py:85
+msgid "URL site web"
+msgstr ""
+
+#: accounts/models.py:87
+msgid "Nom appli mobile"
+msgstr ""
+
+#: accounts/models.py:89
+msgid "Autres détails"
+msgstr ""
+
+#: accounts/models.py:96
+msgid "Capacité du lieu"
+msgstr ""
+
+#: accounts/models.py:99 accounts/templates/accounts/profile.html:137
+msgid "Contact Billetterie"
+msgstr ""
+
+#: accounts/models.py:102 accounts/templates/accounts/profile.html:143
+msgid "Contact Presse"
+msgstr ""
+
+#: accounts/models.py:160
+msgid "Ouverture d'un compte sur www.opendataevents.fr"
+msgstr ""
+
+#: accounts/models.py:181
+msgid "Votre compte a été validé sur www.opendataevents.fr"
+msgstr ""
+
+#: accounts/models.py:194
+msgid "Email "
+msgstr ""
+
+#: accounts/views.py:69
+msgid "Nouveau fournisseur de données"
+msgstr ""
+
+#: accounts/views.py:120
+msgid "Profil sauvegardé avec succès"
+msgstr ""
+
+#: accounts/templates/accounts/email_activation.html:2
+#, python-format
+msgid ""
+"\n"
+"Bonjour,\n"
+"\n"
+"Vous venez de vous inscrire sur le site OpenDataEvents.\n"
+"Veuillez cliquer sur ce lien de confirmation pour activer votre compte : "
+"%(confirm_link)s.\n"
+"\n"
+"OpenDataEvents.\n"
+msgstr ""
+
+#: accounts/templates/accounts/email_admin_provider_validation.html:2
+#, python-format
+msgid ""
+"\n"
+"Bonjour,\n"
+"\n"
+"Un nouveau fournisseur vient de s'inscrire sur le site OpenDataEvents.\n"
+"Pour l'activer, rendez-vous sur cette page : %(prov_validation_url)s.\n"
+"\n"
+"OpenDataEvents.\n"
+msgstr ""
+
+#: accounts/templates/accounts/email_confirmation.html:7
+#: accounts/templates/accounts/password_reset_complete.html:7
+msgid "Confirmation du compte"
+msgstr ""
+
+#: accounts/templates/accounts/email_confirmation.html:11
+msgid "Votre adresse email a été confirmée avec succès."
+msgstr ""
+
+#: accounts/templates/accounts/email_confirmation.html:13
+msgid ""
+"Vous pourrez vous connecter dès que l'administrateur du site aura validé "
+"votre inscription. Vous recevrez un mail pour vous indiquer cette validation."
+msgstr ""
+
+#: accounts/templates/accounts/email_confirmation.html:15
+msgid "Vous pouvez maintenant vous connecter avec vos identifiants."
+msgstr ""
+
+#: accounts/templates/accounts/email_confirmation.html:20
+msgid "Ce lien de confirmation est invalide."
+msgstr ""
+
+#: accounts/templates/accounts/email_password_reset.html:3
+#, python-format
+msgid ""
+"\n"
+"Bonjour,\n"
+"\n"
+"Une demande de nouveau mot de passe à été faite pour l'utilisateur "
+"%(user)s.\n"
+"Veuillez cliquer sur le lien suivant pour en choisir un nouveau : "
+"%(protocol)s://%(domain)s%(password_reset_url)s\n"
+"\n"
+"OpenDataEvents.\n"
+msgstr ""
+
+#: accounts/templates/accounts/email_provider_validation.html:2
+msgid ""
+"\n"
+"Bonjour,\n"
+"\n"
+"Votre compte fournisseur a été validé par l'administrateur OpenDataEvents.\n"
+"Vous pouvez maintenant vous connecter via la page d'accueil du site (www."
+"opendataevents.com).\n"
+"\n"
+"OpenDataEvents.\n"
+msgstr ""
+
+#: accounts/templates/accounts/login.html:7
+msgid "Veuillez rentrer vos identifiants"
+msgstr ""
+
+#: accounts/templates/accounts/password_reset.html:6
+#: accounts/templates/accounts/password_reset_confirm.html:6
+msgid "Mot de passe oublié"
+msgstr ""
+
+#: accounts/templates/accounts/password_reset_complete.html:10
+msgid "Votre mot de passe à été modifié avec succès."
+msgstr ""
+
+#: accounts/templates/accounts/password_reset_complete.html:11
+msgid "Vous pouvez maintenant vous connecter avec vos nouveaux identifiants."
+msgstr ""
+
+#: accounts/templates/accounts/password_reset_done.html:6
+msgid "Votre demande a été prise en compte"
+msgstr ""
+
+#: accounts/templates/accounts/password_reset_done.html:9
+msgid "Un email vous a été envoyé avec les démarches à suivres."
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:11
+msgid "Edition du profil"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:26
+#: accounts/templates/accounts/signup.html:126
+msgid "CONNEXION"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:40
+msgid "PHOTO PROFIL"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:60
+msgid "INFOS STRUCTURE"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:104
+msgid "CONTACT / RÉFÉRENT ODE"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:119
+msgid "INFOS GÉNÉRALES ÉVÉNEMENTS"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:120
+msgid "À renseigner si applicable à tous vos événements"
+msgstr ""
+
+#: accounts/templates/accounts/profile.html:153
+msgid "Sauvegarder"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:6
+msgid "Signup"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:11
+msgid "Formulaire d'inscription"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:18
+msgid ""
+"\n"
+"    Le formulaire est incomplet.\n"
+"    "
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:28
+msgid "STRUCTURE"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:39
+msgid "STATUT"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:85
+msgid "INFORMATIONS"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:110
+msgid "CONTACT"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:150
+#, python-format
+msgid ""
+"\n"
+"\t  Valider les\n"
+"\t  <a data-toggle=\"modal\"\n"
+"\t     data-target=\"#signup-modal\"\n"
+"\t     href=\"%(eula_url)s\">\n"
+"\t    CGU\n"
+"\t  </a>\n"
+"\t  "
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:170
+#: frontend/templates/header_area.html:73
+msgid "Inscription"
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:184
+#: frontend/templates/ajax_modal.html:9
+#: frontend/templates/consumer_list.html:34
+#: frontend/templates/provider_list.html:34
+msgid "Chargement en cours..."
+msgstr ""
+
+#: accounts/templates/accounts/signup.html:190
+#: frontend/templates/ajax_modal.html:17
+#: frontend/templates/consumer_list.html:40
+#: frontend/templates/provider_list.html:40
+msgid "Fermer"
+msgstr ""
+
+#: accounts/templates/accounts/signup_success.html:6
+msgid "Votre inscription a été prise en compte"
+msgstr ""
+
+#: accounts/templates/accounts/signup_success.html:9
+msgid "Un email de confirmation vous a été envoyé."
+msgstr ""
+
+#: accounts/templates/accounts/signup_success.html:11
+msgid ""
+"Lorsque vous aurez confirmé votre inscription, un modérateur se chargera de "
+"la valider."
+msgstr ""
+
+#: dashboard/__init__.py:2
+msgid "Accounts"
+msgstr "Membres"
+
+#: dashboard/__init__.py:3
+msgid "Zinnia"
+msgstr "Blog"
+
+#: dashboard/__init__.py:4 templates/zinnia/base.html:81
+#: templates/zinnia/base.html.py:82
+msgid "Dashboard"
+msgstr "Données"
+
+#: dashboard/__init__.py:5
+msgid "Flatpages"
+msgstr "Pages"
+
+#: dashboard/admin.py:42
+msgid "Organisateur"
+msgstr ""
+
+#: dashboard/admin.py:48
+msgid "Contact presse"
+msgstr ""
+
+#: dashboard/admin.py:52
+msgid "Contact billeterie"
+msgstr ""
+
+#: dashboard/models.py:30
+msgid "Prénom"
+msgstr ""
+
+#: dashboard/models.py:32
+msgid "Nom de famille"
+msgstr ""
+
+#: dashboard/models.py:37
+msgid "Description"
+msgstr ""
+
+#: dashboard/models.py:42
+msgid "Artistes, intervenants"
+msgstr ""
+
+#: dashboard/models.py:49
+msgid "Audience"
+msgstr ""
+
+#: dashboard/models.py:51 frontend/templates/event_form.html:12
+#: frontend/templates/event_form.html:18
+msgid "Titre"
+msgstr ""
+
+#: dashboard/models.py:55
+msgid "Début"
+msgstr ""
+
+#: dashboard/models.py:57
+msgid "Fin"
+msgstr ""
+
+#: dashboard/models.py:59
+msgid "Publication"
+msgstr ""
+
+#: dashboard/models.py:61
+msgid "Expiration"
+msgstr ""
+
+#: dashboard/models.py:80
+msgid "Événement"
+msgstr ""
+
+#: dashboard/models.py:96 frontend/templates/event_form.html:77
+msgid "Pays"
+msgstr ""
+
+#: dashboard/models.py:100
+msgid "Lieu"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:3
+msgid "ODE - Tableau de bord"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:24
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:37
+msgid "Add"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:43
+msgid "Change"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:54
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: dashboard/templates/admin/index.html:62
+msgid "Recent Actions"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:63
+msgid "My Actions"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:67
+msgid "None available"
+msgstr ""
+
+#: dashboard/templates/admin/index.html:81
+msgid "Unknown content"
+msgstr ""
+
+#: django_custom_datatables_view/mixins.py:71
+msgid "Internal error"
+msgstr ""
+
+#: frontend/templates/consumer_list.html:6
+msgid "Liste des réutilisateurs"
+msgstr ""
+
+#: frontend/templates/eula.html:5 frontend/templates/eula.html.py:9
+msgid "Conditions Générales d'Utilisation"
+msgstr ""
+
+#: frontend/templates/event_form.html:33
+msgid "LIEU"
+msgstr ""
+
+#: frontend/templates/event_form.html:39
+msgid "Nom du Lieu"
+msgstr ""
+
+#: frontend/templates/event_form.html:92
+msgid "DATES"
+msgstr ""
+
+#: frontend/templates/event_form.html:98
+msgid "Dates de l'événement"
+msgstr ""
+
+#: frontend/templates/event_form.html:121
+msgid "DESCRIPTION"
+msgstr ""
+
+#: frontend/templates/event_form.html:127
+msgid "Texte de description de l'événement"
+msgstr ""
+
+#: frontend/templates/event_form.html:136
+msgid "Artistes, Intervenants (séparés par des virgules)"
+msgstr ""
+
+#: frontend/templates/event_form.html:148
+msgid "Tarifs"
+msgstr ""
+
+#: frontend/templates/event_form.html:181
+msgid "CATÉGORISATION"
+msgstr ""
+
+#: frontend/templates/event_form.html:187
+msgid "Catégories, séparés par des virgules"
+msgstr ""
+
+#: frontend/templates/event_form.html:196
+msgid "Insérer les mots clés, séparés par des virgules"
+msgstr ""
+
+#: frontend/templates/event_form.html:223
+msgid "MEDIAS"
+msgstr ""
+
+#: frontend/templates/event_form.html:229
+#: frontend/templates/event_form.html:256
+msgid "Photo"
+msgstr ""
+
+#: frontend/templates/event_form.html:240
+#: frontend/templates/event_form.html:267
+#: frontend/templates/event_form.html:294
+#: frontend/templates/event_form.html:321
+msgid "Licence"
+msgstr ""
+
+#: frontend/templates/event_form.html:244
+#: frontend/templates/event_form.html:271
+#: frontend/templates/event_form.html:298
+#: frontend/templates/event_form.html:325
+msgid "Inconnu"
+msgstr ""
+
+#: frontend/templates/event_form.html:283
+msgid "Vidéo"
+msgstr ""
+
+#: frontend/templates/event_form.html:310
+msgid "Audio"
+msgstr ""
+
+#: frontend/templates/event_form.html:338
+msgid "Communiqué de presse"
+msgstr ""
+
+#: frontend/templates/event_form.html:353
+msgid "PUBLICATION DE L'ANNONCE"
+msgstr ""
+
+#: frontend/templates/event_form.html:359
+msgid "Dates de publication"
+msgstr ""
+
+#: frontend/templates/event_form.html:382
+msgid "CONTACTS ÉVÉNEMENT"
+msgstr ""
+
+#: frontend/templates/event_form.html:387
+msgid "Billeterie"
+msgstr ""
+
+#: frontend/templates/event_form.html:402
+#: frontend/templates/event_form.html:444
+msgid "Courriel"
+msgstr ""
+
+#: frontend/templates/event_form.html:429
+msgid "Presse"
+msgstr ""
+
+#: frontend/templates/event_list.html:6
+msgid "Liste des événements"
+msgstr ""
+
+#: frontend/templates/export.html:6
+msgid "Export de données"
+msgstr ""
+
+#: frontend/templates/export.html:16
+msgid "Dates :"
+msgstr ""
+
+#: frontend/templates/export.html:31
+msgid "Format :"
+msgstr ""
+
+#: frontend/templates/export.html:45 frontend/templates/header_area.html:38
+msgid "Exporter"
+msgstr ""
+
+#: frontend/templates/header_area.html:12
+#: frontend/templates/header_area.html:51
+msgid "Le Projet"
+msgstr ""
+
+#: frontend/templates/header_area.html:13
+#: frontend/templates/header_area.html:52
+msgid "Contact"
+msgstr ""
+
+#: frontend/templates/header_area.html:14
+#: frontend/templates/header_area.html:53
+msgid "Blog"
+msgstr ""
+
+#: frontend/templates/header_area.html:19
+msgid "Déconnexion"
+msgstr ""
+
+#: frontend/templates/header_area.html:21
+msgid "Tableau de bord"
+msgstr ""
+
+#: frontend/templates/header_area.html:23
+msgid "Profil"
+msgstr ""
+
+#: frontend/templates/header_area.html:33
+msgid "Événements"
+msgstr ""
+
+#: frontend/templates/header_area.html:35
+msgid "Créer"
+msgstr ""
+
+#: frontend/templates/header_area.html:36 frontend/templates/import.html:26
+msgid "Importer"
+msgstr ""
+
+#: frontend/templates/header_area.html:39
+#: frontend/templates/webservices.html:6
+msgid "Webservices"
+msgstr ""
+
+#: frontend/templates/header_area.html:40
+msgid "Réutilisateurs"
+msgstr ""
+
+#: frontend/templates/header_area.html:41
+msgid "Fournisseurs"
+msgstr ""
+
+#: frontend/templates/header_area.html:58
+msgid "Mon Espace"
+msgstr ""
+
+#: frontend/templates/header_area.html:75
+msgid "Mot de passe oublié ?"
+msgstr ""
+
+#: frontend/templates/home.html:44
+msgid "BIENVENUE SUR LE SITE DU PROJET \"OPENDATAEVENTS\""
+msgstr ""
+
+#: frontend/templates/home.html:49
+msgid "Bienvenue sur Open Data Events,"
+msgstr ""
+
+#: frontend/templates/home.html:50
+msgid ""
+"Ce site héberge le projet collaboratif d'ouverture de données "
+"événementielles."
+msgstr ""
+
+#: frontend/templates/home.html:51
+msgid ""
+"ODE est un projet issu de rencontres et ateliers de production avec les "
+"acteurs culturels du territoire. Son objectif est de faciliter et "
+"rationaliser le partage d'informations événementielles entre producteurs et "
+"réutilisateurs de données."
+msgstr ""
+
+#: frontend/templates/home.html:54
+msgid ""
+"ODE  propose un outil d'aggrégation des événements culturels et offre aux "
+"acteurs du projet les moyens de publication et extraction de données "
+"librement réutilisables."
+msgstr ""
+
+#: frontend/templates/home.html:55
+msgid "Vous trouverez les dernières actualités du projet sur le Blog."
+msgstr ""
+
+#: frontend/templates/home.html:56
+msgid ""
+"Ce projet collectif et co-produit avec les participants est animé par "
+"Stereolux et Libertic avec le soutien du département de Loire-Atlantique."
+msgstr ""
+
+#: frontend/templates/home.html:64
+msgid "LES DERNIERES NEWS DU RESEAU"
+msgstr ""
+
+#: frontend/templates/home.html:116
+msgid "FOURNISSEURS DE DONNEES"
+msgstr ""
+
+#: frontend/templates/home.html:179
+msgid "REUTILISATEURS DE DONNEES"
+msgstr ""
+
+#: frontend/templates/import.html:6
+msgid "Import de données"
+msgstr ""
+
+#: frontend/templates/import.html:11
+msgid "IMPORTER DES ÉVÉNEMENTS"
+msgstr ""
+
+#: frontend/templates/import.html:12
+msgid ""
+"Vous pouvez importer des événements à partir de fichiers au format json/xml/"
+"iCal/csv. Il vous suffit de cliquer sur le bouton 'Parcourir' ci-dessous et "
+"de sélectionner le fichier correspondant."
+msgstr ""
+
+#: frontend/templates/import.html:20
+msgid "Choisir un fichier :"
+msgstr ""
+
+#: frontend/templates/import.html:32
+msgid "AJOUTER DES SOURCES"
+msgstr ""
+
+#: frontend/templates/import.html:33
+msgid ""
+"Vous pouvez ajouter des sources de données qui permettront de récupérer "
+"automatiquement les événements accessible via ces sources. Il vous suffit de "
+"saisir l'url correspondant à ces sources de données ci-dessous."
+msgstr ""
+
+#: frontend/templates/import.html:41
+msgid "Saisir une URL :"
+msgstr ""
+
+#: frontend/templates/import.html:50
+msgid "Ajouter"
+msgstr ""
+
+#: frontend/templates/import.html:70
+msgid "Supprimer"
+msgstr ""
+
+#: frontend/templates/layout.html:8
+msgid "Open Data Events"
+msgstr ""
+
+#: frontend/templates/layout.html:45
+msgid ""
+"OpenDataEvents est simplement du faux texte employé dans la composition et "
+"la mise en page avant impression. Le Lorem Ipsum est le faux texte standard "
+"de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla "
+"ensemble des morceaux"
+msgstr ""
+
+#: frontend/templates/layout.html:49
+msgid "FAQ"
+msgstr ""
+
+#: frontend/templates/layout.html:50
+msgid "Mentions Légales"
+msgstr ""
+
+#: frontend/templates/layout.html:51
+msgid "Liens"
+msgstr ""
+
+#: frontend/templates/layout.html:56
+msgid "Suivez-nous sur Twitter"
+msgstr ""
+
+#: frontend/templates/layout.html:57
+msgid "Abonnez-vous sur Facebook"
+msgstr ""
+
+#: frontend/templates/layout.html:58
+msgid "Récupérez notre flux RSS"
+msgstr ""
+
+#: frontend/templates/layout.html:65
+msgid "Site réalisé par Makina Corpus"
+msgstr ""
+
+#: frontend/templates/layout.html:66
+msgid "Copyright OpenDataEvents"
+msgstr ""
+
+#: frontend/templates/provider_list.html:6
+msgid "Liste des fournisseurs"
+msgstr ""
+
+#: frontend/templates/webservices.html:9
+msgid ""
+"\n"
+"Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos "
+"requêtes\n"
+"à l'aide de l'entête <code>Authorization</code>.\n"
+msgstr ""
+
+#: frontend/templates/webservices.html:16
+msgid "Votre clé"
+msgstr ""
+
+#: frontend/templates/webservices.html:22
+msgid "Les URLs pour accéder aux données sont les suivantes:"
+msgstr ""
+
+#: frontend/templates/webservices.html:25
+msgid "URL des événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:27
+msgid "URL des sources d'événements"
+msgstr ""
+
+#: frontend/views/consumers.py:14 frontend/views/providers.py:15
+msgid "Type"
+msgstr ""
+
+#: frontend/views/consumers.py:15 frontend/views/providers.py:16
+msgid "Activité"
+msgstr ""
+
+#: frontend/views/events.py:107
+msgid "Le {dd}/{MM}/{yyyy} à {hh}h{mm}"
+msgstr ""
+
+#: frontend/views/providers.py:15
+msgid "Vocation du lieu"
+msgstr ""
+
+#: templates/zinnia/base.html:16
+msgid "RSS Feed of latest entries"
+msgstr ""
+
+#: templates/zinnia/base.html:17
+msgid "RSS Feed of latest discussions"
+msgstr ""
+
+#: templates/zinnia/base.html:27
+msgid "Welcome!"
+msgstr ""
+
+#: templates/zinnia/base.html:29
+msgid "This simple theme is the default appearance of Zinnia."
+msgstr ""
+
+#: templates/zinnia/base.html:32
+msgid ""
+"Don't hesitate to override the template <strong>zinnia/base.html</strong> to "
+"start <a href='http://docs.django-blog-zinnia.com/en/latest/how-to/"
+"customize_look_and_feel.html'>customizing your Weblog</a>."
+msgstr ""
+
+#: templates/zinnia/base.html:36
+msgid "Categories"
+msgstr ""
+
+#: templates/zinnia/base.html:40
+msgid "Authors"
+msgstr ""
+
+#: templates/zinnia/base.html:44
+msgid "Calendar"
+msgstr ""
+
+#: templates/zinnia/base.html:48
+msgid "Tags"
+msgstr ""
+
+#: templates/zinnia/base.html:52
+msgid "Recent entries"
+msgstr ""
+
+#: templates/zinnia/base.html:56
+msgid "Recent comments"
+msgstr ""
+
+#: templates/zinnia/base.html:60
+msgid "Recent linkbacks"
+msgstr ""
+
+#: templates/zinnia/base.html:64
+msgid "Random entries"
+msgstr ""
+
+#: templates/zinnia/base.html:68
+msgid "Popular entries"
+msgstr ""
+
+#: templates/zinnia/base.html:72
+msgid "Archives"
+msgstr ""
+
+#: templates/zinnia/base.html:77
+msgid "Tools"
+msgstr ""
+
+#: templates/zinnia/base.html:88 templates/zinnia/base.html.py:89
+msgid "Post an entry"
+msgstr ""
+
+#: templates/zinnia/base.html:96 templates/zinnia/base.html.py:97
+msgid "Log out"
+msgstr ""
+
+#: templates/admin/base_site.html:7
+msgid "Django administration"
+msgstr "Tableau de bord"

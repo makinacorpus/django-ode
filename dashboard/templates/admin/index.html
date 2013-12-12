@@ -1,9 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 {% block title %}{% trans 'ODE - Tableau de bord' %}{% endblock %}
-{% block branding %}
-<h1 id="site-name">{% trans 'ODE - Tableau de bord' %}</h1>
-{% endblock %}
 {% load i18n admin_static %}
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
@@ -20,12 +17,12 @@
 
 {% if app_list %}
     {% for app in app_list %}
-        {% if True or app.name == 'Zinnia' or app.name == 'Accounts' or app.name == 'Dashboard' %}
+        {% if app.name == 'Zinnia' or app.name == 'Accounts' or app.name == 'Dashboard' or app.name == 'Flatpages' %}
         <div class="module">
         <table>
         <caption>
             <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
-                {% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}
+              {% trans app.name %}
             </a>
         </caption>
         {% for model in app.models %}
