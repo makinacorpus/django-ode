@@ -46,7 +46,6 @@ INSTALLED_APPS = (
     'accounts',
     'easy_thumbnails',
     'rest_framework.authtoken',
-    'blog',
     'tagging',
     'mptt',
     'zinnia',
