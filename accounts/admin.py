@@ -19,21 +19,21 @@ class UserInline(admin.StackedInline):
 
 class OrganizationAdmin(admin.ModelAdmin):
     fieldsets = (
-        (_('Image'), {
+        (_(u'Image'), {
             'fields': ('picture',),
         }),
-        (_('Fournisseur'), {
+        (_(u'Fournisseur'), {
             'fields': ('is_provider', 'is_host', 'is_performer', 'is_creator'),
         }),
-        (_('Réutilisateur'), {
+        (_(u'Réutilisateur'), {
             'fields': ('is_consumer', 'is_media', 'is_website',
                        'is_mobile_app', 'is_other'),
         }),
-        (_('Infos Structure'), {
+        (_(u'Infos Structure'), {
             'fields': ('type', 'name', 'address', 'post_code', 'town', 'url',
                        'activity_field'),
         }),
-        (_('Infos générales événement'), {
+        (_(u'Infos générales événement'), {
             'fields': ('price_information', 'audience', 'capacity'),
         }),
     )

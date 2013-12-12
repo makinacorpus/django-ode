@@ -38,10 +38,10 @@ class Organization(models.Model):
         )
 
     CONSUMERS = (
-        (u'media', _("Publication d'un media print/web")),
-        (u'website', _("Site web")),
-        (u'mobile_app', _("Application mobile")),
-        (u'other', _("Autre")),
+        (u'media', _(u"Publication d'un media print/web")),
+        (u'website', _(u"Site web")),
+        (u'mobile_app', _(u"Application mobile")),
+        (u'other', _(u"Autre")),
         )
 
     PROVIDERS_DICT = dict(PROVIDERS)
@@ -59,12 +59,12 @@ class Organization(models.Model):
                                  verbose_name=_("Code postal"))
     town = models.CharField(max_length=100, blank=True,
                             verbose_name=_("Commune"))
-    url = models.URLField(blank=True, verbose_name=_("Site web"))
+    url = models.URLField(blank=True, verbose_name=_(u"Site web"))
     is_provider = models.BooleanField(default=False,
-                                      verbose_name=_("Fournisseur de données"))
+                                      verbose_name=_(u"Fournisseur de données"))
     is_consumer = models.BooleanField(
         default=False,
-        verbose_name=_("Réutilisateur de données"))
+        verbose_name=_(u"Réutilisateur de données"))
     is_host = models.BooleanField(default=False,
                                   verbose_name=PROVIDERS_DICT['host'])
     is_creator = models.BooleanField(default=False,
@@ -86,14 +86,14 @@ class Organization(models.Model):
     mobile_app_name = models.CharField(max_length=100, blank=True,
                                        verbose_name=_("Nom appli mobile"))
     other_details = models.CharField(max_length=100, blank=True,
-                                     verbose_name=_("Autres détails"))
+                                     verbose_name=_(u"Autres détails"))
     # Event related
     price_information = models.CharField(max_length=100, blank=True,
                                          verbose_name=_("Tarif"))
     audience = models.CharField(max_length=100, blank=True,
                                 verbose_name=_("Public"))
     capacity = models.CharField(max_length=100, blank=True,
-                                verbose_name=_("Capacité du lieu"))
+                                verbose_name=_(u"Capacité du lieu"))
     ticket_contact = models.ForeignKey(Contact, null=True,
                                        related_name='ticket_organization',
                                        verbose_name=_("Contact Billetterie"))
