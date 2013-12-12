@@ -38,12 +38,18 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.comments',
+    'django.contrib.flatpages',
     'django_extensions',
     'pipeline',
     'frontend',
     'accounts',
     'easy_thumbnails',
     'rest_framework.authtoken',
+    'tagging',
+    'mptt',
+    'zinnia',
+    'ckeditor',
 )
 
 
@@ -61,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'django_ode.urls'
@@ -111,6 +118,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
+    "zinnia.context_processors.version",
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, "templates"),
 )
 
 SITE_ID = 1
@@ -161,6 +173,9 @@ PIPELINE_JS = {
 }
 
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
+
+CKEDITOR_UPLOAD_PATH = "flatpages/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 # Project-specific settings
 EVENT_API_BASE_URL = 'http://localhost:6543'

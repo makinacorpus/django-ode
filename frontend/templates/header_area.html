@@ -9,15 +9,19 @@
       <div id="header-nav" class="col-md-5 col-md-offset-7">
         <nav id="shortcuts">
           <ul>
-            <li><a href="#">{% trans "Le Projet" %}</a></li>
-            <li><a href="#">{% trans "Contact" %}</a></li>
-            <li><a href="#">{% trans "Blog" %}</a></li>
+            <li><a href="/about/">{% trans "Le Projet" %}</a></li>
+            <li><a href="/contact/">{% trans "Contact" %}</a></li>
+            <li><a href="{% url 'zinnia_entry_archive_index' %}">{% trans "Blog" %}</a></li>
           </ul>
         </nav>
         <div id="login-area-logged">
           <ul class="actions">
             <li><a href="{% url "accounts:logout" %}">{% trans "Déconnexion" %}</a></li>
+            {% if user.is_superuser %}
+            <li><a href="{% url 'admin:index' %}">{% trans "Tableau de bord" %}</a></li>
+            {% else %}
             <li><a href="{% url "accounts:profile" %}">{% trans "Profil" %}</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -32,7 +36,7 @@
             <li><a href="{% url 'imports' %}">{% trans "Importer" %}</a></li>
           {% endif %}
           <li><a href="{% url 'export' %}">{% trans "Exporter" %}</a></li>
-          <li><a href="#">{% trans "Webservices" %}</a></li>
+          <li><a href="{% url 'webservices' %}">{% trans "Webservices" %}</a></li>
           <li><a href="{% url 'consumer_list' %}">{% trans "Réutilisateurs" %}</a></li>
           <li><a href="{% url 'provider_list' %}">{% trans "Fournisseurs" %}</a></li>
         </ul>

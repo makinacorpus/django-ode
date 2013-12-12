@@ -5,7 +5,7 @@
 <html lang="fr">
   <head>
     {% compressed_css 'style' %}
-    <title>{% trans "Open Data Events" %}</title>
+    <title>{% trans "Open Data Events" %} — {% block title %}Accueil{% endblock %}</title>
   </head>
   <body>
     <header>
@@ -46,32 +46,24 @@
         </div>
         <div class="col-md-2 links">
           <ul>
-            <li><a href="#">{% trans 'FAQ' %}</a></li>
-            <li><a href="#">{% trans 'Mentions Légales' %}</a></li>
-            <li><a href="#">{% trans 'Liens' %}</a></li>
+            <li><a href="/faq/">{% trans 'FAQ' %}</a></li>
+            <li><a href="/legal/">{% trans 'Mentions Légales' %}</a></li>
+            <li><a href="/links/">{% trans 'Liens' %}</a></li>
           </ul>
         </div>
-        <div class="col-md-2 links">
+        <div class="col-md-4 links">
           <ul>
             <li><a href="#">{% trans 'Suivez-nous sur Twitter' %}</a></li>
             <li><a href="#">{% trans 'Abonnez-vous sur Facebook' %}</a></li>
-            <li><a href="#">{% trans 'Récupérez notre flux RSS' %}</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2 links">
-          <ul>
-            <li><a href="#">{% trans 'Suivez-nous sur Twitter' %}</a></li>
-            <li><a href="#">{% trans 'Abonnez-vous sur Facebook' %}</a></li>
-            <li><a href="#">{% trans 'Récupérez notre flux RSS' %}</a></li>
+            <li><a href="{% url 'zinnia_entry_latest_feed' %}">{% trans 'Récupérez notre flux RSS' %}</a></li>
           </ul>
         </div>
       </div>
       <div class="row other-links">
         <div class="col-md-12">
           <ul>
-            <li><a href="http://makina-corpus.net">{% trans 'Site réalisé par Makina Corpus' %}</a></li>
-            <li><a href="#">{% trans 'Copyright OpenDataEvents' %}</a></li>
-            <li><a href="#">{% trans 'Footer link' %}</a></li>
+            <li><a href="http://makina-corpus.com">{% trans 'Site réalisé par Makina Corpus' %}</a></li>
+            <li><a href="/copyright/">{% trans 'Copyright OpenDataEvents' %}</a></li>
           </ul>
         </div>
       </div>
