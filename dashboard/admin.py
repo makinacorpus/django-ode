@@ -1,9 +1,14 @@
 # -*- encoding: utf-8 -*-
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
+from django.db.models import TextField
 
 from dashboard.models import Event, Source, Location, Tag
 from dashboard.models import CategoryAssociation, TagAssociation
+
+from ckeditor.widgets import CKEditorWidget
 
 
 class LocationInline(admin.StackedInline):
@@ -66,6 +71,14 @@ class TagAdmin(admin.ModelAdmin):
     fields = ('name', )
 
 
+class FlatPageCustom(FlatPageAdmin):
+    formfield_overrides = {
+        TextField: {'widget': CKEditorWidget}
+    }
+
+
 admin.site.register(Event, EventAdmin)
 admin.site.register(Source, SourceAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageCustom)

@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'tagging',
     'mptt',
     'zinnia',
+    'ckeditor',
 )
 
 
@@ -172,6 +173,9 @@ PIPELINE_JS = {
 }
 
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
+
+CKEDITOR_UPLOAD_PATH = "flatpages/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 # Project-specific settings
 EVENT_API_BASE_URL = 'http://localhost:6543'
