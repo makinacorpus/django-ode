@@ -38,12 +38,17 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.comments',
     'django_extensions',
     'pipeline',
     'frontend',
     'accounts',
     'easy_thumbnails',
     'rest_framework.authtoken',
+    'blog',
+    'tagging',
+    'mptt',
+    'zinnia',
 )
 
 
@@ -111,6 +116,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
+    "zinnia.context_processors.version",
 )
 
 SITE_ID = 1
