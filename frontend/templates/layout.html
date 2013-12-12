@@ -55,14 +55,7 @@
           <ul>
             <li><a href="#">{% trans 'Suivez-nous sur Twitter' %}</a></li>
             <li><a href="#">{% trans 'Abonnez-vous sur Facebook' %}</a></li>
-            <li><a href="#">{% trans 'Récupérez notre flux RSS' %}</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2 links">
-          <ul>
-            <li><a href="#">{% trans 'Suivez-nous sur Twitter' %}</a></li>
-            <li><a href="#">{% trans 'Abonnez-vous sur Facebook' %}</a></li>
-            <li><a href="#">{% trans 'Récupérez notre flux RSS' %}</a></li>
+            <li><a href="{% url 'zinnia_entry_latest_feed' %}">{% trans 'Récupérez notre flux RSS' %}</a></li>
           </ul>
         </div>
       </div>

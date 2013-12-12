@@ -10,6 +10,7 @@ python:
 install:
  - wget http://nodejs.org/dist/v0.10.22/node-v0.10.22-linux-x64.tar.gz
  - tar xzvf node-v0.10.22-linux-x64.tar.gz
+ - pip install -r requirements.txt --use-mirrors
  - pip install -r dev_requirements.txt --use-mirrors
  - python setup.py develop
 

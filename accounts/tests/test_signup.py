@@ -89,7 +89,7 @@ class TestSignup(TestCase):
         self.assertEqual(user.organization.url, 'http://example.com/foo/bar')
         self.assertTrue(user.organization.is_provider)
         self.assertContains(response, 'email de confirmation')
-        self.assertEqual(Token.objects.get().user, user)
+        self.assertEqual(Token.objects.get().user.pk, user.pk)
 
     def test_successful_organization_signup(self):
         organization = ProviderOrganizationFactory.create(
