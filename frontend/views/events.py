@@ -84,7 +84,7 @@ class Form(APIForm):
             {'name': 'language', 'value': 'fr'},
             {'name': 'organiser', 'value': user.organization.name},
             ]
-        formatted_data = super(APICreateEventForm, self)\
+        formatted_data = super(Form, self)\
             .prepare_api_input(dict_data)
         formatted_data.update(default_data)
         return formatted_data

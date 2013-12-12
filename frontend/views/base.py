@@ -24,7 +24,8 @@ class LoginRequiredMixin(object):
     """
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(request, *args,                                                        **kwargs)
+        return super(LoginRequiredMixin, self).dispatch(request, *args,
+                                                        **kwargs)
 
 
 class ProviderLoginRequiredMixin(object):
@@ -60,8 +61,8 @@ class APIForm(LoginRequiredMixin, View):
 
     def error_list_to_dict(self, api_errors):
         """
-        Convert error list returned by the API into a dictionary of error messages
-        indexed by field names.
+        Convert error list returned by the API into a dictionary
+        of error messages indexed by field names.
         """
         result = {}
         for error in api_errors:
