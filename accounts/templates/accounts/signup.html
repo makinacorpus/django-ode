@@ -146,12 +146,11 @@
         {% endif %}
         {{ field }}
         <label class="control-label" for="{{ field.id_for_label }}">
-	  {% url 'eula' as eula_url %}
 	  {% blocktrans %}
 	  Valider les
 	  <a data-toggle="modal"
 	     data-target="#signup-modal"
-	     href="{{ eula_url }}">
+	     href="/cgu/">
 	    CGU
 	  </a>
 	  {% endblocktrans %}

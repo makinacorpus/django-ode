@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-from django.views.generic.base import TemplateView
 from frontend.views import (
     sources, events, providers, consumers, imports, export
     )
@@ -34,9 +33,6 @@ urlpatterns = patterns(
 
     url(r'^sources/delete_rows/$', sources.SourceDeleteRowsView.as_view(),
         name='source_delete_rows'),
-
-    url(r'^eula/$', TemplateView.as_view(template_name="eula.html"),
-        name='eula'),
     url(r'^api/(?P<path>.+)$', 'api_proxy.proxy_view', name='api_proxy'),
     url(r'^webservices/$', webservices.WebservicesView.as_view(),
         name='webservices'),

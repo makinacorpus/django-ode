@@ -41,7 +41,7 @@ $(FLAKE8): virtualenv
 test: flake8
 	$(PYTHON) $(TEST_COMMAND)
 
-coverage: develop
+coverage: flake8
 	$(COVERAGE) run --branch --source=. --omit=$(OMIT) $(TEST_COMMAND)
 	$(COVERAGE) report -m
 
