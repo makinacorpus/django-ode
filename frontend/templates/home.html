@@ -62,52 +62,33 @@
 <div class="last-news content-block">
     <div class="row title">
         <div class="col-md-12">
-            <h2>{% trans 'LES DERNIERES NEWS DU RESEAU' %}</h1>
+            <h2>{% trans 'LES DERNIERES NEWS DU RESEAU' %}</h2>
         </div>
     </div>
 
+    {% for entry in blog_entries %}
     <div class="row news">
         <div class="col-md-2 news-image">
-            <img src="{% static "img/news_thumbnail.png" %}"/>
+            <img src="{% thumbnail entry.image 150x150 %}"/>
         </div>
         <div class="col-md-9 news-content">
             <div class="row">
                 <div class="col-md-12 news-title">
-                    <h3>EXEMPLE DE BILLET DE BLOG</h2>
+                    <h3>{{ entry.title }}</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 news-description">
-                    <span>Description du billet</span>
+                    <span>{{ entry.html_preview|safe }}</span>
                 </div>
             </div>
         </div>
-        <div class="col-md-1 news-more">
-        </div>
-
+	<a href="{{ entry.get_absolute_url }}">
+          <div class="col-md-1 news-more">
+          </div>
+	</a>
     </div>
-
-    <div class="row news">
-        <div class="col-md-2 news-image">
-            <img src="{% static "img/news_thumbnail.png" %}"/>
-        </div>
-        <div class="col-md-9 news-content">
-            <div class="row">
-                <div class="col-md-12 news-title">
-                    <h3>EXEMPLE DE BILLET DE BLOG 2</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 news-description">
-                    <span>Description du billet</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1 news-more">
-        </div>
-
-    </div>
-
+    {% endfor %}
 
 </div>
 

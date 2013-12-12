@@ -1,10 +1,17 @@
 from django.shortcuts import render
 
+from zinnia.managers import PUBLISHED
+from zinnia.models.entry import Entry
+
 from accounts.models import Organization
 
 
 def home(request):
     context = {}
+
+    blog_entries = Entry.objects.filter(status=PUBLISHED)[:2]
+    context['blog_entries'] = list(blog_entries)
+
     providers = Organization.objects\
         .filter(is_provider=True).exclude(picture='').order_by('?')[:18]
     consumers = Organization.objects\
