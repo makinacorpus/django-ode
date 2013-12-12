@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from frontend.views.base import (APICreateEventForm,
+from frontend.views.base import (APIForm,
                                  LoginRequiredMixin,
                                  APIDatatableBaseView)
 
@@ -19,7 +19,7 @@ class EventListingFieldsMixin(object):
     endpoint = settings.EVENTS_ENDPOINT
 
 
-class Form(APICreateEventForm):
+class Form(APIForm):
 
     template_name = 'event_form.html'
     list_template_name = 'event_list.html'
@@ -31,6 +31,63 @@ class Form(APICreateEventForm):
         context = {}
         context['organization'] = self.request.user.organization
         return context
+
+    def prepare_media(self, api_input):
+
+        if 'media_photo' in api_input.keys() and api_input['media_photo']:
+            image = {
+                'url': api_input['media_photo'],
+                'license': api_input['media_photo_license']
+                }
+            del api_input['media_photo']
+            del api_input['media_photo_license']
+            api_input['images'] = [image]
+        if 'media_photo2' in api_input.keys() and api_input['media_photo2']:
+            image = {
+                'url': api_input['media_photo2'],
+                'license': api_input['media_photo_license2']
+                }
+            del api_input['media_photo2']
+            del api_input['media_photo_license2']
+            if 'images' in api_input.keys():
+                api_input['images'].append(image)
+            else:
+                api_input['images'] = [image]
+        if 'media_video' in api_input.keys() and api_input['media_video']:
+            video = {
+                'url': api_input['media_video'],
+                'license': api_input['media_video_license']
+                }
+            del api_input['media_video']
+            del api_input['media_video_license']
+            api_input['videos'] = [video]
+
+        if 'media_audio' in api_input.keys() and api_input['media_audio']:
+            sound = {
+                'url': api_input['media_audio'],
+                'license': api_input['media_audio_license']
+                }
+            del api_input['media_audio']
+            del api_input['media_audio_license']
+            api_input['sounds'] = [sound]
+        return api_input
+
+    def prepare_api_input(self, dict_data):
+
+        dict_data = self.prepare_media(dict_data)
+        user = self.request.user
+        default_data = [
+            {'name': 'firstname', 'value': user.first_name},
+            {'name': 'lastname', 'value': user.last_name},
+            {'name': 'email', 'value': user.email},
+            {'name': 'telephone', 'value': user.phone_number},
+            {'name': 'language', 'value': 'fr'},
+            {'name': 'organiser', 'value': user.organization.name},
+            ]
+        formatted_data = super(APICreateEventForm, self)\
+            .prepare_api_input(dict_data)
+        formatted_data.update(default_data)
+        return formatted_data
 
 
 class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):

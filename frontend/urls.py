@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, url
 from django.views.generic.base import TemplateView
-from frontend.views import sources, events, providers, consumers, imports
+from frontend.views import (
+    sources, events, providers, consumers, imports, export
+    )
 
 
 urlpatterns = patterns(
@@ -23,6 +25,7 @@ urlpatterns = patterns(
         name='consumer'),
 
     url(r'^imports/$', imports.ImportView.as_view(), name='imports'),
+    url(r'^export/$', export.ExportView.as_view(), name='export'),
     url(r'^sources/json/$', sources.SourceJsonListView.as_view(),
         name='source_json_list'),
     url(r'^events/json/$', events.EventJsonListView.as_view(),

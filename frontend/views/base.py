@@ -18,42 +18,13 @@ def data_list_to_dict(data_list):
     return result
 
 
-def error_list_to_dict(api_errors):
-    """
-    Convert error list returned by the API into a dictionary of error messages
-    indexed by field names.
-    """
-    result = {}
-    for error in api_errors:
-        name = error['name']
-        if name == 'items':
-            field_name = 'items'
-        else:
-            # Error names returned by the API look like
-            # items.<error_index>.data.<field_name>
-            field_name = name.split('.')[3]
-        if field_name == 'videos':
-            field_name = 'media_video'
-        elif field_name == 'sounds':
-            field_name = 'media_audio'
-        elif field_name == 'images':
-            num = int(name.split('.')[4])
-            if num == 0:
-                field_name = 'media_photo'
-            elif num == 1:
-                field_name = 'media_photo2'
-        result[field_name] = error['description']
-    return result
-
-
 class LoginRequiredMixin(object):
     """
     View mixin which requires that the user is authenticated.
     """
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(request, *args,
-                                                        **kwargs)
+        return super(LoginRequiredMixin, self).dispatch(request, *args,                                                        **kwargs)
 
 
 class ProviderLoginRequiredMixin(object):
@@ -87,6 +58,33 @@ class APIForm(LoginRequiredMixin, View):
 
         return new_context
 
+    def error_list_to_dict(self, api_errors):
+        """
+        Convert error list returned by the API into a dictionary of error messages
+        indexed by field names.
+        """
+        result = {}
+        for error in api_errors:
+            name = error['name']
+            if '.' in name:
+                # Error names returned by the API look like
+                # items.<error_index>.data.<field_name>
+                field_name = name.split('.')[3]
+            else:
+                field_name = name
+            if field_name == 'videos':
+                field_name = 'media_video'
+            elif field_name == 'sounds':
+                field_name = 'media_audio'
+            elif field_name == 'images':
+                num = int(name.split('.')[4])
+                if num == 0:
+                    field_name = 'media_photo'
+                elif num == 1:
+                    field_name = 'media_photo2'
+            result[field_name] = error['description']
+        return result
+
     def add_context(self):
         return {}
 
@@ -108,6 +106,25 @@ class APIForm(LoginRequiredMixin, View):
 
         return post_data
 
+    def get_response_data(self, data):
+        return self.api.post(data, self.request.user.id)
+
+    def error(self, request, user_input, response_data):
+        context = dict(response_data)
+        context['input'] = user_input
+        context['errors'] = self.error_list_to_dict(response_data['errors'])
+        messages.error(request, self.error_message, extra_tags='danger')
+        if 'items' in context['errors'].keys():
+            messages.error(request, context['errors']['items'],
+                           extra_tags='danger')
+        new_context = self._update_context_data(context)
+        return render(request, self.template_name, new_context)
+
+    def success(self, request, response_data):
+        new_context = self._update_context_data()
+        messages.success(request, self.success_message)
+        return render(request, self.template_name, new_context)
+
     def post(self, request, *args, **kwargs):
 
         user_input = request.POST.dict()
@@ -115,87 +132,17 @@ class APIForm(LoginRequiredMixin, View):
         api_input = dict(user_input)
 
         post_data = self.prepare_api_input(api_input)
-        response_data = self.api.post(post_data, self.request.user.id)
+        response_data = self.get_response_data(post_data)
 
-        if response_data.get('status') == 'error':
-            context = dict(response_data)
-            context['input'] = user_input
-            context['errors'] = error_list_to_dict(response_data['errors'])
-            messages.error(request, self.error_message, extra_tags='danger')
-            if 'items' in context['errors'].keys():
-                messages.error(request, context['errors']['items'],
-                               extra_tags='danger')
-
-            new_context = self._update_context_data(context)
-            return render(request, self.template_name, new_context)
+        if (isinstance(response_data, dict)
+                and response_data.get('status') == 'error'):
+            return self.error(request, user_input, response_data)
         else:
-            new_context = self._update_context_data()
-            messages.success(request, self.success_message)
-            return render(request, self.template_name, new_context)
+            return self.success(request, response_data)
 
     def get(self, request, *args, **kwargs):
         new_context = self._update_context_data()
         return render(self.request, self.template_name, new_context)
-
-
-class APICreateEventForm(APIForm):
-
-    def prepare_media(self, api_input):
-
-        if 'media_photo' in api_input.keys() and api_input['media_photo']:
-            image = {
-                'url': api_input['media_photo'],
-                'license': api_input['media_photo_license']
-                }
-            del api_input['media_photo']
-            del api_input['media_photo_license']
-            api_input['images'] = [image]
-        if 'media_photo2' in api_input.keys() and api_input['media_photo2']:
-            image = {
-                'url': api_input['media_photo2'],
-                'license': api_input['media_photo_license2']
-                }
-            del api_input['media_photo2']
-            del api_input['media_photo_license2']
-            if 'images' in api_input.keys():
-                api_input['images'].append(image)
-            else:
-                api_input['images'] = [image]
-        if 'media_video' in api_input.keys() and api_input['media_video']:
-            video = {
-                'url': api_input['media_video'],
-                'license': api_input['media_video_license']
-                }
-            del api_input['media_video']
-            del api_input['media_video_license']
-            api_input['videos'] = [video]
-
-        if 'media_audio' in api_input.keys() and api_input['media_audio']:
-            sound = {
-                'url': api_input['media_audio'],
-                'license': api_input['media_audio_license']
-                }
-            del api_input['media_audio']
-            del api_input['media_audio_license']
-            api_input['sounds'] = [sound]
-        return api_input
-
-    def prepare_api_input(self, dict_data):
-
-        dict_data = self.prepare_media(dict_data)
-        user = self.request.user
-        default_data = [
-            {'name': 'firstname', 'value': user.first_name},
-            {'name': 'lastname', 'value': user.last_name},
-            {'name': 'email', 'value': user.email},
-            {'name': 'telephone', 'value': user.phone_number},
-            {'name': 'language', 'value': 'fr'},
-            {'name': 'organiser', 'value': user.organization.name},
-            ]
-        formatted_data = super(APICreateEventForm, self)\
-            .prepare_api_input(dict_data)
-        formatted_data.update(default_data)
-        return formatted_data
 
 
 class APIDatatableBaseView(BaseDatatableView):
@@ -288,6 +235,7 @@ class APIDatatableBaseView(BaseDatatableView):
         for source in collection['items']:
 
             data = source['data']
+
             raw_data = []
             for field in self.api_columns:
                 raw_value = self.get_data_from_field(data, field)

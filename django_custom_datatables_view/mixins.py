@@ -60,6 +60,7 @@ class JSONResponseMixin(object):
             # Allow keyboard interrupts through for debugging.
             raise
         except Exception as e:
+
             logger.error('JSON view error: %s' % request.path, exc_info=True)
 
             # Come what may, we're returning JSON.

@@ -17,12 +17,13 @@ class APIClient(object):
             })
         return response.json()
 
-    def get(self, provider_id, *args, **kwargs):
+    def get(self, provider_id, mimetype="application/vnd.collection+json",
+            json=True, *args, **kwargs):
 
         getkwargs = dict(
             headers={
                 'X-ODE-Provider-Id': provider_id,
-                'Accept': 'application/vnd.collection+json',
+                'Accept': mimetype,
             })
 
         # requests lib needs 'params' keyword for get call
@@ -31,7 +32,9 @@ class APIClient(object):
 
         response = requests.get(self.endpoint, *args, **getkwargs)
 
-        return response.json()
+        if json:
+            return response.json()
+        return response.text
 
     def delete(self, id_to_delete, producer_id, *args, **kwargs):
 
