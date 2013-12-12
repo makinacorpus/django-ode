@@ -46,7 +46,7 @@
 
 {% else %}
 
-  <nav class="main-nav unlogged col-md-7">
+  <nav class="main-nav unlogged col-md-6">
     <ul>
       <li><a href="#">{% trans "Le Projet" %}</a></li>
       <li><a href="#">{% trans "Contact" %}</a></li>
@@ -54,7 +54,7 @@
     </ul>
   </nav>
 
-  <div id="account-links" class="col-md-3">
+  <div id="account-links" class="col-md-4">
     <span id="my-space">{% trans "Mon Espace" %}</span>
     <div id="login-area">
       <form class="form-inline" role="form"
@@ -65,7 +65,7 @@
 		 name="username" placeholder="Identifiant" />
           <input class="form-control" type="password"
 		 name="password" placeholder="Mot de passe" />
-	  <input type="submit" />
+	  <input class="form-control btn btn-default" type="submit" value="Ok" />
 	  </div>
       </form>
     </div>
