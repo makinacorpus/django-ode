@@ -11,5 +11,5 @@ slimit==0.8.1
 isodate==0.4.9
 djangorestframework==2.3.9
 -e git+https://github.com/Fantomas42/django-tagging.git#egg=django_tagging
--e git+https://github.com/Fantomas42/django-blog-zinnia.git@feature/django-1.6-and-python-3#egg=django_blog_zinnia
--e git+https://github.com/riklaunim/django-ckeditor.git#egg=django_ckeditor_updated
+-e git+https://github.com/Fantomas42/django-blog-zinnia.git@develop#egg=django_blog_zinnia
+django-ckeditor-updated==4.2.6
