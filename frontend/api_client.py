@@ -1,5 +1,6 @@
 import requests
 import json
+from django.conf import settings
 
 
 class APIClient(object):
@@ -14,6 +15,7 @@ class APIClient(object):
             headers={
                 'X-ODE-Provider-Id': provider_id,
                 'Content-Type': 'application/vnd.collection+json',
+                'Accept-Language': settings.LANGUAGE_CODE,
             })
         return response.json()
 
@@ -44,6 +46,7 @@ class APIClient(object):
             headers={
                 'X-ODE-Provider-Id': producer_id,
                 'Content-Type': 'application/vnd.collection+json',
+                'Accept-Language': settings.LANGUAGE_CODE,
             })
 
         return response

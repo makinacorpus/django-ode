@@ -104,8 +104,11 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
                                     follow=True)
         self.requests_mock.delete.assert_called_with(
             settings.SOURCES_ENDPOINT + '/123456',
-            headers={'X-ODE-Provider-Id': self.user.pk,
-                     'Content-Type': 'application/vnd.collection+json'})
+            headers={
+                'X-ODE-Provider-Id': self.user.pk,
+                'Content-Type': 'application/vnd.collection+json',
+                'Accept-Language': 'fr',
+            })
 
         self.assertEqual(response.status_code, 500)
 
@@ -130,13 +133,14 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
         response = self.client.post('/sources/delete_rows/', sample_data,
                                     follow=True)
+        headers = {
+            'X-ODE-Provider-Id': self.user.pk,
+            'Content-Type': 'application/vnd.collection+json',
+            'Accept-Language': settings.LANGUAGE_CODE,
+        }
         expected = [
-            call(settings.SOURCES_ENDPOINT + '/1',
-                 headers={'X-ODE-Provider-Id': self.user.pk,
-                          'Content-Type': 'application/vnd.collection+json'}),
-            call(settings.SOURCES_ENDPOINT + '/2',
-                 headers={'X-ODE-Provider-Id': self.user.pk,
-                          'Content-Type': 'application/vnd.collection+json'})
+            call(settings.SOURCES_ENDPOINT + '/1', headers=headers),
+            call(settings.SOURCES_ENDPOINT + '/2', headers=headers),
         ]
         self.assertEqual(self.requests_mock.delete.call_args_list, expected)
 
