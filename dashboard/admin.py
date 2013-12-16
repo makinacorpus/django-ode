@@ -42,7 +42,7 @@ class EventAdmin(admin.ModelAdmin):
         (_('Organisateur'), {
             'fields': ('firstname', 'lastname', 'email', 'telephone'),
         }),
-        (_('Infos générales événement'), {
+        (_(u'Infos générales événement'), {
             'fields': ('price_information', 'target', ),
         }),
         (_('Contact presse'), {
