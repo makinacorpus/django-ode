@@ -58,7 +58,7 @@ static/css/style.css
 media
 
 # SaltStack pillar files
-install/salt/pillar
+salt/pillar
 
 # Vagrant hidden files
 .vagrant
