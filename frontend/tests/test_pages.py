@@ -13,3 +13,7 @@ class TestPages(TestCase):
         response = self.client.get('/webservices/')
         self.assertContains(response, token.key)
         self.assertContains(response, 'http://testserver/api')
+
+    def test_404(self):
+        response = self.client.get('/foo/bar/quux/')
+        self.assertContains(response, 'site_logo.png', status_code=404)
