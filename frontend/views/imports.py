@@ -29,11 +29,6 @@ class ImportView(ProviderLoginRequiredMixin,
 class APIImportMixinForm(ImportView, APIForm):
     template_name = 'import.html'
 
-    def error(self, request, user_input, response_data):
-        APIForm.error(self, request, user_input, response_data,
-                      do_render=False)
-        return redirect('imports')
-
     def success(self, request, response_data):
         APIForm.success(self, request, response_data, do_render=False)
         return redirect('imports')

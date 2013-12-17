@@ -28,7 +28,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             'url': 'http://example.com/foo',
         }
 
-        response = self.client.post('/imports/', sample_data,
+        response = self.client.post('/imports/source/', sample_data,
                                     follow=True)
 
         self.assert_post_to_api(sample_data)
@@ -48,7 +48,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
             }]
         }
 
-        response = self.client.post('/imports/', sample_data,
+        response = self.client.post('/imports/source/', sample_data,
                                     follow=True)
 
         self.assert_post_to_api(sample_data)
