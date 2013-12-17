@@ -36,7 +36,7 @@
             <fieldset>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="fieldWrapper">
+                      <div class="fieldWrapper {% if errors.url %}has-error{% endif %}">
                             <label class="control-label">{% trans "Saisir une URL :" %}</label>
                             <input type="text" class="form-control" name="url"{% if input %} value="{{ input.url }}"{% endif %}>
                             {% if errors.url %}
