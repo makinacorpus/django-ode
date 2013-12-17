@@ -11,7 +11,7 @@
         <div class="title"><h2>{% trans "IMPORTER DES ÉVÉNEMENTS" %}</h2></div>
         <div class="description"><span>{% trans "Vous pouvez importer des événements à partir de fichiers au format json/xml/iCal/csv. Il vous suffit de cliquer sur le bouton 'Parcourir' ci-dessous et de sélectionner le fichier correspondant." %}</span></div>
         
-        <form action="#" method="POST">
+        <form action="{% url 'imports_file' %}" method="POST">
             {% csrf_token %}
             <fieldset>
                 <div class="row">
@@ -32,7 +32,7 @@
         <div class="title"><h2>{% trans "AJOUTER DES SOURCES" %}</h2></div>
         <div class="description"><span>{% trans "Vous pouvez ajouter des sources de données qui permettront de récupérer automatiquement les événements accessible via ces sources. Il vous suffit de saisir l'url correspondant à ces sources de données ci-dessous." %}</span></div>
 
-        <form action="{% url 'imports' %}" method="POST">
+        <form action="{% url 'imports_source' %}" method="POST">
             {% csrf_token %}
             <fieldset>
                 <div class="row">

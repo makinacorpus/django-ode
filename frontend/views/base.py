@@ -110,7 +110,7 @@ class APIForm(LoginRequiredMixin, View):
     def get_response_data(self, data):
         return self.api.post(data, self.request.user.id)
 
-    def error(self, request, user_input, response_data):
+    def error(self, request, user_input, response_data, render=True):
         context = dict(response_data)
         context['input'] = user_input
         context['errors'] = self.error_list_to_dict(response_data['errors'])
@@ -119,12 +119,14 @@ class APIForm(LoginRequiredMixin, View):
             messages.error(request, context['errors']['items'],
                            extra_tags='danger')
         new_context = self._update_context_data(context)
-        return render(request, self.template_name, new_context)
+        if render:
+            return render(request, self.template_name, new_context)
 
-    def success(self, request, response_data):
+    def success(self, request, response_data, render=True):
         new_context = self._update_context_data()
         messages.success(request, self.success_message)
-        return render(request, self.template_name, new_context)
+        if render:
+            return render(request, self.template_name, new_context)
 
     def post(self, request, *args, **kwargs):
 
