@@ -10,17 +10,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "wheezy-lxc"
+  config.vm.box = "wheezy"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://bit.ly/vagrant-lxc-wheezy64-2013-10-23"
+  config.vm.box_url = "https://dl.dropboxusercontent.com/u/197673519/debian-7.2.0.box"
   config.vm.network :forwarded_port, host: 8080, guest: 80
-  config.vm.synced_folder "install/salt/roots/", "/srv/salt/"
-  config.vm.synced_folder "install/salt/pillar/", "/srv/pillar/"
-  config.vm.provision :shell, :path => "install/salt/bootstrap.sh"
+  config.vm.synced_folder "salt/roots/", "/srv/salt/"
+  config.vm.synced_folder "salt/pillar/", "/srv/pillar/"
+  config.vm.provision :shell, :path => "salt/bootstrap.sh"
   config.vm.provision :salt do |salt|
-    salt.minion_config = "install/salt/minion"
+    salt.minion_config = "salt/minion"
     salt.run_highstate = true
   end
 

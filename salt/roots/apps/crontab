@@ -1,0 +1,1 @@
+@reboot {{ project_dir }}/start_server.sh

@@ -8,3 +8,4 @@ packages:
           - python-dev
           - libpq-dev
           - libjpeg8-dev
+          - gettext

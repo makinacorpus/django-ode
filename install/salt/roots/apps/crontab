@@ -1,1 +1,0 @@
-@reboot /home/users/ode_frontend/django_ode/start_server.sh
