@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans 'Erreur 403' %}</h1>
+<p>
+{% blocktrans %}
+Vous n'avez pas la permission d'accéder à cette page.
+{% endblocktrans %}
+</p>
+{% endblock %}

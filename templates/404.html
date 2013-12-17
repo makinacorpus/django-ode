@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans 'Erreur 404' %}</h1>
+<p>
+{% blocktrans %}
+Cette page n'éxiste pas.
+{% endblocktrans %}
+</p>
+{% endblock %}
