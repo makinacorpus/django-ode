@@ -44,3 +44,5 @@ DEFAULT_FROM_EMAIL = "{{ pillar['default_from_email'] }}"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 EVENT_API_BASE_URL = "http://localhost:{{ pillar['apps']['ode_api']['port'] }}"
+SOURCES_ENDPOINT = EVENT_API_BASE_URL + '/v1/sources'
+EVENTS_ENDPOINT = EVENT_API_BASE_URL + '/v1/events'
