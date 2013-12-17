@@ -11,4 +11,3 @@ if __name__ == "__main__":
     except ImportError:
         os.environ["DJANGO_SETTINGS_MODULE"] = "django_ode.settings.base"
         execute_from_command_line(sys.argv)
-
