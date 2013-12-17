@@ -165,7 +165,7 @@ class APIDatatableBaseView(BaseDatatableView):
 
         return ind
 
-    def get_data_from_field(self, data, field):
+    def get_data_from_field(self, data, field, default=''):
         data = data_list_to_dict(data)
 
         xpath = field.split(".")
@@ -173,7 +173,10 @@ class APIDatatableBaseView(BaseDatatableView):
         xelement = self.get_xpath_ind(xpath[0])
 
         if len(xpath) == 1:
-            return data[xelement]['value']
+            if xelement in data:
+                return data[xelement]['value']
+            else:
+                return default
         else:
             return self.get_data_from_field(
                 data[xelement],
