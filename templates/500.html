@@ -2,8 +2,11 @@
 {% load i18n %}
 
 {% block content %}
+<h1>{% trans 'Erreur 500' %}</h1>
+<p>
 {% blocktrans %}
 Ceci est une erreur côté serveur. Nous en avons été averti et allons faire le
 nécessaire pour la corriger au plus vite.
 {% endblocktrans %}
+</p>
 {% endblock %}
