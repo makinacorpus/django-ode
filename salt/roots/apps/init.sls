@@ -25,6 +25,7 @@ frontend_circus_conf:
             endpoint_port: 5555
             pubsub_endpoint_port: 5556
             stats_endpoint_port: 5557
+            wsgi_application: django_ode.wsgi.application
 
 
 api_circus_conf:
@@ -37,6 +38,7 @@ api_circus_conf:
             endpoint_port: 6555
             pubsub_endpoint_port: 6556
             stats_endpoint_port: 6557
+            wsgi_application: wsgi.application
 
 
 frontend_settings:
