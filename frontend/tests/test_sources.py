@@ -20,7 +20,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
 
     def test_source_form(self):
         response = self.client.get('/imports/')
-        self.assertContains(response, '<form action="/imports/"')
+        self.assertContains(response, '<form action="/imports/source/"')
         self.assertNotContains(response, 'error')
 
     def test_create_valid_source(self):

@@ -8,13 +8,16 @@ class APIClient(object):
     def __init__(self, endpoint):
         self.endpoint = endpoint
 
-    def post(self, data, provider_id):
+    def post(self, data, provider_id,
+             mimetype='application/vnd.collection+json'):
+        if isinstance(data, dict):
+            data = json.dumps(data)
         response = requests.post(
             self.endpoint,
-            data=json.dumps(data),
+            data=data,
             headers={
                 'X-ODE-Provider-Id': provider_id,
-                'Content-Type': 'application/vnd.collection+json',
+                'Content-Type': mimetype,
                 'Accept-Language': settings.LANGUAGE_CODE,
             })
         return response.json()

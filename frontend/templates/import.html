@@ -10,8 +10,7 @@
     <div class="col-md-6 import-events">
         <div class="title"><h2>{% trans "IMPORTER DES ÉVÉNEMENTS" %}</h2></div>
         <div class="description"><span>{% trans "Vous pouvez importer des événements à partir de fichiers au format json/xml/iCal/csv. Il vous suffit de cliquer sur le bouton 'Parcourir' ci-dessous et de sélectionner le fichier correspondant." %}</span></div>
-        
-        <form action="{% url 'imports_file' %}" method="POST">
+        <form action="{% url 'imports_file' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset>
                 <div class="row">

@@ -1,12 +1,15 @@
 # -*- encoding: utf-8 -*-
+import json
+import logging
 
 from django.conf import settings
-from django.contrib import messages
 from django.views.generic import View
 from django.shortcuts import render, redirect
 
 from frontend.views.base import ProviderLoginRequiredMixin, APIForm
 from frontend.views.sources import SourceListingFieldsMixin
+
+logger = logging.getLogger('django')
 
 
 class ImportView(ProviderLoginRequiredMixin,
@@ -25,23 +28,62 @@ class ImportView(ProviderLoginRequiredMixin,
 
 class APIImportMixinForm(ImportView, APIForm):
     template_name = 'import.html'
-    endpoint = settings.SOURCES_ENDPOINT
 
     def error(self, request, user_input, response_data):
-        APIForm.error(self, request, user_input, response_data, render=False)
+        APIForm.error(self, request, user_input, response_data,
+                      do_render=False)
         return redirect('imports')
 
     def success(self, request, response_data):
-        APIForm.success(self, request, response_data, render=False)
+        APIForm.success(self, request, response_data, do_render=False)
         return redirect('imports')
 
 
 class APIImportFileForm(APIImportMixinForm):
     success_message = (u"Le fichier a été importé avec succès")
     error_message = u"Ce fichier n'a pas pu être importé"
+    endpoint = settings.EVENTS_ENDPOINT
+
+    def error_list_to_dict(self, api_errors):
+        logger.error('Error while importing: ' + str(api_errors))
+        return {}
+
+    def _post_json(self, data):
+        response_data = None
+        for item in data.get('collection', {}).get('items', []):
+            formatted_data = []
+            for value in item['data']:
+                if value['name'] != 'id':
+                    formatted_data.append(value)
+            post_data = {
+                'template': {
+                    'data': formatted_data
+                    }
+                }
+            response_data = self.api.post(post_data, self.request.user.id)
+            if (isinstance(response_data, dict)
+                    and response_data.get('status') == 'error'):
+                break
+        return response_data
+
+    def post(self, request, *args, **kwargs):
+        data_file = self.request.FILES['events_file']
+        mimetype = data_file.content_type
+        data = data_file.read()
+        if mimetype == 'application/json':
+            response_data = self._post_json(json.loads(data))
+        else:
+            response_data = self.api.post(data, self.request.user.id,
+                                          mimetype=mimetype)
+        if (isinstance(response_data, dict)
+                and response_data.get('status') == 'error'):
+            return self.error(request, {}, response_data)
+        else:
+            return self.success(request, response_data)
 
 
 class APIImportSourceForm(APIImportMixinForm):
     success_message = (u"Cette nouvelle source de données a été "
                        u"enregistrée avec succès")
     error_message = u"Cette source de données n'a pas pu être enregistrée"
+    endpoint = settings.SOURCES_ENDPOINT
