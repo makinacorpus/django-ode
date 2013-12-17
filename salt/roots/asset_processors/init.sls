@@ -8,9 +8,14 @@ nodejs:
 less:
   cmd.run:
     - name: npm -g install less
-    - unless: "test -e /usr/bin/lessc"
+    - unless: "test -e /usr/local/bin/lessc"
 
-less:
+grunt:
   cmd.run:
     - name: npm -g install grunt-cli
-    - unless: "test -e /usr/bin/grunt"
+    - unless: "test -e /usr/local/bin/grunt"
+
+yuglify:
+  cmd.run:
+    - name: npm -g install yuglify
+    - unless: "test -e /usr/local/bin/yuglify"

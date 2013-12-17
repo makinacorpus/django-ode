@@ -13,9 +13,9 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ode_frontend',
-        'USER': 'ode_frontend',
-        'PASSWORD': "{{ pillar['apps']['ode_frontend']['dbpassword'] }}",
+        'NAME': "{{ pillar['database']['name'] }}",
+        'USER': "{{ pillar['database']['username'] }}",
+        'PASSWORD': "{{ pillar['database']['password'] }}",
         'HOST': 'localhost',
     }
 }
@@ -23,15 +23,24 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ADMINS = (
-    ('Romain Garrigues', 'romain.garrigues@makina-corpus.com'),
-    ('Alex Marandon', 'alex.marandon@makina-corpus.com'),
+    {% for admin in pillar.get('admins', []) %}
+    ("{{ admin['name'] }}", "{{ admin['email'] }}"),
+    {% endfor %}
 )
 
 ACCOUNTS_MODERATOR_EMAILS = [
-    'romain.garrigues@makina-corpus.com',
-    'alex.marandon@makina-corpus.com',
+    {% for email in pillar.get('moderator_emails', []) %}
+    '{{ email }}',
+    {% endfor %}
 ]
 
-ALLOWED_HOSTS = ['preprod-ode.makina-corpus.net']
-DEFAULT_FROM_EMAIL = 'ode@preprod-ode.makina-corpus.net'
+ALLOWED_HOSTS = [
+    {% for allowed_host in pillar.get('allowed_hosts', []) %}
+    '{{ allowed_host }}',
+    {% endfor %}
+]
+
+DEFAULT_FROM_EMAIL = "{{ pillar['default_from_email'] }}"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+EVENT_API_BASE_URL = "http://localhost:{{ pillar['apps']['ode_api']['port'] }}"

@@ -1,20 +1,18 @@
 postgresql:
   pkg.installed
 
-{% for app_name, config in pillar.get('apps', {}).items() %}
-{{ app_name }}_database_user:
+database_user:
     postgres_user.present:
-        - name: {{ app_name }}
-        - password: {{ config['dbpassword'] }}
+        - name: {{ pillar['database']['username'] }}
+        - password: {{ pillar['database']['password'] }}
         - require:
             - pkg: postgresql
 
-{{ app_name }}_database:
-  postgres_database.present:
-    - name: {{ app_name }}
-    - encoding: utf8
-    - template: template0
-    - owner: {{ app_name }}
-    - require:
-        - postgres_user: {{ app_name }}_database_user
-{% endfor %}
+database:
+    postgres_database.present:
+        - name: {{ pillar['database']['name'] }}
+        - encoding: utf8
+        - template: template0
+        - owner: {{ pillar['database']['username'] }}
+        - require:
+            - postgres_user: database_user
