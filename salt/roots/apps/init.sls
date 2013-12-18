@@ -108,6 +108,7 @@ start_{{ app_name }}:
   cron.file:
     - name: salt://apps/crontab
     - user: {{ app_name }}
+    - template: jinja
     - context:
         project_dir: {{ config['project_dir'] }}
 
