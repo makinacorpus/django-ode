@@ -4,6 +4,9 @@ from accounts.models import Organization
 
 class LoginTestMixin(object):
 
+    def logout(self):
+        self.client.logout()
+
     def login(self, username='bob', password='foobar'):
 
         return self.login_as_consumer(username, password)

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import json
+from mock import call
 
 from django.conf import settings
 from django.test import TestCase
@@ -14,21 +15,21 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
     end_point = settings.EVENTS_ENDPOINT
 
     def setUp(self):
+        self.login_as_provider()
         self.requests_mock = self.patch('frontend.api_client.requests')
 
     def test_anonymous_cannot_access_creation_form(self):
+        self.logout()
         response = self.client.get('/events/create/')
         self.assertEqual(response.status_code, 302)
         self.assertIn('/login', response['location'])
 
     def test_event_form(self):
-        self.login()
         response = self.client.get('/events/create/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'name="title"')
 
     def test_create_valid_event(self):
-        self.login()
         user_data = {
             'title': u'Un événement',
             'start_time': '2012-01-01T09:00',
@@ -41,7 +42,6 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assertContains(response, 'alert-success')
 
     def test_create_invalid_event(self):
-        self.login()
         invalid_data = {
             'title': u'Événement',
             'start_time': '*** invalid datetime ***',
@@ -74,8 +74,6 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             msg_prefix="input should be pre-filled with previous input")
 
     def test_event_list(self):
-        self.login()
-
         response = self.client.get('/events/')
         self.assertEqual(response.status_code, 200)
 
@@ -85,7 +83,6 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.client.logout()
 
     def test_datatable_event_list(self):
-        self.login()
         response_mock = self.requests_mock.get.return_value
         start_t = "2013-02-02T09:00"
         start_t2 = "2013-01-02T09:00"
@@ -130,3 +127,48 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         datas = response_json['aaData']
 
         self.assertEqual(len(datas), 2)
+
+    def test_delete_invalid_event(self):
+        response_mock = self.requests_mock.delete.return_value
+        response_mock.status_code = 404
+
+        sample_data = {'id_to_delete': ['123']}
+        response = self.client.post('/events/delete_rows/', sample_data,
+                                    follow=True)
+        headers = {
+            'X-ODE-Provider-Id': self.user.pk,
+            'Content-Type': 'application/vnd.collection+json',
+            'Accept-Language': settings.LANGUAGE_CODE,
+            }
+        expected = [call(settings.EVENTS_ENDPOINT + '/123', headers=headers)]
+        self.assertEqual(self.requests_mock.delete.call_args_list, expected)
+        self.assertEqual(response.status_code, 500)
+
+    def test_delete_valid_event(self):
+        user_data = {
+            'id': '1',
+            'title': u'Un événement',
+            'start_time': '2012-01-01T09:00',
+            'end_time': '2012-01-02T18:00',
+        }
+
+        response = self.client.post('/events/create/', user_data, follow=True)
+
+        self.assert_post_to_api(user_data)
+        self.assertContains(response, 'alert-success')
+
+        response_mock = self.requests_mock.delete.return_value
+        response_mock.status_code = 204
+
+        sample_data = {'id_to_delete': ['1']}
+        response = self.client.post('/events/delete_rows/', sample_data,
+                                    follow=True)
+        headers = {
+            'X-ODE-Provider-Id': self.user.pk,
+            'Content-Type': 'application/vnd.collection+json',
+            'Accept-Language': settings.LANGUAGE_CODE,
+            }
+        expected = [call(settings.EVENTS_ENDPOINT + '/1', headers=headers)]
+        self.assertEqual(self.requests_mock.delete.call_args_list, expected)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Done')

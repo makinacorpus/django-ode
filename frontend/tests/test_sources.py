@@ -117,12 +117,14 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         sample_data = {
             'url': 'http://example.com/foo',
         }
-        response = self.client.post('/imports/', sample_data, follow=True)
+        response = self.client.post('/imports/source/', sample_data,
+                                    follow=True)
 
         sample_data_2 = {
             'url': 'http://example2.com/foo',
         }
-        response = self.client.post('/imports/', sample_data_2, follow=True)
+        response = self.client.post('/imports/source/', sample_data_2,
+                                    follow=True)
 
         response_mock = self.requests_mock.delete.return_value
         response_mock.status_code = 204

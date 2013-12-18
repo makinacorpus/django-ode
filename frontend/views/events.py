@@ -2,12 +2,14 @@
 import isodate
 
 from django.conf import settings
+from django.http import HttpResponse, HttpResponseServerError
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 
 from frontend.views.base import (APIForm,
                                  LoginRequiredMixin,
                                  APIDatatableBaseView)
+from frontend.api_client import APIClient
 
 
 class EventListingFieldsMixin(object):
@@ -17,6 +19,15 @@ class EventListingFieldsMixin(object):
     api_columns = ['title', 'description', 'start_time', 'end_time']
 
     endpoint = settings.EVENTS_ENDPOINT
+
+
+class EventListingUserFieldsMixin(EventListingFieldsMixin):
+
+    column_labels = ['Title', 'Description', 'Start Date', 'End Date',
+                     'Suppression']
+    # These fields are ODE API fields returned for each source record
+    api_columns = ['title', 'description', 'start_time', 'end_time',
+                   'id']
 
 
 class Form(APIForm):
@@ -101,7 +112,7 @@ class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class EventListUserView(EventListView):
+class EventListUserView(EventListingUserFieldsMixin, EventListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventListUserView, self).\
@@ -151,8 +162,39 @@ class EventJsonListView(EventListingFieldsMixin,
         return api_data
 
 
-class EventJsonListUserView(EventJsonListView):
+class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
+
+    def prepare_results(self, api_data):
+        api_data = super(EventJsonListUserView, self).prepare_results(api_data)
+        delete_index = self.get_index_from_column_label('Suppression')
+        for data in api_data:
+            for i, field in enumerate(data):
+                if i == delete_index:
+                    raw_data = data[i]
+                    data[i] = '<input type="checkbox"'
+                    data[i] += ' class="datatable-delete"'
+                    data[i] += ' data-id="' + str(raw_data) + '"'
+                    data[i] += '>'
+        return api_data
 
     def get_api_values(self, **kwargs):
         kwargs.setdefault('provider_id', self.request.user.id)
         return super(EventJsonListUserView, self).get_api_values(**kwargs)
+
+
+class EventsDeleteRowsView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+
+        ids_to_delete = request.POST.getlist('id_to_delete')
+
+        self.api = APIClient(settings.EVENTS_ENDPOINT)
+        for id_to_delete in ids_to_delete:
+            response = self.api.delete(id_to_delete, request.user.id)
+            # If there is a problem when deleting a resource,
+            # we raise an exception to warn user that there is "a" problem
+            no_content = 204
+            if response.status_code != no_content:
+                return HttpResponseServerError()
+
+        return HttpResponse("Done")
