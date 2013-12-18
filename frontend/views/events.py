@@ -97,6 +97,16 @@ class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
         context = super(EventListView, self).get_context_data(*args, **kwargs)
 
         context['event_column_labels'] = self.column_labels
+        context['user_only'] = False
+        return context
+
+
+class EventListUserView(EventListView):
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventListUserView, self).get_context_data(*args, **kwargs)
+
+        context['user_only'] = True
         return context
 
 
@@ -138,3 +148,10 @@ class EventJsonListView(EventListingFieldsMixin,
                     data[i] = convert_iso_to_listing_date(data[i])
 
         return api_data
+
+
+class EventJsonListUserView(EventJsonListView):
+
+    def get_api_values(self, **kwargs):
+        kwargs.setdefault('provider_id', self.request.user.id)
+        return super(EventJsonListUserView, self).get_api_values(**kwargs)

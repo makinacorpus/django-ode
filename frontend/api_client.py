@@ -22,12 +22,12 @@ class APIClient(object):
             })
         return response.json()
 
-    def get(self, provider_id, mimetype="application/vnd.collection+json",
+    def get(self, ode_provider_id, mimetype="application/vnd.collection+json",
             json=True, *args, **kwargs):
 
         getkwargs = dict(
             headers={
-                'X-ODE-Provider-Id': provider_id,
+                'X-ODE-Provider-Id': ode_provider_id,
                 'Accept': mimetype,
             })
 

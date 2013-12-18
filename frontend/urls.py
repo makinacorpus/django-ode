@@ -11,6 +11,8 @@ urlpatterns = patterns(
     url(r'^sources/create/$', sources.Form.as_view(), name='sources_create'),
     url(r'^events/create/$', events.Form.as_view(), name='event_create'),
     url(r'^events/$', events.EventListView.as_view(), name='event_list'),
+    url(r'^events/user/$', events.EventListUserView.as_view(),
+        name='event_list_user'),
     url(r'^provider_list/$', providers.ProviderListView.as_view(),
         name='provider_list'),
     url(r'^provider_json_list/$', providers.ProviderJsonListView.as_view(),
@@ -34,6 +36,8 @@ urlpatterns = patterns(
         name='source_json_list'),
     url(r'^events/json/$', events.EventJsonListView.as_view(),
         name='event_json_list'),
+    url(r'^events/user/json/$', events.EventJsonListUserView.as_view(),
+        name='event_json_list_user'),
 
     url(r'^sources/delete_rows/$', sources.SourceDeleteRowsView.as_view(),
         name='source_delete_rows'),

@@ -5,7 +5,19 @@
 
 <h1>{% trans "Liste des événements" %}</h1>
 
-<table class="datatable-listing table table-striped" data-source="{% url 'event_json_list' %}">
+<div>
+  <a class="btn {% if not user_only %}btn-primary{% else %}btn-default{% endif %}"
+     href="{% url 'event_list_user' %}">
+    {% trans 'Mes événements' %}
+  </a>
+  <a class="btn {% if user_only %}btn-primary{% else %}btn-default{% endif %}"
+     href="{% url 'event_list' %}">
+    {% trans 'Tous les événements' %}
+  </a>
+</div>
+
+<table class="datatable-listing table table-striped"
+       data-source="{% if not user_only %}{% url 'event_json_list' %}{% else %}{% url 'event_json_list_user' %}{% endif %}">
   <thead>
     <tr>
       {% for label in event_column_labels %}
