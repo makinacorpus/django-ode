@@ -3,6 +3,7 @@
 from django.test import TestCase
 
 from accounts.tests.base import LoginTestMixin
+from accounts.models import User
 
 
 class TestImports(LoginTestMixin, TestCase):
@@ -34,3 +35,10 @@ class TestImports(LoginTestMixin, TestCase):
         self.assertEqual(response.status_code, 403)
 
         self.client.logout()
+
+    def test_superuser_can_always_access_import(self):
+        User.objects.create_superuser('admin', 'admin@example.com', 'admin')
+        self.client.login(username='admin', password='admin')
+
+        response = self.client.get('/imports/')
+        self.assertEqual(response.status_code, 200)
