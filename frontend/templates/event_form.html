@@ -94,7 +94,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-	<div class="fieldWrapper {% if errors.daterange %}has-error{% endif %}">
+	<div class="fieldWrapper {% if errors.daterange or errors.start_time or errors.end_time %}has-error{% endif %}">
 	  <label class="control-label" for="daterange">{% trans "Dates de l'événement" %}</label>
 	  <div class="controls">
             <input class="form-control" id="daterange" name="daterange"{% if input %} value="{{ input.daterange }}"{% endif %} />
