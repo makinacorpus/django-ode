@@ -145,6 +145,35 @@ DEFAULT_FROM_EMAIL = 'ode@example.com'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'log/django.log',
+            'maxBytes': 100000,
+            'backupCount': 5,
+        },
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+        },
+    },
+}
+
 # Third-party apps settings
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
