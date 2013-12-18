@@ -41,6 +41,34 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assert_post_to_api(user_data)
         self.assertContains(response, 'alert-success')
 
+    def test_get_edit_form_not_found(self):
+        self.login()
+        get_response_mock = self.requests_mock.get.return_value
+        get_response_mock.json.return_value = {
+            'errors': [{'description': 'Not found'}], 'status': 404
+        }
+        response = self.client.get('/events/edit/BOGUS', follow=True)
+        self.assertEqual(response.status_code, 404)
+
+    def test_get_edit_form(self):
+        self.login()
+        get_response_mock = self.requests_mock.get.return_value
+        get_response_mock.json.return_value = {
+            "collection": {
+                "items": [{
+                    "data": [
+                        {'name': "id", 'value': 1},
+                        {'name': "title", 'value': u"Un événement"},
+                        {'name': "description", 'value': u"Description 1"},
+                        {'name': "start_time", 'value': '2012-01-01T09:00'},
+                        {'name': "end_time", 'value': '2012-01-02T18:00'},
+                    ],
+                }],
+            },
+        }
+        response = self.client.get('/events/edit/1', follow=True)
+        self.assertContains(response, u"Un événement")
+
     def test_create_invalid_event(self):
         invalid_data = {
             'title': u'Événement',

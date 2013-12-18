@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseNotFound
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -14,7 +15,7 @@ def data_list_to_dict(data_list):
     result = {}
     for data_field in data_list:
         key = data_field['name']
-        result[key] = {'value': data_field['value']}
+        result[key] = data_field['value']
     return result
 
 
@@ -148,7 +149,20 @@ class APIForm(LoginRequiredMixin, View):
             return self.success(request, response_data)
 
     def get(self, request, *args, **kwargs):
-        new_context = self._update_context_data()
+        object_context = None
+        object_id = kwargs.get('id')
+        if object_id:
+            api = APIClient(self.endpoint)
+            response = api.get(self.request.user.id, object_id=object_id)
+            if response.get('status') == 404:
+                return HttpResponseNotFound(
+                    _(u"Auncun évément trouvé pour cet id"))
+
+            item = response['collection']['items'][0]
+            object_context = {
+                'input': data_list_to_dict(item['data']),
+            }
+        new_context = self._update_context_data(object_context)
         return render(self.request, self.template_name, new_context)
 
 
@@ -178,7 +192,7 @@ class APIDatatableBaseView(BaseDatatableView):
 
         if len(xpath) == 1:
             if xelement in data:
-                return data[xelement]['value']
+                return data[xelement]
             else:
                 return default
         else:

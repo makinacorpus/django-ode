@@ -33,7 +33,7 @@ class APIClient(object):
         return response.json()
 
     def get(self, ode_provider_id, mimetype="application/vnd.collection+json",
-            json=True, *args, **kwargs):
+            json=True, object_id=None, *args, **kwargs):
 
         getkwargs = dict(
             headers={
@@ -45,7 +45,11 @@ class APIClient(object):
         if kwargs:
             getkwargs['params'] = kwargs
 
-        response = requests.get(self.endpoint, *args, **getkwargs)
+        url = self.endpoint
+        if object_id is not None:
+            url += '/{}'.format(object_id)
+
+        response = requests.get(url, *args, **getkwargs)
 
         if json:
             return response.json()
