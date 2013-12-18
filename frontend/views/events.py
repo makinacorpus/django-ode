@@ -104,7 +104,8 @@ class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
 class EventListUserView(EventListView):
 
     def get_context_data(self, *args, **kwargs):
-        context = super(EventListUserView, self).get_context_data(*args, **kwargs)
+        context = super(EventListUserView, self).\
+            get_context_data(*args, **kwargs)
 
         context['user_only'] = True
         return context
