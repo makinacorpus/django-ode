@@ -32,14 +32,18 @@ class ProviderLoginRequiredMixin(object):
     """
     View mixin which requires that the user is authenticated AND is a provider
     """
+    @staticmethod
+    def access_allowed(user):
+        return user.is_superuser or user.organization.is_provider
+
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
 
-        if not request.user.organization.is_provider:
-            return HttpResponseForbidden()
-        else:
+        if self.access_allowed(request.user):
             return super(ProviderLoginRequiredMixin, self).dispatch(
                 request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
 
 
 class APIForm(LoginRequiredMixin, View):
