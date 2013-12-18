@@ -61,6 +61,7 @@ api_settings:
         - mode: 600
         - context:
             database: {{ pillar['database'] }}
+            admins: "{% for admin in pillar.get('admins', []) %}\"{{ admin["email"] }}\",{% endfor %}"
 
 
 init_frontend:
