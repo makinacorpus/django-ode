@@ -66,7 +66,7 @@ class JSONResponseMixin(object):
             # Come what may, we're returning JSON.
             if hasattr(e, 'message'):
                 msg = e.message
-                msg += str(e)
+                msg += repr(e)
             else:
                 msg = _('Internal error') + ': ' + str(e)
             response = {'result': 'error',
