@@ -5,15 +5,17 @@
 
 <h1>{% trans "Liste des événements" %}</h1>
 
-<div>
-  <a class="btn {% if not user_only %}btn-primary{% else %}btn-default{% endif %}"
-     href="{% url 'event_list_user' %}">
+<div class="event-list-subnav nav nav-tabs">
+  <li class="{% if user_only %}active{% endif %}">
+  <a href="{% url 'event_list_user' %}">
     {% trans 'Mes événements' %}
   </a>
-  <a class="btn {% if user_only %}btn-primary{% else %}btn-default{% endif %}"
-     href="{% url 'event_list' %}">
+  </li>
+  <li class="{% if not user_only %}active{% endif %}">
+  <a href="{% url 'event_list' %}">
     {% trans 'Tous les événements' %}
   </a>
+  </li>
 </div>
 
 <table class="datatable-listing table table-striped"
