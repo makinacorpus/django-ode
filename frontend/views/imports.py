@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from frontend.views.base import ProviderLoginRequiredMixin, APIForm
 from frontend.views.sources import SourceListingFieldsMixin
 
-logger = logging.getLogger('django')
+logger = logging.getLogger(__name__)
 
 
 class ImportView(ProviderLoginRequiredMixin,
@@ -39,17 +39,12 @@ class APIImportFileForm(APIImportMixinForm):
     error_message = u"Ce fichier n'a pas pu être importé"
     endpoint = settings.EVENTS_ENDPOINT
 
-    def error_list_to_dict(self, api_errors):
-        logger.error('Error while importing: ' + str(api_errors))
-        return {}
-
     def _post_json(self, data):
         response_data = None
         for item in data.get('collection', {}).get('items', []):
             formatted_data = []
             for value in item['data']:
-                if value['name'] != 'id':
-                    formatted_data.append(value)
+                formatted_data.append(value)
             post_data = {
                 'template': {
                     'data': formatted_data

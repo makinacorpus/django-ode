@@ -1,6 +1,7 @@
 import requests
 import json
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 
 class APIClient(object):
@@ -20,6 +21,15 @@ class APIClient(object):
                 'Content-Type': mimetype,
                 'Accept-Language': settings.LANGUAGE_CODE,
             })
+        if response.status_code == 403:
+            return {
+                'status': 'error',
+                'errors': [
+                    {'name': 'events_file',
+                     'description': _(u'You do not have permission to edit '
+                                      u'these events.')}
+                    ]
+                }
         return response.json()
 
     def get(self, ode_provider_id, mimetype="application/vnd.collection+json",

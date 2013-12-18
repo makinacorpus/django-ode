@@ -18,6 +18,9 @@
                         <div class="fieldWrapper">
                             <label class="control-label">{% trans "Choisir un fichier :" %}</label>
                             <input type="file" name="events_file">
+                            {% if errors.events_file %}
+                                <span class="help-block">{{ errors.events_file }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
