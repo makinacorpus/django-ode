@@ -5,29 +5,69 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseServerError
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, View
+from django.shortcuts import render
 
+from accounts.models import User
 from frontend.views.base import (APIForm,
                                  LoginRequiredMixin,
-                                 APIDatatableBaseView)
+                                 APIDatatableBaseView,
+                                 data_list_to_dict)
 from frontend.api_client import APIClient
+
+
+def convert_iso_to_listing_date(iso_date):
+    # API format for date is "2012-01-16T19:00:00"
+    # Result would be "Le 16/01/2012 à 19h00"
+    dt = isodate.parse_datetime(iso_date)
+    datatable_date = _(u"Le {dd}/{MM}/{yyyy} à {hh}h{mm}").format(
+        dd=str(dt.day).rjust(2, '0'),
+        MM=str(dt.month).rjust(2, '0'),
+        yyyy=dt.year,
+        hh=str(dt.hour).rjust(2, '0'),
+        mm=str(dt.minute).rjust(2, '0'))
+
+    return datatable_date
+
+
+class EventView(LoginRequiredMixin, View):
+
+    date_columns = ['start_time', 'end_time', 'publication_start',
+                    'publication_end']
+
+    def prepare_data(self, event_data):
+        event_data = data_list_to_dict(event_data)
+        for key, value in event_data.items():
+            if key in self.date_columns:
+                event_data[key] = convert_iso_to_listing_date(value)
+        return event_data
+
+    def get(self, request, *args, **kwargs):
+        api = APIClient(settings.EVENTS_ENDPOINT)
+        event_id = kwargs.get('id')
+        response = api.get(request.user.id, object_id=event_id)
+        event_data = response['collection']['items'][0]['data']
+        context = {'event': self.prepare_data(event_data)}
+        return render(request, 'event.html', context)
 
 
 class EventListingFieldsMixin(object):
 
-    column_labels = ['Title', 'Description', 'Start Date', 'End Date']
+    column_labels = [_('Title'), _('Start Date'), _('End Date'),
+                     _('Organization')]
     # These fields are ODE API fields returned for each source record
-    api_columns = ['title', 'description', 'start_time', 'end_time']
+    api_columns = ['title', 'start_time', 'end_time', 'provider_id', 'id']
 
     endpoint = settings.EVENTS_ENDPOINT
 
 
 class EventListingUserFieldsMixin(EventListingFieldsMixin):
 
-    column_labels = ['Title', 'Description', 'Start Date', 'End Date',
-                     'Suppression']
+    column_labels = [_('Title'), _('Start Date'), _('End Date'),
+                     _('Publication Start'), _('Publication End'),
+                     _('Suppression')]
     # These fields are ODE API fields returned for each source record
-    api_columns = ['title', 'description', 'start_time', 'end_time',
-                   'id']
+    api_columns = ['title', 'start_time', 'end_time', 'publication_start',
+                   'publication_end', 'id']
 
 
 class Form(APIForm):
@@ -122,23 +162,11 @@ class EventListUserView(EventListingUserFieldsMixin, EventListView):
         return context
 
 
-def convert_iso_to_listing_date(iso_date):
-    # API format for date is "2012-01-16T19:00:00"
-    # Result would be "Le 16/01/2012 à 19h00"
-    dt = isodate.parse_datetime(iso_date)
-    datatable_date = _(u"Le {dd}/{MM}/{yyyy} à {hh}h{mm}").format(
-        dd=str(dt.day).rjust(2, '0'),
-        MM=str(dt.month).rjust(2, '0'),
-        yyyy=dt.year,
-        hh=str(dt.hour).rjust(2, '0'),
-        mm=str(dt.minute).rjust(2, '0'))
-
-    return datatable_date
-
-
 class EventJsonListView(EventListingFieldsMixin,
                         LoginRequiredMixin,
                         APIDatatableBaseView):
+
+    date_columns = ['start_time', 'end_time']
 
     def get_sort_by(self):
 
@@ -146,23 +174,49 @@ class EventJsonListView(EventListingFieldsMixin,
 
         return self.api_columns[i_sort_col]
 
+    def _getOrganizationFromProviderId(self, provider_id):
+        try:
+            user = User.objects.get(pk=provider_id)
+        except User.DoesNotExist:
+            return ''
+        organization = user.organization
+        text = (u'<a class="open-in-modal" '
+                u'data-target="#events-modal" '
+                u'href="/provider/{}/">{}</a>'
+                .format(organization.pk, organization.name))
+        return text
+
+    def _getTitle(self, title, event_id):
+        text = (u'<a class="open-in-modal" '
+                u'data-target="#events-modal" '
+                u'href="/events/{}/">{}</a>'
+                .format(event_id, title))
+        return text
+
     def prepare_results(self, api_data):
 
-        start_time_index = self.get_index_for('start_time')
-        end_time_index = self.get_index_for('end_time')
-
+        indexes = []
+        for date_column in self.date_columns:
+            indexes.append(self.get_index_for(date_column))
+        provider_column_index = self.get_index_for('provider_id')
+        title_column_index = self.get_index_for('title')
+        event_id_column_index = self.get_index_for('id')
         for data in api_data:
-
             for i, field_value in enumerate(data):
-
-                if i == start_time_index or i == end_time_index:
-
+                if i in indexes and data[i]:
                     data[i] = convert_iso_to_listing_date(data[i])
-
+                elif i == provider_column_index:
+                    data[i] = self._getOrganizationFromProviderId(data[i])
+                elif i == title_column_index:
+                    data[i] = self._getTitle(data[i],
+                                             data[event_id_column_index])
         return api_data
 
 
 class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
+
+    date_columns = ['start_time', 'end_time', 'publication_start',
+                    'publication_end']
 
     def prepare_results(self, api_data):
         api_data = super(EventJsonListUserView, self).prepare_results(api_data)

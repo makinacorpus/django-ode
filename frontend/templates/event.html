@@ -1,0 +1,201 @@
+{% extends request.is_ajax|yesno:"ajax_modal.html,layout.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block head_title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ event.title }}</h1>
+
+<div class="row">
+  {% if request.is_ajax %}
+  <div class="col-md-12">
+  {% else %}
+  <div class="col-md-6">
+  {% endif %}
+    <h4>{% trans 'Informations Générales' %}</h4>
+    <dl class="dl-horizontal">
+      <dt>{% trans "Date de début" %}</dt>
+      <dd>{{ event.start_time }}</dd>
+
+      <dt>{% trans "Date de fin" %}</dt>
+      <dd>{{ event.end_time }}</dd>
+
+      {% if event.description %}
+      <dt>{% trans "Description" %}</dt>
+      <dd>{{ event.description }}</dd>
+      {% endif %}
+
+      {% if event.performers %}
+      <dt>{% trans "Artistes" %}</dt>
+      <dd>{{ event.performers }}</dd>
+      {% endif %}
+
+      {% if event.price_information %}
+      <dt>{% trans "Tarifs" %}</dt>
+      <dd>{{ event.price_information }}</dd>
+      {% endif %}
+
+      {% if event.target %}
+      <dt>{% trans "Public" %}</dt>
+      <dd>{{ event.target }}</dd>
+      {% endif %}
+
+      {% if event.tags %}
+      <dt>{% trans "Tags" %}</dt>
+      <dd>{{ event.tags|join:", " }}</dd>
+      {% endif %}
+
+      {% if event.categories %}
+      <dt>{% trans "Catégories" %}</dt>
+      <dd>{{ event.categories|join:", " }}</dd>
+      {% endif %}
+    </dl>
+  </div>
+  {% if request.is_ajax %}
+</div>
+<div class="row">
+  <div class="col-md-12">
+  {% else %}
+  <div class="col-md-6">
+  {% endif %}
+    {% if event.location_name or event.location_capacity or event.location_address or event.location_post_code or event.location_town or event.location_country %}
+    <h4>{% trans 'Lieu' %}</h4>
+    <dl class="dl-horizontal">
+      {% if event.location_name %}
+      <dt>{% trans "Nom" %}</dt>
+      <dd>{{ event.location_name }}</dd>
+      {% endif %}
+
+      {% if event.location_capacity %}
+      <dt>{% trans "Capacité de la salle" %}</dt>
+      <dd>{{ event.location_capacity }}</dd>
+      {% endif %}
+
+      {% if event.location_address %}
+      <dt>{% trans "Adresse" %}</dt>
+      <dd>{{ event.location_address }}</dd>
+      {% endif %}
+
+      {% if event.location_post_code %}
+      <dt>{% trans "Code Postal" %}</dt>
+      <dd>{{ event.location_post_code }}</dd>
+      {% endif %}
+
+      {% if event.location_town %}
+      <dt>{% trans "Ville" %}</dt>
+      <dd>{{ event.location_town }}</dd>
+      {% endif %}
+
+      {% if event.location_country %}
+      <dt>{% trans "Pays" %}</dt>
+      <dd>{{ event.location_country }}</dd>
+      {% endif %}
+    </dl>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row">
+  {% if request.is_ajax %}
+  <div class="col-md-12">
+  {% else %}
+  <div class="col-md-6">
+  {% endif %}
+    {% if event.videos or event.images or event.sounds or event.press_url %}
+    <h4>{% trans 'Médias' %}</h4>
+
+    <dl class="dl-horizontal">
+      {% if event.images %}
+      <dt>{% trans 'Images' %}</dt>
+      <dd>
+	<ul>
+	  {% for image in event.images %}
+	  <li><a href="{{image.url}}">{{image.url}}</a> ({{image.license}})</li>
+	  {% endfor %}
+	</ul>
+      </dd>
+      {% endif %}
+
+      {% if event.videos %}
+      <dt>{% trans 'Vidéos' %}</dt>
+      <dd>
+	<ul>
+	  {% for video in event.videos %}
+	  <li><a href="{{video.url}}">{{video.url}}</a> ({{video.license}})</li>
+	  {% endfor %}
+	</ul>
+      </dd>
+      {% endif %}
+
+      {% if event.sounds %}
+      <dt>{% trans 'Audios' %}</dt>
+      <dd>
+	<ul>
+	  {% for sound in event.sounds %}
+	  <li><a href="{{sound.url}}">{{sound.url}}</a> ({{sound.license}})</li>
+	  {% endfor %}
+	</ul>
+      </dd>
+      {% endif %}
+
+      {% if event.press_url %}
+      <dt>{% trans 'Presse' %}</dt>
+      <dd><a href="{{ event.press_url }}">{{ event.press_url }}</a></dd>
+      {% endif %}
+
+    </dl>
+    {% endif %}
+  </div>
+  {% if request.is_ajax %}
+</div>
+<div class="row">
+  <div class="col-md-12">
+  {% else %}
+  <div class="col-md-6">
+  {% endif %}
+    {% if event.ticket_contact_name or event.ticket_contact_phone_number or event.ticket_contact_email %}
+    <h4>{% trans 'Billeterie' %}</h5>
+    <dl class="dl-horizontal">
+      {% if event.ticket_contact_name %}
+      <dt>{% trans 'Nom' %}</dt>
+      <dd>{{ event.ticket_contact_name }}</dd>
+      {% endif %}
+
+      {% if event.ticket_contact_email %}
+      <dt>{% trans 'Courriel' %}</dt>
+      <dd>{{ event.ticket_contact_email }}</dd>
+      {% endif %}
+
+      {% if event.ticket_contact_phone_number %}
+      <dt>{% trans 'Téléphone' %}</dt>
+      <dd>{{ event.ticket_contact_phone_number }}</dd>
+      {% endif %}
+    </dl>
+    {% endif %}
+
+    {% if event.press_contact_name or event.press_contact_phone_number or event.press_contact_email %}
+    <h4>{% trans 'Presse' %}</h5>
+    <dl class="dl-horizontal">
+      {% if event.press_contact_name %}
+      <dt>{% trans 'Nom' %}</dt>
+      <dd>{{ event.press_contact_name }}</dd>
+      {% endif %}
+
+      {% if event.press_contact_email %}
+      <dt>{% trans 'Courriel' %}</dt>
+      <dd>{{ event.press_contact_email }}</dd>
+      {% endif %}
+
+      {% if event.press_contact_phone_number %}
+      <dt>{% trans 'Téléphone' %}</dt>
+      <dd>{{ event.press_contact_phone_number }}</dd>
+      {% endif %}
+    </dl>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -25,7 +25,18 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
             "sPaginationType": "full_numbers",
             "oLanguage": {
                 "sUrl": "/static/dataTables.french.txt"
-            }
+            },
+	    "fnCreatedRow": function(nRow, aData, iDataIndex) {
+		$('.open-in-modal', nRow).click(function(event) {
+		    event.preventDefault();
+
+		    var target = $(this).attr('data-target');
+		    var href = $(this).attr('href');
+		    $(target).modal({
+			remote: href
+		    });
+		});
+	    }
         });
     });
 
