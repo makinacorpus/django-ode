@@ -33,7 +33,10 @@ class PatchMixin(object):
         }
         for key, value in input_data.items():
             self.assertIn(key, posted_data_as_dict.keys())
-            self.assertEqual(value, posted_data_as_dict[key])
+            if isinstance(value, dict):
+                self.assertDictEqual(value, posted_data_as_dict[key])
+            else:
+                self.assertEqual(value, posted_data_as_dict[key])
         self.assertEqual(kwargs['headers'], {
             'X-ODE-Provider-Id': self.user.pk,
             'Content-Type': 'application/vnd.collection+json',

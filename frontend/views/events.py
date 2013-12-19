@@ -137,7 +137,7 @@ class Form(APIForm):
             ]
         formatted_data = super(Form, self)\
             .prepare_api_input(dict_data)
-        formatted_data.update(default_data)
+        formatted_data['template']['data'] += default_data
         return formatted_data
 
 

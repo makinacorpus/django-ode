@@ -30,6 +30,10 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assertContains(response, 'name="title"')
 
     def test_create_valid_event(self):
+        self.logout()
+        self.login_as_provider(username="provider", first_name='john',
+                               last_name="doe", email="john.doe@example.com",
+                               phone_number="0123456789")
         user_data = {
             'title': u'Un événement',
             'start_time': '2012-01-01T09:00',
@@ -38,7 +42,48 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
 
         response = self.client.post('/events/create/', user_data, follow=True)
 
-        self.assert_post_to_api(user_data)
+        api_data = {
+            'firstname': 'john',
+            'lastname': 'doe',
+            'email': 'john.doe@example.com',
+            'telephone': '0123456789',
+            'language': 'fr',
+            }
+        api_data.update(user_data)
+
+        self.assert_post_to_api(api_data)
+        self.assertContains(response, 'alert-success')
+
+    def test_create_event_with_media(self):
+        user_data = {
+            'title': u'Un événement',
+            'start_time': '2012-01-01T09:00',
+            'end_time': '2012-01-02T18:00',
+            'media_photo': 'http://photo',
+            'media_photo_license': 'CC BY',
+            'media_photo2': 'http://photo2',
+            'media_photo_license2': 'CC BY',
+            'media_video': 'http://video',
+            'media_video_license': 'unknown',
+            'media_audio': 'http://audio',
+            'media_audio_license': 'CC BY',
+        }
+
+        response = self.client.post('/events/create/', user_data, follow=True)
+
+        api_data = {
+            'title': u'Un événement',
+            'start_time': '2012-01-01T09:00',
+            'end_time': '2012-01-02T18:00',
+            'images': [
+                {'url': 'http://photo', 'license': 'CC BY'},
+                {'url': 'http://photo2', 'license': 'CC BY'},
+                ],
+            'videos': [{'url': 'http://video', 'license': 'unknown'}],
+            'sounds': [{'url': 'http://audio', 'license': 'CC BY'}]
+            }
+
+        self.assert_post_to_api(api_data)
         self.assertContains(response, 'alert-success')
 
     def test_get_edit_form_not_found(self):
