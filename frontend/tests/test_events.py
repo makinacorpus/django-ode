@@ -18,6 +18,9 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.login_as_provider()
         self.requests_mock = self.patch('frontend.api_client.requests')
 
+
+class TestCreate(TestEvents):
+
     def test_anonymous_cannot_access_creation_form(self):
         self.logout()
         response = self.client.get('/events/create/')
@@ -118,6 +121,9 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
             response, u'value="*** invalid datetime ***"',
             msg_prefix="input should be pre-filled with previous input")
 
+
+class TestEdit(TestEvents):
+
     def test_get_edit_form_not_found(self):
         get_response_mock = self.requests_mock.get.return_value
         get_response_mock.json.return_value = {
@@ -182,60 +188,8 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assertContains(response, u'datetime is invalid', count=1)
         self.assertContains(response, u'action="/events/edit/1"')
 
-    def test_event_list(self):
-        response = self.client.get('/events/')
-        self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, 'Liste des événements')
-        self.assertContains(response, 'datatable-listing')
-
-        self.client.logout()
-
-    def test_datatable_event_list(self):
-        response_mock = self.requests_mock.get.return_value
-        start_t = "2013-02-02T09:00"
-        start_t2 = "2013-01-02T09:00"
-        end_t = "2013-02-04T19:00"
-        end_t2 = "2013-01-04T19:00"
-        response_mock.json.return_value = {
-            "collection": {
-                "items": [{
-                    "data": [
-                        {'name': "id", 'value': 1},
-                        {'name': "title", 'value': u"Un événement"},
-                        {'name': "description", 'value': u"Description 1"},
-                        {'name': "start_time", 'value': start_t},
-                        {'name': "end_time", 'value': end_t},
-                    ],
-                }, {
-                    "data": [
-                        {"name": "id", 'value': 2},
-                        {"name": "title", 'value': u"イベント"},
-                        {"name": "description", 'value': u"Description 2"},
-                        {'name': "start_time", 'value': start_t2},
-                        {'name': "end_time", 'value': end_t2},
-                    ],
-                }],
-                "total_count": 2,
-                "current_count": 2
-            }
-        }
-
-        response = self.client.get('/events/json/')
-
-        response_json = json.loads(force_text(response.content))
-        self.requests_mock.get.assert_called_with(
-            settings.EVENTS_ENDPOINT,
-            headers={'X-ODE-Provider-Id': self.user.pk,
-                     'Accept': 'application/vnd.collection+json'},
-            params={'sort_direction': 'desc', 'offset': 0, 'limit': 10,
-                    'sort_by': 'title'})
-
-        # aaData is Datatable mandatory key for displayed data
-        self.assertIn('aaData', response_json.keys())
-        datas = response_json['aaData']
-
-        self.assertEqual(len(datas), 2)
+class TestDelete(TestEvents):
 
     def test_delete_invalid_event(self):
         response_mock = self.requests_mock.delete.return_value
@@ -281,3 +235,94 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assertEqual(self.requests_mock.delete.call_args_list, expected)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Done')
+
+
+class TestList(TestEvents):
+
+    def setup_response_with_two_events(self):
+        response_mock = self.requests_mock.get.return_value
+        start_t = "2013-02-02T09:00"
+        start_t2 = "2013-01-02T09:00"
+        end_t = "2013-02-04T19:00"
+        end_t2 = "2013-01-04T19:00"
+        response_mock.json.return_value = {
+            "collection": {
+                "items": [{
+                    "data": [
+                        {'name': "id", 'value': 1},
+                        {'name': "title", 'value': u"Un événement"},
+                        {'name': "description", 'value': u"Description 1"},
+                        {'name': "start_time", 'value': start_t},
+                        {'name': "end_time", 'value': end_t},
+                    ],
+                }, {
+                    "data": [
+                        {"name": "id", 'value': 2},
+                        {"name": "title", 'value': u"イベント"},
+                        {"name": "description", 'value': u"Description 2"},
+                        {'name': "start_time", 'value': start_t2},
+                        {'name': "end_time", 'value': end_t2},
+                    ],
+                }],
+                "total_count": 2,
+                "current_count": 2
+            }
+        }
+
+    def assertGetRequestWithParams(self, params):
+        self.requests_mock.get.assert_called_with(
+            settings.EVENTS_ENDPOINT,
+            headers={'X-ODE-Provider-Id': self.user.pk,
+                     'Accept': 'application/vnd.collection+json'},
+            params=params)
+
+    def extract_aaData(self, response):
+        response_json = json.loads(force_text(response.content))
+        # aaData is Datatable mandatory key for displayed data
+        self.assertIn('aaData', response_json.keys())
+        return response_json['aaData']
+
+    def assertFirstCellEqual(self, aaData_items, expected):
+        first_cell = aaData_items[0][0]
+        self.assertEqual(first_cell, expected)
+
+    def test_event_list(self):
+        response = self.client.get('/events/')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, 'Liste des événements')
+        self.assertContains(response, 'datatable-listing')
+
+    def test_datatable_all_event_list(self):
+        self.setup_response_with_two_events()
+
+        response = self.client.get('/events/json/')
+
+        self.assertGetRequestWithParams({
+            'sort_direction': 'desc',
+            'offset': 0,
+            'limit': 10,
+            'sort_by': 'title',
+        })
+
+        aaData_items = self.extract_aaData(response)
+        self.assertEqual(len(aaData_items), 2)
+        self.assertFirstCellEqual(
+            aaData_items,
+            '<a data-toggle="modal" data-target="#events-modal" '
+            'href="/events/1/">Un événement</a>')
+
+    def test_datatable_user_event_list(self):
+        self.setup_response_with_two_events()
+
+        response = self.client.get('/events/user/json/')
+
+        self.assertGetRequestWithParams({
+            'sort_direction': 'desc',
+            'offset': 0,
+            'limit': 10,
+            'sort_by': 'title',
+            'provider_id': 1,
+        })
+        aaData_items = self.extract_aaData(response)
+        self.assertEqual(len(aaData_items), 2)
