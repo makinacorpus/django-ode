@@ -158,11 +158,11 @@ class TestEdit(TestEvents):
             'end_time': '2012-01-02T18:00',
         }
 
-        response = self.client.post('/events/edit/1/', user_data)
+        response = self.client.post('/events/edit/1/', user_data, follow=True)
 
         self.assert_put_to_api(resource_id='1', input_data=user_data)
         self.assertContains(response, 'alert-success')
-        self.assertContains(response, u'action="/events/edit/1/"')
+        self.assertContains(response, u'Liste des événements')
 
     def test_post_edit_form_error(self):
         response_mock = self.requests_mock.request.return_value
