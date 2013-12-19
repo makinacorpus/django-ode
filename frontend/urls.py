@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^$', 'main.home', name='home'),
 
     url(r'^events/create/$', events.Form.as_view(), name='event_create'),
-    url(r'^events/edit/(?P<id>.+)$', events.Form.as_view(),
+    url(r'^events/edit/(?P<id>.+)/$', events.Form.as_view(),
         name='event_edit'),
     url(r'^events/$', events.EventListView.as_view(), name='event_list'),
     url(r'^events/user/$', events.EventListUserView.as_view(),
