@@ -2,9 +2,9 @@
 {% load i18n %}
 
 {% block content %}
-<h1>Création d'un événement</h1>
+<h1>{% trans "Création d'un événement" %}</h1>
 
-<form action="{% url 'event_create' %}" method="POST"  class="form-horizontal">
+<form action="{% if object_id != None %}{% url 'event_edit' object_id %}{% else %}{% url 'event_create' %}{% endif %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
   <fieldset>
     <div class="row">

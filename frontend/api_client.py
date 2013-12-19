@@ -9,29 +9,6 @@ class APIClient(object):
     def __init__(self, endpoint):
         self.endpoint = endpoint
 
-    def post(self, data, provider_id,
-             mimetype='application/vnd.collection+json'):
-        if isinstance(data, dict):
-            data = json.dumps(data)
-        response = requests.post(
-            self.endpoint,
-            data=data,
-            headers={
-                'X-ODE-Provider-Id': provider_id,
-                'Content-Type': mimetype,
-                'Accept-Language': settings.LANGUAGE_CODE,
-            })
-        if response.status_code == 403:
-            return {
-                'status': 'error',
-                'errors': [
-                    {'name': 'events_file',
-                     'description': _(u'You do not have permission to edit '
-                                      u'these events.')}
-                    ]
-                }
-        return response.json()
-
     def get(self, ode_provider_id, mimetype="application/vnd.collection+json",
             json=True, object_id=None, *args, **kwargs):
 
@@ -67,3 +44,36 @@ class APIClient(object):
             })
 
         return response
+
+    def post(self, data, provider_id,
+             mimetype='application/vnd.collection+json'):
+        return self.unsafe_request('POST', self.endpoint, data, provider_id)
+
+    def put(self, resource_id, data, provider_id,
+            mimetype='application/vnd.collection+json'):
+        url = "{}/{}".format(self.endpoint, resource_id)
+        return self.unsafe_request('PUT', url, data, provider_id)
+
+    def unsafe_request(self, method, url, data, provider_id,
+                       mimetype='application/vnd.collection+json'):
+        if isinstance(data, dict):
+            data = json.dumps(data)
+        response = requests.request(
+            method,
+            url,
+            data=data,
+            headers={
+                'X-ODE-Provider-Id': provider_id,
+                'Content-Type': mimetype,
+                'Accept-Language': settings.LANGUAGE_CODE,
+            })
+        if response.status_code == 403:
+            return {
+                'status': 'error',
+                'errors': [
+                    {'name': 'events_file',
+                     'description': _(u'You do not have permission to edit '
+                                      u'these events.')}
+                    ]
+                }
+        return response.json()

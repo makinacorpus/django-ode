@@ -29,7 +29,7 @@ class ImportView(ProviderLoginRequiredMixin,
 class APIImportMixinForm(ImportView, APIForm):
     template_name = 'import.html'
 
-    def success(self, request, response_data):
+    def success(self, request, response_data, **kwargs):
         APIForm.success(self, request, response_data, do_render=False)
         return redirect('imports')
 
