@@ -83,44 +83,33 @@ class Form(APIForm):
         context['organization'] = self.request.user.organization
         return context
 
+    def _add_media(self, url_key, license_key, medias_name, api_input):
+        media = {
+            'url': api_input[url_key],
+            'license': api_input[license_key]
+            }
+        del api_input[url_key]
+        del api_input[license_key]
+        if medias_name in api_input.keys():
+            api_input[medias_name].append(media)
+        else:
+            api_input[medias_name] = [media]
+        return api_input
+
     def prepare_media(self, api_input):
 
         if 'media_photo' in api_input.keys() and api_input['media_photo']:
-            image = {
-                'url': api_input['media_photo'],
-                'license': api_input['media_photo_license']
-                }
-            del api_input['media_photo']
-            del api_input['media_photo_license']
-            api_input['images'] = [image]
+            api_input = self._add_media('media_photo', 'media_photo_license',
+                                        'images', api_input)
         if 'media_photo2' in api_input.keys() and api_input['media_photo2']:
-            image = {
-                'url': api_input['media_photo2'],
-                'license': api_input['media_photo_license2']
-                }
-            del api_input['media_photo2']
-            del api_input['media_photo_license2']
-            if 'images' in api_input.keys():
-                api_input['images'].append(image)
-            else:
-                api_input['images'] = [image]
+            api_input = self._add_media('media_photo2', 'media_photo_license2',
+                                        'images', api_input)
         if 'media_video' in api_input.keys() and api_input['media_video']:
-            video = {
-                'url': api_input['media_video'],
-                'license': api_input['media_video_license']
-                }
-            del api_input['media_video']
-            del api_input['media_video_license']
-            api_input['videos'] = [video]
-
+            api_input = self._add_media('media_video', 'media_video_license',
+                                        'videos', api_input)
         if 'media_audio' in api_input.keys() and api_input['media_audio']:
-            sound = {
-                'url': api_input['media_audio'],
-                'license': api_input['media_audio_license']
-                }
-            del api_input['media_audio']
-            del api_input['media_audio_license']
-            api_input['sounds'] = [sound]
+            api_input = self._add_media('media_audio', 'media_audio_license',
+                                        'sounds', api_input)
         return api_input
 
     def prepare_api_input(self, dict_data):
