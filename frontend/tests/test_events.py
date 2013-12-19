@@ -309,8 +309,8 @@ class TestList(TestEvents):
         self.assertEqual(len(aaData_items), 2)
         self.assertFirstCellEqual(
             aaData_items,
-            '<a data-toggle="modal" data-target="#events-modal" '
-            'href="/events/1/">Un événement</a>')
+            u'<a data-toggle="modal" data-target="#events-modal" '
+            u'href="/events/1/">Un événement</a>')
 
     def test_datatable_user_event_list(self):
         self.setup_response_with_two_events()
