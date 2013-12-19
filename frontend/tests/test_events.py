@@ -42,7 +42,6 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assertContains(response, 'alert-success')
 
     def test_get_edit_form_not_found(self):
-        self.login()
         get_response_mock = self.requests_mock.get.return_value
         get_response_mock.json.return_value = {
             'errors': [{'description': 'Not found'}], 'status': 404
@@ -51,7 +50,6 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_get_edit_form(self):
-        self.login()
         get_response_mock = self.requests_mock.get.return_value
         get_response_mock.json.return_value = {
             "collection": {
