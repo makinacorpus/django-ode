@@ -26,17 +26,6 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
             "oLanguage": {
                 "sUrl": "/static/dataTables.french.txt"
             },
-	    "fnCreatedRow": function(nRow, aData, iDataIndex) {
-		$('.open-in-modal', nRow).click(function(event) {
-		    event.preventDefault();
-
-		    var target = $(this).attr('data-target');
-		    var href = $(this).attr('href');
-		    $(target).modal({
-			remote: href
-		    });
-		});
-	    }
         });
     });
 
@@ -64,6 +53,10 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
         }).fail(function(data){
             alert("Un problème est apparu lors de la suppression d'une donnée. Contactez l'administrateur pour plus d'informations.");
         });
+    });
+
+    $('body').on('hidden.bs.modal', '.modal', function () {
+	$(this).removeData('bs.modal');
     });
 
 }(jQuery);

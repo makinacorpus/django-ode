@@ -177,17 +177,20 @@ class EventJsonListView(EventListingFieldsMixin,
     def _getOrganizationFromProviderId(self, provider_id):
         try:
             user = User.objects.get(pk=provider_id)
+        except ValueError:
+            # id is a string. Only integer allowed.
+            return ''
         except User.DoesNotExist:
             return ''
         organization = user.organization
-        text = (u'<a class="open-in-modal" '
+        text = (u'<a data-toggle="modal" '
                 u'data-target="#events-modal" '
                 u'href="/provider/{}/">{}</a>'
                 .format(organization.pk, organization.name))
         return text
 
     def _getTitle(self, title, event_id):
-        text = (u'<a class="open-in-modal" '
+        text = (u'<a data-toggle="modal" '
                 u'data-target="#events-modal" '
                 u'href="/events/{}/">{}</a>'
                 .format(event_id, title))
