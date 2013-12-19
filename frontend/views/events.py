@@ -3,6 +3,7 @@ import isodate
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseServerError
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, View
 from django.shortcuts import render
@@ -13,6 +14,7 @@ from frontend.views.base import (APIForm,
                                  APIDatatableBaseView,
                                  data_list_to_dict)
 from frontend.api_client import APIClient
+from frontend.html import modal_link
 
 
 def convert_iso_to_listing_date(iso_date):
@@ -179,11 +181,8 @@ class EventJsonListView(EventListingFieldsMixin,
         return text
 
     def _getTitle(self, title, event_id):
-        text = (u'<a data-toggle="modal" '
-                u'data-target="#events-modal" '
-                u'href="/events/{}/">{}</a>'
-                .format(event_id, title))
-        return text
+        url = reverse('event', args=[event_id])
+        return modal_link('events', url, title)
 
     def prepare_results(self, api_data):
 
@@ -211,11 +210,8 @@ class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
                     'publication_end']
 
     def _getTitle(self, title, event_id):
-        text = (u'<a data-toggle="modal" '
-                u'data-target="#events-modal" '
-                u'href="/events/edit/{}/">{}</a>'
-                .format(event_id, title))
-        return text
+        url = reverse('event_edit', args=[event_id])
+        return modal_link('events', url, title)
 
     def prepare_results(self, api_data):
         api_data = super(EventJsonListUserView, self).prepare_results(api_data)
