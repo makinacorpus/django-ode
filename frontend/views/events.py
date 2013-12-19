@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseServerError
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from accounts.models import User
 from frontend.views.base import (APIForm,
@@ -130,6 +130,11 @@ class Form(APIForm):
             .prepare_api_input(dict_data)
         formatted_data['template']['data'] += default_data
         return formatted_data
+
+    def success(self, request, response_data, do_render=False, object_id=None):
+        super(Form, self).success(request, response_data, do_render=False,
+                                  object_id=object_id)
+        return redirect('event_list_user')
 
 
 class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
