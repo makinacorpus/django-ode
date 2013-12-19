@@ -212,7 +212,7 @@ class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
 
     def prepare_results(self, api_data):
         api_data = super(EventJsonListUserView, self).prepare_results(api_data)
-        delete_index = self.get_index_from_column_label('Suppression')
+        delete_index = self.get_index_for('id')
         for data in api_data:
             for i, field in enumerate(data):
                 if i == delete_index:

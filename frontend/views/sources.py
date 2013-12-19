@@ -38,7 +38,7 @@ class SourceJsonListView(SourceListingFieldsMixin,
 
     def prepare_results(self, api_data):
 
-        delete_index = self.get_index_from_column_label('Suppression')
+        delete_index = self.get_index_for('id')
 
         for data in api_data:
 
