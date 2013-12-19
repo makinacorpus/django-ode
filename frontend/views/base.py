@@ -115,10 +115,12 @@ class APIForm(LoginRequiredMixin, View):
     def get_response_data(self, data):
         return self.api.post(data, self.request.user.id)
 
-    def error(self, request, user_input, response_data, do_render=True):
+    def error(self, request, user_input, response_data, do_render=True,
+              object_id=None):
         context = dict(response_data)
         context['input'] = user_input
         context['errors'] = self.error_list_to_dict(response_data['errors'])
+        context['object_id'] = object_id
         messages.error(request, self.error_message, extra_tags='danger')
         if 'items' in context['errors'].keys():
             messages.error(request, context['errors']['items'],
@@ -127,8 +129,9 @@ class APIForm(LoginRequiredMixin, View):
         if do_render:
             return render(request, self.template_name, new_context)
 
-    def success(self, request, response_data, do_render=True):
+    def success(self, request, response_data, do_render=True, object_id=None):
         new_context = self._update_context_data()
+        new_context['object_id'] = object_id
         messages.success(request, self.success_message)
         if do_render:
             return render(request, self.template_name, new_context)
@@ -140,13 +143,19 @@ class APIForm(LoginRequiredMixin, View):
         api_input = dict(user_input)
 
         post_data = self.prepare_api_input(api_input)
-        response_data = self.get_response_data(post_data)
+        object_id = kwargs.get('id')
+        if object_id:
+            response_data = self.api.put(object_id, post_data,
+                                         self.request.user.id)
+        else:
+            response_data = self.get_response_data(post_data)
 
         if (isinstance(response_data, dict)
                 and response_data.get('status') == 'error'):
-            return self.error(request, user_input, response_data)
+            return self.error(request, user_input, response_data,
+                              object_id=object_id)
         else:
-            return self.success(request, response_data)
+            return self.success(request, response_data, object_id=object_id)
 
     def get(self, request, *args, **kwargs):
         object_context = None
@@ -161,6 +170,7 @@ class APIForm(LoginRequiredMixin, View):
             item = response['collection']['items'][0]
             object_context = {
                 'input': data_list_to_dict(item['data']),
+                'object_id': object_id,
             }
         new_context = self._update_context_data(object_context)
         return render(self.request, self.template_name, new_context)

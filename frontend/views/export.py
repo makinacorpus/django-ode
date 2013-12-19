@@ -37,7 +37,7 @@ class ExportView(APIForm):
         return self.api.get(self.request.user.id, mimetype=mimetype,
                             json=False, **data)
 
-    def success(self, request, response_data):
+    def success(self, request, response_data, **kwargs):
         response = HttpResponse(response_data, mimetype=self.mimetype)
         response['Content-Disposition'] = 'attachment; filename=events.%s'\
             % self.MIMETYPE_TO_EXT[self.mimetype]

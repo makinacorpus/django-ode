@@ -86,6 +86,38 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.assert_post_to_api(api_data)
         self.assertContains(response, 'alert-success')
 
+    def test_create_invalid_event(self):
+        invalid_data = {
+            'title': u'Événement',
+            'start_time': '*** invalid datetime ***',
+            'end_time': '2012-01-02T18:00',
+        }
+        response_mock = self.requests_mock.request.return_value
+        response_mock.json.return_value = {
+            "status": "error",
+            "errors": [
+                {
+                    "location": "body",
+                    "name": "items.0.data.start_time",
+                    "description": "datetime is invalid"
+                },
+            ]
+        }
+
+        response = self.client.post('/events/create/', invalid_data,
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        self.assert_post_to_api(invalid_data)
+        self.assertContains(response, 'alert-danger')
+        self.assertContains(response, u'datetime is invalid', count=1)
+        self.assertContains(
+            response, u'value="Événement"',
+            msg_prefix="input should be pre-filled with previous input")
+        self.assertContains(
+            response, u'value="*** invalid datetime ***"',
+            msg_prefix="input should be pre-filled with previous input")
+
     def test_get_edit_form_not_found(self):
         get_response_mock = self.requests_mock.get.return_value
         get_response_mock.json.return_value = {
@@ -111,14 +143,23 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         }
         response = self.client.get('/events/edit/1', follow=True)
         self.assertContains(response, u"Un événement")
+        self.assertContains(response, u'action="/events/edit/1"')
 
-    def test_create_invalid_event(self):
-        invalid_data = {
-            'title': u'Événement',
-            'start_time': '*** invalid datetime ***',
+    def test_post_edit_form_success(self):
+        user_data = {
+            'title': u'Un événement',
+            'start_time': '2012-01-01T09:00',
             'end_time': '2012-01-02T18:00',
         }
-        response_mock = self.requests_mock.post.return_value
+
+        response = self.client.post('/events/edit/1', user_data, follow=True)
+
+        self.assert_put_to_api(resource_id='1', input_data=user_data)
+        self.assertContains(response, 'alert-success')
+        self.assertContains(response, u'action="/events/edit/1"')
+
+    def test_post_edit_form_error(self):
+        response_mock = self.requests_mock.request.return_value
         response_mock.json.return_value = {
             "status": "error",
             "errors": [
@@ -129,20 +170,17 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
                 },
             ]
         }
+        user_data = {
+            'title': u'Un événement',
+            'start_time': 'BOGUS',
+            'end_time': 'BOGUS',
+        }
 
-        response = self.client.post('/events/create/', invalid_data,
-                                    follow=True)
-        self.assertEqual(response.status_code, 200)
-
-        self.assert_post_to_api(invalid_data)
+        response = self.client.post('/events/edit/1', user_data, follow=True)
+        self.assert_put_to_api(resource_id='1', input_data=user_data)
         self.assertContains(response, 'alert-danger')
         self.assertContains(response, u'datetime is invalid', count=1)
-        self.assertContains(
-            response, u'value="Événement"',
-            msg_prefix="input should be pre-filled with previous input")
-        self.assertContains(
-            response, u'value="*** invalid datetime ***"',
-            msg_prefix="input should be pre-filled with previous input")
+        self.assertContains(response, u'action="/events/edit/1"')
 
     def test_event_list(self):
         response = self.client.get('/events/')

@@ -38,7 +38,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         sample_data = {
             'url': '*** invalid url ***',
         }
-        response_mock = self.requests_mock.post.return_value
+        response_mock = self.requests_mock.request.return_value
         response_mock.json.return_value = {
             "status": "error",
             "errors": [{
