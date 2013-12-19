@@ -61,6 +61,7 @@ class APIImportFileForm(APIImportMixinForm):
         mimetype = data_file.content_type
         data = data_file.read()
         if mimetype == 'application/json':
+            data = data.decode('utf-8')
             response_data = self._post_json(json.loads(data))
         else:
             response_data = self.api.post(data, self.request.user.id,

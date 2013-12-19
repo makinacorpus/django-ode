@@ -47,15 +47,15 @@ class APIClient(object):
 
     def post(self, data, provider_id,
              mimetype='application/vnd.collection+json'):
-        return self.unsafe_request('POST', self.endpoint, data, provider_id)
+        return self.unsafe_request('POST', self.endpoint, data, provider_id,
+                                   mimetype)
 
     def put(self, resource_id, data, provider_id,
             mimetype='application/vnd.collection+json'):
         url = "{}/{}".format(self.endpoint, resource_id)
-        return self.unsafe_request('PUT', url, data, provider_id)
+        return self.unsafe_request('PUT', url, data, provider_id, mimetype)
 
-    def unsafe_request(self, method, url, data, provider_id,
-                       mimetype='application/vnd.collection+json'):
+    def unsafe_request(self, method, url, data, provider_id, mimetype):
         if isinstance(data, dict):
             data = json.dumps(data)
         response = requests.request(

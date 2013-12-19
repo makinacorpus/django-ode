@@ -68,7 +68,7 @@ class TestImports(LoginTestMixin, PatchMixin, TestCase):
 
     def test_import_file_json(self):
         self.login_as_provider()
-        with open('frontend/tests/resources/events.json') as fp:
+        with open('frontend/tests/resources/events.json', 'rb') as fp:
             self.client.post('/imports/file/', {'events_file': fp})
             self.requests_mock.request.assert_called_with(
                 "POST",
@@ -81,7 +81,7 @@ class TestImports(LoginTestMixin, PatchMixin, TestCase):
 
     def test_import_file_csv(self):
         self.login_as_provider()
-        with open('frontend/tests/resources/events.csv') as fp:
+        with open('frontend/tests/resources/events.csv', 'rb') as fp:
             self.client.post('/imports/file/', {'events_file': fp})
             fp.seek(0)
             self.requests_mock.request.assert_called_with(
@@ -89,13 +89,13 @@ class TestImports(LoginTestMixin, PatchMixin, TestCase):
                 settings.EVENTS_ENDPOINT,
                 data=fp.read(),
                 headers={'X-ODE-Provider-Id': self.user.pk,
-                         'Content-Type': 'application/vnd.collection+json',
+                         'Content-Type': 'text/csv',
                          'Accept-Language': 'fr'}
                 )
 
     def test_import_file_ics(self):
         self.login_as_provider()
-        with open('frontend/tests/resources/events.ics') as fp:
+        with open('frontend/tests/resources/events.ics', 'rb') as fp:
             self.client.post('/imports/file/', {'events_file': fp})
             fp.seek(0)
             self.requests_mock.request.assert_called_with(
@@ -103,6 +103,6 @@ class TestImports(LoginTestMixin, PatchMixin, TestCase):
                 settings.EVENTS_ENDPOINT,
                 data=fp.read(),
                 headers={'X-ODE-Provider-Id': self.user.pk,
-                         'Content-Type': 'application/vnd.collection+json',
+                         'Content-Type': 'text/calendar',
                          'Accept-Language': 'fr'}
                 )
