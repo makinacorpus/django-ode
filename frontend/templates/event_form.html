@@ -1,8 +1,16 @@
-{% extends 'layout.html' %}
+{% extends request.is_ajax|yesno:"ajax_modal.html,layout.html" %}
 {% load i18n %}
 
+{% block head_title %}{% endblock %}
+
 {% block content %}
-<h1>{% trans "Création d'un événement" %}</h1>
+<h1>
+  {% if object_id %}
+  {% trans "Édition d'un événement" %}
+  {% else %}
+  {% trans "Création d'un événement" %}
+  {% endif %}
+</h1>
 
 <form action="{% if object_id != None %}{% url 'event_edit' object_id %}{% else %}{% url 'event_create' %}{% endif %}" method="POST"  class="form-horizontal">
   {% csrf_token %}
@@ -469,7 +477,13 @@
     </div>
   </fieldset>
 
-  <button type="submit" class="btn btn-default">Créer l'événement</button>
+  <button type="submit" class="btn btn-default">
+    {% if object_id %}
+    {% trans "Enregistrer les modifications" %}
+    {% else %}
+    {% trans "Créer l'événement" %}
+    {% endif %}
+  </button>
 </form>
 
 {% endblock %}

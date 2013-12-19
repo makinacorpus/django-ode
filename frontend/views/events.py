@@ -210,6 +210,13 @@ class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
     date_columns = ['start_time', 'end_time', 'publication_start',
                     'publication_end']
 
+    def _getTitle(self, title, event_id):
+        text = (u'<a data-toggle="modal" '
+                u'data-target="#events-modal" '
+                u'href="/events/edit/{}/">{}</a>'
+                .format(event_id, title))
+        return text
+
     def prepare_results(self, api_data):
         api_data = super(EventJsonListUserView, self).prepare_results(api_data)
         delete_index = self.get_index_for('id')

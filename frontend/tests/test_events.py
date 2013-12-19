@@ -149,7 +149,7 @@ class TestEdit(TestEvents):
         }
         response = self.client.get('/events/edit/1', follow=True)
         self.assertContains(response, u"Un événement")
-        self.assertContains(response, u'action="/events/edit/1"')
+        self.assertContains(response, u'action="/events/edit/1/"')
 
     def test_post_edit_form_success(self):
         user_data = {
@@ -158,11 +158,11 @@ class TestEdit(TestEvents):
             'end_time': '2012-01-02T18:00',
         }
 
-        response = self.client.post('/events/edit/1', user_data, follow=True)
+        response = self.client.post('/events/edit/1/', user_data)
 
         self.assert_put_to_api(resource_id='1', input_data=user_data)
         self.assertContains(response, 'alert-success')
-        self.assertContains(response, u'action="/events/edit/1"')
+        self.assertContains(response, u'action="/events/edit/1/"')
 
     def test_post_edit_form_error(self):
         response_mock = self.requests_mock.request.return_value
@@ -182,11 +182,11 @@ class TestEdit(TestEvents):
             'end_time': 'BOGUS',
         }
 
-        response = self.client.post('/events/edit/1', user_data, follow=True)
+        response = self.client.post('/events/edit/1/', user_data)
         self.assert_put_to_api(resource_id='1', input_data=user_data)
         self.assertContains(response, 'alert-danger')
         self.assertContains(response, u'datetime is invalid', count=1)
-        self.assertContains(response, u'action="/events/edit/1"')
+        self.assertContains(response, u'action="/events/edit/1/"')
 
 
 class TestDelete(TestEvents):
@@ -326,3 +326,7 @@ class TestList(TestEvents):
         })
         aaData_items = self.extract_aaData(response)
         self.assertEqual(len(aaData_items), 2)
+        self.assertFirstCellEqual(
+            aaData_items,
+            '<a data-toggle="modal" data-target="#events-modal" '
+            'href="/events/edit/1/">Un événement</a>')
