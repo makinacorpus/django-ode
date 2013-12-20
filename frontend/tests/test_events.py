@@ -448,3 +448,15 @@ class TestList(TestEvents):
         self.assertEqual(aaData_items[0][3],
                          u'<a data-toggle="modal" data-target="#events-modal" '
                          u'href="/provider/2/">host_organization</a>')
+
+
+class TestUtils(TestCase):
+
+    def test_convert_iso_to_listing_date(self):
+        from frontend.views.events import convert_iso_to_listing_date
+        iso_date = "2012-01-16T19:00:00"
+        human_date = "Le 16/01/2012 à 19h00"
+        self.assertEqual(
+            convert_iso_to_listing_date(iso_date),
+            human_date
+        )

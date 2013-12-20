@@ -18,6 +18,18 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
         firstDay: 1
     };
 
+    function toIsoString(moment) {
+        var utc_timestamp = Date.UTC(
+            moment.year(),
+            moment.month(),
+            moment.date(),
+            moment.hours(),
+            moment.minutes(),
+            moment.seconds()
+        );
+        return new Date(utc_timestamp).toISOString();
+    };
+
     $('#daterange').daterangepicker(
 	{
 	    format: 'DD/MM/YYYY',
@@ -28,8 +40,8 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 	    locale: locale
 	},
 	function(start, end) {
-	    $('#start_time').val(start.toISOString());
-	    $('#end_time').val(end.toISOString());
+	    $('#start_time').val(toIsoString(start));
+	    $('#end_time').val(toIsoString(end));
 	}
     );
 
@@ -43,8 +55,8 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 	    locale: locale
 	},
 	function(start, end) {
-	    $('#publication_start').val(start.toISOString());
-	    $('#publication_end').val(end.toISOString());
+	    $('#publication_start').val(toIsoString(start));
+	    $('#publication_end').val(toIsoString(end));
 	}
     );
 

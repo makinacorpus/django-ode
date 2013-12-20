@@ -4,7 +4,7 @@ import isodate
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseServerError
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect
 
@@ -22,14 +22,8 @@ def convert_iso_to_listing_date(iso_date):
     # API format for date is "2012-01-16T19:00:00"
     # Result would be "Le 16/01/2012 à 19h00"
     dt = isodate.parse_datetime(iso_date)
-    datatable_date = _(u"Le {dd}/{MM}/{yyyy} à {hh}h{mm}").format(
-        dd=str(dt.day).rjust(2, '0'),
-        MM=str(dt.month).rjust(2, '0'),
-        yyyy=dt.year,
-        hh=str(dt.hour).rjust(2, '0'),
-        mm=str(dt.minute).rjust(2, '0'))
-
-    return datatable_date
+    format_string = ugettext(u"Le %d/%m/%Y à %Hh%M")
+    return dt.strftime(format_string)
 
 
 class EventView(LoginRequiredMixin, View):
