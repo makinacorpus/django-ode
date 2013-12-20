@@ -39,9 +39,11 @@
   </tbody>
 </table>
 
-<a href="{% url 'events_delete_rows' %}"
-   class="btn btn-default datatable-delete-rows"
-   data-source="#events-listing">{% trans "Supprimer" %}</a>
+<div class="form-element text-right">
+  <a href="{% url 'events_delete_rows' %}"
+    class="btn btn-default datatable-delete-rows"
+    data-source="#events-listing">{% trans "Supprimer" %}</a>
+</div>
 
 <div class="modal fade" id="events-modal">
   <div class="modal-dialog">
