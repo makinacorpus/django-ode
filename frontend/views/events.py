@@ -131,7 +131,7 @@ class Form(APIForm):
     def format_daterange(self, start_time, end_time):
         start_datetime = isodate.parse_datetime(start_time)
         end_datetime = isodate.parse_datetime(end_time)
-        date_format = u'%d/%m/%Y'
+        date_format = u'%d/%m/%Y %H:%M'
         return u' - '.join([start_datetime.strftime(date_format),
                             end_datetime.strftime(date_format)])
 

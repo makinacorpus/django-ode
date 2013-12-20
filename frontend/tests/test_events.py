@@ -206,7 +206,7 @@ class TestEdit(TestEvents):
         self.assertContains(response, u'action="/events/edit/1/"')
         self.assertContains(response, u'tag1, tag2')
         self.assertContains(response, u'category1, category2')
-        self.assertContains(response, u'01/01/2012 - 04/01/2012')
+        self.assertContains(response, u'01/01/2012 09:00 - 04/01/2012 18:00')
 
     def test_post_edit_form_success(self):
         user_data = {

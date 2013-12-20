@@ -5,6 +5,14 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
     "use strict";
 
     moment.lang('fr');
+    var displayFormat = 'DD/MM/YYYY HH:mm';
+
+    function isoToDateRangeFormat(isoString) {
+        if (isoString) {
+            var result = moment(isoString).format(displayFormat);
+            return result;
+        }
+    }
 
     var locale = {
 	applyLabel: 'Accepter',
@@ -32,12 +40,14 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 
     $('#daterange').daterangepicker(
 	{
-	    format: 'DD/MM/YYYY',
+            format: displayFormat,
 	    showDropdowns: false,
 	    timePicker: true,
 	    timePickerIncrement: 15,
 	    timePicker12Hour: false,
-	    locale: locale
+	    locale: locale,
+            startDate: isoToDateRangeFormat($('#start_time').val()),
+            endDate: isoToDateRangeFormat($('#end_time').val())
 	},
 	function(start, end) {
 	    $('#start_time').val(toIsoString(start));
@@ -47,12 +57,14 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
 
     $('#daterange_publication').daterangepicker(
 	{
-	    format: 'DD/MM/YYYY',
+            format: displayFormat,
 	    showDropdowns: false,
 	    timePicker: true,
 	    timePickerIncrement: 15,
 	    timePicker12Hour: false,
-	    locale: locale
+	    locale: locale,
+            startDate: isoToDateRangeFormat($('#publication_start').val()),
+            endDate: isoToDateRangeFormat($('#publication_end').val())
 	},
 	function(start, end) {
 	    $('#publication_start').val(toIsoString(start));
