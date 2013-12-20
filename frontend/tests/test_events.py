@@ -8,6 +8,10 @@ from django.utils.encoding import force_text
 
 from .support import PatchMixin
 from accounts.tests.base import LoginTestMixin
+from accounts.tests.test_factory import (
+    ProviderUserFactory,
+    ProviderOrganizationFactory
+    )
 
 
 class TestEvents(LoginTestMixin, PatchMixin, TestCase):
@@ -340,6 +344,13 @@ class TestList(TestEvents):
         self.assertContains(response, 'Liste des événements')
         self.assertContains(response, 'datatable-listing')
 
+    def test_user_event_list(self):
+        response = self.client.get('/events/user/')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, 'Liste des événements')
+        self.assertContains(response, 'datatable-listing')
+
     def test_datatable_all_event_list(self):
         self.setup_response_with_two_events()
 
@@ -377,3 +388,40 @@ class TestList(TestEvents):
             aaData_items,
             u'<a data-toggle="modal" data-target="#events-modal" '
             u'href="/events/edit/1/">Un événement</a>')
+
+    def test_datatable_all_event_list_with_provider(self):
+        response_mock = self.requests_mock.get.return_value
+        start_t = "2013-02-02T09:00"
+        end_t = "2013-02-04T19:00"
+        response_mock.json.return_value = {
+            "collection": {
+                "items": [{
+                    "data": [
+                        {'name': "id", 'value': 1},
+                        {'name': "title", 'value': u"Un événement"},
+                        {'name': "description", 'value': u"Description 1"},
+                        {'name': "start_time", 'value': start_t},
+                        {'name': "end_time", 'value': end_t},
+                        {'name': 'provider_id', 'value': '2'}
+                    ],
+                }],
+                "total_count": 1,
+                "current_count": 1
+            }
+        }
+        org_host = ProviderOrganizationFactory.create(
+            is_host=True, town="town_host", activity_field='act1',
+            name='host_organization'
+            )
+        user = ProviderUserFactory.create(
+            username='bob2', confirmation_code='s3cr3t', email="bob2@mc.com",
+            organization=org_host)
+        user.is_active = True
+        user.save()
+
+        response = self.client.get('/events/json/')
+        aaData_items = self.extract_aaData(response)
+        self.assertEqual(len(aaData_items), 1)
+        self.assertEqual(aaData_items[0][3],
+                         u'<a data-toggle="modal" data-target="#events-modal" '
+                         u'href="/provider/2/">host_organization</a>')
