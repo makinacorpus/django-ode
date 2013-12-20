@@ -5,6 +5,7 @@
 
 <h1>{% trans "Liste des événements" %}</h1>
 
+{% if user.organization.is_provider %}
 <div class="event-list-subnav nav nav-tabs">
   <li class="{% if user_only %}active{% endif %}">
   <a href="{% url 'event_list_user' %}">
@@ -17,6 +18,7 @@
   </a>
   </li>
 </div>
+{% endif %}
 
 <table class="datatable-listing table table-striped"
        data-source="{% if not user_only %}{% url 'event_json_list' %}{% else %}{% url 'event_json_list_user' %}{% endif %}"

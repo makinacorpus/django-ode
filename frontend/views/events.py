@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect
 from accounts.models import User
 from frontend.views.base import (APIForm,
                                  LoginRequiredMixin,
+                                 ProviderLoginRequiredMixin,
                                  APIDatatableBaseView,
                                  data_list_to_dict)
 from frontend.api_client import APIClient
@@ -156,7 +157,8 @@ class EventListView(EventListingFieldsMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class EventListUserView(EventListingUserFieldsMixin, EventListView):
+class EventListUserView(EventListingUserFieldsMixin,
+                        ProviderLoginRequiredMixin, EventListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventListUserView, self).\

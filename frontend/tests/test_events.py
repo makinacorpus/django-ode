@@ -349,6 +349,7 @@ class TestList(TestEvents):
 
         self.assertContains(response, 'Liste des événements')
         self.assertContains(response, 'datatable-listing')
+        self.assertContains(response, 'event-list-subnav nav nav-tabs')
 
     def test_user_event_list(self):
         response = self.client.get('/events/user/')
@@ -356,6 +357,23 @@ class TestList(TestEvents):
 
         self.assertContains(response, 'Liste des événements')
         self.assertContains(response, 'datatable-listing')
+        self.assertContains(response, 'event-list-subnav nav nav-tabs')
+
+    def test_event_list_as_consumer(self):
+        self.logout()
+        self.login_as_consumer('bob2')
+        response = self.client.get('/events/')
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, 'Liste des événements')
+        self.assertContains(response, 'datatable-listing')
+        self.assertNotContains(response, 'event-list-subnav nav nav-tabs')
+
+    def test_user_event_list_as_consumer(self):
+        self.logout()
+        self.login_as_consumer('bob2')
+        response = self.client.get('/events/user/')
+        self.assertEqual(response.status_code, 403)
 
     def test_datatable_all_event_list(self):
         self.setup_response_with_two_events()
