@@ -368,6 +368,7 @@ class TestList(TestEvents):
         self.assertContains(response, 'Liste des événements')
         self.assertContains(response, 'datatable-listing')
         self.assertNotContains(response, 'event-list-subnav nav nav-tabs')
+        self.assertNotContains(response, u'datatable-delete-rows')
 
     def test_user_event_list_as_consumer(self):
         self.logout()
