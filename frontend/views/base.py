@@ -157,6 +157,9 @@ class APIForm(LoginRequiredMixin, View):
         else:
             return self.success(request, response_data, object_id=object_id)
 
+    def prepare_fields_content(self, data_list):
+        return data_list_to_dict(data_list)
+
     def get(self, request, *args, **kwargs):
         object_context = None
         object_id = kwargs.get('id')
@@ -169,7 +172,7 @@ class APIForm(LoginRequiredMixin, View):
 
             item = response['collection']['items'][0]
             object_context = {
-                'input': data_list_to_dict(item['data']),
+                'input': self.prepare_fields_content(item['data']),
                 'object_id': object_id,
             }
         new_context = self._update_context_data(object_context)

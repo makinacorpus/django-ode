@@ -131,6 +131,12 @@ class Form(APIForm):
         formatted_data['template']['data'] += default_data
         return formatted_data
 
+    def prepare_fields_content(self, data_list):
+        data_dict = data_list_to_dict(data_list)
+        for key in ('tags', 'categories'):
+            data_dict[key] = u', '.join(data_dict[key])
+        return data_dict
+
     def success(self, request, response_data, do_render=False, object_id=None):
         super(Form, self).success(request, response_data, do_render=False,
                                   object_id=object_id)
