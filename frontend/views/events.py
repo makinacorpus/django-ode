@@ -135,12 +135,20 @@ class Form(APIForm):
         return u' - '.join([start_datetime.strftime(date_format),
                             end_datetime.strftime(date_format)])
 
+    @staticmethod
+    def has_publication_dates(data_dict):
+        return ('publication_start' in data_dict
+                and 'publication_end' in data_dict)
+
     def prepare_fields_content(self, data_list):
         data_dict = data_list_to_dict(data_list)
         for key in ('tags', 'categories'):
             data_dict[key] = u', '.join(data_dict[key])
         data_dict['daterange'] = self.format_daterange(
             data_dict['start_time'], data_dict['end_time'])
+        if self.has_publication_dates(data_dict):
+            data_dict['daterange_publication'] = self.format_daterange(
+                data_dict['publication_start'], data_dict['publication_end'])
         return data_dict
 
     def success(self, request, response_data, do_render=False, object_id=None):
