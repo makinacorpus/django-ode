@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import isodate
+import six
 
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseServerError
@@ -23,7 +24,9 @@ def convert_iso_to_listing_date(iso_date):
     # Result would be "Le 16/01/2012 à 19h00"
     dt = isodate.parse_datetime(iso_date)
     format_string = ugettext(u"Le %d/%m/%Y à %Hh%M")
-    return dt.strftime(format_string.encode('utf8'))
+    if six.PY2:
+        format_string = format_string.encode('utf-8')
+    return dt.strftime(format_string)
 
 
 class EventView(LoginRequiredMixin, View):
