@@ -193,8 +193,7 @@ class TestEdit(TestEvents):
                         {'name': "title", 'value': u"Un événement"},
                         {'name': "description", 'value': u"Description 1"},
                         {'name': "start_time", 'value': '2012-01-01T09:00'},
-                        {'name': "end_time", 'value': '2012-01-02T18:00'},
-                        {'name': "end_time", 'value': '2012-01-02T18:00'},
+                        {'name': "end_time", 'value': '2012-01-04T18:00'},
                         {'name': "tags", 'value': ['tag1', 'tag2']},
                         {'name': "categories",
                          'value': ['category1', 'category2']},
@@ -207,6 +206,7 @@ class TestEdit(TestEvents):
         self.assertContains(response, u'action="/events/edit/1/"')
         self.assertContains(response, u'tag1, tag2')
         self.assertContains(response, u'category1, category2')
+        self.assertContains(response, u'01/01/2012 - 04/01/2012')
 
     def test_post_edit_form_success(self):
         user_data = {
