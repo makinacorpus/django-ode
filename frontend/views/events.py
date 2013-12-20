@@ -14,7 +14,7 @@ from frontend.views.base import (APIForm,
                                  APIDatatableBaseView,
                                  data_list_to_dict)
 from frontend.api_client import APIClient
-from frontend.html import modal_link
+from frontend import html
 
 
 def convert_iso_to_listing_date(iso_date):
@@ -133,6 +133,12 @@ class Form(APIForm):
         formatted_data['template']['data'] += default_data
         return formatted_data
 
+    def prepare_fields_content(self, data_list):
+        data_dict = data_list_to_dict(data_list)
+        for key in ('tags', 'categories'):
+            data_dict[key] = u', '.join(data_dict[key])
+        return data_dict
+
     def success(self, request, response_data, do_render=False, object_id=None):
         super(Form, self).success(request, response_data, do_render=False,
                                   object_id=object_id)
@@ -189,7 +195,7 @@ class EventJsonListView(EventListingFieldsMixin,
 
     def _getTitle(self, title, event_id):
         url = reverse('event', args=[event_id])
-        return modal_link('events', url, title)
+        return html.modal_link('events', url, title)
 
     def prepare_results(self, api_data):
 
@@ -218,7 +224,7 @@ class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
 
     def _getTitle(self, title, event_id):
         url = reverse('event_edit', args=[event_id])
-        return modal_link('events', url, title)
+        return html.link(url, title)
 
     def prepare_results(self, api_data):
         api_data = super(EventJsonListUserView, self).prepare_results(api_data)

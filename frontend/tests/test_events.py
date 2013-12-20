@@ -194,6 +194,10 @@ class TestEdit(TestEvents):
                         {'name': "description", 'value': u"Description 1"},
                         {'name': "start_time", 'value': '2012-01-01T09:00'},
                         {'name': "end_time", 'value': '2012-01-02T18:00'},
+                        {'name': "end_time", 'value': '2012-01-02T18:00'},
+                        {'name': "tags", 'value': ['tag1', 'tag2']},
+                        {'name': "categories",
+                         'value': ['category1', 'category2']},
                     ],
                 }],
             },
@@ -201,6 +205,8 @@ class TestEdit(TestEvents):
         response = self.client.get('/events/edit/1', follow=True)
         self.assertContains(response, u"Un événement")
         self.assertContains(response, u'action="/events/edit/1/"')
+        self.assertContains(response, u'tag1, tag2')
+        self.assertContains(response, u'category1, category2')
 
     def test_post_edit_form_success(self):
         user_data = {
@@ -386,8 +392,7 @@ class TestList(TestEvents):
         self.assertEqual(len(aaData_items), 2)
         self.assertFirstCellEqual(
             aaData_items,
-            u'<a data-toggle="modal" data-target="#events-modal" '
-            u'href="/events/edit/1/">Un événement</a>')
+            u'<a href="/events/edit/1/">Un événement</a>')
 
     def test_datatable_all_event_list_with_provider(self):
         response_mock = self.requests_mock.get.return_value
