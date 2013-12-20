@@ -328,5 +328,4 @@ class TestList(TestEvents):
         self.assertEqual(len(aaData_items), 2)
         self.assertFirstCellEqual(
             aaData_items,
-            u'<a data-toggle="modal" data-target="#events-modal" '
-            u'href="/events/edit/1/">Un événement</a>')
+            u'<a href="/events/edit/1/">Un événement</a>')
