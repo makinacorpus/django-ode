@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import json
 
 from django.conf import settings
 from django.test import TestCase
@@ -70,13 +71,19 @@ class TestImports(LoginTestMixin, PatchMixin, TestCase):
         self.login_as_provider()
         with open('frontend/tests/resources/events.json', 'rb') as fp:
             self.client.post('/imports/file/', {'events_file': fp})
-            self.requests_mock.request.assert_called_with(
-                "POST",
-                settings.EVENTS_ENDPOINT,
-                data=events_json_data_sent,
-                headers={'X-ODE-Provider-Id': self.user.pk,
-                         'Content-Type': 'application/vnd.collection+json',
-                         'Accept-Language': 'fr'}
+            args, kwargs = self.requests_mock.request.call_args
+            self.assertEqual(args, ("POST", settings.EVENTS_ENDPOINT,))
+            self.assertIn('headers', kwargs.keys())
+            self.assertDictEqual(
+                kwargs['headers'],
+                {'X-ODE-Provider-Id': self.user.pk,
+                 'Content-Type': 'application/vnd.collection+json',
+                 'Accept-Language': 'fr'}
+                )
+            self.assertIn('data', kwargs.keys())
+            self.assertDictEqual(
+                json.loads(kwargs['data']),
+                json.loads(events_json_data_sent)
                 )
 
     def test_import_file_csv(self):
