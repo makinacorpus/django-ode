@@ -23,7 +23,7 @@ def convert_iso_to_listing_date(iso_date):
     # Result would be "Le 16/01/2012 à 19h00"
     dt = isodate.parse_datetime(iso_date)
     format_string = ugettext(u"Le %d/%m/%Y à %Hh%M")
-    return dt.strftime(format_string)
+    return dt.strftime(format_string.encode('utf8'))
 
 
 class EventView(LoginRequiredMixin, View):
