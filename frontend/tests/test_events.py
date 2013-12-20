@@ -19,6 +19,53 @@ class TestEvents(LoginTestMixin, PatchMixin, TestCase):
         self.requests_mock = self.patch('frontend.api_client.requests')
 
 
+class TestEvent(TestEvents):
+
+    def setup_response(self):
+        response_mock = self.requests_mock.get.return_value
+        start_t = "2013-02-02T09:00"
+        end_t = "2013-02-04T19:00"
+        response_mock.json.return_value = {
+            "collection": {
+                "items": [{
+                    "data": [
+                        {'name': "id", 'value': 1},
+                        {'name': "title", 'value': u"Un événement"},
+                        {'name': "description", 'value': u"Description 1"},
+                        {'name': "start_time", 'value': start_t},
+                        {'name': "end_time", 'value': end_t},
+                    ],
+                }],
+                "total_count": 1,
+                "current_count": 1
+            }
+        }
+
+    def test_view_valid_event(self):
+        self.setup_response()
+        response = self.client.get('/events/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, u"Un événement")
+        self.assertContains(response, u"Description 1")
+        self.assertContains(response, u"Le 02/02/2013 à 09h00")
+        self.assertContains(response, u"Le 04/02/2013 à 19h00")
+        self.assertNotContains(response, u"Médias")
+        self.assertNotContains(response, u"Billeterie")
+        self.assertNotContains(response, u"Lieu")
+        self.assertNotContains(response, u"Tags")
+        self.assertNotContains(response, u"Catégories")
+
+    def test_view_invalid_event(self):
+        response_mock = self.requests_mock.get.return_value
+        response_mock.json.return_value = {
+            "errors": [{u'description': u'Not found'}],
+            u'status': 404
+        }
+        response = self.client.get('/events/123456/')
+        self.assertContains(response,
+                            u"L'événement correspondant n'a pas été trouvé.")
+
+
 class TestCreate(TestEvents):
 
     def test_anonymous_cannot_access_creation_form(self):

@@ -1,0 +1,11 @@
+{% extends request.is_ajax|yesno:"ajax_modal.html,layout.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block head_title %}{% trans 'Événement non trouvé' %}{% endblock %}
+
+{% block content %}
+{% trans "L'événement correspondant n'a pas été trouvé." %}
+{% endblock %}

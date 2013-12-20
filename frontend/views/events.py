@@ -47,6 +47,8 @@ class EventView(LoginRequiredMixin, View):
         api = APIClient(settings.EVENTS_ENDPOINT)
         event_id = kwargs.get('id')
         response = api.get(request.user.id, object_id=event_id)
+        if 'errors' in response.keys() and response['status'] == 404:
+            return render(request, 'event_not_found.html')
         event_data = response['collection']['items'][0]['data']
         context = {'event': self.prepare_data(event_data)}
         return render(request, 'event.html', context)
