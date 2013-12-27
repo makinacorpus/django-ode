@@ -274,8 +274,8 @@
 	  <label class="control-label" for="media_photo_license2">{% trans 'Licence' %}</label>
 	  <div class="controls">
 	    <select class="form-control" id="media_photo_license2" name="media_photo_license2">
-	      <option value="CC BY" {% if input and input.media_photo_license == 'CC BY' %} selected="selected"{% endif %}>CC BY</option>
-	      <option value="unknown" {% if input and input.media_photo_license == 'unknown' %} selected="selected"{% endif %}>{% trans 'Inconnu' %}</option>
+	      <option value="CC BY" {% if input and input.media_photo_license2 == 'CC BY' %} selected="selected"{% endif %}>CC BY</option>
+	      <option value="unknown" {% if input and input.media_photo_license2 == 'unknown' %} selected="selected"{% endif %}>{% trans 'Inconnu' %}</option>
 	    </select>
             {% if errors.media_photo_license %}
             <span class="help-block">{{ errors.media_photo_license }}</span>

@@ -143,6 +143,25 @@ class Form(APIForm):
         return ('publication_start' in data_dict
                 and 'publication_end' in data_dict)
 
+    def prepare_fields_media(self, data_dict):
+        if 'images' in data_dict.keys():
+            data_dict['media_photo'] = data_dict['images'][0]['url']
+            data_dict['media_photo_license'] = \
+                data_dict['images'][0]['license']
+            if len(data_dict['images']) >= 2:
+                data_dict['media_photo2'] = data_dict['images'][1]['url']
+                data_dict['media_photo_license2'] = \
+                    data_dict['images'][1]['license']
+        if 'videos' in data_dict.keys():
+            data_dict['media_video'] = data_dict['videos'][0]['url']
+            data_dict['media_video_license'] = \
+                data_dict['videos'][0]['license']
+        if 'sounds' in data_dict.keys():
+            data_dict['media_audio'] = data_dict['sounds'][0]['url']
+            data_dict['media_audio_license'] = \
+                data_dict['sounds'][0]['license']
+        return data_dict
+
     def prepare_fields_content(self, data_list):
         data_dict = data_list_to_dict(data_list)
         for key in ('tags', 'categories'):
@@ -152,6 +171,7 @@ class Form(APIForm):
         if self.has_publication_dates(data_dict):
             data_dict['daterange_publication'] = self.format_daterange(
                 data_dict['publication_start'], data_dict['publication_end'])
+        data_dict = self.prepare_fields_media(data_dict)
         return data_dict
 
     def success(self, request, response_data, do_render=False, object_id=None):
