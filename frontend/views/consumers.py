@@ -1,7 +1,10 @@
 # -*- encoding: utf-8 -*-
+import csv
+from StringIO import StringIO
 
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, View
 
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 
@@ -21,6 +24,34 @@ class ConsumerListView(LoginRequiredMixin, TemplateView):
         context['column_labels'] = self.column_labels
 
         return context
+
+
+class ConsumerExportView(LoginRequiredMixin, View):
+    fieldnames = ['name', 'activity_field', 'type', 'address', 'post_code',
+                  'town', 'url', 'is_media', 'media_url', 'is_website',
+                  'website_url', 'is_mobile_app', 'mobile_app_name',
+                  'is_other', 'other_details']
+
+    def get_consumer_data(self, consumer):
+        data = {}
+        for fieldname in self.fieldnames:
+            data[fieldname] = getattr(consumer, fieldname)
+        return data
+
+    def get_csv_from_data(self, consumers):
+        output = StringIO()
+        writer = csv.DictWriter(output, fieldnames=self.fieldnames)
+        writer.writeheader()
+        for consumer in consumers:
+            writer.writerow(self.get_consumer_data(consumer))
+        return output.getvalue()
+
+    def get(self, *args, **kwargs):
+        consumers = Organization.objects.filter(is_consumer=True)
+        response_csv = self.get_csv_from_data(consumers)
+        response = HttpResponse(response_csv, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=events.csv'
+        return response
 
 
 class ConsumerJsonListView(LoginRequiredMixin, BaseDatatableView):

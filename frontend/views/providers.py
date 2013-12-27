@@ -1,8 +1,11 @@
 # -*- encoding: utf-8 -*-
+import csv
+from StringIO import StringIO
 
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import string_concat
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, View
 
 from django_custom_datatables_view.base_datatable_view import BaseDatatableView
 
@@ -22,6 +25,32 @@ class ProviderListView(LoginRequiredMixin, TemplateView):
         context['column_labels'] = self.column_labels
 
         return context
+
+
+class ProviderExportView(LoginRequiredMixin, View):
+    fieldnames = ['name', 'activity_field', 'type', 'address', 'post_code',
+                  'town', 'url', 'is_host', 'is_creator', 'is_performer']
+
+    def get_provider_data(self, provider):
+        data = {}
+        for fieldname in self.fieldnames:
+            data[fieldname] = getattr(provider, fieldname)
+        return data
+
+    def get_csv_from_data(self, providers):
+        output = StringIO()
+        writer = csv.DictWriter(output, fieldnames=self.fieldnames)
+        writer.writeheader()
+        for provider in providers:
+            writer.writerow(self.get_provider_data(provider))
+        return output.getvalue()
+
+    def get(self, *args, **kwargs):
+        providers = Organization.objects.filter(is_provider=True)
+        response_csv = self.get_csv_from_data(providers)
+        response = HttpResponse(response_csv, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=events.csv'
+        return response
 
 
 class ProviderJsonListView(LoginRequiredMixin, BaseDatatableView):
