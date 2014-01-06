@@ -54,7 +54,7 @@ class EventView(LoginRequiredMixin, View):
 
 class EventListingFieldsMixin(object):
 
-    column_labels = [_('Titre'), _('Début'), _('Fin'), _('Structure')]
+    column_labels = [_(u'Titre'), _(u'Début'), _(u'Fin'), _(u'Structure')]
     # These fields are ODE API fields returned for each source record
     api_columns = ['title', 'start_time', 'end_time', 'provider_id', 'id']
 
@@ -63,8 +63,8 @@ class EventListingFieldsMixin(object):
 
 class EventListingUserFieldsMixin(EventListingFieldsMixin):
 
-    column_labels = [_('Titre'), _('Début'), _('Fin'), _('Publication'),
-                     _('Expiration'), _('Suppression')]
+    column_labels = [_(u'Titre'), _(u'Début'), _(u'Fin'), _(u'Publication'),
+                     _(u'Expiration'), _(u'Suppression')]
     # These fields are ODE API fields returned for each source record
     api_columns = ['title', 'start_time', 'end_time', 'publication_start',
                    'publication_end', 'id']
