@@ -1,6 +1,10 @@
 # -*- encoding: utf-8 -*-
 import csv
-from StringIO import StringIO
+import six
+if six.PY2:
+    from StringIO import StringIO
+else:
+    from io import StringIO
 
 from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
