@@ -54,8 +54,7 @@ class EventView(LoginRequiredMixin, View):
 
 class EventListingFieldsMixin(object):
 
-    column_labels = [_('Title'), _('Start Date'), _('End Date'),
-                     _('Organization')]
+    column_labels = [_('Titre'), _('Début'), _('Fin'), _('Structure')]
     # These fields are ODE API fields returned for each source record
     api_columns = ['title', 'start_time', 'end_time', 'provider_id', 'id']
 
@@ -64,9 +63,8 @@ class EventListingFieldsMixin(object):
 
 class EventListingUserFieldsMixin(EventListingFieldsMixin):
 
-    column_labels = [_('Title'), _('Start Date'), _('End Date'),
-                     _('Publication Start'), _('Publication End'),
-                     _('Suppression')]
+    column_labels = [_('Titre'), _('Début'), _('Fin'), _('Publication'),
+                     _('Expiration'), _('Suppression')]
     # These fields are ODE API fields returned for each source record
     api_columns = ['title', 'start_time', 'end_time', 'publication_start',
                    'publication_end', 'id']
@@ -77,8 +75,8 @@ class Form(APIForm):
     template_name = 'event_form.html'
     list_template_name = 'event_list.html'
     endpoint = settings.EVENTS_ENDPOINT
-    success_message = u"L'événement a été enregistré avec succès"
-    error_message = u"L'événement n'a pas pu être enregistré"
+    success_message = _(u"L'événement a été enregistré avec succès")
+    error_message = _(u"L'événement n'a pas pu être enregistré")
 
     def add_context(self, *args, **kwargs):
         context = {}
