@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import requests
 import json
 from django.conf import settings
@@ -68,12 +69,15 @@ class APIClient(object):
                 'Accept-Language': settings.LANGUAGE_CODE,
             })
         if response.status_code == 403:
+            message = _(u"Vous n'avez pas la permission de modifier un ou "
+                        u"plusieurs de ces événements.")
             return {
                 'status': 'error',
                 'errors': [
-                    {'name': 'events_file',
-                     'description': _(u'You do not have permission to edit '
-                                      u'these events.')}
-                    ]
-                }
+                    {
+                        'name': 'events_file',
+                        'description': message,
+                    }
+                ]
+            }
         return response.json()
