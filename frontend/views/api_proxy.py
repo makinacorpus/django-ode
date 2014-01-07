@@ -14,6 +14,15 @@ from rest_framework.permissions import SAFE_METHODS
 from rest_framework.decorators import api_view
 from rest_framework.decorators import authentication_classes
 from rest_framework.decorators import permission_classes
+from rest_framework.decorators import renderer_classes
+from rest_framework.renderers import BaseRenderer
+
+
+class GenericRenderer(BaseRenderer):
+    media_type = '*/*'
+
+    def render(self, data, media_type=None, renderer_context=None):
+        return data
 
 
 class IsProviderOrReadOnly(BasePermission):
@@ -28,6 +37,7 @@ class IsProviderOrReadOnly(BasePermission):
 @api_view(['GET', 'POST', 'PUT', 'DELETE', 'HEAD'])
 @authentication_classes((TokenAuthentication, SessionAuthentication, ))
 @permission_classes((IsAuthenticated, IsProviderOrReadOnly))
+@renderer_classes((GenericRenderer, ))
 def proxy_view(request, path):
     """
     Adapted from https://github.com/mjumbewu/django-proxy

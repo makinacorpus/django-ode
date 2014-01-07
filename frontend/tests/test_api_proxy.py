@@ -101,3 +101,26 @@ class TestApiProxy(PatchMixin, TestCase):
             response = self.make_authenticated_request(
                 'post', token, data=data, content_type='application/json')
             self.assertEqual(response.status_code, 403)
+
+    def _test_accept_header(self, accept_header):
+        user, token = self.make_user_with_token(ProviderUserFactory)
+        response = self.make_authenticated_request('get',
+                                                   token,
+                                                   HTTP_ACCEPT='text/csv')
+        self.assertEqual(response.status_code, 200)
+        self.requests_mock.request.assert_called_with(
+            'GET', self.target_url, headers={
+                'X-ODE-Provider-Id': user.pk,
+                'X-ODE-API-Mount-Point': 'http://testserver/api',
+                'ACCEPT': 'text/csv',
+            }
+        )
+
+    def test_csv(self):
+        self._test_accept_header('text/csv')
+
+    def test_calendar(self):
+        self._test_accept_header('text/calendar')
+
+    def test_collection_json(self):
+        self._test_accept_header('application/vnd.collection+json')
