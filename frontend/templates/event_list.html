@@ -44,6 +44,9 @@
   <a href="{% url 'events_delete_rows' %}"
     class="btn btn-default datatable-delete-rows"
     data-source="#events-listing">{% trans "Supprimer" %}</a>
+  <a href="{% url 'events_duplicate_rows' %}"
+    class="btn btn-default datatable-duplicate-rows"
+    data-source="#events-listing">{% trans "Dupliquer" %}</a>
 </div>
 {% endif %}
 

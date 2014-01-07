@@ -57,7 +57,7 @@ class SourceDeleteRowsView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
 
-        ids_to_delete = request.POST.getlist('id_to_delete')
+        ids_to_delete = request.POST.getlist('ids')
 
         self.api = APIClient(settings.SOURCES_ENDPOINT)
         for id_to_delete in ids_to_delete:

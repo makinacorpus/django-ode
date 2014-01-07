@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.utils.encoding import force_text
 
 from .support import PatchMixin
+from frontend.views.base import data_list_to_dict
 from accounts.tests.base import LoginTestMixin
 from accounts.tests.test_factory import (
     ProviderUserFactory,
@@ -252,7 +253,7 @@ class TestDelete(TestEvents):
         response_mock = self.requests_mock.delete.return_value
         response_mock.status_code = 404
 
-        sample_data = {'id_to_delete': ['123']}
+        sample_data = {'ids': ['123']}
         response = self.client.post('/events/delete_rows/', sample_data,
                                     follow=True)
         headers = {
@@ -280,7 +281,7 @@ class TestDelete(TestEvents):
         response_mock = self.requests_mock.delete.return_value
         response_mock.status_code = 204
 
-        sample_data = {'id_to_delete': ['1']}
+        sample_data = {'ids': ['1']}
         response = self.client.post('/events/delete_rows/', sample_data,
                                     follow=True)
         headers = {
@@ -292,6 +293,55 @@ class TestDelete(TestEvents):
         self.assertEqual(self.requests_mock.delete.call_args_list, expected)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Done')
+
+
+class TestDuplicate(TestEvents):
+    event_data = [
+        {'name': "title", 'value': u"Un événement"},
+        {'name': "description", 'value': u"Description 1"},
+        {'name': "start_time", 'value': "2013-02-02T09:00"},
+        {'name': "end_time", 'value': "2013-02-04T19:00"},
+    ]
+
+    def setup_get_response(self, event_ids):
+        response_mock = self.requests_mock.get.return_value
+        response_mock.json.side_effect = [
+            {
+                "collection": {
+                    "items": [{
+                        "data": [
+                            {'name': "id",
+                             'value': event_id}
+                        ] + self.event_data,
+                    }],
+                    "total_count": 1,
+                    "current_count": 1
+                }
+            }
+            for event_id in event_ids
+        ]
+
+    def assert_get_from_api(self, event_id):
+        event_url = u"{}/{}".format(self.end_point, event_id)
+        self.requests_mock.get.assert_any_call(
+            event_url,
+            headers={
+                'X-ODE-Provider-Id': self.user.id,
+                'Accept': 'application/vnd.collection+json',
+            })
+
+    def test_duplicate_valid_event(self):
+        event_ids = [1, 2]
+        self.setup_get_response(event_ids)
+
+        response = self.client.post('/events/duplicate_rows/',
+                                    {'ids': event_ids},
+                                    follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assert_get_from_api(event_id=1)
+        self.assert_get_from_api(event_id=2)
+        self.assert_post_to_api(data_list_to_dict(self.event_data))
+        self.assert_post_to_api(data_list_to_dict(self.event_data))
 
 
 class TestList(TestEvents):
@@ -339,9 +389,12 @@ class TestList(TestEvents):
         self.assertIn('aaData', response_json.keys())
         return response_json['aaData']
 
-    def assertFirstCellEqual(self, aaData_items, expected):
-        first_cell = aaData_items[0][0]
-        self.assertEqual(first_cell, expected)
+    def assertFirstCellEqual(self, items, expected):
+        self.assertCellEqual(items, 0, expected)
+
+    def assertCellEqual(self, items, index, expected):
+        last_cell = items[0][index]
+        self.assertEqual(last_cell, expected)
 
     def test_event_list(self):
         response = self.client.get('/events/')
@@ -412,6 +465,16 @@ class TestList(TestEvents):
         self.assertFirstCellEqual(
             aaData_items,
             u'<a href="/events/edit/1/">Un événement</a>')
+        self.assertCellEqual(
+            aaData_items,
+            5,
+            u'<input type="checkbox" class="datatable-delete"'
+            u' data-id="1">')
+        self.assertCellEqual(
+            aaData_items,
+            6,
+            u'<input type="checkbox" class="datatable-duplicate"'
+            u' data-id="1">')
 
     def test_datatable_all_event_list_with_provider(self):
         response_mock = self.requests_mock.get.return_value

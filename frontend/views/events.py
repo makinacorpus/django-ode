@@ -64,10 +64,10 @@ class EventListingFieldsMixin(object):
 class EventListingUserFieldsMixin(EventListingFieldsMixin):
 
     column_labels = [_(u'Titre'), _(u'Début'), _(u'Fin'), _(u'Publication'),
-                     _(u'Expiration'), _(u'Suppression')]
+                     _(u'Expiration'), _(u'Suppression'), _(u'Duplication')]
     # These fields are ODE API fields returned for each source record
     api_columns = ['title', 'start_time', 'end_time', 'publication_start',
-                   'publication_end', 'id']
+                   'publication_end', 'id', 'id']
 
 
 class Form(APIForm):
@@ -263,14 +263,14 @@ class EventJsonListUserView(EventListingUserFieldsMixin, EventJsonListView):
     def prepare_results(self, api_data):
         api_data = super(EventJsonListUserView, self).prepare_results(api_data)
         delete_index = self.get_index_for('id')
+        duplicate_index = delete_index + 1
         for data in api_data:
             for i, field in enumerate(data):
+                raw_data = data[i]
                 if i == delete_index:
-                    raw_data = data[i]
-                    data[i] = '<input type="checkbox"'
-                    data[i] += ' class="datatable-delete"'
-                    data[i] += ' data-id="' + str(raw_data) + '"'
-                    data[i] += '>'
+                    data[i] = html.checkbox('datatable-delete', raw_data)
+                elif i == duplicate_index:
+                    data[i] = html.checkbox('datatable-duplicate', raw_data)
         return api_data
 
     def get_api_values(self, **kwargs):
@@ -282,7 +282,7 @@ class EventsDeleteRowsView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
 
-        ids_to_delete = request.POST.getlist('id_to_delete')
+        ids_to_delete = request.POST.getlist('ids')
 
         self.api = APIClient(settings.EVENTS_ENDPOINT)
         for id_to_delete in ids_to_delete:
@@ -293,4 +293,21 @@ class EventsDeleteRowsView(LoginRequiredMixin, View):
             if response.status_code != no_content:
                 return HttpResponseServerError()
 
+        return HttpResponse("Done")
+
+
+class EventsDuplicateRowsView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+
+        event_ids = request.POST.getlist('ids')
+
+        self.api = APIClient(settings.EVENTS_ENDPOINT)
+        for event_id in event_ids:
+            response = self.api.get(request.user.id, object_id=event_id)
+            event_data = response['collection']['items'][0]['data']
+            event_data = [field for field in event_data
+                          if field['name'] != 'id']
+            post_data = {'template': {'data': event_data}}
+            response = self.api.post(post_data, request.user.id)
         return HttpResponse("Done")

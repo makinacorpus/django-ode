@@ -97,7 +97,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         response_mock.status_code = 404
 
         sample_data = {
-            'id_to_delete': ['123456'],
+            'ids': ['123456'],
         }
 
         response = self.client.post('/sources/delete_rows/', sample_data,
@@ -130,7 +130,7 @@ class TestSources(LoginTestMixin, PatchMixin, TestCase):
         response_mock.status_code = 204
 
         sample_data = {
-            'id_to_delete': ['1', '2'],
+            'ids': ['1', '2'],
         }
 
         response = self.client.post('/sources/delete_rows/', sample_data,

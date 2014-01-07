@@ -21,6 +21,8 @@ urlpatterns = patterns(
         name='event_json_list_user'),
     url(r'^events/delete_rows/$', events.EventsDeleteRowsView.as_view(),
         name='events_delete_rows'),
+    url(r'^events/duplicate_rows/$', events.EventsDuplicateRowsView.as_view(),
+        name='events_duplicate_rows'),
     url(r'^events/(?P<id>.+)/$', events.EventView.as_view(), name='event'),
 
     url(r'^provider_list/$', providers.ProviderListView.as_view(),
