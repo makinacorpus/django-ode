@@ -25,7 +25,7 @@ class IsProviderOrReadOnly(BasePermission):
             return request.user.organization.is_provider
 
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE', 'HEAD'])
 @authentication_classes((TokenAuthentication, SessionAuthentication, ))
 @permission_classes((IsAuthenticated, IsProviderOrReadOnly))
 def proxy_view(request, path):

@@ -2,55 +2,87 @@
 {% load i18n %}
 
 {% block content %}
+<div id="webservices">
 
-<h1>{% trans "Webservices" %}</h1>
+    <h1>{% trans "Webservices" %}</h1>
 
-<h2>{% trans "Présentation générale" %}</h2>
-<p>
-L'API du projet ODE autorise les utilisateurs à interagir avec 2 types de données : les événements et les sources. Les sources sont uniquement des URL pointant vers des flux d'événements (au format iCalendar ou json) qui sont lus périodiquement afin de mettre à jour la base de donnée ODE.
-</p>
-<p>
-L'API ODE est basée sur le concept de <a href="http://amundsen.com/media-types/collection/">Collection+JSON</a>, un type de format json orienté vers la lecture/écriture d'hypermédias et pensé pour faciliter la gestion et le requêtage de listes de données. Les événements peuvent aussi être exportés/importés aux formats <a href="https://tools.ietf.org/html/rfc5545">iCalendar</a> et csv. Ce format Collection+JSON n'est toutefois pas utilisé pour les rapports d'erreurs car il n'est pas suffisamment flexible pour nos besoins. Les erreurs sont au format <a href="https://cornice.readthedocs.org/en/latest/validation.html?highlight=error#dealing-with-errors">Cornice</a>.
-</p>
+    <h2>{% trans "Présentation générale" %}</h2>
+    <p>
+    L'API du projet ODE autorise les utilisateurs à interagir avec 2 types de données : les événements et les sources. Les sources sont uniquement des URL pointant vers des flux d'événements (au format iCalendar ou json) qui sont lus périodiquement afin de mettre à jour la base de donnée ODE.
+    </p>
+    <p>
+    L'API ODE est basée sur le concept de <a href="http://amundsen.com/media-types/collection/">Collection+JSON</a>, un type de format json orienté vers la lecture/écriture d'hypermédias et pensé pour faciliter la gestion et le requêtage de listes de données. Les événements peuvent aussi être exportés/importés aux formats <a href="https://tools.ietf.org/html/rfc5545">iCalendar</a> et csv. Ce format Collection+JSON n'est toutefois pas utilisé pour les rapports d'erreurs car il n'est pas suffisamment flexible pour nos besoins. Les erreurs sont au format <a href="https://cornice.readthedocs.org/en/latest/validation.html?highlight=error#dealing-with-errors">Cornice</a>.
+    </p>
 
-<h2>{% trans "Authentification" %}</h2>
-<p>
-{% blocktrans %}
-Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos requêtes
-à l'aide de l'entête HTTP<code>Authorization</code>.
-{% endblocktrans %}
-</p>
-<div class="panel panel-default">
-  <div class="panel-heading">{% trans 'Votre clé' %}</div>
-  <div class="panel-body">
-    {{ key }}
-  </div>
+    <h2>{% trans "API RESTful" %}</h2>
+    <p>Le format Collection+JSON et l'API ODE sont conformes aux standards REST:</p>
+    <ul>
+        <li><span class="restful">POST</span> pour ajouter de nouvelles données (exemples),</li>
+        <li><span class="restful">PUT</span> pour mettre à jour une donnée existante (exemples),</li>
+        <li><span class="restful">GET</span> pour récupérer une <a href="#list-example">liste de données</a> ou une donnée spécifique (exemples),</li>
+        <li><span class="restful">DELETE</span> pour supprimer une donnée (exemples),</li>
+        <li>l'entête HTTP <span class="restful">Accept</span> pour préciser le format que l'on souhaite récupérer, par exemple <code>Accept: text/calendar</code> pour récupérer des données au format iCalendar,</li>
+        <li>l'entête HTTP <span class="restful">Content-Type</span> pour préciser le format fourni, par exemple <code>Content-Type: text/csv</code> pour informer le serveur que des données au format csv lui sont envoyées.</li>
+    </ul>
+
+    <h2>{% trans "Authentification" %}</h2>
+    <p>
+    {% blocktrans %}
+    Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos requêtes
+    à l'aide de l'entête HTTP<code>Authorization</code>.
+    {% endblocktrans %}
+    </p>
+    <div class="panel panel-default">
+      <div class="panel-heading">{% trans 'Votre clé' %}</div>
+      <div class="panel-body">
+        Token {{ key }}
+      </div>
+    </div>
+    <p>{% trans "Pour tester que vous pouvez bien vous connecter à l'API, exécutez la ligne de commande suivante :" %}</p>
+    <pre>curl -I --header "Authorization: Token {{ key }}" {{ events_url }}</pre>
+    <p>{% trans "Si la première ligne contient <code>200 OK</code>, tout s'est bien passé ! Si c'est plutôt <code>401 UNAUTHORIZED</code>, cela signifie que vous n'êtes pas autorisé à consulter l'API. Vérifiez vos entêtes HTTP et la valeur du jeton." %}</p>
+
+    <h2>{% trans "URLs accessibles" %}</h2>
+    <p>
+    {% trans "Les URLs pour accéder aux données sont les suivantes:" %}
+    </p>
+    <table class="table">
+      <thead>
+       <tr>
+        <th>{% trans "Ressource" %}</th>
+        <th>{% trans "Description" %}</th>
+       </tr>
+      </thead>
+      <tbody>
+          <tr id="list-example">
+            <td><span class="http-method">GET</span>{{ events_url }}</td>
+            <td>{% trans "Permet de récupérer tous les événements" %}</td>
+          </tr>
+          <tr>
+            <td><span class="http-method">GET</span>{{ sources_url }}</td>
+            <td>{% trans "Permet de récupérer toutes les sources d'événements" %}</td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>{% trans "Paramètres GET pour les Collections" %}</h2>
+    <p>{% trans "Les requêtes sur les collections acceptent les paramètres GET suivants :" %}</p>
+    <ul>
+        <li>{% trans "limit: nombre maximum d'objets retournés," %}</li>
+        <li>{% trans "offset: numéro du premier objet souhaité," %}</li>
+        <li>{% trans "sort_by: champ par lequel la collection va être triée," %}</li>
+        <li>{% trans "sort_direction: sens du tri (asc: ordre croissant, desc: ordre décroissant), par défaut croissant," %}</li>
+        <li>{% trans "provider_id: ne renvoie que les données liées au fournisseur dont l'id est fournie" %}</li>
+    </ul>
+
+    <p>Par exemple, si vous voulez récupérer les événements 20 à 30 triés par date de début en ordre décroissant, voici l'URL correspondante :</p>
+    <pre>{{ events_url }}/v1/events?offset=20&limit=10&sort_by=start_time&sort_direction=desc</pre>
+
+    <h2>{% trans "Plus d'informations" %}</h2>
+    Voir <a href="https://ode.readthedocs.org/">la documentation</a> pour plus d'informations.
+
+
+
 </div>
-
-<h2>{% trans "URLs accessibles" %}</h2>
-<p>
-{% trans "Les URLs pour accéder aux données sont les suivantes:" %}
-</p>
-<table class="table">
-  <thead>
-   <tr>
-    <th>{% trans "Ressource" %}</th>
-    <th>{% trans "Description" %}</th>
-   </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><span class="http-method">GET</span>{{ events_url }}</td>
-        <td>{% trans "Permet de récupérer tous les événements" %}</td>
-      </tr>
-      <tr>
-        <td><span class="http-method">GET</span>{{ sources_url }}</td>
-        <td>{% trans "Permet de récupérer toutes les sources d'événements" %}</td>
-      </tr>
-  </tbody>  
-</table>
-
-<h2>{% trans "Plus d'informations" %}</h2>
-Voir <a href="https://ode.readthedocs.org/">la documentation</a> pour plus d'informations.
 
 {% endblock %}
