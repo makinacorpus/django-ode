@@ -46,141 +46,153 @@
     <p>
     {% trans "Les URLs pour accéder aux données sont les suivantes:" %}
     </p>
-    <table class="table">
+    <table id="table-api" class="table table-hover">
       <thead>
        <tr>
         <th>{% trans "Méthode" %}</th>
         <th>{% trans "Ressource" %}</th>
-        <th>{% trans "Accepte*" %}</th>
-        <th>{% trans "Réponse" %}</th>
         <th>{% trans "Description" %}</th>
        </tr>
       </thead>
       <tbody>
-          <tr id="list-example">
+          <tr onclick="document.location='#get-events'">
             <td>GET</td>
             <td>{{ events_url }}</td>
-            <td>
-                <table>
-                    <tr>
-                        <td>application/vnd.collection+json</td>
-                    </tr>
-                    <tr>
-                        <td>text/csv</td>
-                    </tr>
-                    <tr>
-                        <td>text/calendar</td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <table>
-                    <tr>
-                        <td>json</td>
-                    </tr>
-                    <tr>
-                        <td>csv</td>
-                    </tr>
-                    <tr>
-                        <td>ical</td>
-                    </tr>
-                </table>
-            </td>
             <td>{% trans "Permet de récupérer tous les événements" %}</td>
           </tr>
 
           <tr>
             <td>POST</td>
             <td>{{ events_url }}</td>
-            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
-            <td>json</td>
-            <td>{% trans "Permet de créer plusieurs événements" %}</td>
+            <td>{% trans "Permet de créer un ou plusieurs événements" %}</td>
           </tr>
 
           <tr>
             <td>GET</td>
             <td>{{ events_url }}/{id}</td>
-            <td>    
-                <table>
-                    <tr>
-                        <td>application/vnd.collection+json</td>
-                    </tr>
-                    <tr>
-                        <td>text/calendar</td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <table>
-                    <tr>
-                        <td>json</td>
-                    </tr>
-                    <tr>
-                        <td>ical</td>
-                    </tr>
-                </table>
-            </td>
             <td>{% trans "Permet de récupérer un événement par son {id}" %}</td>
           </tr>
 
           <tr>
             <td>PUT</td>
             <td>{{ events_url }}/{id}</td>
-            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
-            <td>json</td>
             <td>{% trans "Permet de mettre à jour un événement par son {id}" %}</td>
           </tr>
 
           <tr>
             <td>DELETE</td>
             <td>{{ events_url }}/{id}</td>
-            <td></td>
-            <td>no content</td>
             <td>{% trans "Permet de supprimer l'événement {id}" %}</td>
           </tr>                  
 
           <tr>
             <td>GET</td>
             <td>{{ sources_url }}</td>
-            <td></td>
-            <td>json</td>
             <td>{% trans "Permet de récupérer toutes les sources d'événements" %}</td>
           </tr>
 
           <tr>
             <td>POST</td>
             <td>{{ sources_url }}</td>
-            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
-            <td>json</td>
             <td>{% trans "Permet de récupérer toutes les sources d'événements" %}</td>
           </tr>
 
           <tr>
             <td>GET</td>
             <td>{{ sources_url }}/{id}</td>
-            <td></td>
-            <td>json</td>
             <td>{% trans "Permet de récupérer une source par son {id}" %}</td>
           </tr>
 
           <tr>
             <td>PUT</td>
             <td>{{ sources_url }}/{id}</td>
-            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
-            <td>json</td>
             <td>{% trans "Permet de mettre à jour une source par son {id}" %}</td>
           </tr>
 
           <tr>
             <td>DELETE</td>
             <td>{{ sources_url }}/{id}</td>
-            <td></td>
-            <td>no content</td>
             <td>{% trans "Permet de supprimer la source {id}" %}</td>
           </tr>   
-
       </tbody>
     </table>
+
+    <div id="get-events" class="api-entry">
+        <div class="api-entry-title">
+            <h3>{% trans "Récupérer tous les événements" %}</h3>
+        </div>
+        <div class="api-entry-resource">
+            <pre>{{ events_url }}</pre>
+        </div>
+        <div class="api-entry-description">
+            <p>{% trans "Il est possible de récupérer les événements selon plusieurs formats différents. Pour spécifier le format souhaité, il suffit de préciser dans votre requête HTTP le paramètre <strong>Accept</strong> correspondant." %}.</p>
+            <p>{% trans "Si aucun <strong>Accept</strong> n'est défini, l'API renverra du json." %}</p>
+        </div>
+
+        <div class="api-entry-type">
+            <h4>JSON</h4>
+        
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: application/vnd.collection+json"</span></p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+
+                <p>Ce json, au format Collection+JSON, ressemblera à:</p>
+<pre>
+{"collection":
+  {"href": "http://localhost:8000/api/v1/events",
+   "items": [
+      {"href": "http://localhost:8000/api/v1/events/e835ab8248dac8a17b26267c52172786d2eae46d",
+       "data": [
+          {"name": "id", "value": "e835ab8248dac8a17b26267c52172786d2eae46d"},
+          {"name": "description", "value": "Globalisation of Legal Practice And Education\n\nhttp://lanyrd.com/cqxxh"},
+          {"name": "title", "value": "CLE Paris Legal Conference"},
+          {"name": "url", "value": "http://lanyrd.com/2014/cle-paris-legal-conference/"},
+          {"name": "provider_id", "value": "1"},
+          {"name": "start_time", "value": "2014-01-09T00:00:00"},
+          {"name": "end_time", "value": "2014-01-14T00:00:00"},
+          {"name": "location_name", "value": "Hotel Le Meurice, 228 rue de Rivoli, Paris, France, 75001"},
+        ]
+      }, ...
+    ]
+  }
+}</pre>
+                <p>L'attribut <strong>collection</strong> contient une liste d'<strong>items</strong>, correspondant chacun à un événement. Notez la représentation particulière d'un élément, qui contient son lien direct dans l'api sous l'attribut <strong>href</strong>, ainsi que toutes ses données dans l'attribut <strong>data</strong>, stockées sous forme de paire <strong>name</strong>/<strong>value</strong>.</p>
+                <p>Cette représentation correspond à celle décrite dans le format <a href="http://amundsen.com/media-types/collection/examples/#ex-item">Collection+JSON</a>.</p>
+            </div>
+
+        <div class="api-entry-type">
+            <h4>CSV</h4>
+        
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: text/csv"</span></p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>Réponse:</strong> csv.</span></p>
+
+                <p>La donnée retournée sera au format standard csv.</p>
+            </div>
+        </div>
+
+        <div class="api-entry-type">
+            <h4>iCalendar</h4>
+        
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: text/calendar"</span></p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>Réponse:</strong> iCal.</span></p>
+
+                <p>La donnée retournée sera au format standard iCal.</p>
+            </div>
+        </div>
+    </div>
+
+
 
     <h2>{% trans "Paramètres GET pour les Collections" %}</h2>
     <p>{% trans "Les requêtes sur les collections acceptent les paramètres GET suivants :" %}</p>
