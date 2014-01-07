@@ -29,7 +29,7 @@
     <p>
     {% blocktrans %}
     Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos requêtes
-    à l'aide de l'entête HTTP<code>Authorization</code>.
+    à l'aide de l'entête HTTP <code>Authorization</code>.
     {% endblocktrans %}
     </p>
     <div class="panel panel-default">
@@ -49,19 +49,136 @@
     <table class="table">
       <thead>
        <tr>
+        <th>{% trans "Méthode" %}</th>
         <th>{% trans "Ressource" %}</th>
+        <th>{% trans "Accepte*" %}</th>
+        <th>{% trans "Réponse" %}</th>
         <th>{% trans "Description" %}</th>
        </tr>
       </thead>
       <tbody>
           <tr id="list-example">
-            <td><span class="http-method">GET</span>{{ events_url }}</td>
+            <td>GET</td>
+            <td>{{ events_url }}</td>
+            <td>
+                <table>
+                    <tr>
+                        <td>application/vnd.collection+json</td>
+                    </tr>
+                    <tr>
+                        <td>text/csv</td>
+                    </tr>
+                    <tr>
+                        <td>text/calendar</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>json</td>
+                    </tr>
+                    <tr>
+                        <td>csv</td>
+                    </tr>
+                    <tr>
+                        <td>ical</td>
+                    </tr>
+                </table>
+            </td>
             <td>{% trans "Permet de récupérer tous les événements" %}</td>
           </tr>
+
           <tr>
-            <td><span class="http-method">GET</span>{{ sources_url }}</td>
+            <td>POST</td>
+            <td>{{ events_url }}</td>
+            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
+            <td>json</td>
+            <td>{% trans "Permet de créer plusieurs événements" %}</td>
+          </tr>
+
+          <tr>
+            <td>GET</td>
+            <td>{{ events_url }}/{id}</td>
+            <td>    
+                <table>
+                    <tr>
+                        <td>application/vnd.collection+json</td>
+                    </tr>
+                    <tr>
+                        <td>text/calendar</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>json</td>
+                    </tr>
+                    <tr>
+                        <td>ical</td>
+                    </tr>
+                </table>
+            </td>
+            <td>{% trans "Permet de récupérer un événement par son {id}" %}</td>
+          </tr>
+
+          <tr>
+            <td>PUT</td>
+            <td>{{ events_url }}/{id}</td>
+            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
+            <td>json</td>
+            <td>{% trans "Permet de mettre à jour un événement par son {id}" %}</td>
+          </tr>
+
+          <tr>
+            <td>DELETE</td>
+            <td>{{ events_url }}/{id}</td>
+            <td></td>
+            <td>no content</td>
+            <td>{% trans "Permet de supprimer l'événement {id}" %}</td>
+          </tr>                  
+
+          <tr>
+            <td>GET</td>
+            <td>{{ sources_url }}</td>
+            <td></td>
+            <td>json</td>
             <td>{% trans "Permet de récupérer toutes les sources d'événements" %}</td>
           </tr>
+
+          <tr>
+            <td>POST</td>
+            <td>{{ sources_url }}</td>
+            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
+            <td>json</td>
+            <td>{% trans "Permet de récupérer toutes les sources d'événements" %}</td>
+          </tr>
+
+          <tr>
+            <td>GET</td>
+            <td>{{ sources_url }}/{id}</td>
+            <td></td>
+            <td>json</td>
+            <td>{% trans "Permet de récupérer une source par son {id}" %}</td>
+          </tr>
+
+          <tr>
+            <td>PUT</td>
+            <td>{{ sources_url }}/{id}</td>
+            <td>items: Sequence <span class="mandatory">(obligatoire)</span></td>
+            <td>json</td>
+            <td>{% trans "Permet de mettre à jour une source par son {id}" %}</td>
+          </tr>
+
+          <tr>
+            <td>DELETE</td>
+            <td>{{ sources_url }}/{id}</td>
+            <td></td>
+            <td>no content</td>
+            <td>{% trans "Permet de supprimer la source {id}" %}</td>
+          </tr>   
+
       </tbody>
     </table>
 
@@ -76,7 +193,7 @@
     </ul>
 
     <p>Par exemple, si vous voulez récupérer les événements 20 à 30 triés par date de début en ordre décroissant, voici l'URL correspondante :</p>
-    <pre>{{ events_url }}/v1/events?offset=20&limit=10&sort_by=start_time&sort_direction=desc</pre>
+    <pre>{{ events_url }}?offset=20&limit=10&sort_by=start_time&sort_direction=desc</pre>
 
     <h2>{% trans "Plus d'informations" %}</h2>
     Voir <a href="https://ode.readthedocs.org/">la documentation</a> pour plus d'informations.
