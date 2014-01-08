@@ -23,6 +23,7 @@ dev_requirements:
 	# Need to be sudo for Travis
 	sudo $(NPM) install
 	$(GRUNT)
+	test -e 'django_ode/settings/local.py' || echo 'from .base import *' > django_ode/settings/local.py
 
 requirements:
 	$(PIP) install -r requirements.txt
