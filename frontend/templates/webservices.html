@@ -141,20 +141,44 @@
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
 
                 <p>Ce json, au format Collection+JSON, ressemblera à:</p>
-<pre>
+<pre id="collectionjson-format">
 {"collection":
   {"href": "http://localhost:8000/api/v1/events",
    "items": [
       {"href": "http://localhost:8000/api/v1/events/e835ab8248dac8a17b26267c52172786d2eae46d",
        "data": [
-          {"name": "id", "value": "e835ab8248dac8a17b26267c52172786d2eae46d"},
-          {"name": "description", "value": "Globalisation of Legal Practice And Education\n\nhttp://lanyrd.com/cqxxh"},
-          {"name": "title", "value": "CLE Paris Legal Conference"},
-          {"name": "url", "value": "http://lanyrd.com/2014/cle-paris-legal-conference/"},
-          {"name": "provider_id", "value": "1"},
-          {"name": "start_time", "value": "2014-01-09T00:00:00"},
-          {"name": "end_time", "value": "2014-01-14T00:00:00"},
-          {"name": "location_name", "value": "Hotel Le Meurice, 228 rue de Rivoli, Paris, France, 75001"},
+        {"name": "id", "value": "990b8f2e784a11e39d31e8e0b7d17357@example.com"},
+        {"name": "email", "value": "admin@example.com"}, 
+        {"name": "description", "value": "Description"}, 
+        {"name": "language", "value": "fr"}, 
+        {"name": "organiser", "value": "ODE"}, 
+        {"name": "performers", "value": "Mr Patate, Mme Patate"}, 
+        {"name": "press_url", "value": "http://cp.com"}, 
+        {"name": "price_information", "value": "15\u20ac"}, 
+        {"name": "target", "value": "Adultes, enfants de + de 4ans"}, 
+        {"name": "title", "value": "\u00c9v\u00e9nement 1"}, 
+        {"name": "provider_id", "value": "1"}, 
+        {"name": "start_time", "value": "2014-01-08T00:00:00"}, 
+        {"name": "end_time", "value": "2014-01-12T00:00:00"}, 
+        {"name": "publication_start", "value": "2014-01-08T00:00:00"},
+        {"name": "publication_end", "value": "2014-01-31T00:00:00"}, 
+        {"name": "press_contact_email", "value": "alex@tgs.com"}, 
+        {"name": "press_contact_name", "value": "Marandon Alex"}, 
+        {"name": "press_contact_phone_number", "value": "0666666666"}, 
+        {"name": "ticket_contact_email", "value": "romain@tgs.com"}, 
+        {"name": "ticket_contact_name", "value": "Garrigues Romain"}, 
+        {"name": "ticket_contact_phone_number", "value": "0666666666"}, 
+        {"name": "location_name", "value": "TGS"}, 
+        {"name": "location_address", "value": "Parc des expositions"}, 
+        {"name": "location_post_code", "value": "31100"}, 
+        {"name": "location_capacity", "value": "1000"}, 
+        {"name": "location_town", "value": "Toulouse"}, 
+        {"name": "location_country", "value": "France"}, 
+        {"name": "tags", "value": ["manga", "jeu vid\u00e9o"]}, 
+        {"name": "categories", "value": ["salon", "loisirs"]}, 
+        {"name": "images", "value": [{"url": "http://photo1.com", "license": "CC BY"}, {"url": "http://photo2.com", "license": "unknown"}]}, 
+        {"name": "videos", "value": [{"url": "http://video1.com", "license": "CC BY"}]}, 
+        {"name": "sounds", "value": [{"url": "http://audio1.com", "license": "CC BY"}]}
         ]
       }, ...
     ]
@@ -189,7 +213,17 @@
             <div class="api-entry-output">
                 <p><span class="output"><strong>Réponse:</strong> iCal.</span></p>
 
-                <p>La donnée retournée sera au format standard iCal.</p>
+                <p>La donnée retournée sera au format standard iCal :</p>
+<pre id="ical-format">BEGIN:VCALENDAR
+BEGIN:VEVENT
+SUMMARY:Événement 1
+DTSTART;VALUE=DATE-TIME:20140108T000000
+DTEND;VALUE=DATE-TIME:20140112T000000
+UID:990b8f2e784a11e39d31e8e0b7d17357@example.com
+DESCRIPTION:Description
+LOCATION:TGS
+END:VEVENT
+END:VCALENDAR</pre>
             </div>
         </div>
     </div>
@@ -202,6 +236,215 @@
             <code>{% trans "Méthode" %} : POST</code>
             <pre>{{ events_url }}</pre>
         </div>
+
+        <p>{% trans "Les paramètres acceptés pour la création d'un événement sont les suivants :" %}</p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{% trans "Nom du paramètre" %}</th>
+              <th>{% trans "Requis" %}</th>
+              <th>{% trans "Type/Format" %}</th>
+              <th>{% trans "Description" %}</th>
+            <tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Identifiant unique de l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td>{% trans "Oui" %}</td>
+              <td>String</td>
+              <td>{% trans "Titre de l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td></td>
+              <td>String (email)</td>
+              <td>{% trans "Email de contact pour l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>description</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Description de l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>language</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Langue de traduction de l'événement, par défaut fr" %}</td>
+            </tr>
+            <tr>
+              <td>price_information</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Prix d'entrée de l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>organiser</td>
+              <td>{% trans "Oui" %}</td>
+              <td>String</td>
+              <td>{% trans "Nom de la structure qui organise cet événement. Ce nom doit correspondre à une structure déjà existante dans le projet ODE." %}</td>
+            </tr>
+            <tr>
+              <td>price_information</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Prix d'entrée de l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>performers</td>
+              <td></td>
+              <td>String (Noms séparés par des virgules)</td>
+              <td>{% trans "Artistes/Intervenants présents à cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>press_url</td>
+              <td></td>
+              <td>String (URL)</td>
+              <td>{% trans "URL permettant d'accéder au communiqué de presse de l'événement" %}</td>
+            </tr>
+            <tr>
+              <td>target</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Public accepté lors de cet événement (adultes, enfants de plus de X ans, ...)" %}</td>
+            </tr>
+            <tr>
+              <td>location_name</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Nom du lieu où se déroule cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>location_address</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Adresse du lieu où se déroule cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>location_post_code</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Code postal du lieu où se déroule cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>location_town</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Nom de la ville où se déroule cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>location_country</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Nom du pays où se déroule cet événement" %}</td>
+            </tr>            
+            <tr>
+              <td>location_capacity</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Nombre maximal de personnes acceptées lors de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>start_time</td>
+              <td>{% trans "Oui" %}</td>
+              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "Date de début de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>end_time</td>
+              <td>{% trans "Oui" %}</td>
+              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "Date de fin de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>publication_start</td>
+              <td></td>
+              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "Date de début de publication de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>publication_end</td>
+              <td></td>
+              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "Date de fin de publication de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>press_contact_email</td>
+              <td></td>
+              <td>String (email)</td>
+              <td>{% trans "Email du contact presse de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>press_contact_name</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Nom du contact presse de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>press_contact_phone_number</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Téléphone du contact presse de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>ticket_contact_email</td>
+              <td></td>
+              <td>String (email)</td>
+              <td>{% trans "Email du contact billeterie de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>ticket_contact_name</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Nom du contact billeterie de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>ticket_contact_phone_number</td>
+              <td></td>
+              <td>String</td>
+              <td>{% trans "Téléphone du contact billeterie de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>categories</td>
+              <td></td>
+              <td>Liste de String</td>
+              <td>{% trans "Catégories correspondant à cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>tags</td>
+              <td></td>
+              <td>Liste de String</td>
+              <td>{% trans "Mots-clés de cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>videos</td>
+              <td></td>
+              <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
+              <td>{% trans "Vidéos liées à cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>photos</td>
+              <td></td>
+              <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
+              <td>{% trans "Photos liées à cet événement" %}</td>
+            </tr>
+            <tr>
+              <td>sounds</td>
+              <td></td>
+              <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
+              <td>{% trans "Fichiers audios liées à cet événement" %}</td>
+            </tr>
+          </tbody>
+        </thead>
+      </table>
+
     </div>
 
     <div id="get-event" class="api-entry">
@@ -211,6 +454,38 @@
         <div class="api-entry-resource">
             <code>{% trans "Méthode" %} : GET</code>
             <pre>{{ events_url }}/{id}</pre>
+        </div>
+        <div class="api-entry-description">
+            <p>{% trans "Il est possible de récupérer un événement selon plusieurs formats différents. Pour spécifier le format souhaité, il suffit de préciser dans votre requête HTTP le paramètre <strong>Accept</strong> correspondant." %}</p>
+            <p>{% trans "Si aucun <strong>Accept</strong> n'est défini, l'API renverra du json." %}</p>
+        </div>
+
+        <div class="api-entry-type">
+            <h4>JSON</h4>
+
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: application/vnd.collection+json"</span></p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+
+                <p>La donnée retournée sera au format <a href="#collectionjson-format">Collection+JSON</a>.</p>
+            </div>
+        </div>
+
+        <div class="api-entry-type">
+            <h4>iCalendar</h4>
+
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: text/calendar"</span></p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>Réponse:</strong> iCal.</span></p>
+
+                <p>La donnée retournée sera au format standard <a href="#ical-format">iCal</a>.</p>
+            </div>
         </div>
     </div>
 
