@@ -31,7 +31,9 @@ class OrganizationFactory(factory.django.DjangoModelFactory):
         ['enterprise', 'public', 'individual', 'independent'])
 
     price_information = factory.Sequence(lambda n: u'address_#%s' % n)
+    address = factory.Sequence(lambda n: u'address_#%s' % n)
     post_code = factory.Sequence(lambda n: u'postcode_#%s' % n)
+    town = factory.Sequence(lambda n: u'town_#%s' % n)
     price_information = factory.Sequence(lambda n: u'price_info_#%s' % n)
     url = factory.Sequence(lambda n: u'http://url-%s-ode.com' % n)
     is_provider = False
@@ -46,7 +48,7 @@ class OrganizationFactory(factory.django.DjangoModelFactory):
     url = factory.Sequence(lambda n: u'http://media-url-%s-ode.com' % n)
     website_url = factory.Sequence(lambda n: u'http://wsit-url-%s-ode.com' % n)
     mobile_app_name = factory.Sequence(lambda n: u'mobile_app_#%s' % n)
-    mobile_app_name = factory.Sequence(lambda n: u'other_details_#%s' % n)
+    other_details = factory.Sequence(lambda n: u'other_details_#%s' % n)
 
     ticket_contact = factory.SubFactory(ContactFactory)
     press_contact = factory.SubFactory(ContactFactory)
