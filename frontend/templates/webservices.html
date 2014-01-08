@@ -140,7 +140,7 @@
             <div class="api-entry-output">
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
 
-                <p>Ce json, au format Collection+JSON, ressemblera à:</p>
+                <p>Ce json, au format Collection+JSON, ressemblera à :</p>
 <pre id="collectionjson-format">
 {"collection":
   {"href": "http://localhost:8000/api/v1/events",
@@ -199,7 +199,9 @@
             <div class="api-entry-output">
                 <p><span class="output"><strong>Réponse:</strong> csv.</span></p>
 
-                <p>La donnée retournée sera au format standard csv.</p>
+                <p>La donnée retournée sera au format standard csv :</p>
+<pre>id,firstname,lastname,email,telephone,description,language,latlong,organiser,performers,press_url,price_information,source,source_id,target,title,url,provider_id,start_time,end_time,publication_start,publication_end,press_contact_email,press_contact_name,press_contact_phone_number,ticket_contact_email,ticket_contact_name,ticket_contact_phone_number,location_id,location_name,location_address,location_post_code,location_capacity,location_town,location_country,tags,categories,images,sounds,videos
+e835ab8248dac8a17b26267c52172786d2eae46d,,,,,"Globalisation of Legal Practice And Education",,,,,,,,,,CLE Paris Legal Conference,http://lanyrd.com/2014/cle-paris-legal-conference/,1,2014-01-09T00:00:00,2014-01-14T00:00:00,,,,,,,,,,"Hotel Le Meurice, 228 rue de Rivoli, Paris, France, 75001",,,,,,,,,,b4b692bfda3c2f1e18a19646cb58c318f8590be3,,,,,http://lanyrd.com/ctcfm,,,,,,,,,,Webperf Paris Janvier 2014,http://lanyrd.com/2014/webperf/,1,2014-01-16T00:00:00,2014-01-17T00:00:00,,,,,,,,,,"Paris, France",,,,,,,,,,87848921f483f9362fb7d84dcc56df2bd42d79a9,,,,,"1 mois pour révolutionner les apps bancaires[...]</pre>
             </div>
         </div>
 
@@ -237,7 +239,60 @@ END:VCALENDAR</pre>
             <pre>{{ events_url }}</pre>
         </div>
 
-        <p>{% trans "Les paramètres acceptés pour la création d'un événement sont les suivants :" %}</p>
+        <p>{% trans "Plusieurs formats sont gérés afin de pouvoir créer des événements. Pour préciser au serveur le format que vous voulez utiliser, il suffit de préciser dans votre requête HTTP le paramètre <strong>Content-Type</strong> correspondant." %}</p>
+        <p>{% trans "Si aucun <strong>Content-Type</strong> n'est défini, l'API s'attend à recevoir du json." %}</p>
+
+        <div class="api-entry-type">
+            <h4>JSON</h4>
+        
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: application/vnd.collection+json"</span></p>
+                <p>{% trans "Il n'est possible d'ajouter qu'une seule donnée à la fois. Le format à respecter est <a href='http://amundsen.com/media-types/collection/format/#general'>spécifié dans la documentation de Collection+JSON §2.1.2</a>, et ressemble à :" %}</p>
+<pre>
+{ "template" : 
+  { "data" : [
+    {"name": "id", "value": "990b8f2e784a11e39d31e8e0b7d17357@example.com"},
+    {"name": "email", "value": "admin@example.com"}, 
+    {"name": "description", "value": "Description"},
+    [...]
+    ]
+  }
+}</pre>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+            </div>
+        </div>
+
+        <div class="api-entry-type">
+            <h4>CSV</h4>
+        
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: text/csv"</span></p>
+                <p>{% trans "Le fichier contenant les données à créer doit respecter le format csv." %}</p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> ?</span></p>
+            </div>
+        </div>
+
+        <div class="api-entry-type">
+            <h4>iCal</h4>
+        
+            <div class="api-entry-input">
+                <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: text/calendar"</span></p>
+                <p>{% trans "Le fichier contenant les données à créer doit respecter le format iCal." %}</p>
+            </div>
+
+            <div class="api-entry-output">
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> ?</span></p>
+            </div>
+        </div>        
+
+        <h4>{% trans "Paramètres du POST" %}</h4>
+        <p>{% trans "Quel que soit le format utilisé pour la création d'événements, les paramètres acceptés sont listés ci-dessous :" %}</p>
 
         <table class="table">
           <thead>
@@ -439,7 +494,7 @@ END:VCALENDAR</pre>
               <td>sounds</td>
               <td></td>
               <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
-              <td>{% trans "Fichiers audios liées à cet événement" %}</td>
+              <td>{% trans "Fichiers audios liés à cet événement" %}</td>
             </tr>
           </tbody>
         </thead>
