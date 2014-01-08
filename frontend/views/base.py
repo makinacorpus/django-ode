@@ -58,7 +58,7 @@ class APIFormView(LoginRequiredMixin, View):
         if context is None:
             context = {}
 
-        defined_context = self.add_context()
+        defined_context = self.get_context()
         new_context = dict(list(context.items()) +
                            list(defined_context.items()))
 
@@ -91,7 +91,7 @@ class APIFormView(LoginRequiredMixin, View):
             result[field_name] = error['description']
         return result
 
-    def add_context(self):
+    def get_context(self):
         return {}
 
     def prepare_api_input(self, dict_data):

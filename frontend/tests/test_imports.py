@@ -113,8 +113,11 @@ class TestImports(LoginTestMixin, PatchMixin, TestCase):
                          'Content-Type': 'text/calendar',
                          'Accept-Language': 'fr'}
                 )
-#
-#    def test_import_file_missing(self):
-#        self.login_as_provider()
-#        response = self.client.post('/imports/file/')
-#        self.asserContains(response, 'has-error')
+
+    def test_import_file_missing(self):
+        self.login_as_provider()
+        response = self.client.post('/imports/file/')
+        self.assertContains(response, 'has-error')
+        self.assertContains(
+            response, u'Suppression',
+            msg_prefix=u'Source listing column labels should be displayed')

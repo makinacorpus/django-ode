@@ -78,10 +78,10 @@ class Form(APIFormView):
     success_message = _(u"L'événement a été enregistré avec succès")
     error_message = _(u"L'événement n'a pas pu être enregistré")
 
-    def add_context(self, *args, **kwargs):
-        context = {}
-        context['organization'] = self.request.user.organization
-        return context
+    def get_context(self, *args, **kwargs):
+        return {
+            'organization': self.request.user.organization,
+        }
 
     def _add_media(self, url_key, license_key, medias_name, api_input):
         media = {
