@@ -262,7 +262,7 @@ END:VCALENDAR</pre>
 
             <div class="api-entry-output">
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
-                <p id="server-creation-output">{% trans "Si la création d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE" %} (<code>Code 201</code>)</p>
+                <p id="server-creation-output">{% trans "Si la création d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE (<code>Code 201</code>). Cela permet notamment de pouvoir récupérer l'identifiant de l'événement qui vient juste d'être créé." %}</p>
                 <p id="event-creation-error">{% trans "S'il y a eu un problème lors de la création d'un événement, le serveur renverra du json sous ce format :" %}</p>
                 <pre>{"status": "error", "errors": [{"location": "body", "name": "items.0.data.title", "description": "Required"}]}</pre>
                 <p>{% trans "Ce message indique ici qu'il manque le champ <strong>title</strong>, qui est obligatoire. Pour connaître tous les champs obligatoires ainsi que les formats de données attendus, consulter la liste des <a href='#post-parameters'>paramètres POST</a>." %}</p>
