@@ -262,7 +262,7 @@ END:VCALENDAR</pre>
 
             <div class="api-entry-output">
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
-                <p>{% trans "Si la création d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE" %} (<code>Code 201</code>)</p>
+                <p id="server-creation-output">{% trans "Si la création d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE" %} (<code>Code 201</code>)</p>
                 <p>{% trans "S'il y a eu un problème lors de la création d'un événement, le serveur renverra du json sous ce format :" %}</p>
                 <pre>{"status": "error", "errors": [{"location": "body", "name": "items.0.data.title", "description": "Required"}]}</pre>
                 <p>{% trans "Ce message indique ici qu'il manque le champ <strong>title</strong>, qui est obligatoire. Pour connaître tous les champs obligatoires ainsi que les formats de données attendus, consulter la liste des <a href='#post-parameters'>paramètres POST</a>." %}</p>
@@ -278,7 +278,8 @@ END:VCALENDAR</pre>
             </div>
 
             <div class="api-entry-output">
-                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> ?</span></p>
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json</span></p>
+                <p>{% trans "La <a href='#server-creation-output'>réponse du serveur</a> à cette création d'événement est identique pour tous les <strong>Content-Type</strong>." %}</p>
             </div>
         </div>
 
@@ -291,7 +292,8 @@ END:VCALENDAR</pre>
             </div>
 
             <div class="api-entry-output">
-                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> ?</span></p>
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json</span></p>
+                <p>{% trans "La <a href='#server-creation-output'>réponse du serveur</a> à cette création d'événement est identique pour tous les <strong>Content-Type</strong>." %}</p>                
             </div>
         </div>        
 
