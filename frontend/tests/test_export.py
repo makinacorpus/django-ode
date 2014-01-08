@@ -129,7 +129,7 @@ class TestExport(LoginTestMixin, PatchMixin, TestCase):
         response = self.client.get('/consumer_export/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['content-type'], 'text/csv')
-        self.assertEqual(response.content, result)
+        self.assertEqual(response.content.decode('utf-8'), result)
 
     def test_export_providers(self):
         result = (
@@ -156,4 +156,4 @@ class TestExport(LoginTestMixin, PatchMixin, TestCase):
         response = self.client.get('/provider_export/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['content-type'], 'text/csv')
-        self.assertEqual(response.content, result)
+        self.assertEqual(response.content.decode('utf-8'), result)
