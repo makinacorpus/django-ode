@@ -10,7 +10,7 @@ from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect
 
 from accounts.models import User
-from frontend.views.base import (APIForm,
+from frontend.views.base import (APIFormView,
                                  LoginRequiredMixin,
                                  ProviderLoginRequiredMixin,
                                  APIDatatableBaseView,
@@ -70,7 +70,7 @@ class EventListingUserFieldsMixin(EventListingFieldsMixin):
                    'publication_end', 'id', 'id']
 
 
-class Form(APIForm):
+class Form(APIFormView):
 
     template_name = 'event_form.html'
     list_template_name = 'event_list.html'
@@ -78,10 +78,10 @@ class Form(APIForm):
     success_message = _(u"L'événement a été enregistré avec succès")
     error_message = _(u"L'événement n'a pas pu être enregistré")
 
-    def add_context(self, *args, **kwargs):
-        context = {}
-        context['organization'] = self.request.user.organization
-        return context
+    def get_context(self, *args, **kwargs):
+        return {
+            'organization': self.request.user.organization,
+        }
 
     def _add_media(self, url_key, license_key, medias_name, api_input):
         media = {

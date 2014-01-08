@@ -3,10 +3,10 @@ import json
 import logging
 
 from django.conf import settings
-from django.views.generic import View
 from django.shortcuts import render, redirect
+from django import forms
 
-from frontend.views.base import ProviderLoginRequiredMixin, APIForm
+from frontend.views.base import ProviderLoginRequiredMixin, APIFormView
 from frontend.views.sources import SourceListingFieldsMixin
 
 logger = logging.getLogger(__name__)
@@ -14,27 +14,28 @@ logger = logging.getLogger(__name__)
 
 class ImportView(ProviderLoginRequiredMixin,
                  SourceListingFieldsMixin,
-                 View):
+                 APIFormView):
     template_name = 'import.html'
 
-    def add_context(self):
-        context = dict(source_column_labels=self.column_labels)
-        return context
+    def get_context(self):
+        return {
+            'source_column_labels': self.column_labels,
+        }
 
     def get(self, request, *args, **kwargs):
-        new_context = self.add_context()
+        new_context = self.get_context()
         return render(self.request, self.template_name, new_context)
 
-
-class APIImportMixinForm(ImportView, APIForm):
-    template_name = 'import.html'
-
     def success(self, request, response_data, **kwargs):
-        APIForm.success(self, request, response_data, do_render=False)
+        APIFormView.success(self, request, response_data, do_render=False)
         return redirect('imports')
 
 
-class APIImportFileForm(APIImportMixinForm):
+class ImportFileForm(forms.Form):
+    events_file = forms.FileField(required=True)
+
+
+class ImportFileView(ImportView):
     success_message = (u"Le fichier a été importé avec succès")
     error_message = u"Ce fichier n'a pas pu être importé"
     endpoint = settings.EVENTS_ENDPOINT
@@ -57,7 +58,12 @@ class APIImportFileForm(APIImportMixinForm):
         return response_data
 
     def post(self, request, *args, **kwargs):
-        data_file = self.request.FILES['events_file']
+        form = ImportFileForm(request.POST, request.FILES)
+        if not form.is_valid():
+            context = self.get_context()
+            context['errors'] = form.errors
+            return render(request, self.template_name, context)
+        data_file = form.cleaned_data['events_file']
         mimetype = data_file.content_type
         data = data_file.read()
         if mimetype == 'application/json':
@@ -73,7 +79,7 @@ class APIImportFileForm(APIImportMixinForm):
             return self.success(request, response_data)
 
 
-class APIImportSourceForm(APIImportMixinForm):
+class ImportSourceView(ImportView):
     success_message = (u"Cette nouvelle source de données a été "
                        u"enregistrée avec succès")
     error_message = u"Cette source de données n'a pas pu être enregistrée"

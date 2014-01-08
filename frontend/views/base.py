@@ -47,10 +47,10 @@ class ProviderLoginRequiredMixin(object):
             return HttpResponseForbidden()
 
 
-class APIForm(LoginRequiredMixin, View):
+class APIFormView(LoginRequiredMixin, View):
 
     def __init__(self, *args, **kwargs):
-        super(APIForm, self).__init__(*args, **kwargs)
+        super(APIFormView, self).__init__(*args, **kwargs)
         self.api = APIClient(self.endpoint)
 
     def _update_context_data(self, context=None):
@@ -58,7 +58,7 @@ class APIForm(LoginRequiredMixin, View):
         if context is None:
             context = {}
 
-        defined_context = self.add_context()
+        defined_context = self.get_context()
         new_context = dict(list(context.items()) +
                            list(defined_context.items()))
 
@@ -91,7 +91,7 @@ class APIForm(LoginRequiredMixin, View):
             result[field_name] = error['description']
         return result
 
-    def add_context(self):
+    def get_context(self):
         return {}
 
     def prepare_api_input(self, dict_data):

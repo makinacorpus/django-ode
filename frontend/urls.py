@@ -43,9 +43,9 @@ urlpatterns = patterns(
         name='consumer'),
 
     url(r'^imports/$', imports.ImportView.as_view(), name='imports'),
-    url(r'^imports/file/$', imports.APIImportFileForm.as_view(),
+    url(r'^imports/file/$', imports.ImportFileView.as_view(),
         name='imports_file'),
-    url(r'^imports/source/$', imports.APIImportSourceForm.as_view(),
+    url(r'^imports/source/$', imports.ImportSourceView.as_view(),
         name='imports_source'),
     url(r'^export/$', export.ExportView.as_view(), name='export'),
     url(r'^sources/create/$', sources.Form.as_view(), name='sources_create'),

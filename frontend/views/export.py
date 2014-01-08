@@ -3,10 +3,10 @@
 from django.conf import settings
 from django.http import HttpResponse
 
-from frontend.views.base import APIForm
+from frontend.views.base import APIFormView
 
 
-class ExportView(APIForm):
+class ExportView(APIFormView):
     template_name = 'export.html'
     endpoint = settings.EVENTS_ENDPOINT
     success_message = u"Événements exportés"
