@@ -10,7 +10,7 @@ from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect
 
 from accounts.models import User
-from frontend.views.base import (APIForm,
+from frontend.views.base import (APIFormView,
                                  LoginRequiredMixin,
                                  ProviderLoginRequiredMixin,
                                  APIDatatableBaseView,
@@ -70,7 +70,7 @@ class EventListingUserFieldsMixin(EventListingFieldsMixin):
                    'publication_end', 'id', 'id']
 
 
-class Form(APIForm):
+class Form(APIFormView):
 
     template_name = 'event_form.html'
     list_template_name = 'event_list.html'

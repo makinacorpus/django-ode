@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseServerError
 from django.conf import settings
 from django.views.generic import View
 
-from frontend.views.base import (APIForm,
+from frontend.views.base import (APIFormView,
                                  LoginRequiredMixin,
                                  APIDatatableBaseView)
 from frontend.api_client import APIClient
@@ -19,7 +19,7 @@ class SourceListingFieldsMixin(object):
     endpoint = settings.SOURCES_ENDPOINT
 
 
-class Form(SourceListingFieldsMixin, APIForm):
+class Form(SourceListingFieldsMixin, APIFormView):
     template_name = 'import.html'
     success_message = (u"Cette nouvelle source de données a été "
                        u"enregistrée avec succès")

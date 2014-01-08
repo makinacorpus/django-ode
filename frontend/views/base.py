@@ -47,10 +47,10 @@ class ProviderLoginRequiredMixin(object):
             return HttpResponseForbidden()
 
 
-class APIForm(LoginRequiredMixin, View):
+class APIFormView(LoginRequiredMixin, View):
 
     def __init__(self, *args, **kwargs):
-        super(APIForm, self).__init__(*args, **kwargs)
+        super(APIFormView, self).__init__(*args, **kwargs)
         self.api = APIClient(self.endpoint)
 
     def _update_context_data(self, context=None):
