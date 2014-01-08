@@ -16,13 +16,19 @@ from rest_framework.decorators import authentication_classes
 from rest_framework.decorators import permission_classes
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import BaseRenderer
+from rest_framework import status
 
 
 class GenericRenderer(BaseRenderer):
     media_type = '*/*'
 
     def render(self, data, media_type=None, renderer_context=None):
-        return data
+        response = renderer_context['response']
+        if response.status_code in (status.HTTP_401_UNAUTHORIZED,
+                                    status.HTTP_403_FORBIDDEN):
+            return data['detail'] + "\n"
+        else:
+            return data
 
 
 class IsProviderOrReadOnly(BasePermission):

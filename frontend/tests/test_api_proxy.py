@@ -34,7 +34,9 @@ class TestApiProxy(PatchMixin, TestCase):
 
     def test_anonymous_access(self):
         response = self.client.get('/api/v1/events')
-        self.assertEqual(response.status_code, 401)
+        self.assertContains(response,
+                            u'Authentication credentials were not provided.',
+                            status_code=401)
 
     def test_session_authentication(self):
         user = UserFactory.create(is_active=True)
@@ -100,7 +102,10 @@ class TestApiProxy(PatchMixin, TestCase):
         for method in ('post', 'put', 'delete'):
             response = self.make_authenticated_request(
                 'post', token, data=data, content_type='application/json')
-            self.assertEqual(response.status_code, 403)
+            self.assertContains(
+                response,
+                u"You do not have permission to perform this action.",
+                status_code=403)
 
     def _test_accept_header(self, accept_header):
         user, token = self.make_user_with_token(ProviderUserFactory)
