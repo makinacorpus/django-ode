@@ -247,10 +247,10 @@ END:VCALENDAR</pre>
         
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: application/vnd.collection+json"</span></p>
-                <p>{% trans "Il n'est possible d'ajouter qu'une seule donnée à la fois. Le format à respecter est <a href='http://amundsen.com/media-types/collection/format/#general'>spécifié dans la documentation de Collection+JSON §2.1.2</a>, et ressemble à :" %}</p>
+                <p>{% trans "Il n'est possible d'ajouter qu'une seule donnée à la fois. Le format à respecter est spécifié dans la documentation de Collection+JSON <a href='http://amundsen.com/media-types/collection/format/#general'>§2.1.2</a>, et ressemble à :" %}</p>
 <pre>
-{ "template" : 
-  { "data" : [
+{"template": 
+  { "data": [
     {"name": "id", "value": "990b8f2e784a11e39d31e8e0b7d17357@example.com"},
     {"name": "email", "value": "admin@example.com"}, 
     {"name": "description", "value": "Description"},
@@ -262,6 +262,10 @@ END:VCALENDAR</pre>
 
             <div class="api-entry-output">
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+                <p>{% trans "Si la création d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE" %} (<code>Code 201</code>)</p>
+                <p>{% trans "S'il y a eu un problème lors de la création d'un événement, le serveur renverra du json sous ce format :" %}</p>
+                <pre>{"status": "error", "errors": [{"location": "body", "name": "items.0.data.title", "description": "Required"}]}</pre>
+                <p>{% trans "Ce message indique ici qu'il manque le champ <strong>title</strong>, qui est obligatoire. Pour connaître tous les champs obligatoires ainsi que les formats de données attendus, consulter la liste des <a href='#post-parameters'>paramètres POST</a>." %}</p>
             </div>
         </div>
 
@@ -291,7 +295,7 @@ END:VCALENDAR</pre>
             </div>
         </div>        
 
-        <h4>{% trans "Paramètres du POST" %}</h4>
+        <h4 id="post-parameters">{% trans "Paramètres du POST" %}</h4>
         <p>{% trans "Quel que soit le format utilisé pour la création d'événements, les paramètres acceptés sont listés ci-dessous :" %}</p>
 
         <table class="table">
