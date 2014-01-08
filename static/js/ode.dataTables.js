@@ -26,6 +26,7 @@ if (typeof jQuery === "undefined") { throw new Error("ode-datatable requires jQu
             "oLanguage": {
                 "sUrl": "/static/dataTables.french.txt"
             },
+           "sDom": '<"top"lp><"clear">rt<"bottom"if<"clear">>'
         });
     });
 

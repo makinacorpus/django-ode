@@ -156,3 +156,17 @@
   background-color: #E9EBEA;
   font-weight: bold;
 }
+.dataTables_length {
+  float: right;
+}
+.dataTables_paginate {
+  float: none;
+}
+.dataTables_paginate .text-hide {
+  position: relative;
+  top: -8px;
+}
+.dataTables_info {
+  margin-bottom: 1em;
+  float: left;
+}
