@@ -99,7 +99,8 @@ class APIFormView(LoginRequiredMixin, View):
         formatted_data = []
         for key, value in dict_data.items():
             if key in ('categories', 'tags'):
-                value = [v.strip() for v in value.split(',')]
+                value = [part.strip() for part in value.split(',')]
+                value = list(filter(None, value))
             formatted_data.append(
                 {'name': key, 'value': value}
             )

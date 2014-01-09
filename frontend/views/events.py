@@ -124,8 +124,7 @@ class Form(APIFormView):
             {'name': 'language', 'value': 'fr'},
             {'name': 'organiser', 'value': user.organization.name},
             ]
-        formatted_data = super(Form, self)\
-            .prepare_api_input(dict_data)
+        formatted_data = super(Form, self).prepare_api_input(dict_data)
         formatted_data['template']['data'] += default_data
         return formatted_data
 

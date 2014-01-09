@@ -93,6 +93,8 @@ class TestCreate(TestEvents):
             'title': u'Un événement',
             'start_time': '2012-01-01T09:00',
             'end_time': '2012-01-02T18:00',
+            'tags': '',
+            'categories': ', foo, bar\n,\r',
         }
 
         response = self.client.post('/events/create/', user_data, follow=True)
@@ -105,6 +107,8 @@ class TestCreate(TestEvents):
             'language': 'fr',
             }
         api_data.update(user_data)
+        api_data['tags'] = []
+        api_data['categories'] = ['foo', 'bar']
 
         self.assert_post_to_api(api_data)
         self.assertContains(response, 'alert-success')
