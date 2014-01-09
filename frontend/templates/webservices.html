@@ -265,7 +265,7 @@ END:VCALENDAR</pre>
                 <p id="server-creation-output">{% trans "Si la création d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE (<code>Code 201</code>). Cela permet notamment de pouvoir récupérer l'identifiant de l'événement qui vient juste d'être créé." %}</p>
                 <p id="event-creation-error">{% trans "S'il y a eu un problème lors de la création d'un événement, le serveur renverra du json sous ce format :" %}</p>
                 <pre>{"status": "error", "errors": [{"location": "body", "name": "items.0.data.title", "description": "Required"}]}</pre>
-                <p>{% trans "Ce message indique ici qu'il manque le champ <strong>title</strong>, qui est obligatoire. Pour connaître tous les champs obligatoires ainsi que les formats de données attendus, consulter la liste des <a href='#post-parameters'>paramètres POST</a>." %}</p>
+                <p>{% trans "Ce message indique ici qu'il manque le champ <strong>title</strong>, qui est obligatoire. Pour connaître tous les champs obligatoires ainsi que les formats de données attendus, consulter la liste des <a href='#event-post-parameters'>paramètres POST</a>." %}</p>
             </div>
         </div>
 
@@ -297,7 +297,7 @@ END:VCALENDAR</pre>
             </div>
         </div>        
 
-        <h4 id="post-parameters">{% trans "Paramètres du POST" %}</h4>
+        <h4 id="event-post-parameters">{% trans "Paramètres du POST" %}</h4>
         <p>{% trans "Quel que soit le format utilisé pour la création d'événements, les paramètres acceptés sont listés ci-dessous :" %}</p>
 
         <table class="table">
@@ -313,193 +313,193 @@ END:VCALENDAR</pre>
             <tr>
               <td>id</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Identifiant unique de l'événement" %}</td>
             </tr>
             <tr>
               <td>title</td>
               <td>{% trans "Oui" %}</td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Titre de l'événement" %}</td>
             </tr>
             <tr>
               <td>email</td>
               <td></td>
-              <td>String (email)</td>
+              <td>{% trans "String (email)" %}</td>
               <td>{% trans "Email de contact pour l'événement" %}</td>
             </tr>
             <tr>
               <td>description</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Description de l'événement" %}</td>
             </tr>
             <tr>
               <td>language</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Langue de traduction de l'événement, par défaut fr" %}</td>
             </tr>
             <tr>
               <td>price_information</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Prix d'entrée de l'événement" %}</td>
             </tr>
             <tr>
               <td>organiser</td>
               <td>{% trans "Oui" %}</td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nom de la structure qui organise cet événement. Ce nom doit correspondre à une structure déjà existante dans le projet ODE." %}</td>
             </tr>
             <tr>
               <td>price_information</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Prix d'entrée de l'événement" %}</td>
             </tr>
             <tr>
               <td>performers</td>
               <td></td>
-              <td>String (Noms séparés par des virgules)</td>
+              <td>{% trans "String (Noms séparés par des virgules)" %}</td>
               <td>{% trans "Artistes/Intervenants présents à cet événement" %}</td>
             </tr>
             <tr>
               <td>press_url</td>
               <td></td>
-              <td>String (URL)</td>
+              <td>{% trans "String (URL)" %}</td>
               <td>{% trans "URL permettant d'accéder au communiqué de presse de l'événement" %}</td>
             </tr>
             <tr>
               <td>target</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Public accepté lors de cet événement (adultes, enfants de plus de X ans, ...)" %}</td>
             </tr>
             <tr>
               <td>location_name</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nom du lieu où se déroule cet événement" %}</td>
             </tr>
             <tr>
               <td>location_address</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Adresse du lieu où se déroule cet événement" %}</td>
             </tr>
             <tr>
               <td>location_post_code</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Code postal du lieu où se déroule cet événement" %}</td>
             </tr>
             <tr>
               <td>location_town</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nom de la ville où se déroule cet événement" %}</td>
             </tr>
             <tr>
               <td>location_country</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nom du pays où se déroule cet événement" %}</td>
             </tr>            
             <tr>
               <td>location_capacity</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nombre maximal de personnes acceptées lors de cet événement" %}</td>
             </tr>
             <tr>
               <td>start_time</td>
               <td>{% trans "Oui" %}</td>
-              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "String (format ISO: YYYY-MM-DDThh:mm:ss)" %}</td>
               <td>{% trans "Date de début de cet événement" %}</td>
             </tr>
             <tr>
               <td>end_time</td>
               <td>{% trans "Oui" %}</td>
-              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "String (format ISO: YYYY-MM-DDThh:mm:ss)" %}</td>
               <td>{% trans "Date de fin de cet événement" %}</td>
             </tr>
             <tr>
               <td>publication_start</td>
               <td></td>
-              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "String (format ISO: YYYY-MM-DDThh:mm:ss)" %}</td>
               <td>{% trans "Date de début de publication de cet événement" %}</td>
             </tr>
             <tr>
               <td>publication_end</td>
               <td></td>
-              <td>String (ISO format: YYYY-MM-DDThh:mm:ss)</td>
+              <td>{% trans "String (format ISO: YYYY-MM-DDThh:mm:ss)" %}</td>
               <td>{% trans "Date de fin de publication de cet événement" %}</td>
             </tr>
             <tr>
               <td>press_contact_email</td>
               <td></td>
-              <td>String (email)</td>
+              <td>{% trans "String (email)" %}</td>
               <td>{% trans "Email du contact presse de cet événement" %}</td>
             </tr>
             <tr>
               <td>press_contact_name</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nom du contact presse de cet événement" %}</td>
             </tr>
             <tr>
               <td>press_contact_phone_number</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Téléphone du contact presse de cet événement" %}</td>
             </tr>
             <tr>
               <td>ticket_contact_email</td>
               <td></td>
-              <td>String (email)</td>
+              <td>{% trans "String (email)" %}</td>
               <td>{% trans "Email du contact billeterie de cet événement" %}</td>
             </tr>
             <tr>
               <td>ticket_contact_name</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Nom du contact billeterie de cet événement" %}</td>
             </tr>
             <tr>
               <td>ticket_contact_phone_number</td>
               <td></td>
-              <td>String</td>
+              <td>{% trans "String" %}</td>
               <td>{% trans "Téléphone du contact billeterie de cet événement" %}</td>
             </tr>
             <tr>
               <td>categories</td>
               <td></td>
-              <td>Liste de String</td>
+              <td>{% trans "Liste de String" %}</td>
               <td>{% trans "Catégories correspondant à cet événement" %}</td>
             </tr>
             <tr>
               <td>tags</td>
               <td></td>
-              <td>Liste de String</td>
+              <td>{% trans "Liste de String" %}</td>
               <td>{% trans "Mots-clés de cet événement" %}</td>
             </tr>
             <tr>
               <td>videos</td>
               <td></td>
-              <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
+              <td>{% trans "Liste de dictionnaires : attributs 'url' (string) et 'license' ('CC BY' ou 'unknown')" %}</td>
               <td>{% trans "Vidéos liées à cet événement" %}</td>
             </tr>
             <tr>
               <td>photos</td>
               <td></td>
-              <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
+              <td>{% trans "Liste de dictionnaires : attributs 'url' (string) et 'license' ('CC BY' ou 'unknown')" %}</td>
               <td>{% trans "Photos liées à cet événement" %}</td>
             </tr>
             <tr>
               <td>sounds</td>
               <td></td>
-              <td>Liste de dictionnaires avec attributs "url" et "licence" ("CC BY" ou "unknown")</td>
+              <td>{% trans "Liste de dictionnaires : attributs 'url' (string) et 'license' ('CC BY' ou 'unknown')" %}</td>
               <td>{% trans "Fichiers audios liés à cet événement" %}</td>
             </tr>
           </tbody>
@@ -531,7 +531,7 @@ END:VCALENDAR</pre>
             <div class="api-entry-output">
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
 
-                <p>La donnée retournée sera au format <a href="#collectionjson-format">Collection+JSON</a>.</p>
+                <p>{% trans "La donnée retournée sera au format <a href='#collectionjson-format'>Collection+JSON</a>." %}</p>
             </div>
         </div>
 
@@ -545,8 +545,13 @@ END:VCALENDAR</pre>
             <div class="api-entry-output">
                 <p><span class="output"><strong>Réponse:</strong> iCal.</span></p>
 
-                <p>La donnée retournée sera au format standard <a href="#ical-format">iCal</a>.</p>
+                <p>{% trans "La donnée retournée sera au format standard <a href='#ical-format'>iCal</a>." %}</p>
             </div>
+        </div>
+
+        <div class="error-management">
+            <p>{% trans "Si l'id de l'événement fourni dans l'url n'existe pas, le serveur renverra la réponse suivante (<code>Code 404</code>):" %}</p>
+            <pre>{"status": 404, "errors": [{"description": "Not found"}]}</pre>
         </div>
     </div>
 
@@ -576,7 +581,7 @@ END:VCALENDAR</pre>
             <pre>{{ events_url }}/{id}</pre>
         </div>
         <div class="api-entry-description">
-            <p>{% trans "Cette méthode permet de supprimer un événement de la base de données" %}</p>
+            <p>{% trans "Cette méthode permet de supprimer un événement de la base de données." %}</p>
             <p>{% trans "Si la suppression s'est effectuée correctement, le serveur renverra une réponse avec un <code>Code 204</code> sans aucun contenu." %}</p>
             <p>{% trans "Dans le cas contraire, le serveur renverra la réponse suivante (<code>Code 404</code>):" %}</p>
             <pre>{"status": 404, "errors": [{"description": "Not found"}]}</pre>
@@ -591,6 +596,38 @@ END:VCALENDAR</pre>
             <code>{% trans "Méthode" %} : GET</code>
             <pre>{{ sources_url }}</pre>
         </div>
+        <div class="api-entry-description">
+            <p>{% trans "Cette méthode permet de récupérer les sources d'événements présentes dans la base de données ODE." %}</p>
+        </div>
+        <div class="api-entry-type">
+            <div class="api-entry-output">
+                <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+
+                <p>{% trans "La donnée retournée sera au format <a href='#collectionjson-format'>Collection+JSON</a>, contenant pour chaque source d'événement les champs <strong>id</strong> et <strong>url</strong>" %} :</p>
+<pre>
+{"collection":
+  {"href": "http://localhost:8000/api/v1/sources",
+   "items": [
+     {"href": "http://localhost:8000/api/v1/sources/1",
+      "data": [
+        {"name": "id", "value": 1},
+        {"name": "url", "value": "http://source1.com"}
+       ]
+     },
+     {"href": "http://localhost:8000/api/v1/sources/2",
+      "data": [
+        {"name": "id", "value": 2},
+        {"name": "url", "value": "http://source2.com"},
+       ]
+     }
+    ],
+   "current_count": 2,
+   "version": "1.0",
+   "total_count": 2
+  }
+}</pre>
+            </div>
+        </div>
     </div>    
 
     <div id="create-source" class="api-entry">
@@ -601,6 +638,52 @@ END:VCALENDAR</pre>
             <code>{% trans "Méthode" %} : POST</code>
             <pre>{{ sources_url }}</pre>
         </div>
+        <div class="api-entry-description">
+            <p>{% trans "Cette méthode permet de créer une source d'événement. L'entête HTTP <strong>Content-Type</strong> doit obligatoirement être spécifié dans la requête de création de la source d'événement." %}</p>
+        </div>
+
+        <div class="api-entry-input">
+            <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: application/vnd.collection+json"</span></p>
+            <p>{% trans "Il n'est possible d'ajouter qu'une seule donnée à la fois. Le format à respecter est spécifié dans la documentation de Collection+JSON <a href='http://amundsen.com/media-types/collection/format/#general'>§2.1.2</a>, et ressemble à :" %}</p>
+<pre>
+{"template":
+  { "data": [
+    {"name": "url", "value": "http://sourceexample.com"},
+    ]
+  }
+}</pre>
+        </div>
+        <div class="api-entry-output">
+            <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+            <p>{% trans "Si la création de la source d'événement s'est bien passée, le serveur renverra du json au format <a href='#collectionjson-format'>Collection+JSON</a> représentant l'objet créé dans la base de données ODE (<code>Code 201</code>). Cela permet notamment de pouvoir récupérer l'identifiant de la source qui vient juste d'être créée." %}</p>
+            <p id="source-creation-error">{% trans "S'il y a eu un problème lors de la création d'une source, le serveur renverra du json sous ce format :" %}</p>
+            <pre>{"status": "error", "errors": [{"location": "body", "name": "items.0.data.url", "description": "Required"}]}</pre>
+            <p>{% trans "Ce message indique ici qu'il manque le champ <strong>url</strong>, qui est obligatoire. Pour connaître tous les champs obligatoires ainsi que les formats de données attendus, consulter la liste des <a href='#source-post-parameters'>paramètres POST</a>." %}</p>
+        </div>
+
+        <h4 id="source-post-parameters">{% trans "Paramètres du POST" %}</h4>
+        <p>{% trans "Les paramètres acceptés lors de la création d'une source d'événement sont listés ci-dessous :" %}</p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{% trans "Nom du paramètre" %}</th>
+              <th>{% trans "Requis" %}</th>
+              <th>{% trans "Type/Format" %}</th>
+              <th>{% trans "Description" %}</th>
+            <tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>url</td>
+              <td></td>
+              <td>{% trans "String" %}</td>
+              <td>{% trans "URL de la source d'événement qui doit être moissonnée." %}</td>
+            </tr>
+            <tr>
+          </tbody>
+        </table>
+
     </div>
 
     <div id="get-source" class="api-entry">
@@ -611,7 +694,34 @@ END:VCALENDAR</pre>
             <code>{% trans "Méthode" %} : GET</code>
             <pre>{{ sources_url }}/{id}</pre>
         </div>
-    </div>      
+        <div class="api-entry-description">
+            <p>{% trans "Cette adresse permet de récupérer une source d'événement en spécifiant son identifiant unique." %}</p>
+        </div>
+
+        <div class="api-entry-output">
+            <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json.</span></p>
+
+            <p>La réponse du serveur, au format Collection+JSON, ressemblera à :</p>
+<pre>
+{"collection":
+  {"href": "http://localhost:8000/api/v1/sources",
+   "items": [
+     {"href": "http://localhost:8000/api/v1/sources/{id}",
+      "data": [
+        {"name": "id", "value": {id}},
+        {"name": "url", "value": "http://source1.com"}
+        ]
+      }
+    ]
+  }
+}</pre>
+        </div>
+
+        <div class="error-management">
+            <p>{% trans "Si l'id de l'événement fourni dans l'url n'existe pas, le serveur renverra la réponse suivante (<code>Code 404</code>):" %}</p>
+            <pre>{"status": 404, "errors": [{"description": "Not found"}]}</pre>
+        </div>
+    </div>
 
     <div id="update-source" class="api-entry">
         <div class="api-entry-title">
@@ -620,6 +730,13 @@ END:VCALENDAR</pre>
         <div class="api-entry-resource">
             <code>{% trans "Méthode" %} : PUT</code>
             <pre>{{ sources_url }}/{id}</pre>
+        </div>
+        <div class="api-entry-description">
+            <p>{% trans "La mise à jour d'une source déjà existant s'effectue de la même façon que pour la création d'une source, au détail près que la méthode <code>PUT</code> est utilisée en lieu et place du <code>POST</code>. Afin de connaître les différents formats d'entrée acceptés, veuillez vous référer à la documentation liée à la <a href='#create-source'>création d'une source d'événement</a>.</p>" %}</p>
+            <p>{% trans "<strong>Attention</strong> : cette mise à jour écrasera toutes les anciennes informations stockées pour cette donnée. Si des champs ne sont pas renseignés alors qu'ils étaient présents en base de donnée, ils seront effacés." %}</p>
+            <p>{% trans "Si la mise à jour s'est effectuée correctement, le serveur renverra la réponse suivante :" %}</p>
+            <pre>{"status": "updated"}</pre>
+            <p>{% trans "Si une erreur est survenue, le <a href='#source-creation-error'>format de la réponse</a> sera identique à celle définie pour la création d'une source d'évémenent." %}</p>
         </div>
     </div>
 
@@ -630,6 +747,12 @@ END:VCALENDAR</pre>
         <div class="api-entry-resource">
             <code>{% trans "Méthode" %} : DELETE</code>
             <pre>{{ sources_url }}/{id}</pre>
+        </div>
+        <div class="api-entry-description">
+            <p>{% trans "Cette méthode permet de supprimer une source d'événements de la base de données." %}</p>
+            <p>{% trans "Si la suppression s'est effectuée correctement, le serveur renverra une réponse avec un <code>Code 204</code> sans aucun contenu." %}</p>
+            <p>{% trans "Dans le cas contraire, le serveur renverra la réponse suivante (<code>Code 404</code>):" %}</p>
+            <pre>{"status": 404, "errors": [{"description": "Not found"}]}</pre>
         </div>
     </div>       
 
