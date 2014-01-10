@@ -76,9 +76,7 @@ init_frontend:
 init_api:
   cmd.run:
     - name: ". ../env/bin/activate
-             && python setup.py develop
-	     && ../env/bin/initialize_ode_db production.ini
-             && python setup.py compile_catalog -l fr"
+             && make production"
     - cwd: {{ pillar['apps']['ode_api']['project_dir'] }}
     - user: ode_api
 
