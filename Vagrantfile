@@ -14,7 +14,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://dl.dropboxusercontent.com/u/197673519/debian-7.2.0.box"
+#  config.vm.box_url = "https://dl.dropboxusercontent.com/u/197673519/debian-7.2.0.box"
+  config.vm.box_url = "http://goo.gl/8kWkm"
   config.vm.network :forwarded_port, host: 8080, guest: 80
   config.vm.synced_folder "salt/roots/", "/srv/salt/"
   config.vm.synced_folder "salt/pillar/", "/srv/pillar/"

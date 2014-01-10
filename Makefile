@@ -36,6 +36,13 @@ develop: requirements dev_requirements
 	$(PYTHON) setup.py develop
 	$(PYTHON) manage.py syncdb --noinput
 
+production:
+	sudo $(NPM) install
+	$(GRUNT)
+	python manage.py syncdb --noinput
+	python manage.py collectstatic --noinput
+	python manage.py compilemessages -l fr
+
 $(FLAKE8): virtualenv
 	$(PIP) install flake8
 

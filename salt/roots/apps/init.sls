@@ -67,12 +67,8 @@ api_settings:
 init_frontend:
   cmd.run:
     - name: ". ../env/bin/activate
-             && npm install
-             && grunt
              && export DJANGO_SETTINGS_MODULE=django_ode.settings.local
-             && python manage.py syncdb --noinput
-             && python manage.py collectstatic --noinput
-             && python manage.py compilemessages -l fr"
+	     && make production"
     - cwd: {{ pillar['apps']['ode_frontend']['project_dir'] }}
     - user: ode_frontend
 
