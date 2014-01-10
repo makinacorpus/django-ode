@@ -107,11 +107,11 @@ class TestExport(LoginTestMixin, PatchMixin, TestCase):
         result = (u'name,activity_field,type,address,post_code,town,url,is_med'
                   u'ia,media_url,is_website,website_url,is_mobile_app,mobile_a'
                   u'pp_name,is_other,other_details\r\nbob orga,activity,indepe'
-                  u'ndant,18 rue de la rue,44000,Nantes,http://chez.bob2.com/,'
+                  u'ndant,18 rue de Noël,44000,Nantes,http://chez.bob2.com/,'
                   u'False,,True,http://media.bob2.com/,False,,False,\r\n')
 
         organization = OrganizationFactory(
-            is_consumer=True, address='18 rue de la rue', post_code='44000',
+            is_consumer=True, address=u'18 rue de Noël', post_code='44000',
             url='http://chez.bob2.com/', is_website=True, town='Nantes',
             website_url='http://media.bob2.com/', name='bob orga',
             activity_field='activity', type='independant', other_details='',
@@ -134,13 +134,13 @@ class TestExport(LoginTestMixin, PatchMixin, TestCase):
     def test_export_providers(self):
         result = (
             u'name,activity_field,type,address,post_code,town,url,is_host,is_c'
-            u'reator,is_performer\r\nbob orga,activity,independant,18 rue de l'
-            u'a rue,44000,Nantes,http://chez.bob2.com/,False,False,False\r\n,,'
-            u',,,,,False,False,False\r\n'
+            u"reator,is_performer\r\nbob orga,activity,independant,18 rue de "
+            u"l'École,44000,Nantes,http://chez.bob2.com/,False,False,False\r\n"
+            u',,,,,,,False,False,False\r\n'
             )
 
         organization = OrganizationFactory(
-            is_provider=True, address='18 rue de la rue', post_code='44000',
+            is_provider=True, address=u"18 rue de l'École", post_code='44000',
             url='http://chez.bob2.com/', is_website=True, town='Nantes',
             name='bob orga', activity_field='activity', type='independant',
             )
