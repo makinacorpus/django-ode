@@ -40,6 +40,8 @@ class ConsumerExportView(LoginRequiredMixin, View):
         data = {}
         for fieldname in self.fieldnames:
             data[fieldname] = getattr(consumer, fieldname)
+            if six.PY2 and isinstance(data[fieldname], basestring):
+                data[fieldname] = data[fieldname].encode('utf-8')
         return data
 
     def get_csv_from_data(self, consumers):
@@ -54,7 +56,7 @@ class ConsumerExportView(LoginRequiredMixin, View):
         consumers = Organization.objects.filter(is_consumer=True)
         response_csv = self.get_csv_from_data(consumers)
         response = HttpResponse(response_csv, content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=events.csv'
+        response['Content-Disposition'] = 'attachment; filename=consumers.csv'
         return response
 
 
