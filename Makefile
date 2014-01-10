@@ -37,7 +37,7 @@ develop: requirements dev_requirements
 	$(PYTHON) manage.py syncdb --noinput
 
 production:
-	$(NPM) install -g grunt-cli
+	sudo $(NPM) install -g grunt-cli
 	$(NPM) install
 	$(GRUNT)
 	$(PYTHON) manage.py syncdb --noinput
