@@ -37,11 +37,12 @@ develop: requirements dev_requirements
 	$(PYTHON) manage.py syncdb --noinput
 
 production:
-	sudo $(NPM) install
+	$(NPM) install -g grunt-cli
+	$(NPM) install
 	$(GRUNT)
-	python manage.py syncdb --noinput
-	python manage.py collectstatic --noinput
-	python manage.py compilemessages -l fr
+	$(PYTHON) manage.py syncdb --noinput
+	$(PYTHON) manage.py collectstatic --noinput
+	$(PYTHON) manage.py compilemessages -l fr
 
 $(FLAKE8): virtualenv
 	$(PIP) install flake8
