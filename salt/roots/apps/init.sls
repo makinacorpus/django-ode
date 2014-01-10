@@ -64,6 +64,11 @@ api_settings:
             admins: "{% for admin in pillar.get('admins', []) %}\"{{ admin["email"] }}\",{% endfor %}"
 
 
+init_dependencies:
+  cmd.run:
+    - name: "npm install -g grunt"
+
+
 init_frontend:
   cmd.run:
     - name: ". ../env/bin/activate

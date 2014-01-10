@@ -37,8 +37,10 @@ develop: requirements dev_requirements
 	$(PYTHON) manage.py syncdb --noinput
 
 production:
-	sudo $(NPM) install -g grunt-cli
+	# done in salt state
+	# sudo $(NPM) install -g grunt-cli bower
 	$(NPM) install
+	$(NPM) install bower
 	$(GRUNT)
 	$(PYTHON) manage.py syncdb --noinput
 	$(PYTHON) manage.py collectstatic --noinput
