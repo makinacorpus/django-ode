@@ -2,7 +2,7 @@
     "name": "django-ode",
     "version": "0.1.0",
     "description": "Django frontend for ODE API",
-    "reposityory": {
+    "repository": {
     	"type": "git",
 	"url": "http://github.com/makina-corpus/django-ode"
     },
