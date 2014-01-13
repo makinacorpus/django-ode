@@ -8,7 +8,7 @@ GRUNT?=grunt
 PYTHON=$(VIRTUAL_ENV)/bin/python
 PIP=$(VIRTUAL_ENV)/bin/pip
 COVERAGE=$(VIRTUAL_ENV)/bin/coverage
-OMIT='./salt/*,./node-v0.10.22-linux-x64/,./django_ode/settings/local.py,./src',
+OMIT='./salt/*,./node-v0.10.22-linux-x64/,./django_ode/settings/local.py,./src,.tox',
 TEST_COMMAND=manage.py test --settings=django_ode.settings.base frontend accounts dashboard
 COLLECT_STATIC=python manage.py collectstatic --noinput
 
