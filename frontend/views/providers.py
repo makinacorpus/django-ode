@@ -39,7 +39,7 @@ class ProviderExportView(LoginRequiredMixin, View):
         data = {}
         for fieldname in self.fieldnames:
             data[fieldname] = getattr(provider, fieldname)
-            if six.PY2 and isinstance(data[fieldname], basestring):
+            if six.PY2 and isinstance(data[fieldname], six.string_types):
                 data[fieldname] = data[fieldname].encode('utf-8')
         return data
 
