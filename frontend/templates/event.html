@@ -26,7 +26,7 @@
 
       {% if event.description %}
       <dt>{% trans "Description" %}</dt>
-      <dd>{{ event.description }}</dd>
+      <dd>{{ event.description|striptags }}</dd>
       {% endif %}
 
       {% if event.performers %}
