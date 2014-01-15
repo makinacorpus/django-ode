@@ -85,13 +85,21 @@ To update your virtual machine, you can call salt from the guest. For now, you m
 SALT CONFIGURATION
 ------------------
 
-Salt configuration is located in "salt/pillar/settings.sls".
+SaltStack configuration is located in "salt/pillar/settings.sls".
+
+The different states are located in "salt/roots/". The applications themselves are provisionned by the "apps" state.
+Pyramid configuration file (used by the api) is located in "salt/roots/apps/production.ini".
+Django configuration file (used by the frontend) is located in "salt/roots/apps/local_settings.py".
+Circus configuration file (used to monitor the api's and frontend's wsgi) is located in "salt/roots/apps/circus.ini".
+
 
 ---------------
 TROUBLESHOOTING
 ---------------
 
-TODO
+If the virtual machines is not provisionned at all, check if you have at least the 1.3.0 version of Vagrant. Else you can manually install the SaltStack plugin::
+
+    $ vagrant plugin install vagrant-salt
 
 =======
 LICENSE
