@@ -99,7 +99,7 @@ init_api:
         - context:
             env_dir: {{ config['env_dir'] }}
             project_dir: {{ config['project_dir'] }}
-	    circus_port: {{ config['circus_port'] }}
+            circus_port: {{ config['circus_port'] }}
 
 
 start_{{ app_name }}:
