@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ENV_DIR={{ env_dir }}
 PROJECT_DIR={{ project_dir }}
