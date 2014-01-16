@@ -9,7 +9,7 @@ apps:
         repository: https://github.com/makinacorpus/django-ode
         target: django_ode
         port: 8001
-	circus_port: 55555
+        circus_port: 55555
         project_dir: /home/users/ode_frontend/django_ode
         env_dir: /home/users/ode_frontend/env
         static_root: /home/users/ode_frontend/static/
@@ -20,7 +20,7 @@ apps:
         repository: https://github.com/makinacorpus/ODE
         target: ode
         port: 8002
-	circus_port: 56555
+        circus_port: 56555
 
 server_name: <production server>
 
