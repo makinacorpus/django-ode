@@ -44,7 +44,7 @@ DEPLOYMENT
 
 Vagrant_ can be used for the deployement. A Vagrantfile is available to easily provision a virtual machine with the frontend and the API inside.
 
-You can change the distribution used by the guest machine by changing the "config.vm.box" and the "config.vm.box_url" option in the Vagrantfile. A list of available images is there: http://www.vagrantbox.es/. The default one is "Ubuntu Server 12.04 amd64 (with Puppet, Chef and VirtualBox 4.2.1)".
+You can change the distribution used by the guest machine by changing the "config.vm.box" and the "config.vm.box_url" option in the Vagrantfile. A list of available images is there: http://www.vagrantbox.es/.
 
 We use SaltStack_ to configure the guest. Be sure to use at least the version 1.3.0 of Vagrant.
 
@@ -62,11 +62,9 @@ The applications inside the virtual machine are located in "/home/users/". Virtu
     $ cd /home/users/ode_api/ode/
     $ . ../env/bin/activate
 
-PLEASE READ: We still have issue with the vagrant deployement. The database will not be created and the api will sometimes not be downloaded. For now, you need to manually do::
+PLEASE READ: We still have issue with the vagrant deployement. The database will not be created. For now, you need to manually do::
 
-    $ sudo rm -Rf /home/users/ode_api/ode
     $ sudo salt-call state.sls database
-    $ sudo salt-call state.sls apps
 
 The applications are then available on the ports you set in the salt pillar.
 

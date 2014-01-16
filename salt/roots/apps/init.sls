@@ -22,9 +22,9 @@ frontend_circus_conf:
         - template: jinja
         - context:
             port: {{ pillar['apps']['ode_frontend']['port'] }}
-            endpoint_port: 5555
-            pubsub_endpoint_port: 5556
-            stats_endpoint_port: 5557
+            endpoint_port: {{ pillar['apps']['ode_frontend']['circus_port'] }}
+            pubsub_endpoint_port: 55556
+            stats_endpoint_port: 55557
             wsgi_application: django_ode.wsgi.application
 
 
@@ -35,9 +35,9 @@ api_circus_conf:
         - template: jinja
         - context:
             port: {{ pillar['apps']['ode_api']['port'] }}
-            endpoint_port: 6555
-            pubsub_endpoint_port: 6556
-            stats_endpoint_port: 6557
+            endpoint_port: {{ pillar['apps']['ode_api']['circus_port'] }}
+            pubsub_endpoint_port: 56556
+            stats_endpoint_port: 56557
             wsgi_application: wsgi.application
 
 
@@ -99,6 +99,7 @@ init_api:
         - context:
             env_dir: {{ config['env_dir'] }}
             project_dir: {{ config['project_dir'] }}
+	    circus_port: {{ config['circus_port'] }}
 
 
 start_{{ app_name }}:
