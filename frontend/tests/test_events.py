@@ -213,6 +213,26 @@ class TestEdit(TestEvents):
         self.assertContains(response, u'category1, category2')
         self.assertContains(response, u'01/01/2012 09:00 - 04/01/2012 18:00')
 
+    def test_get_edit_form_for_event_without_tags(self):
+        get_response_mock = self.requests_mock.get.return_value
+        get_response_mock.json.return_value = {
+            "collection": {
+                "items": [{
+                    "data": [
+                        {'name': "id", 'value': 1},
+                        {'name': "title", 'value': u"Un événement"},
+                        {'name': "description", 'value': u"Description 1"},
+                        {'name': "start_time", 'value': '2012-01-01T09:00'},
+                        {'name': "end_time", 'value': '2012-01-04T18:00'},
+                        {'name': "categories",
+                         'value': ['category1', 'category2']},
+                    ],
+                }],
+            },
+        }
+        response = self.client.get('/events/edit/1', follow=True)
+        self.assertContains(response, u"Un événement")
+
     def test_post_edit_form_success(self):
         user_data = {
             'title': u'Un événement',

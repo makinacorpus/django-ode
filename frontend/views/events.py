@@ -162,7 +162,8 @@ class Form(APIFormView):
     def prepare_fields_content(self, data_list):
         data_dict = data_list_to_dict(data_list)
         for key in ('tags', 'categories'):
-            data_dict[key] = u', '.join(data_dict[key])
+            if key in data_dict:
+                data_dict[key] = u', '.join(data_dict[key])
         data_dict['daterange'] = self.format_daterange(
             data_dict['start_time'], data_dict['end_time'])
         if self.has_publication_dates(data_dict):
