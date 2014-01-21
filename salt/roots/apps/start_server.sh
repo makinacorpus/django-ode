@@ -9,7 +9,7 @@ cd ${PROJECT_DIR}
 if ${ENV_DIR}/bin/circusctl --endpoint tcp://127.0.0.1:{{ circus_port }} status 2&> /dev/null
 then
     echo "circusd already running. Restarting it."
-    ${ENV_DIR}/bin/circusctl --endpoint tcp://127.0.0.1:{{ circus_port }} restart
+    ${ENV_DIR}/bin/circusctl --endpoint tcp://127.0.0.1:{{ circus_port }} restart web
 else
     echo "circusd not running. Starting it."
     ${ENV_DIR}/bin/circusd --daemon ${PROJECT_DIR}/circus.ini

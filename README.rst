@@ -33,6 +33,10 @@ To run the test suite::
     $ make test
     $ make coverage
 
+To run the test suite under against both Python 2 and Python 3, use tox::
+
+    $ tox
+
 We also provide a management command to create an admin user::
 
     $ python manage.py create_admin --username=bob --password=s3cr3t
