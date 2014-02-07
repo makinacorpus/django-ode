@@ -87,10 +87,46 @@ To update your virtual machine, you can call salt from the guest. For now, you m
 .. _SaltStack: http://www.saltstack.com/
 
 
-Production
-----------
+---------------
+TROUBLESHOOTING
+---------------
 
-TODO
+If the virtual machines is not provisionned at all, check if you have at least the 1.3.0 version of Vagrant. Else you can manually install the SaltStack plugin::
+
+    $ vagrant plugin install vagrant-salt
+
+
+Production install
+------------------
+
+Clone the project in your working directory::
+
+    $ git clone https://github.com/makinacorpus/django-ode.git
+
+Prepare the /srv directory. First symlink the directory containing salt states::
+
+    # ln -s <path to project dir>/salt/roots /srv/salt
+
+Copy the pillar exemple::
+
+    # cp -r <path to project dir>/salt/pillar_example /srv/pillar
+
+Edit /srv/pillar/settings.sls and adjust it to your needs::
+    
+    # vi /srv/pillar/settings.sls
+
+Install SaltStack::
+
+    # sh <path to project dir>/salt/bootstrap.sh
+
+
+Install SSL certificates in /etc/ssl/certs.
+
+
+Finally, provision the server (this will take a while)::
+
+    # salt-call --local state.highstate
+
 
 ------------------
 SALT CONFIGURATION
@@ -102,15 +138,6 @@ The different states are located in "salt/roots/". The applications themselves a
 Pyramid configuration file (used by the api) is located in "salt/roots/apps/production.ini".
 Django configuration file (used by the frontend) is located in "salt/roots/apps/local_settings.py".
 Circus configuration file (used to monitor the api's and frontend's wsgi) is located in "salt/roots/apps/circus.ini".
-
-
----------------
-TROUBLESHOOTING
----------------
-
-If the virtual machines is not provisionned at all, check if you have at least the 1.3.0 version of Vagrant. Else you can manually install the SaltStack plugin::
-
-    $ vagrant plugin install vagrant-salt
 
 =======
 LICENSE
