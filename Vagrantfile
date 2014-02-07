@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # doesn't already exist on the user's system.
 #  config.vm.box_url = "https://dl.dropboxusercontent.com/u/197673519/debian-7.2.0.box"
   config.vm.box_url = "http://downloads.shadoware.org/wheezy64.box"
-#  config.vm.network :forwarded_port, host: 8080, guest: 80
+  config.vm.network :forwarded_port, host: 8080, guest: 80
   config.vm.synced_folder "salt/roots/", "/srv/salt/"
   config.vm.synced_folder "salt/pillar/", "/srv/pillar/"
   config.vm.provision :shell, :path => "salt/bootstrap.sh"
