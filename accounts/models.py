@@ -158,7 +158,7 @@ class User(AbstractUser):
             'accounts/email_activation.html',
             {'confirm_link': confirmation_url})
         mail.send_mail(
-            subject=_(u"Ouverture d'un compte sur www.opendataevents.fr"),
+            subject=_(u"Ouverture d'un compte sur projet-ode.org"),
             message=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[self.email],
@@ -179,7 +179,7 @@ class User(AbstractUser):
                 self.first_inscription = False
                 message = render_to_string(
                     'accounts/email_provider_validation.html')
-                sub = _(u"Votre compte a été validé sur www.opendataevents.fr")
+                sub = _(u"Votre compte a été validé sur projet-ode.org")
                 mail.send_mail(
                     subject=sub,
                     message=message,
