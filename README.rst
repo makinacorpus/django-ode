@@ -46,6 +46,9 @@ We also provide a management command to create an admin user::
 DEPLOYMENT
 ==========
 
+Vagrant VM
+----------
+
 Vagrant_ can be used for the deployement. A Vagrantfile is available to easily provision a virtual machine with the frontend and the API inside.
 
 You can change the distribution used by the guest machine by changing the "config.vm.box" and the "config.vm.box_url" option in the Vagrantfile. A list of available images is there: http://www.vagrantbox.es/.
@@ -66,7 +69,8 @@ The applications inside the virtual machine are located in "/home/users/". Virtu
     $ cd /home/users/ode_api/ode/
     $ . ../env/bin/activate
 
-PLEASE READ: We still have issue with the vagrant deployement. The database will not be created. For now, you need to manually do::
+PLEASE READ: We still have issue with the vagrant deployement. The database
+may not get created. You may need to manually do::
 
     $ sudo salt-call state.sls database
 
@@ -82,6 +86,11 @@ To update your virtual machine, you can call salt from the guest. For now, you m
 .. _Vagrant: http://www.vagrantup.com/
 .. _SaltStack: http://www.saltstack.com/
 
+
+Production
+----------
+
+TODO
 
 ------------------
 SALT CONFIGURATION
