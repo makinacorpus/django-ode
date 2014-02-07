@@ -1,10 +1,10 @@
 django-ode
 ==========
 
-.. image:: https://travis-ci.org/makinacorpus/django-ode.png
+.. image:: https://travis-ci.org/makinacorpus/django-ode.png?branch=master
     :target: https://travis-ci.org/makinacorpus/django-ode
 
-.. image:: https://coveralls.io/repos/makinacorpus/django-ode/badge.png
+.. image:: https://coveralls.io/repos/makinacorpus/django-ode/badge.png?branch=master
     :target: https://coveralls.io/r/makinacorpus/django-ode
 
 
