@@ -1,1 +1,4 @@
 @reboot {{ project_dir }}/start_server.sh
+{% if harvest %}
+30 * * * * . {{ env_dir }}/bin/activate && harvest {{ project_dir }}/production.ini
+{% endif %}

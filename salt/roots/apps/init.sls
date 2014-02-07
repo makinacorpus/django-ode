@@ -112,5 +112,7 @@ start_{{ app_name }}:
     - template: jinja
     - context:
         project_dir: {{ config['project_dir'] }}
+        env_dir: {{ config['env_dir'] }}
+        harvest: {{ app_name == 'ode_api' }}
 
 {% endfor %}
