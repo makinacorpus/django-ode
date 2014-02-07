@@ -25,6 +25,8 @@ apps:
 server_name: <production server>
 
 email_host: <smtp server>
+email_host_user: <username>
+email_host_password: <password>
 default_from_email: <from email address>
 
 admins:
