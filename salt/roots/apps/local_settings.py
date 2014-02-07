@@ -20,6 +20,7 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = "{{ pillar['email_host'] }}"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ADMINS = (
