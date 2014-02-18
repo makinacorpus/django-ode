@@ -31,13 +31,13 @@ module.exports = function(grunt) {
 	    },
 	    moment: {
 		expand: true,
-		cwd: 'bower_components/moment/',
+		cwd: 'bower_components/momentjs/',
 		src: ['moment.js'],
 		dest: 'static/js/'
 	    },
 	    moment_lang: {
 		expand: true,
-		cwd: 'bower_components/moment/min/',
+		cwd: 'bower_components/momentjs/min/',
 		src: ['langs.js'],
 		dest: 'static/js/'
 	    },
