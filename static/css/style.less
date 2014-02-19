@@ -61,12 +61,18 @@ fieldset, .form-element {
 
 /* Overwrite bootstrap properties */
 .form-control {
-    height: 2em;
-    width: 20em;
     padding: 0.2em;
     background-color: #eeeeee;
     box-shadow: 1px -2px 0 rgba(0, 0, 0, 0.075) inset;
     border: 1px solid #eeeeee;
+}
+input.form-control,
+select.form-control {
+    height: 2em;
+    width: 20em;
+}
+textarea.form-control {
+    width: 48em;
 }
 
 input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus {
