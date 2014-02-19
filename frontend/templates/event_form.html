@@ -192,7 +192,7 @@
     <div class="row">
       <div class="col-md-12">
 	<div class="fieldWrapper {% if errors.categories %}has-error{% endif %}">
-	  <label class="control-label" for="categories">{% trans 'Catégories, séparées par des virgules' %}</label>
+	  <label class="control-label" for="categories">{% trans "Formats d'événements, séparés par des virgules (ex. concert, spectacle, exposition, conférence)" %}</label>
 	  <div class="controls">
             <input class="form-control" id="categories" name="categories"{% if input %} value="{{ input.categories }}"{% endif %} />
             {% if errors.categories %}
@@ -201,7 +201,7 @@
 	  </div>
 	</div>
 	<div class="fieldWrapper {% if errors.tags %}has-error{% endif %}">
-	  <label class="control-label" for="tags">{% trans 'Insérer les mots clés, séparés par des virgules' %}</label>
+	  <label class="control-label" for="tags">{% trans  "Thèmes de l'événement, séparés par des virgules (ex. jazz, jeune-public, japon, etc.)"%}</label>
 	  <div class="controls">
             <input class="form-control" id="tags" name="tags"{% if input %} value="{{ input.tags }}"{% endif %} />
             {% if errors.tags %}

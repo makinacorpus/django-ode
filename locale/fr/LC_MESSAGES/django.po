@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-12 15:43+0000\n"
+"POT-Creation-Date: 2014-02-19 15:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,19 +73,21 @@ msgid "Domaine d'activité"
 msgstr ""
 
 #: accounts/fields.py:70 accounts/models.py:57 dashboard/models.py:88
-#: frontend/templates/consumer.html:48 frontend/templates/event_form.html:48
-#: frontend/templates/provider.html:41
+#: frontend/templates/consumer.html:48 frontend/templates/event.html:79
+#: frontend/templates/event_form.html:56 frontend/templates/provider.html:41
 msgid "Adresse"
 msgstr ""
 
 #: accounts/fields.py:77 frontend/templates/consumer.html:51
-#: frontend/templates/event_form.html:57 frontend/templates/provider.html:44
+#: frontend/templates/event.html:84 frontend/templates/event_form.html:65
+#: frontend/templates/provider.html:44
 msgid "Code Postal"
 msgstr ""
 
 #: accounts/fields.py:84 frontend/templates/consumer.html:54
-#: frontend/templates/event_form.html:68 frontend/templates/provider.html:47
-#: frontend/views/consumers.py:15 frontend/views/providers.py:16
+#: frontend/templates/event.html:89 frontend/templates/event_form.html:76
+#: frontend/templates/provider.html:47 frontend/views/consumers.py:22
+#: frontend/views/providers.py:23
 msgid "Ville"
 msgstr ""
 
@@ -99,11 +101,11 @@ msgstr ""
 msgid "Site Internet"
 msgstr ""
 
-#: accounts/fields.py:107 accounts/models.py:64
+#: accounts/fields.py:107 accounts/models.py:65
 msgid "Fournisseur de données"
 msgstr ""
 
-#: accounts/fields.py:116 accounts/models.py:67
+#: accounts/fields.py:116 accounts/models.py:68
 #: accounts/templates/accounts/signup.html:65
 msgid "Réutilisateur de données"
 msgstr ""
@@ -137,32 +139,34 @@ msgstr ""
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: accounts/forms.py:208 accounts/models.py:92 dashboard/models.py:45
+#: accounts/forms.py:208 accounts/models.py:93 dashboard/models.py:45
 msgid "Tarif"
 msgstr ""
 
-#: accounts/forms.py:209 accounts/models.py:94
-#: frontend/templates/event_form.html:166
+#: accounts/forms.py:209 accounts/models.py:95
+#: frontend/templates/event.html:43 frontend/templates/event_form.html:174
 msgid "Public"
 msgstr ""
 
 #: accounts/forms.py:211 dashboard/models.py:92
-#: frontend/templates/event_form.html:157
+#: frontend/templates/event.html:74 frontend/templates/event_form.html:165
 msgid "Capacité de la salle"
 msgstr ""
 
 #: accounts/forms.py:214 accounts/forms.py:220 accounts/models.py:50
 #: dashboard/models.py:65 dashboard/models.py:71 dashboard/models.py:86
-#: frontend/templates/event_form.html:389
-#: frontend/templates/event_form.html:431 frontend/views/consumers.py:14
-#: frontend/views/providers.py:15
+#: frontend/templates/event.html:69 frontend/templates/event.html.py:164
+#: frontend/templates/event.html:184 frontend/templates/event_form.html:397
+#: frontend/templates/event_form.html:439 frontend/views/consumers.py:21
+#: frontend/views/providers.py:22
 msgid "Nom"
 msgstr ""
 
-#: accounts/forms.py:218 accounts/forms.py:224 accounts/models.py:140
+#: accounts/forms.py:218 accounts/forms.py:224 accounts/models.py:141
 #: dashboard/models.py:35 dashboard/models.py:67 dashboard/models.py:73
-#: frontend/templates/event_form.html:415
-#: frontend/templates/event_form.html:457
+#: frontend/templates/event.html:174 frontend/templates/event.html.py:194
+#: frontend/templates/event_form.html:423
+#: frontend/templates/event_form.html:465
 msgid "Téléphone"
 msgstr ""
 
@@ -170,7 +174,7 @@ msgstr ""
 msgid "Remplacer la photo"
 msgstr ""
 
-#: accounts/models.py:25
+#: accounts/models.py:25 frontend/views/events.py:57
 msgid "Structure"
 msgstr ""
 
@@ -231,43 +235,43 @@ msgstr ""
 msgid "Commune"
 msgstr ""
 
-#: accounts/models.py:84
+#: accounts/models.py:85
 msgid "URL media"
 msgstr ""
 
-#: accounts/models.py:85
+#: accounts/models.py:86
 msgid "URL site web"
 msgstr ""
 
-#: accounts/models.py:87
+#: accounts/models.py:88
 msgid "Nom appli mobile"
 msgstr ""
 
-#: accounts/models.py:89
+#: accounts/models.py:90
 msgid "Autres détails"
 msgstr ""
 
-#: accounts/models.py:96
+#: accounts/models.py:97
 msgid "Capacité du lieu"
 msgstr ""
 
-#: accounts/models.py:99 accounts/templates/accounts/profile.html:137
+#: accounts/models.py:100 accounts/templates/accounts/profile.html:137
 msgid "Contact Billetterie"
 msgstr ""
 
-#: accounts/models.py:102 accounts/templates/accounts/profile.html:143
+#: accounts/models.py:103 accounts/templates/accounts/profile.html:143
 msgid "Contact Presse"
 msgstr ""
 
-#: accounts/models.py:160
-msgid "Ouverture d'un compte sur www.opendataevents.fr"
+#: accounts/models.py:161
+msgid "Ouverture d'un compte sur projet-ode.org"
 msgstr ""
 
-#: accounts/models.py:181
-msgid "Votre compte a été validé sur www.opendataevents.fr"
+#: accounts/models.py:182
+msgid "Votre compte a été validé sur projet-ode.org"
 msgstr ""
 
-#: accounts/models.py:194
+#: accounts/models.py:195
 msgid "Email "
 msgstr ""
 
@@ -347,8 +351,8 @@ msgid ""
 "Bonjour,\n"
 "\n"
 "Votre compte fournisseur a été validé par l'administrateur OpenDataEvents.\n"
-"Vous pouvez maintenant vous connecter via la page d'accueil du site (www."
-"opendataevents.com).\n"
+"Vous pouvez maintenant vous connecter via la page d'accueil du site ( http://"
+"projet-ode.org ).\n"
 "\n"
 "OpenDataEvents.\n"
 msgstr ""
@@ -442,35 +446,36 @@ msgstr ""
 msgid "CONTACT"
 msgstr ""
 
-#: accounts/templates/accounts/signup.html:150
-#, python-format
+#: accounts/templates/accounts/signup.html:149
 msgid ""
 "\n"
 "\t  Valider les\n"
 "\t  <a data-toggle=\"modal\"\n"
 "\t     data-target=\"#signup-modal\"\n"
-"\t     href=\"%(eula_url)s\">\n"
+"\t     href=\"/cgu/\">\n"
 "\t    CGU\n"
 "\t  </a>\n"
 "\t  "
 msgstr ""
 
-#: accounts/templates/accounts/signup.html:170
+#: accounts/templates/accounts/signup.html:169
 #: frontend/templates/header_area.html:73
 msgid "Inscription"
 msgstr ""
 
-#: accounts/templates/accounts/signup.html:184
+#: accounts/templates/accounts/signup.html:183
 #: frontend/templates/ajax_modal.html:9
-#: frontend/templates/consumer_list.html:34
-#: frontend/templates/provider_list.html:34
+#: frontend/templates/consumer_list.html:38
+#: frontend/templates/event_list.html:61
+#: frontend/templates/provider_list.html:38
 msgid "Chargement en cours..."
 msgstr ""
 
-#: accounts/templates/accounts/signup.html:190
+#: accounts/templates/accounts/signup.html:189
 #: frontend/templates/ajax_modal.html:17
-#: frontend/templates/consumer_list.html:40
-#: frontend/templates/provider_list.html:40
+#: frontend/templates/consumer_list.html:44
+#: frontend/templates/event_list.html:67
+#: frontend/templates/provider_list.html:44
 msgid "Fermer"
 msgstr ""
 
@@ -525,7 +530,10 @@ msgstr ""
 msgid "Nom de famille"
 msgstr ""
 
-#: dashboard/models.py:37
+#: dashboard/models.py:37 frontend/templates/event.html:28
+#: frontend/templates/webservices.html:54
+#: frontend/templates/webservices.html:309
+#: frontend/templates/webservices.html:667
 msgid "Description"
 msgstr ""
 
@@ -537,24 +545,27 @@ msgstr ""
 msgid "Audience"
 msgstr ""
 
-#: dashboard/models.py:51 frontend/templates/event_form.html:12
-#: frontend/templates/event_form.html:18
+#: dashboard/models.py:51 frontend/templates/event_form.html:20
+#: frontend/templates/event_form.html:26 frontend/views/events.py:57
+#: frontend/views/events.py:66
 msgid "Titre"
 msgstr ""
 
-#: dashboard/models.py:55
+#: dashboard/models.py:55 frontend/views/events.py:57
+#: frontend/views/events.py:66
 msgid "Début"
 msgstr ""
 
-#: dashboard/models.py:57
+#: dashboard/models.py:57 frontend/views/events.py:57
+#: frontend/views/events.py:66
 msgid "Fin"
 msgstr ""
 
-#: dashboard/models.py:59
+#: dashboard/models.py:59 frontend/views/events.py:66
 msgid "Publication"
 msgstr ""
 
-#: dashboard/models.py:61
+#: dashboard/models.py:61 frontend/views/events.py:67
 msgid "Expiration"
 msgstr ""
 
@@ -562,12 +573,48 @@ msgstr ""
 msgid "Événement"
 msgstr ""
 
-#: dashboard/models.py:96 frontend/templates/event_form.html:77
+#: dashboard/models.py:96 frontend/templates/event.html:94
+#: frontend/templates/event_form.html:85
 msgid "Pays"
 msgstr ""
 
-#: dashboard/models.py:100
+#: dashboard/models.py:100 frontend/templates/event.html:66
 msgid "Lieu"
+msgstr ""
+
+#: dashboard/templates/admin/app_index.html:7
+#: dashboard/templates/admin/change_form.html:19
+#: dashboard/templates/admin/change_list.html:41
+msgid "Home"
+msgstr ""
+
+#: dashboard/templates/admin/change_form.html:26
+#: dashboard/templates/admin/index.html:37
+msgid "Add"
+msgstr ""
+
+#: dashboard/templates/admin/change_form.html:36
+msgid "History"
+msgstr ""
+
+#: dashboard/templates/admin/change_form.html:37
+msgid "View on site"
+msgstr ""
+
+#: dashboard/templates/admin/change_form.html:48
+#: dashboard/templates/admin/change_list.html:71
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: dashboard/templates/admin/change_list.html:62
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: dashboard/templates/admin/change_list.html:82
+msgid "Filter"
 msgstr ""
 
 #: dashboard/templates/admin/index.html:3
@@ -577,10 +624,6 @@ msgstr ""
 #: dashboard/templates/admin/index.html:24
 #, python-format
 msgid "Models in the %(name)s application"
-msgstr ""
-
-#: dashboard/templates/admin/index.html:37
-msgid "Add"
 msgstr ""
 
 #: dashboard/templates/admin/index.html:43
@@ -611,120 +654,212 @@ msgstr ""
 msgid "Internal error"
 msgstr ""
 
+#: frontend/api_client.py:72
+msgid ""
+"Vous n'avez pas la permission de modifier un ou plusieurs de ces événements."
+msgstr ""
+
 #: frontend/templates/consumer_list.html:6
 msgid "Liste des réutilisateurs"
 msgstr ""
 
-#: frontend/templates/eula.html:5 frontend/templates/eula.html.py:9
-msgid "Conditions Générales d'Utilisation"
+#: frontend/templates/consumer_list.html:27
+#: frontend/templates/provider_list.html:27
+msgid "Exporter la liste"
 msgstr ""
 
-#: frontend/templates/event_form.html:33
-msgid "LIEU"
+#: frontend/templates/event.html:19
+msgid "Informations Générales"
 msgstr ""
 
-#: frontend/templates/event_form.html:39
-msgid "Nom du Lieu"
+#: frontend/templates/event.html:21
+msgid "Date de début"
 msgstr ""
 
-#: frontend/templates/event_form.html:92
-msgid "DATES"
+#: frontend/templates/event.html:24
+msgid "Date de fin"
 msgstr ""
 
-#: frontend/templates/event_form.html:98
-msgid "Dates de l'événement"
+#: frontend/templates/event.html:33
+msgid "Artistes"
 msgstr ""
 
-#: frontend/templates/event_form.html:121
-msgid "DESCRIPTION"
-msgstr ""
-
-#: frontend/templates/event_form.html:127
-msgid "Texte de description de l'événement"
-msgstr ""
-
-#: frontend/templates/event_form.html:136
-msgid "Artistes, Intervenants (séparés par des virgules)"
-msgstr ""
-
-#: frontend/templates/event_form.html:148
+#: frontend/templates/event.html:38 frontend/templates/event_form.html:156
 msgid "Tarifs"
 msgstr ""
 
-#: frontend/templates/event_form.html:181
-msgid "CATÉGORISATION"
+#: frontend/templates/event.html:48 templates/zinnia/base.html:48
+msgid "Tags"
 msgstr ""
 
-#: frontend/templates/event_form.html:187
-msgid "Catégories, séparés par des virgules"
+#: frontend/templates/event.html:53
+msgid "Catégories"
 msgstr ""
 
-#: frontend/templates/event_form.html:196
-msgid "Insérer les mots clés, séparés par des virgules"
+#: frontend/templates/event.html:109
+msgid "Médias"
 msgstr ""
 
-#: frontend/templates/event_form.html:223
-msgid "MEDIAS"
+#: frontend/templates/event.html:113
+msgid "Images"
 msgstr ""
 
-#: frontend/templates/event_form.html:229
-#: frontend/templates/event_form.html:256
-msgid "Photo"
+#: frontend/templates/event.html:124
+msgid "Vidéos"
 msgstr ""
 
-#: frontend/templates/event_form.html:240
-#: frontend/templates/event_form.html:267
-#: frontend/templates/event_form.html:294
-#: frontend/templates/event_form.html:321
-msgid "Licence"
+#: frontend/templates/event.html:135
+msgid "Audios"
 msgstr ""
 
-#: frontend/templates/event_form.html:244
-#: frontend/templates/event_form.html:271
-#: frontend/templates/event_form.html:298
-#: frontend/templates/event_form.html:325
-msgid "Inconnu"
+#: frontend/templates/event.html:146 frontend/templates/event.html.py:181
+#: frontend/templates/event_form.html:437
+msgid "Presse"
 msgstr ""
 
-#: frontend/templates/event_form.html:283
-msgid "Vidéo"
-msgstr ""
-
-#: frontend/templates/event_form.html:310
-msgid "Audio"
-msgstr ""
-
-#: frontend/templates/event_form.html:338
-msgid "Communiqué de presse"
-msgstr ""
-
-#: frontend/templates/event_form.html:353
-msgid "PUBLICATION DE L'ANNONCE"
-msgstr ""
-
-#: frontend/templates/event_form.html:359
-msgid "Dates de publication"
-msgstr ""
-
-#: frontend/templates/event_form.html:382
-msgid "CONTACTS ÉVÉNEMENT"
-msgstr ""
-
-#: frontend/templates/event_form.html:387
+#: frontend/templates/event.html:161 frontend/templates/event_form.html:395
 msgid "Billeterie"
 msgstr ""
 
-#: frontend/templates/event_form.html:402
-#: frontend/templates/event_form.html:444
+#: frontend/templates/event.html:169 frontend/templates/event.html.py:189
+#: frontend/templates/event_form.html:410
+#: frontend/templates/event_form.html:452
 msgid "Courriel"
 msgstr ""
 
-#: frontend/templates/event_form.html:429
-msgid "Presse"
+#: frontend/templates/event_form.html:9
+msgid "Édition d'un événement"
+msgstr ""
+
+#: frontend/templates/event_form.html:11
+msgid "Création d'un événement"
+msgstr ""
+
+#: frontend/templates/event_form.html:41
+msgid "LIEU"
+msgstr ""
+
+#: frontend/templates/event_form.html:47
+msgid "Nom du Lieu"
+msgstr ""
+
+#: frontend/templates/event_form.html:100
+msgid "DATES"
+msgstr ""
+
+#: frontend/templates/event_form.html:106
+msgid "Dates de l'événement"
+msgstr ""
+
+#: frontend/templates/event_form.html:129
+msgid "DESCRIPTION"
+msgstr ""
+
+#: frontend/templates/event_form.html:135
+msgid "Texte de description de l'événement"
+msgstr ""
+
+#: frontend/templates/event_form.html:144
+msgid "Artistes, Intervenants (séparés par des virgules)"
+msgstr ""
+
+#: frontend/templates/event_form.html:189
+msgid "CATÉGORISATION"
+msgstr ""
+
+#: frontend/templates/event_form.html:195
+msgid ""
+"Formats d'événements, séparés par des virgules (ex. concert, spectacle, "
+"exposition, conférence)"
+msgstr ""
+
+#: frontend/templates/event_form.html:204
+msgid ""
+"Thèmes de l'événement, séparés par des virgules (ex. jazz, jeune-public, "
+"japon, etc.)"
+msgstr ""
+
+#: frontend/templates/event_form.html:231
+msgid "MEDIAS"
+msgstr ""
+
+#: frontend/templates/event_form.html:237
+#: frontend/templates/event_form.html:264
+msgid "Photo"
+msgstr ""
+
+#: frontend/templates/event_form.html:248
+#: frontend/templates/event_form.html:275
+#: frontend/templates/event_form.html:302
+#: frontend/templates/event_form.html:329
+msgid "Licence"
+msgstr ""
+
+#: frontend/templates/event_form.html:252
+#: frontend/templates/event_form.html:279
+#: frontend/templates/event_form.html:306
+#: frontend/templates/event_form.html:333
+msgid "Inconnu"
+msgstr ""
+
+#: frontend/templates/event_form.html:291
+msgid "Vidéo"
+msgstr ""
+
+#: frontend/templates/event_form.html:318
+msgid "Audio"
+msgstr ""
+
+#: frontend/templates/event_form.html:346
+msgid "Communiqué de presse"
+msgstr ""
+
+#: frontend/templates/event_form.html:361
+msgid "PUBLICATION DE L'ANNONCE"
+msgstr ""
+
+#: frontend/templates/event_form.html:367
+msgid "Dates de publication"
+msgstr ""
+
+#: frontend/templates/event_form.html:390
+msgid "CONTACTS ÉVÉNEMENT"
+msgstr ""
+
+#: frontend/templates/event_form.html:484
+msgid "Enregistrer les modifications"
+msgstr ""
+
+#: frontend/templates/event_form.html:486
+msgid "Créer l'événement"
 msgstr ""
 
 #: frontend/templates/event_list.html:6
 msgid "Liste des événements"
+msgstr ""
+
+#: frontend/templates/event_list.html:12
+msgid "Mes événements"
+msgstr ""
+
+#: frontend/templates/event_list.html:17
+msgid "Tous les événements"
+msgstr ""
+
+#: frontend/templates/event_list.html:46 frontend/templates/import.html:72
+msgid "Supprimer"
+msgstr ""
+
+#: frontend/templates/event_list.html:49
+msgid "Dupliquer"
+msgstr ""
+
+#: frontend/templates/event_not_found.html:7
+msgid "Événement non trouvé"
+msgstr ""
+
+#: frontend/templates/event_not_found.html:10
+msgid "L'événement correspondant n'a pas été trouvé."
 msgstr ""
 
 #: frontend/templates/export.html:6
@@ -778,12 +913,12 @@ msgstr ""
 msgid "Créer"
 msgstr ""
 
-#: frontend/templates/header_area.html:36 frontend/templates/import.html:26
+#: frontend/templates/header_area.html:36 frontend/templates/import.html:28
 msgid "Importer"
 msgstr ""
 
 #: frontend/templates/header_area.html:39
-#: frontend/templates/webservices.html:6
+#: frontend/templates/webservices.html:7
 msgid "Webservices"
 msgstr ""
 
@@ -803,21 +938,21 @@ msgstr ""
 msgid "Mot de passe oublié ?"
 msgstr ""
 
-#: frontend/templates/home.html:44
+#: frontend/templates/home.html:45
 msgid "BIENVENUE SUR LE SITE DU PROJET \"OPENDATAEVENTS\""
 msgstr ""
 
-#: frontend/templates/home.html:49
+#: frontend/templates/home.html:50
 msgid "Bienvenue sur Open Data Events,"
 msgstr ""
 
-#: frontend/templates/home.html:50
+#: frontend/templates/home.html:51
 msgid ""
 "Ce site héberge le projet collaboratif d'ouverture de données "
 "événementielles."
 msgstr ""
 
-#: frontend/templates/home.html:51
+#: frontend/templates/home.html:52
 msgid ""
 "ODE est un projet issu de rencontres et ateliers de production avec les "
 "acteurs culturels du territoire. Son objectif est de faciliter et "
@@ -825,32 +960,32 @@ msgid ""
 "réutilisateurs de données."
 msgstr ""
 
-#: frontend/templates/home.html:54
+#: frontend/templates/home.html:55
 msgid ""
 "ODE  propose un outil d'aggrégation des événements culturels et offre aux "
 "acteurs du projet les moyens de publication et extraction de données "
 "librement réutilisables."
 msgstr ""
 
-#: frontend/templates/home.html:55
+#: frontend/templates/home.html:56
 msgid "Vous trouverez les dernières actualités du projet sur le Blog."
 msgstr ""
 
-#: frontend/templates/home.html:56
+#: frontend/templates/home.html:57
 msgid ""
 "Ce projet collectif et co-produit avec les participants est animé par "
 "Stereolux et Libertic avec le soutien du département de Loire-Atlantique."
 msgstr ""
 
-#: frontend/templates/home.html:64
+#: frontend/templates/home.html:65
 msgid "LES DERNIERES NEWS DU RESEAU"
 msgstr ""
 
-#: frontend/templates/home.html:116
+#: frontend/templates/home.html:98
 msgid "FOURNISSEURS DE DONNEES"
 msgstr ""
 
-#: frontend/templates/home.html:179
+#: frontend/templates/home.html:145
 msgid "REUTILISATEURS DE DONNEES"
 msgstr ""
 
@@ -869,38 +1004,34 @@ msgid ""
 "de sélectionner le fichier correspondant."
 msgstr ""
 
-#: frontend/templates/import.html:20
+#: frontend/templates/import.html:19
 msgid "Choisir un fichier :"
 msgstr ""
 
-#: frontend/templates/import.html:32
+#: frontend/templates/import.html:34
 msgid "AJOUTER DES SOURCES"
 msgstr ""
 
-#: frontend/templates/import.html:33
+#: frontend/templates/import.html:35
 msgid ""
 "Vous pouvez ajouter des sources de données qui permettront de récupérer "
 "automatiquement les événements accessible via ces sources. Il vous suffit de "
 "saisir l'url correspondant à ces sources de données ci-dessous."
 msgstr ""
 
-#: frontend/templates/import.html:41
+#: frontend/templates/import.html:43
 msgid "Saisir une URL :"
 msgstr ""
 
-#: frontend/templates/import.html:50
+#: frontend/templates/import.html:52
 msgid "Ajouter"
-msgstr ""
-
-#: frontend/templates/import.html:70
-msgid "Supprimer"
 msgstr ""
 
 #: frontend/templates/layout.html:8
 msgid "Open Data Events"
 msgstr ""
 
-#: frontend/templates/layout.html:45
+#: frontend/templates/layout.html:44
 msgid ""
 "OpenDataEvents est simplement du faux texte employé dans la composition et "
 "la mise en page avant impression. Le Lorem Ipsum est le faux texte standard "
@@ -908,35 +1039,35 @@ msgid ""
 "ensemble des morceaux"
 msgstr ""
 
-#: frontend/templates/layout.html:49
+#: frontend/templates/layout.html:48
 msgid "FAQ"
 msgstr ""
 
-#: frontend/templates/layout.html:50
+#: frontend/templates/layout.html:49
 msgid "Mentions Légales"
 msgstr ""
 
-#: frontend/templates/layout.html:51
+#: frontend/templates/layout.html:50
 msgid "Liens"
 msgstr ""
 
-#: frontend/templates/layout.html:56
+#: frontend/templates/layout.html:55
 msgid "Suivez-nous sur Twitter"
 msgstr ""
 
-#: frontend/templates/layout.html:57
+#: frontend/templates/layout.html:56
 msgid "Abonnez-vous sur Facebook"
 msgstr ""
 
-#: frontend/templates/layout.html:58
+#: frontend/templates/layout.html:57
 msgid "Récupérez notre flux RSS"
 msgstr ""
 
-#: frontend/templates/layout.html:65
+#: frontend/templates/layout.html:64
 msgid "Site réalisé par Makina Corpus"
 msgstr ""
 
-#: frontend/templates/layout.html:66
+#: frontend/templates/layout.html:65
 msgid "Copyright OpenDataEvents"
 msgstr ""
 
@@ -945,43 +1076,722 @@ msgid "Liste des fournisseurs"
 msgstr ""
 
 #: frontend/templates/webservices.html:9
-msgid ""
-"\n"
-"Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos "
-"requêtes\n"
-"à l'aide de l'entête <code>Authorization</code>.\n"
+msgid "Présentation générale"
 msgstr ""
 
-#: frontend/templates/webservices.html:16
+#: frontend/templates/webservices.html:17
+msgid "API RESTful"
+msgstr ""
+
+#: frontend/templates/webservices.html:28
+msgid "Authentification"
+msgstr ""
+
+#: frontend/templates/webservices.html:30
+msgid ""
+"\n"
+"    Pour accéder à l'API, veuillez inclure votre clé personnelle dans vos "
+"requêtes\n"
+"    à l'aide de l'entête HTTP <code>Authorization</code>.\n"
+"    "
+msgstr ""
+
+#: frontend/templates/webservices.html:36
 msgid "Votre clé"
 msgstr ""
 
-#: frontend/templates/webservices.html:22
+#: frontend/templates/webservices.html:41
+msgid ""
+"Pour tester que vous pouvez bien vous connecter à l'API, exécutez la ligne "
+"de commande suivante :"
+msgstr ""
+
+#: frontend/templates/webservices.html:43
+msgid ""
+"Si la première ligne contient <code>200 OK</code>, tout s'est bien passé ! "
+"Si c'est plutôt <code>401 UNAUTHORIZED</code>, cela signifie que vous n'êtes "
+"pas autorisé à consulter l'API. Vérifiez vos entêtes HTTP et la valeur du "
+"jeton."
+msgstr ""
+
+#: frontend/templates/webservices.html:45
+msgid "URLs accessibles"
+msgstr ""
+
+#: frontend/templates/webservices.html:47
 msgid "Les URLs pour accéder aux données sont les suivantes:"
 msgstr ""
 
-#: frontend/templates/webservices.html:25
-msgid "URL des événements"
+#: frontend/templates/webservices.html:52
+#: frontend/templates/webservices.html:125
+#: frontend/templates/webservices.html:238
+#: frontend/templates/webservices.html:510
+#: frontend/templates/webservices.html:557
+#: frontend/templates/webservices.html:574
+#: frontend/templates/webservices.html:590
+#: frontend/templates/webservices.html:632
+#: frontend/templates/webservices.html:688
+#: frontend/templates/webservices.html:725
+#: frontend/templates/webservices.html:742
+msgid "Méthode"
 msgstr ""
 
-#: frontend/templates/webservices.html:27
-msgid "URL des sources d'événements"
+#: frontend/templates/webservices.html:53
+msgid "Ressource"
 msgstr ""
 
-#: frontend/views/consumers.py:14 frontend/views/providers.py:15
+#: frontend/templates/webservices.html:61
+msgid "Permet de récupérer tous les événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:67
+msgid "Permet de créer un ou plusieurs événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:73
+msgid "Permet de récupérer un événement par son {id}"
+msgstr ""
+
+#: frontend/templates/webservices.html:79
+msgid "Permet de mettre à jour un événement par son {id}"
+msgstr ""
+
+#: frontend/templates/webservices.html:85
+msgid "Permet de supprimer l'événement {id}"
+msgstr ""
+
+#: frontend/templates/webservices.html:91
+msgid "Permet de récupérer toutes les sources d'événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:97
+msgid "Permet de créer une source d'événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:103
+msgid "Permet de récupérer une source par son {id}"
+msgstr ""
+
+#: frontend/templates/webservices.html:109
+msgid "Permet de mettre à jour une source par son {id}"
+msgstr ""
+
+#: frontend/templates/webservices.html:115
+msgid "Permet de supprimer la source {id}"
+msgstr ""
+
+#: frontend/templates/webservices.html:122
+msgid "Récupérer tous les événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:129
+msgid ""
+"Il est possible de récupérer les événements selon plusieurs formats "
+"différents. Pour spécifier le format souhaité, il suffit de préciser dans "
+"votre requête HTTP le paramètre <strong>Accept</strong> correspondant."
+msgstr ""
+
+#: frontend/templates/webservices.html:130
+#: frontend/templates/webservices.html:515
+msgid "Si aucun <strong>Accept</strong> n'est défini, l'API renverra du json."
+msgstr ""
+
+#: frontend/templates/webservices.html:137
+#: frontend/templates/webservices.html:196
+#: frontend/templates/webservices.html:212
+#: frontend/templates/webservices.html:249
+#: frontend/templates/webservices.html:276
+#: frontend/templates/webservices.html:290
+#: frontend/templates/webservices.html:522
+#: frontend/templates/webservices.html:536
+#: frontend/templates/webservices.html:640
+msgid "Entête HTTP"
+msgstr ""
+
+#: frontend/templates/webservices.html:141
+#: frontend/templates/webservices.html:264
+#: frontend/templates/webservices.html:281
+#: frontend/templates/webservices.html:295
+#: frontend/templates/webservices.html:526
+#: frontend/templates/webservices.html:598
+#: frontend/templates/webservices.html:651
+#: frontend/templates/webservices.html:696
+msgid "Réponse"
+msgstr ""
+
+#: frontend/templates/webservices.html:235
+msgid "Créer un événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:242
+msgid ""
+"Plusieurs formats sont gérés afin de pouvoir créer des événements. Pour "
+"préciser au serveur le format que vous voulez utiliser, il suffit de "
+"préciser dans votre requête HTTP le paramètre <strong>Content-Type</strong> "
+"correspondant."
+msgstr ""
+
+#: frontend/templates/webservices.html:243
+msgid ""
+"Si aucun <strong>Content-Type</strong> n'est défini, l'API s'attend à "
+"recevoir du json."
+msgstr ""
+
+#: frontend/templates/webservices.html:250
+#: frontend/templates/webservices.html:641
+msgid ""
+"Il n'est possible d'ajouter qu'une seule donnée à la fois. Le format à "
+"respecter est spécifié dans la documentation de Collection+JSON <a "
+"href='http://amundsen.com/media-types/collection/format/#general'>§2.1.2</"
+"a>, et ressemble à :"
+msgstr ""
+
+#: frontend/templates/webservices.html:265
+msgid ""
+"Si la création d'événement s'est bien passée, le serveur renverra du json au "
+"format <a href='#collectionjson-format'>Collection+JSON</a> représentant "
+"l'objet créé dans la base de données ODE (<code>Code 201</code>). Cela "
+"permet notamment de pouvoir récupérer l'identifiant de l'événement qui vient "
+"juste d'être créé."
+msgstr ""
+
+#: frontend/templates/webservices.html:266
+msgid ""
+"S'il y a eu un problème lors de la création d'un événement, le serveur "
+"renverra du json sous ce format :"
+msgstr ""
+
+#: frontend/templates/webservices.html:268
+msgid ""
+"Ce message indique ici qu'il manque le champ <strong>title</strong>, qui est "
+"obligatoire. Pour connaître tous les champs obligatoires ainsi que les "
+"formats de données attendus, consulter la liste des <a href='#event-post-"
+"parameters'>paramètres POST</a>."
+msgstr ""
+
+#: frontend/templates/webservices.html:277
+msgid "Le fichier contenant les données à créer doit respecter le format csv."
+msgstr ""
+
+#: frontend/templates/webservices.html:282
+#: frontend/templates/webservices.html:296
+msgid ""
+"La <a href='#server-creation-output'>réponse du serveur</a> à cette création "
+"d'événement est identique pour tous les <strong>Content-Type</strong>."
+msgstr ""
+
+#: frontend/templates/webservices.html:291
+msgid "Le fichier contenant les données à créer doit respecter le format iCal."
+msgstr ""
+
+#: frontend/templates/webservices.html:300
+#: frontend/templates/webservices.html:658
+msgid "Paramètres du POST"
+msgstr ""
+
+#: frontend/templates/webservices.html:301
+msgid ""
+"Quel que soit le format utilisé pour la création d'événements, les "
+"paramètres acceptés sont listés ci-dessous :"
+msgstr ""
+
+#: frontend/templates/webservices.html:306
+#: frontend/templates/webservices.html:664
+msgid "Nom du paramètre"
+msgstr ""
+
+#: frontend/templates/webservices.html:307
+#: frontend/templates/webservices.html:665
+msgid "Requis"
+msgstr ""
+
+#: frontend/templates/webservices.html:308
+#: frontend/templates/webservices.html:666
+msgid "Type/Format"
+msgstr ""
+
+#: frontend/templates/webservices.html:316
+#: frontend/templates/webservices.html:322
+#: frontend/templates/webservices.html:334
+#: frontend/templates/webservices.html:340
+#: frontend/templates/webservices.html:346
+#: frontend/templates/webservices.html:352
+#: frontend/templates/webservices.html:370
+#: frontend/templates/webservices.html:376
+#: frontend/templates/webservices.html:382
+#: frontend/templates/webservices.html:388
+#: frontend/templates/webservices.html:394
+#: frontend/templates/webservices.html:400
+#: frontend/templates/webservices.html:406
+#: frontend/templates/webservices.html:442
+#: frontend/templates/webservices.html:448
+#: frontend/templates/webservices.html:460
+#: frontend/templates/webservices.html:466
+#: frontend/templates/webservices.html:674
+msgid "String"
+msgstr ""
+
+#: frontend/templates/webservices.html:317
+msgid "Identifiant unique de l'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:321
+#: frontend/templates/webservices.html:351
+#: frontend/templates/webservices.html:411
+#: frontend/templates/webservices.html:417
+msgid "Oui"
+msgstr ""
+
+#: frontend/templates/webservices.html:323
+msgid "Titre de l'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:328
+#: frontend/templates/webservices.html:436
+#: frontend/templates/webservices.html:454
+msgid "String (email)"
+msgstr ""
+
+#: frontend/templates/webservices.html:329
+msgid "Email de contact pour l'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:335
+msgid "Description de l'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:341
+msgid "Langue de traduction de l'événement, par défaut fr"
+msgstr ""
+
+#: frontend/templates/webservices.html:347
+msgid "Prix d'entrée de l'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:353
+msgid ""
+"Nom de la structure qui organise cet événement. Ce nom doit correspondre à "
+"une structure déjà existante dans le projet ODE."
+msgstr ""
+
+#: frontend/templates/webservices.html:358
+msgid "String (Noms séparés par des virgules)"
+msgstr ""
+
+#: frontend/templates/webservices.html:359
+msgid "Artistes/Intervenants présents à cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:364
+msgid "String (URL)"
+msgstr ""
+
+#: frontend/templates/webservices.html:365
+msgid "URL permettant d'accéder au communiqué de presse de l'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:371
+msgid ""
+"Public accepté lors de cet événement (adultes, enfants de plus de X ans, ...)"
+msgstr ""
+
+#: frontend/templates/webservices.html:377
+msgid "Nom du lieu où se déroule cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:383
+msgid "Adresse du lieu où se déroule cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:389
+msgid "Code postal du lieu où se déroule cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:395
+msgid "Nom de la ville où se déroule cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:401
+msgid "Nom du pays où se déroule cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:407
+msgid "Nombre maximal de personnes acceptées lors de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:412
+#: frontend/templates/webservices.html:418
+#: frontend/templates/webservices.html:424
+#: frontend/templates/webservices.html:430
+msgid "String (format ISO: YYYY-MM-DDThh:mm:ss)"
+msgstr ""
+
+#: frontend/templates/webservices.html:413
+msgid "Date de début de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:419
+msgid "Date de fin de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:425
+msgid "Date de début de publication de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:431
+msgid "Date de fin de publication de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:437
+msgid "Email du contact presse de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:443
+msgid "Nom du contact presse de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:449
+msgid "Téléphone du contact presse de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:455
+msgid "Email du contact billeterie de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:461
+msgid "Nom du contact billeterie de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:467
+msgid "Téléphone du contact billeterie de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:472
+#: frontend/templates/webservices.html:478
+msgid "Liste de String"
+msgstr ""
+
+#: frontend/templates/webservices.html:473
+msgid "Catégories correspondant à cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:479
+msgid "Mots-clés de cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:484
+#: frontend/templates/webservices.html:490
+#: frontend/templates/webservices.html:496
+msgid ""
+"Liste de dictionnaires : attributs 'url' (string) et 'license' ('CC BY' ou "
+"'unknown')"
+msgstr ""
+
+#: frontend/templates/webservices.html:485
+msgid "Vidéos liées à cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:491
+msgid "Photos liées à cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:497
+msgid "Fichiers audios liés à cet événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:507
+msgid "Récupérer un événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:514
+msgid ""
+"Il est possible de récupérer un événement selon plusieurs formats "
+"différents. Pour spécifier le format souhaité, il suffit de préciser dans "
+"votre requête HTTP le paramètre <strong>Accept</strong> correspondant."
+msgstr ""
+
+#: frontend/templates/webservices.html:528
+msgid ""
+"La donnée retournée sera au format <a href='#collectionjson-"
+"format'>Collection+JSON</a>."
+msgstr ""
+
+#: frontend/templates/webservices.html:542
+msgid ""
+"La donnée retournée sera au format standard <a href='#ical-format'>iCal</a>."
+msgstr ""
+
+#: frontend/templates/webservices.html:547
+#: frontend/templates/webservices.html:715
+msgid ""
+"Si l'id de l'événement fourni dans l'url n'existe pas, le serveur renverra "
+"la réponse suivante (<code>Code 404</code>):"
+msgstr ""
+
+#: frontend/templates/webservices.html:554
+msgid "Mettre à jour un événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:561
+msgid ""
+"La mise à jour d'un événement déjà existant s'effectue de la même façon que "
+"pour la création d'un événement, au détail près que la méthode <code>PUT</"
+"code> est utilisée en lieu et place du <code>POST</code>. Afin de connaître "
+"les différents formats d'entrée acceptés, veuillez vous référer à la "
+"documentation liée à la <a href='#create-events'>création d'un événement</a>."
+"</p>"
+msgstr ""
+
+#: frontend/templates/webservices.html:562
+#: frontend/templates/webservices.html:730
+msgid ""
+"<strong>Attention</strong> : cette mise à jour écrasera toutes les anciennes "
+"informations stockées pour cette donnée. Si des champs ne sont pas "
+"renseignés alors qu'ils étaient présents en base de donnée, ils seront "
+"effacés."
+msgstr ""
+
+#: frontend/templates/webservices.html:563
+#: frontend/templates/webservices.html:731
+msgid ""
+"Si la mise à jour s'est effectuée correctement, le serveur renverra la "
+"réponse suivante :"
+msgstr ""
+
+#: frontend/templates/webservices.html:565
+msgid ""
+"Si une erreur est survenue, le <a href='#event-creation-error'>format de la "
+"réponse</a> sera identique à celle définie pour la création d'un événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:571
+msgid "Supprimer un événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:578
+msgid "Cette méthode permet de supprimer un événement de la base de données."
+msgstr ""
+
+#: frontend/templates/webservices.html:579
+#: frontend/templates/webservices.html:747
+msgid ""
+"Si la suppression s'est effectuée correctement, le serveur renverra une "
+"réponse avec un <code>Code 204</code> sans aucun contenu."
+msgstr ""
+
+#: frontend/templates/webservices.html:580
+#: frontend/templates/webservices.html:748
+msgid ""
+"Dans le cas contraire, le serveur renverra la réponse suivante (<code>Code "
+"404</code>):"
+msgstr ""
+
+#: frontend/templates/webservices.html:587
+msgid "Récupérer les sources d'événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:594
+msgid ""
+"Cette méthode permet de récupérer les sources d'événements présentes dans la "
+"base de données ODE."
+msgstr ""
+
+#: frontend/templates/webservices.html:600
+msgid ""
+"La donnée retournée sera au format <a href='#collectionjson-"
+"format'>Collection+JSON</a>, contenant pour chaque source d'événement les "
+"champs <strong>id</strong> et <strong>url</strong>"
+msgstr ""
+
+#: frontend/templates/webservices.html:629
+msgid "Créer une source d'événement"
+msgstr ""
+
+#: frontend/templates/webservices.html:636
+msgid ""
+"Cette méthode permet de créer une source d'événement. L'entête HTTP "
+"<strong>Content-Type</strong> doit obligatoirement être spécifié dans la "
+"requête de création de la source d'événement."
+msgstr ""
+
+#: frontend/templates/webservices.html:652
+msgid ""
+"Si la création de la source d'événement s'est bien passée, le serveur "
+"renverra du json au format <a href='#collectionjson-format'>Collection+JSON</"
+"a> représentant l'objet créé dans la base de données ODE (<code>Code 201</"
+"code>). Cela permet notamment de pouvoir récupérer l'identifiant de la "
+"source qui vient juste d'être créée."
+msgstr ""
+
+#: frontend/templates/webservices.html:653
+msgid ""
+"S'il y a eu un problème lors de la création d'une source, le serveur "
+"renverra du json sous ce format :"
+msgstr ""
+
+#: frontend/templates/webservices.html:655
+msgid ""
+"Ce message indique ici qu'il manque le champ <strong>url</strong>, qui est "
+"obligatoire. Pour connaître tous les champs obligatoires ainsi que les "
+"formats de données attendus, consulter la liste des <a href='#source-post-"
+"parameters'>paramètres POST</a>."
+msgstr ""
+
+#: frontend/templates/webservices.html:659
+msgid ""
+"Les paramètres acceptés lors de la création d'une source d'événement sont "
+"listés ci-dessous :"
+msgstr ""
+
+#: frontend/templates/webservices.html:675
+msgid "URL de la source d'événement qui doit être moissonnée."
+msgstr ""
+
+#: frontend/templates/webservices.html:685
+msgid "Récupérer une source d'événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:692
+msgid ""
+"Cette adresse permet de récupérer une source d'événement en spécifiant son "
+"identifiant unique."
+msgstr ""
+
+#: frontend/templates/webservices.html:722
+msgid "Mettre à jour une source d'événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:729
+msgid ""
+"La mise à jour d'une source déjà existant s'effectue de la même façon que "
+"pour la création d'une source, au détail près que la méthode <code>PUT</"
+"code> est utilisée en lieu et place du <code>POST</code>. Afin de connaître "
+"les différents formats d'entrée acceptés, veuillez vous référer à la "
+"documentation liée à la <a href='#create-source'>création d'une source "
+"d'événement</a>.</p>"
+msgstr ""
+
+#: frontend/templates/webservices.html:733
+msgid ""
+"Si une erreur est survenue, le <a href='#source-creation-error'>format de la "
+"réponse</a> sera identique à celle définie pour la création d'une source "
+"d'évémenent."
+msgstr ""
+
+#: frontend/templates/webservices.html:739
+msgid "Supprimer une source d'événements"
+msgstr ""
+
+#: frontend/templates/webservices.html:746
+msgid ""
+"Cette méthode permet de supprimer une source d'événements de la base de "
+"données."
+msgstr ""
+
+#: frontend/templates/webservices.html:753
+msgid "Paramètres GET pour les listes de données"
+msgstr ""
+
+#: frontend/templates/webservices.html:754
+msgid ""
+"Les requêtes sur les listes de données acceptent les paramètres GET "
+"suivants :"
+msgstr ""
+
+#: frontend/templates/webservices.html:756
+msgid "limit: nombre maximum d'objets retournés,"
+msgstr ""
+
+#: frontend/templates/webservices.html:757
+msgid "offset: numéro du premier objet souhaité,"
+msgstr ""
+
+#: frontend/templates/webservices.html:758
+msgid "sort_by: champ par lequel la collection va être triée,"
+msgstr ""
+
+#: frontend/templates/webservices.html:759
+msgid ""
+"sort_direction: sens du tri (asc: ordre croissant, desc: ordre décroissant), "
+"par défaut croissant,"
+msgstr ""
+
+#: frontend/templates/webservices.html:760
+msgid ""
+"provider_id: ne renvoie que les données liées au fournisseur dont l'id est "
+"fournie"
+msgstr ""
+
+#: frontend/templates/webservices.html:766
+msgid "Plus d'informations"
+msgstr ""
+
+#: frontend/views/base.py:172
+msgid "Auncun évément trouvé pour cet id"
+msgstr ""
+
+#: frontend/views/consumers.py:21 frontend/views/providers.py:22
 msgid "Type"
 msgstr ""
 
-#: frontend/views/consumers.py:15 frontend/views/providers.py:16
+#: frontend/views/consumers.py:22 frontend/views/providers.py:23
 msgid "Activité"
 msgstr ""
 
-#: frontend/views/events.py:107
-msgid "Le {dd}/{MM}/{yyyy} à {hh}h{mm}"
+#: frontend/views/events.py:26
+msgid "Le %d/%m/%Y à %Hh%M"
 msgstr ""
 
-#: frontend/views/providers.py:15
+#: frontend/views/events.py:67
+msgid "Suppression"
+msgstr ""
+
+#: frontend/views/events.py:67
+msgid "Duplication"
+msgstr ""
+
+#: frontend/views/events.py:78
+msgid "L'événement a été enregistré avec succès"
+msgstr ""
+
+#: frontend/views/events.py:79
+msgid "L'événement n'a pas pu être enregistré"
+msgstr ""
+
+#: frontend/views/providers.py:22
 msgid "Vocation du lieu"
+msgstr ""
+
+#: templates/403.html:5
+msgid "Erreur 403"
+msgstr ""
+
+#: templates/403.html:7
+msgid ""
+"\n"
+"Vous n'avez pas la permission d'accéder à cette page.\n"
+msgstr ""
+
+#: templates/404.html:5
+msgid "Erreur 404"
+msgstr ""
+
+#: templates/404.html:7
+msgid ""
+"\n"
+"Cette page n'éxiste pas.\n"
+msgstr ""
+
+#: templates/500.html:5
+msgid "Erreur 500"
+msgstr ""
+
+#: templates/500.html:7
+msgid ""
+"\n"
+"Ceci est une erreur côté serveur. Nous en avons été averti et allons faire "
+"le\n"
+"nécessaire pour la corriger au plus vite.\n"
 msgstr ""
 
 #: templates/zinnia/base.html:16
@@ -1017,10 +1827,6 @@ msgstr ""
 
 #: templates/zinnia/base.html:44
 msgid "Calendar"
-msgstr ""
-
-#: templates/zinnia/base.html:48
-msgid "Tags"
 msgstr ""
 
 #: templates/zinnia/base.html:52
@@ -1059,6 +1865,5 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: templates/admin/base_site.html:7
-msgid "Django administration"
-msgstr "Tableau de bord"
+#~ msgid "Django administration"
+#~ msgstr "Tableau de bord"
