@@ -8,8 +8,6 @@
 
 {% block content %}
 
-<h1>{{ organization.name }}</h1>
-
 <div class="row">
   <div class="col-md-5">
     <img alt="Photo profil"
@@ -38,7 +36,7 @@
     </dl>
   </div>
   <div class="col-md-7">
-    <dl class="dl-horizontal">
+    <dl class="dl-left">
       <dt>{% trans "Type de structure" %}</dt>
       <dd>{% trans organization.get_type_display %}</dd>
 

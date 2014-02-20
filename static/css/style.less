@@ -437,3 +437,17 @@ footer {
 .api-entry-type {
     margin-top: 2em;
 }
+
+.dl-left dt {
+    margin-right: 1em;
+    float: left;
+}
+.dl-left dd {
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}

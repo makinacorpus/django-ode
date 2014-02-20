@@ -8,8 +8,6 @@
 
 {% block content %}
 
-<h1>{{ event.title }}</h1>
-
 <div class="row">
   {% if request.is_ajax %}
   <div class="col-md-12">
@@ -17,7 +15,7 @@
   <div class="col-md-6">
   {% endif %}
     <h4>{% trans 'Informations Générales' %}</h4>
-    <dl class="dl-horizontal">
+    <dl class="dl-left">
       <dt>{% trans "Date de début" %}</dt>
       <dd>{{ event.start_time }}</dd>
 
@@ -64,7 +62,7 @@
   {% endif %}
     {% if event.location_name or event.location_capacity or event.location_address or event.location_post_code or event.location_town or event.location_country %}
     <h4>{% trans 'Lieu' %}</h4>
-    <dl class="dl-horizontal">
+    <dl class="dl-left">
       {% if event.location_name %}
       <dt>{% trans "Nom" %}</dt>
       <dd>{{ event.location_name }}</dd>
@@ -108,7 +106,7 @@
     {% if event.videos or event.images or event.sounds or event.press_url %}
     <h4>{% trans 'Médias' %}</h4>
 
-    <dl class="dl-horizontal">
+    <dl class="dl-left">
       {% if event.images %}
       <dt>{% trans 'Images' %}</dt>
       <dd>
@@ -159,7 +157,7 @@
   {% endif %}
     {% if event.ticket_contact_name or event.ticket_contact_phone_number or event.ticket_contact_email %}
     <h4>{% trans 'Billeterie' %}</h5>
-    <dl class="dl-horizontal">
+    <dl class="dl-left">
       {% if event.ticket_contact_name %}
       <dt>{% trans 'Nom' %}</dt>
       <dd>{{ event.ticket_contact_name }}</dd>
@@ -179,7 +177,7 @@
 
     {% if event.press_contact_name or event.press_contact_phone_number or event.press_contact_email %}
     <h4>{% trans 'Presse' %}</h5>
-    <dl class="dl-horizontal">
+    <dl class="dl-left">
       {% if event.press_contact_name %}
       <dt>{% trans 'Nom' %}</dt>
       <dd>{{ event.press_contact_name }}</dd>
