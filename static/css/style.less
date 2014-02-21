@@ -125,6 +125,10 @@ header {
         margin-right: @menu-li-margin;
         cursor: pointer;
 
+        &.active a {
+            border-bottom: 5px solid black;
+        }
+
         a {
             font-weight: bold;
             padding-bottom: 1px;
@@ -166,14 +170,14 @@ header {
 
     input {
         background-color: @header-buttons-color;
-	margin: 0.2em;
+        margin: 0.2em;
         padding: 0.2em 1em;
-	width: 42%;
-	color: white;
+        width: 42%;
+        color: white;
     }
 
     input[type="submit"] {
-	width: 5%;
+        width: 5%;
     }
 }
 
@@ -192,6 +196,9 @@ header {
 #shortcuts {
     display: inline-block;
     font-size: 0.8em;
+    li.active a {
+        border-bottom: 3px solid white;
+    }
 
     a {
         color: #86878b;
@@ -239,6 +246,10 @@ header {
     }
 
     li {
+        &.active a {
+            border-bottom: 5px solid black;
+        }
+
         margin: 0 0.5em;
     }
 
