@@ -463,3 +463,40 @@ footer {
         clear: both;
     }
 }
+
+.carousel {
+    .item img {
+        margin: 0 auto;
+    }
+    .carousel-control {
+        width: 28px;
+        background: url('../img/sprite_slideshow.png') no-repeat;
+        opacity: opacity(.7);
+
+        &:hover {
+            opacity: opacity(1);
+        }
+
+        &.left {
+            background-position: left center;
+        }
+
+        &.right {
+            background-position: right center;
+        }
+    }
+}
+
+#carousel-base {
+    .carousel-control {
+        &.left {
+            position: absolute;
+            left: 7px;
+        }
+
+        &.right {
+            position: absolute;
+            right: 7px;
+        }
+    }
+}
