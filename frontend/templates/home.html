@@ -69,7 +69,7 @@
     {% for entry in blog_entries %}
     <div class="row news">
         <div class="col-md-2 news-image">
-            <img src="{% thumbnail entry.image 150x150 %}"/>
+            <img src="{% thumbnail entry.image 150x150 crop="smart" %}"/>
         </div>
         <div class="col-md-9 news-content">
             <div class="row">
