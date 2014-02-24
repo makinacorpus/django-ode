@@ -113,7 +113,7 @@
             <td>DELETE</td>
             <td>{{ sources_url }}/{id}</td>
             <td>{% trans "Permet de supprimer la source {id}" %}</td>
-          </tr>   
+          </tr>
       </tbody>
     </table>
 
@@ -132,7 +132,7 @@
 
         <div class="api-entry-type">
             <h4>JSON</h4>
-        
+
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: application/vnd.collection+json"</span></p>
             </div>
@@ -191,7 +191,7 @@
 
         <div class="api-entry-type">
             <h4>CSV</h4>
-        
+
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: text/csv"</span></p>
             </div>
@@ -207,7 +207,7 @@ e835ab8248dac8a17b26267c52172786d2eae46d,,,,,"Globalisation of Legal Practice An
 
         <div class="api-entry-type">
             <h4>iCalendar</h4>
-        
+
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Accept: text/calendar"</span></p>
             </div>
@@ -244,12 +244,12 @@ END:VCALENDAR</pre>
 
         <div class="api-entry-type">
             <h4>JSON</h4>
-        
+
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: application/vnd.collection+json"</span></p>
                 <p>{% trans "Il n'est possible d'ajouter qu'une seule donnée à la fois. Le format à respecter est spécifié dans la documentation de Collection+JSON <a href='http://amundsen.com/media-types/collection/format/#general'>§2.1.2</a>, et ressemble à :" %}</p>
 <pre>
-{"template": 
+{"template":
   { "data": [
     {"name": "id", "value": "990b8f2e784a11e39d31e8e0b7d17357@example.com"},
     {"name": "email", "value": "admin@example.com"}, 
@@ -271,7 +271,7 @@ END:VCALENDAR</pre>
 
         <div class="api-entry-type">
             <h4>CSV</h4>
-        
+
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: text/csv"</span></p>
                 <p>{% trans "Le fichier contenant les données à créer doit respecter le format csv." %}</p>
@@ -285,7 +285,7 @@ END:VCALENDAR</pre>
 
         <div class="api-entry-type">
             <h4>iCal</h4>
-        
+
             <div class="api-entry-input">
                 <p><span class="input"><strong>{% trans "Entête HTTP" %} :</strong> "Content-Type: text/calendar"</span></p>
                 <p>{% trans "Le fichier contenant les données à créer doit respecter le format iCal." %}</p>
@@ -293,9 +293,9 @@ END:VCALENDAR</pre>
 
             <div class="api-entry-output">
                 <p><span class="output"><strong>{% trans "Réponse" %} :</strong> json</span></p>
-                <p>{% trans "La <a href='#server-creation-output'>réponse du serveur</a> à cette création d'événement est identique pour tous les <strong>Content-Type</strong>." %}</p>                
+                <p>{% trans "La <a href='#server-creation-output'>réponse du serveur</a> à cette création d'événement est identique pour tous les <strong>Content-Type</strong>." %}</p>
             </div>
-        </div>        
+        </div>
 
         <h4 id="event-post-parameters">{% trans "Paramètres du POST" %}</h4>
         <p>{% trans "Quel que soit le format utilisé pour la création d'événements, les paramètres acceptés sont listés ci-dessous :" %}</p>
@@ -399,7 +399,7 @@ END:VCALENDAR</pre>
               <td></td>
               <td>{% trans "String" %}</td>
               <td>{% trans "Nom du pays où se déroule cet événement" %}</td>
-            </tr>            
+            </tr>
             <tr>
               <td>location_capacity</td>
               <td></td>
@@ -622,7 +622,7 @@ END:VCALENDAR</pre>
 }</pre>
             </div>
         </div>
-    </div>    
+    </div>
 
     <div id="create-source" class="api-entry">
         <div class="api-entry-title">
@@ -748,7 +748,7 @@ END:VCALENDAR</pre>
             <p>{% trans "Dans le cas contraire, le serveur renverra la réponse suivante (<code>Code 404</code>):" %}</p>
             <pre>{"status": 404, "errors": [{"description": "Not found"}]}</pre>
         </div>
-    </div>       
+    </div>
 
     <h2>{% trans "Paramètres GET pour les listes de données" %}</h2>
     <p>{% trans "Les requêtes sur les listes de données acceptent les paramètres GET suivants :" %}</p>

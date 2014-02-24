@@ -80,10 +80,10 @@
                 </div>
             </div>
         </div>
-	<a href="{{ entry.get_absolute_url }}">
+    <a href="{{ entry.get_absolute_url }}">
           <div class="col-md-1 news-more">
           </div>
-	</a>
+    </a>
     </div>
     {% endfor %}
 
@@ -105,23 +105,23 @@
 
             <!-- Carousel items -->
             <div class="carousel-inner">
-	      {% for i in providers_range %}
-	      {% with provider=providers.pop %}
-	      {% if i|divisibleby:6 %}
-	      <div class="item{% if i == 0 %} active{% endif %}">
+          {% for i in providers_range %}
+          {% with provider=providers.pop %}
+          {% if i|divisibleby:6 %}
+          <div class="item{% if i == 0 %} active{% endif %}">
                 <ul class="thumbnails">
-		  {% endif %}
+          {% endif %}
                   <li class="col-md-2">
                     <div class="thumbnail">
                       <img src="{% thumbnail provider.picture 100x100 crop="smart" %}" alt="{{ provider.name }}" title="{{ provider.name }}"/>
                     </div>
                   </li>
-		  {% if i|add:1|divisibleby:6 or i == providers_range|last %}
-		</ul>
-	      </div>
-	      {% endif %}
-	      {% endwith %}
-	      {% endfor %}
+          {% if i|add:1|divisibleby:6 or i == providers_range|last %}
+        </ul>
+          </div>
+          {% endif %}
+          {% endwith %}
+          {% endfor %}
             </div>
 
             <!-- Carousel nav -->
@@ -151,23 +151,23 @@
 
             <!-- Carousel items -->
             <div class="carousel-inner">
-	      {% for i in consumers_range %}
-	      {% with consumer=consumers.pop %}
-	      {% if i|divisibleby:6 %}
-	      <div class="item{% if i == 0 %} active{% endif %}">
+          {% for i in consumers_range %}
+          {% with consumer=consumers.pop %}
+          {% if i|divisibleby:6 %}
+          <div class="item{% if i == 0 %} active{% endif %}">
                 <ul class="thumbnails">
-		  {% endif %}
+          {% endif %}
                   <li class="col-md-2">
                     <div class="thumbnail">
                       <img src="{% thumbnail consumer.picture 100x100 crop="smart" %}" alt="{{ consumer.name }}" title="{{ consumer.name }}" />
                     </div>
                   </li>
-		  {% if i|add:1|divisibleby:6 or i == consumers_range|last %}
-		</ul>
-	      </div>
-	      {% endif %}
-	      {% endwith %}
-	      {% endfor %}
+          {% if i|add:1|divisibleby:6 or i == consumers_range|last %}
+        </ul>
+          </div>
+          {% endif %}
+          {% endwith %}
+          {% endfor %}
             </div>
 
             <!-- Carousel nav -->

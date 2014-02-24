@@ -110,33 +110,33 @@
       {% if event.images %}
       <dt>{% trans 'Images' %}</dt>
       <dd>
-	<ul>
-	  {% for image in event.images %}
-	  <li><a href="{{image.url}}">{{image.url}}</a> ({{image.license}})</li>
-	  {% endfor %}
-	</ul>
+    <ul>
+      {% for image in event.images %}
+      <li><a href="{{image.url}}">{{image.url}}</a> ({{image.license}})</li>
+      {% endfor %}
+    </ul>
       </dd>
       {% endif %}
 
       {% if event.videos %}
       <dt>{% trans 'Vidéos' %}</dt>
       <dd>
-	<ul>
-	  {% for video in event.videos %}
-	  <li><a href="{{video.url}}">{{video.url}}</a> ({{video.license}})</li>
-	  {% endfor %}
-	</ul>
+    <ul>
+      {% for video in event.videos %}
+      <li><a href="{{video.url}}">{{video.url}}</a> ({{video.license}})</li>
+      {% endfor %}
+    </ul>
       </dd>
       {% endif %}
 
       {% if event.sounds %}
       <dt>{% trans 'Audios' %}</dt>
       <dd>
-	<ul>
-	  {% for sound in event.sounds %}
-	  <li><a href="{{sound.url}}">{{sound.url}}</a> ({{sound.license}})</li>
-	  {% endfor %}
-	</ul>
+    <ul>
+      {% for sound in event.sounds %}
+      <li><a href="{{sound.url}}">{{sound.url}}</a> ({{sound.license}})</li>
+      {% endfor %}
+    </ul>
       </dd>
       {% endif %}
 

@@ -59,15 +59,15 @@
     <span id="my-space">{% trans "Mon Espace" %}</span>
     <div id="login-area">
       <form class="form-inline" role="form"
-	    method="post" action="{% url "accounts:login" %}">
-	{% csrf_token %}
-	<div class="form-group">
+        method="post" action="{% url "accounts:login" %}">
+    {% csrf_token %}
+    <div class="form-group">
           <input class="form-control" type="text"
-		 name="username" placeholder="Identifiant" />
+         name="username" placeholder="Identifiant" />
           <input class="form-control" type="password"
-		 name="password" placeholder="Mot de passe" />
-	  <input class="form-control btn btn-default" type="submit" value="Ok" />
-	  </div>
+         name="password" placeholder="Mot de passe" />
+      <input class="form-control btn btn-default" type="submit" value="Ok" />
+      </div>
       </form>
     </div>
     <div id="login-help">

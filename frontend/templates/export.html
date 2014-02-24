@@ -10,13 +10,13 @@
     <form method="post" action="{% url 'export' %}">
       {% csrf_token %}
       <fieldset>
-	<div class="row">
-	  <div class="col-md-12">
-	    <div class="fieldWrapper">
-	      <label class="control-label">{% trans 'Dates :' %}</label>
-	      <input class="form-control" type="text" name="daterange" id="daterange" />
-	      <input type="hidden" id="start_time" name="start_time" />
-	      <input type="hidden" id="end_time" name="end_time" />
+    <div class="row">
+      <div class="col-md-12">
+        <div class="fieldWrapper">
+          <label class="control-label">{% trans 'Dates :' %}</label>
+          <input class="form-control" type="text" name="daterange" id="daterange" />
+          <input type="hidden" id="start_time" name="start_time" />
+          <input type="hidden" id="end_time" name="end_time" />
               {% if errors.daterange %}
               <span class="help-block">{{ errors.daterange }}</span>
               {% endif %}
@@ -26,21 +26,21 @@
               {% if errors.end_time %}
               <span class="help-block">{{ errors.end_time }}</span>
               {% endif %}
-	    </div>
-	    <div class="fieldWrapper">
-	      <label class="control-label">{% trans 'Format :' %}</label>
-	      <select class="form-control" name="format">
-		<option value="json">json</option>
-		<option value="ical">iCal</option>
-		{# <option value="xml">xml</option> #}
-		<option value="csv">csv</option>
-	      </select>
+        </div>
+        <div class="fieldWrapper">
+          <label class="control-label">{% trans 'Format :' %}</label>
+          <select class="form-control" name="format">
+        <option value="json">json</option>
+        <option value="ical">iCal</option>
+        {# <option value="xml">xml</option> #}
+        <option value="csv">csv</option>
+          </select>
               {% if errors.format %}
               <span class="help-block">{{ errors.format }}</span>
               {% endif %}
-	    </div>
-	  </div>
-	</div>
+        </div>
+      </div>
+    </div>
       </fieldset>
       <button type="submit" class="btn btn-default">{% trans "Exporter" %}</button>
     </form>

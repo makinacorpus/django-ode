@@ -11,11 +11,11 @@
 <div class="row">
   <div class="col-md-5">
     <img alt="Photo profil"
-	 src="{% if organization.picture and organization.picture != 'False' %}
-	      {% thumbnail organization.picture 100x100 crop='smart' %}
-	      {% else %}
-	      {% static 'img/profile_picture_placeholder.png' %}
-	      {% endif %}">
+     src="{% if organization.picture and organization.picture != 'False' %}
+          {% thumbnail organization.picture 100x100 crop='smart' %}
+          {% else %}
+          {% static 'img/profile_picture_placeholder.png' %}
+          {% endif %}">
     <ul>
       {% if organization.is_creator %}
       <li>{% trans "Créateur d'événements" %}</li>

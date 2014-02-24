@@ -8,16 +8,16 @@
 
 {% if view.success %}
 <div class="alert alert-success">
-	<span>{% trans "Votre adresse email a été confirmée avec succès." %}</span>
-	{% if view.account_is_provider %}
-		<span>{% trans "Vous pourrez vous connecter dès que l'administrateur du site aura validé votre inscription. Vous recevrez un mail pour vous indiquer cette validation." %}</span>
-	{% else %}
-		<span>{% trans "Vous pouvez maintenant vous connecter avec vos identifiants." %}</span>
-	{% endif %}
+  <span>{% trans "Votre adresse email a été confirmée avec succès." %}</span>
+  {% if view.account_is_provider %}
+    <span>{% trans "Vous pourrez vous connecter dès que l'administrateur du site aura validé votre inscription. Vous recevrez un mail pour vous indiquer cette validation." %}</span>
+  {% else %}
+    <span>{% trans "Vous pouvez maintenant vous connecter avec vos identifiants." %}</span>
+  {% endif %}
 </div>
 {% else %}
 <div class="alert alert-danger">
-	<span>{% trans "Ce lien de confirmation est invalide." %}</span>
+  <span>{% trans "Ce lien de confirmation est invalide." %}</span>
 </div>
 
 {% endif %}
