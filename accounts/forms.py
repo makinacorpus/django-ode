@@ -223,11 +223,8 @@ class ProfileForm(OrganizationValidationMixin, forms.ModelForm):
     organization_press_contact_phone_number = fields.StandardCharField(
         label=_(u"Téléphone"))
     organization_picture = forms.ImageField(
-        required=False,
-        label=_(u'Remplacer la photo'),
-        # Default widget for ImageField is ClearableFileInput
-        # for now we don't want it to be clearable
-        widget=forms.FileInput)
+        required=True,
+        label=_(u'Remplacer la photo'))
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
