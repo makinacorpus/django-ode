@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'mptt',
     'zinnia',
     'ckeditor',
+    'south',
 )
 
 
