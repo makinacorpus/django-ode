@@ -50,7 +50,7 @@ class Organization(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Nom"))
     picture = models.ImageField(upload_to="organization/profile_picture",
                                 verbose_name=_("Image"))
-    activity_field = models.CharField(max_length=50, blank=True,
+    activity_field = models.CharField(max_length=255, blank=True,
                                       verbose_name=_(u"Domaine d'activité"))
     type = models.CharField(choices=TYPES, max_length=32, blank=True)
     address = models.CharField(max_length=100, blank=True,
