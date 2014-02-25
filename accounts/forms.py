@@ -95,7 +95,7 @@ class SignupForm(OrganizationValidationMixin, UserCreationForm):
     organization_list = fields.OrganizationListField()
 
     organization_activity_field = fields.OrganizationActivityFieldField()
-    organization_name = fields.OrganizationNameField()
+    organization_name = fields.OrganizationNameField(required=True)
     organization_price_information = forms.CharField(
         max_length=100, required=False, widget=custom_widgets.TextInput)
     organization_type = fields.OrganizationTypeField()

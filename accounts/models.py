@@ -47,7 +47,7 @@ class Organization(models.Model):
     PROVIDERS_DICT = dict(PROVIDERS)
     CONSUMERS_DICT = dict(CONSUMERS)
 
-    name = models.CharField(max_length=100, blank=True, verbose_name=_("Nom"))
+    name = models.CharField(max_length=100, verbose_name=_("Nom"))
     picture = models.ImageField(upload_to="organization/profile_picture",
                                 verbose_name=_("Image"))
     activity_field = models.CharField(max_length=50, blank=True,
