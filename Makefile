@@ -35,6 +35,7 @@ install:
 develop: requirements dev_requirements
 	$(PYTHON) setup.py develop
 	$(PYTHON) manage.py syncdb --noinput
+	$(PYTHON) manage.py migrate accounts
 
 production:
 	# done in salt state
@@ -43,8 +44,15 @@ production:
 	$(NPM) install bower
 	$(GRUNT)
 	$(PYTHON) manage.py syncdb --noinput
+	$(PYTHON) manage.py migrate accounts
 	$(PYTHON) manage.py collectstatic --noinput
 	$(PYTHON) manage.py compilemessages -l fr
+
+schemamigration:
+	$(PYTHON) manage.py schemamigration accounts --auto
+
+migrate:
+	$(PYTHON) manage.py migrate accounts
 
 $(FLAKE8): virtualenv
 	$(PIP) install flake8
