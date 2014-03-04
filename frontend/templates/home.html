@@ -18,8 +18,10 @@
 
             <!-- Carousel items -->
             <div class="carousel-inner">
-                <div class="active item"><img src="{% static 'img/slide_example.png' %}" alt="slide1"/></div>
-                <div class="item"><img src="{% static 'img/slide_example_2.png' %}" alt="slide2"/></div>
+              {% for carousel_image in carousel_images %}
+                <div class="item{% if carousel_image.position == 1 %} active{% endif %}"><img src="{{ carousel_image.image.url }}"
+                  alt="slide{{ carousel_image.position }}"/></div>
+              {% endfor %}
             </div>
             <!-- Carousel nav -->
             <a class="carousel-control left" href="#carousel-base" data-slide="prev">

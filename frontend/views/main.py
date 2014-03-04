@@ -5,6 +5,7 @@ from zinnia.models.entry import Entry
 
 from accounts.models import Organization
 
+from ..models import CarouselImage
 
 def home(request):
     context = {}
@@ -20,4 +21,7 @@ def home(request):
     context['consumers'] = list(consumers)
     context['providers_range'] = range(len(providers))
     context['consumers_range'] = range(len(consumers))
+
+    context['carousel_images'] = CarouselImage.objects.all()
+
     return render(request, 'home.html', context)
