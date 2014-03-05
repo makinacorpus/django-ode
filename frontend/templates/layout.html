@@ -2,6 +2,8 @@
 {% load compressed %}
 {% load staticfiles %}
 {% load i18n %}
+{% load flatblock_tags %}
+
 <html lang="fr">
   <head>
     {% compressed_css 'style' %}
@@ -41,7 +43,9 @@
           <img src="{% static 'img/site_logo_transparent.png'%}" alt="logo" id="footer-logo"/>
         </div>
         <div class="col-md-4">
-          <span>{% trans "OpenDataEvents est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux" %}</span>
+          <span>
+            {% flatblock "ode-presentation-footer" %}
+          </span>
         </div>
         <div class="col-md-2 links">
           <ul>
