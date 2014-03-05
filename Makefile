@@ -37,6 +37,7 @@ develop: requirements dev_requirements
 	$(PYTHON) manage.py syncdb --noinput
 	$(PYTHON) manage.py migrate accounts
 	$(PYTHON) manage.py migrate frontend
+	$(PYTHON) manage.py migrate flatblocks
 
 production:
 	# done in salt state
@@ -47,6 +48,7 @@ production:
 	$(PYTHON) manage.py syncdb --noinput
 	$(PYTHON) manage.py migrate accounts
 	$(PYTHON) manage.py migrate frontend
+	$(PYTHON) manage.py migrate flatblocks
 	$(PYTHON) manage.py collectstatic --noinput
 	$(PYTHON) manage.py compilemessages -l fr
 

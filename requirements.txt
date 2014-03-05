@@ -15,3 +15,4 @@ six==1.4.1
 -e git+https://github.com/Fantomas42/django-blog-zinnia.git@develop#egg=django_blog_zinnia
 -e git+https://github.com/makinacorpus/django-ckeditor.git#egg=django_ckeditor_updated
 south
+django-flatblocks

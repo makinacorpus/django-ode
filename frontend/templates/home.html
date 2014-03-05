@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load i18n %}
 {% load thumbnail %}
+{% load flatblock_tags %}
 
 {% block header-additionnal-data %}
 
@@ -41,19 +42,7 @@
 <div id="ode-presentation" class="content-block">
     <div class="row">
         <div class="col-md-12">
-            <h2>{% trans 'BIENVENUE SUR LE SITE DU PROJET "OPENDATAEVENTS"' %}</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <span>{% trans "Bienvenue sur Open Data Events," %}</span>
-            <span>{% trans "Ce site héberge le projet collaboratif d'ouverture de données événementielles." %}</span>
-            <span>{% trans "ODE est un projet issu de rencontres et ateliers de production avec les acteurs culturels du territoire. Son objectif est de faciliter et rationaliser le partage d'informations événementielles entre producteurs et réutilisateurs de données." %}</span>
-        </div>
-        <div class="col-md-6">
-            <span>{% trans "ODE  propose un outil d'aggrégation des événements culturels et offre aux acteurs du projet les moyens de publication et extraction de données librement réutilisables." %}</span>
-            <span>{% trans "Vous trouverez les dernières actualités du projet sur le Blog." %}</span>
-            <span>{% trans "Ce projet collectif et co-produit avec les participants est animé par Stereolux et Libertic avec le soutien du département de Loire-Atlantique." %}</span>
+            {% flatblock "ode-presentation" %}
         </div>
     </div>
 </div>

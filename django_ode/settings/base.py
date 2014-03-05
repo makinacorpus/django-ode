@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'zinnia',
     'ckeditor',
     'south',
+    'flatblocks',
 )
 
 
