@@ -22,7 +22,7 @@ DATABASES = {
 
 # SMTP server
 EMAIL_HOST = "{{ pillar['email_host'] }}"
-{% if pillar['email_host_user'] %}
+{% if pillar.get('email_host_user') %}
 EMAIL_HOST_USER = "{{ pillar['email_host_user'] }}"
 EMAIL_HOST_PASSWORD = "{{ pillar['email_host_password'] }}"
 {% endif %}
