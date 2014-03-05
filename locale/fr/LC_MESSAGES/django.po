@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-05 15:17+0000\n"
+"POT-Creation-Date: 2014-03-05 15:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -894,7 +894,7 @@ msgstr ""
 msgid "Tous les événements"
 msgstr ""
 
-#: frontend/templates/event_list.html:46 frontend/templates/import.html:109
+#: frontend/templates/event_list.html:46 frontend/templates/import.html:108
 msgid "Supprimer"
 msgstr ""
 
@@ -961,7 +961,7 @@ msgstr ""
 msgid "Créer"
 msgstr ""
 
-#: frontend/templates/header_area.html:37 frontend/templates/import.html:29
+#: frontend/templates/header_area.html:37 frontend/templates/import.html:28
 msgid "Importer"
 msgstr ""
 
@@ -1045,42 +1045,49 @@ msgstr ""
 msgid "IMPORTER DES ÉVÉNEMENTS"
 msgstr ""
 
-#: frontend/templates/import.html:20
+#: frontend/templates/import.html:12
+msgid ""
+"Vous pouvez importer des événements à partir de fichiers au format json/"
+"iCalendar/csv. Il vous suffit de cliquer sur le bouton 'Parcourir' ci-"
+"dessous et de sélectionner le fichier correspondant."
+msgstr ""
+
+#: frontend/templates/import.html:19
 msgid "Choisir un fichier :"
 msgstr ""
 
-#: frontend/templates/import.html:31
+#: frontend/templates/import.html:30
 msgid "Exemples"
 msgstr ""
 
-#: frontend/templates/import.html:32
+#: frontend/templates/import.html:31
 msgid "JSON&nbsp;:"
 msgstr ""
 
-#: frontend/templates/import.html:48
+#: frontend/templates/import.html:47
 msgid "iCalendar&nbsp;:"
 msgstr ""
 
-#: frontend/templates/import.html:62
+#: frontend/templates/import.html:61
 msgid "CSV&nbsp;:"
 msgstr ""
 
-#: frontend/templates/import.html:71
+#: frontend/templates/import.html:70
 msgid "AJOUTER DES SOURCES"
 msgstr ""
 
-#: frontend/templates/import.html:72
+#: frontend/templates/import.html:71
 msgid ""
 "Vous pouvez ajouter des sources de données qui permettront de récupérer "
 "automatiquement les événements accessible via ces sources. Il vous suffit de "
 "saisir l'url correspondant à ces sources de données ci-dessous."
 msgstr ""
 
-#: frontend/templates/import.html:80
+#: frontend/templates/import.html:79
 msgid "Saisir une URL :"
 msgstr ""
 
-#: frontend/templates/import.html:89
+#: frontend/templates/import.html:88
 msgid "Ajouter"
 msgstr ""
 
