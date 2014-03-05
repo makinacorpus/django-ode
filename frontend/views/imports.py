@@ -57,6 +57,13 @@ class ImportFileView(ImportView):
                 break
         return response_data
 
+    def _is_json(self, data):
+        try:
+            json.loads(data)
+            return True
+        except:
+            return False
+
     def post(self, request, *args, **kwargs):
         form = ImportFileForm(request.POST, request.FILES)
         if not form.is_valid():
@@ -66,7 +73,8 @@ class ImportFileView(ImportView):
         data_file = form.cleaned_data['events_file']
         mimetype = data_file.content_type
         data = data_file.read()
-        if mimetype == 'application/json':
+
+        if self._is_json(data):
             data = data.decode('utf-8')
             response_data = self._post_json(json.loads(data))
         else:
