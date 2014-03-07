@@ -13,9 +13,11 @@
         <div id="carousel-base" class="carousel slide">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-              {% for carousel_image in carousel_images %}
-                <li data-target="#carousel-base" data-slide-to="{{ carousel_image.position }}" {% if carousel_image.position == 1 %} class="active"{% endif %}></li>
-              {% endfor %}
+              {% if carousel_images|length > 1 %}
+                {% for carousel_image in carousel_images %}
+                  <li data-target="#carousel-base" data-slide-to="{{ carousel_image.position }}" {% if carousel_image.position == 1 %} class="active"{% endif %}></li>
+                {% endfor %}
+              {% endif %}
             </ol>
 
             <!-- Carousel items -->
