@@ -7,6 +7,7 @@ from accounts.models import Organization
 
 from ..models import CarouselImage
 
+
 def home(request):
     context = {}
 
