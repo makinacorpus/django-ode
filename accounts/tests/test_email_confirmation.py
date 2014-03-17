@@ -69,7 +69,8 @@ class TestEmailConfirmation(TestCase):
         email = mail.outbox[1]
         self.assertEqual(email.recipients(),
                          [user.email])
-        self.assertIn(u'Votre compte fournisseur a été validé', email.body)
+        self.assertIn(u'Fournisseurs de données, '
+                      u'transmettez vos données événementielles', email.body)
 
     def test_email_confirmation_error(self):
         UserFactory.create(username='bob', confirmation_code='s3cr3t')
