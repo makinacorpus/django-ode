@@ -59,7 +59,7 @@ class ImportFileView(ImportView):
 
     def _is_json(self, data):
         try:
-            json.loads(data)
+            json.loads(data.decode('utf-8'))
             return True
         except:
             return False
