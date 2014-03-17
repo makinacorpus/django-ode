@@ -50,7 +50,6 @@ class TestEvent(TestEvents):
         self.setup_response()
         response = self.client.get('/events/1/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, u"Un événement")
         self.assertContains(response, u"Description 1")
         self.assertContains(response, u"Le 02/02/2013 à 09h00")
         self.assertContains(response, u"Le 04/02/2013 à 19h00")
