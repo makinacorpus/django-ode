@@ -19,6 +19,7 @@ class TestSignup(TestCase):
             'password2': 'foobar',
             'accept_terms_of_service': 'on',
             'organization_is_provider': 'on',
+            'organization_name': 'My Organization',
         }
         data = dict(minimal_valid_data)
         data.update(kwargs)
@@ -197,6 +198,7 @@ class TestSignup(TestCase):
             'password2': 'foobar',
             'accept_terms_of_service': 'on',
             'organization_is_provider': 'on',
+            'organization_name': 'My Organization',
         })
         self.assertTrue(User.objects.filter(username='bob').exists())
 
@@ -211,6 +213,7 @@ class TestSignup(TestCase):
             'organization_is_host': 'on',
             'organization_is_performer': 'on',
             'organization_is_creator': 'on',
+            'organization_name': 'My Organization',
         })
         organization = User.objects.filter(username='bob').get().organization
         self.assertFalse(organization.is_provider)
@@ -234,6 +237,7 @@ class TestSignup(TestCase):
             'organization_mobile_app_name': 'Foo',
             'organization_is_other': 'on',
             'organization_other_details': 'Blah',
+            'organization_name': 'My Organization',
         })
         organization = User.objects.filter(username='bob').get().organization
         self.assertTrue(organization.is_provider)
