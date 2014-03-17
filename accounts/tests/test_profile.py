@@ -11,15 +11,20 @@ from accounts.tests.test_factory import ContactFactory
 class TestProfile(LoginTestMixin, TestCase):
 
     def post_with_required_params(self, params):
-        required_params = {
-            'first_name': 'Bob',
-            'last_name': 'Smith',
-            'email': 'bob@example.com',
-            'phone_number': '123456789',
-        }
-        required_params.update(params)
-        return self.client.post('/accounts/profile/', required_params,
-                                follow=True)
+        here = os.path.abspath(os.path.dirname(__file__))
+        filename = os.path.join(here, 'data', 'site_logo.png')
+        with open(filename, 'rb') as fp:
+            required_params = {
+                'first_name': 'Bob',
+                'last_name': 'Smith',
+                'email': 'bob@example.com',
+                'phone_number': '123456789',
+                'organization_name': 'My Organization',
+                'organization_picture': fp,
+            }
+            required_params.update(params)
+            return self.client.post('/accounts/profile/', required_params,
+                                    follow=True)
 
     def _test_update_organization_char_field(self, field_name, value,
                                              login=True):
@@ -409,6 +414,7 @@ class TestProfile(LoginTestMixin, TestCase):
     def test_delete_picture(self):
         self.login()
         self.post_with_required_params({
+            'organization_picture': None,
             'organization_picture-clear': 'on',
         })
         response = self.client.get('/accounts/profile/')
