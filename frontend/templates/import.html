@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% load i18n %}
+{% load i18n static flatblock_tags %}
 
 {% block content %}
 
@@ -9,7 +9,9 @@
 
     <div class="col-md-6 import-events">
         <div class="title"><h2>{% trans "IMPORTER DES ÉVÉNEMENTS" %}</h2></div>
-        <div class="description"><span>{% trans "Vous pouvez importer des événements à partir de fichiers au format json/iCalendar/csv. Il vous suffit de cliquer sur le bouton 'Parcourir' ci-dessous et de sélectionner le fichier correspondant." %}</span></div>
+        <div class="description">
+            <p>{% trans "Vous pouvez importer des événements à partir de fichiers au format json/iCalendar/csv. Il vous suffit de cliquer sur le bouton 'Parcourir' ci-dessous et de sélectionner le fichier correspondant." %}</p>
+        </div>
         <form action="{% url 'imports_file' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset>
@@ -27,7 +29,11 @@
             </fieldset>
             <button type="submit" class="btn btn-default">{% trans "Importer" %}</button>
         </form>
+        <div class="description">
+            {% flatblock "import-description" %}
+        </div>
         <h3>{% trans "Exemples" %}</h3>
+        <div class="format-example">
         {% trans "JSON&nbsp;:" %}
         <pre>
 {
@@ -35,7 +41,7 @@
         "items": [
             {
                 "data": [
-                    { "name": "id", "value": "e835ab8248dac8a17b26267c52172786d2eae46d" },
+                    { "name": "id", "value": "e835ab8248dac8a17b26267c52172786d2eae46d@projet-ode.org" },
                     { "name": "start_time", "value": "2015-01-30T23:30:00" },
                     { "name": "end_time", "value": "2015-02-01T00:00:00" },
                     { "name": "organiser", "value": "John Doe" },
@@ -46,27 +52,32 @@
             }
         ]
     }
-}
-        </pre>
+}</pre>
+
+        </div>
+        <div class="format-example">
         {% trans "iCalendar&nbsp;:" %}
         <pre>
 BEGIN:VCALENDAR
 PRODID:-//ABC Corporation//NONSGML My Product//EN
 VERSION:2.0
 BEGIN:VEVENT
-UID:e835ab8248dac8a17b26267c52172786d2eae46d
+UID:e835ab8248dac8a17b26267c52172786d2eae46d@projet-ode.org
 DTSTART:20150130T233000Z
 DTEND:20150201T000000Z
 ORGANIZER;CN=John Doe:MAILTO:john.doe@example.com
 SUMMARY:Event Title
 DESCRIPTION:Description
-END:VEVENT
-        </pre>
+END:VEVENT</pre>
+
+        </div>
+        <div class="format-example">
         {% trans "CSV&nbsp;:" %}
         <pre>
 id,firstname,lastname,email,telephone,description,language,latlong,organiser,performers,press_url,price_information,source,source_id,target,title,url,provider_id,start_time,end_time,publication_start,publication_end,press_contact_email,press_contact_name,press_contact_phone_number,ticket_contact_email,ticket_contact_name,ticket_contact_phone_number,location_id,location_name,location_address,location_post_code,location_capacity,location_town,location_country,tags,categories,images,sounds,videos
-e835ab8248dac8a17b26267c52172786d2eae46d,,,john.doe@example.com,,Description,,,John Doe,,,,,,,Event Title,,,2015-01-30T23:30:00,2015-02-01T00:00:00,,,,,,,,,,,,,,,,,,,,
-        </pre>
+e835ab8248dac8a17b26267c52172786d2eae46d@projet-ode.org,,,john.doe@example.com,,Description,,,John Doe,,,,,,,Event Title,,,2015-01-30T23:30:00,2015-02-01T00:00:00,,,,,,,,,,,,,,,,,,,,</pre>
+
+        </div>
     </div>
 
     <div class="col-md-6 import-sources">
