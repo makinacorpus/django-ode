@@ -9,7 +9,7 @@ from django import forms
 from frontend.views.base import ProviderLoginRequiredMixin, APIFormView
 from frontend.views.sources import SourceListingFieldsMixin
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('frontend')
 
 
 class ImportView(ProviderLoginRequiredMixin,
@@ -49,11 +49,12 @@ class ImportFileView(ImportView):
             post_data = {
                 'template': {
                     'data': formatted_data
-                    }
                 }
+            }
             response_data = self.api.post(post_data, self.request.user.id)
             if (isinstance(response_data, dict)
                     and response_data.get('status') == 'error'):
+                logger.error(response_data)
                 break
         return response_data
 
@@ -82,6 +83,7 @@ class ImportFileView(ImportView):
                                           mimetype=mimetype)
         if (isinstance(response_data, dict)
                 and response_data.get('status') == 'error'):
+            logger.error(response_data)
             return self.error(request, {}, response_data)
         else:
             return self.success(request, response_data)

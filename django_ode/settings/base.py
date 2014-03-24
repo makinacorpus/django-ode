@@ -189,6 +189,9 @@ LOGGING = {
             'handlers': ['null'],
             'propagate': False,
         },
+        'frontend': {
+            'handlers': ['console', 'file', 'mail_admins'],
+        }
     },
 }
 
