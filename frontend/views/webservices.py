@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 
 from rest_framework.authtoken.models import Token
 
+from frontend.views.base import LoginRequiredMixin
 
-class WebservicesView(View):
+
+class WebservicesView(LoginRequiredMixin, View):
 
     def get(self, request):
         token = Token.objects.get(user=request.user)
