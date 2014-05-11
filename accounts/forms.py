@@ -4,7 +4,7 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordResetForm,
     SetPasswordForm
-    )
+)
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
@@ -95,7 +95,7 @@ class SignupForm(OrganizationValidationMixin, UserCreationForm):
     organization_list = fields.OrganizationListField()
 
     organization_activity_field = fields.OrganizationActivityFieldField()
-    organization_name = fields.OrganizationNameField(required=True)
+    organization_name = fields.OrganizationNameField()
     organization_price_information = forms.CharField(
         max_length=100, required=False, widget=custom_widgets.TextInput)
     organization_type = fields.OrganizationTypeField()
@@ -143,6 +143,17 @@ class SignupForm(OrganizationValidationMixin, UserCreationForm):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError(self.error_messages['duplicate_username'])
+
+    def clean_organization_name(self):
+        # organization_name is required ONLY if there is no selected
+        # organization
+        organization_list = self.cleaned_data["organization_list"]
+        organization_name = self.cleaned_data["organization_name"]
+
+        if not organization_list and not organization_name:
+            raise forms.ValidationError(_('This field is required.'))
+        else:
+            return organization_name
 
     def clean(self):
         cleaned_data = super(SignupForm, self).clean()
